@@ -1,0 +1,5 @@
+obj [ endobj
+] >> % just a silly comment
+>> << true +123 false
+-3.4125
+/this1my1name null /null1is1not1a1part1of1my1name

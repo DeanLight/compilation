@@ -1,0 +1,16 @@
+1 OBJ obj
+1 LBRACE [
+1 ENDOBJ endobj
+2 RBRACE ]
+2 RDICT >>
+2 COMMENT % just a silly comment
+3 RDICT >>
+3 LDICT <<
+3 TRUE true
+3 INTEGER +123
+3 FALSE false
+4 REAL -3.4125
+5 NAME /this1my1name
+5 NULL null
+5 NAME /null1is1not1a1part1of1my1name
+5 EOF
