@@ -1,0 +1,7 @@
+#vim stuff
+*.swp
+*.un~
+
+
+#compiled items
+*.pyc
