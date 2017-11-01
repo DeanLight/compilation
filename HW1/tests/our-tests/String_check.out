@@ -1,0 +1,20 @@
+1 STRING this is a string
+1 STRING we can ( ) escape stuff here
+1 STRING like 
+	\ b
+3 STRING now we areon a new line
+5 STRING hello
+5 STRING is it me
+7 STRING yourelooking for
+9 STRING 88 
+9 STRING **
+11 STRING 01
+12 STRING 89
+13 STRING +++
+15 STRING /
+17 STRING 
+17 STRING 
+17 STRING 
+17 STRING 
+17 STRING 
+18 STRING 
