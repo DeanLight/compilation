@@ -1,0 +1,17 @@
+1 STRING this is a string
+1 STRING we can ( ) escape stuff here
+1 STRING like 
+ 	 \ b
+3 STRING now we are
+on a new line
+5 STRING hel
+lo
+5 STRING is it me
+7 STRING youre
+
+looking for
+9 STRING 88
+9 STRING **
+11 STRING 01
+12 STRING 89
+Error incomplete byte

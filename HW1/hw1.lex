@@ -39,13 +39,12 @@ void error_wrong_escape();
 NON_ZERO_DIGIT [1-9]
 DIGIT [0-9]
 UNSIGNED ((0)|({NON_ZERO_DIGIT}(({DIGIT})*)))
-UNSIGNED_OLD_WITH_PROBABLY_WRONG_SYNTAX ((0)|(NON_ZERO_DIGIT(DIGIT*)))
 OCTAL [0-7]
 OCTAL3 ({OCTAL}){3}
 STRING_OCTAL3 \\({OCTAL3})
 HALF_STRING_OCTAL \\({OCTAL})
-HEX DIGIT|[A-Fa-f]
-HEXNUM HEX{2}
+HEX {DIGIT}|[A-Fa-f]
+HEXNUM {HEX}{2}
 HEXNUM_FULL [0-9A-Fa-f][0-9A-Fa-f]
 HEXNUM_HALF [0-9A-Fa-f]
 SIGN [+\-]
@@ -55,7 +54,6 @@ LF \n
 
 
 ENDLINE ((({CR})({LF}))|{CR}|{LF}) 
-ENDLINE_OLD_WITH_WRONG_SYNTAX (((CR)(LF))|CR|LF) 
 
 ESCAPE_START \\ 
 ESCAPE_SEQ [nrtbf\(\)\\]
@@ -72,45 +70,35 @@ RDICT >>
 NULL null
 
 START_COMMENT %
-END_COMMENT  {ENDLINE} // [CR|LF] // TODO - ask whether CR\LF or ENDLINE (also both) 
+END_COMMENT  {ENDLINE}
 COMMENT [^\r\n]*
 
 TRUE true
 FALSE false
 
 INTEGER ({SIGN})?({UNSIGNED})
-INTEGER_OLD_TODO_REMOVE SIGN?(UNSIGNED)
-     /* TODO 0 - deal with the dot*/
-REAL ({SIGN})?({UNSIGNED})?\.(0*)({UNSIGNED})?
-REAL_OLD_TODO_REMOVE SIGN?UNSIGNED?\.(0*)UNSIGNED?
+REAL ((({SIGN})?({UNSIGNED})?\.(({UNSIGNED})|0*)({UNSIGNED})?)|(({INTEGER})\.))
+
 
 	/* TODO - does it accidently catche EOF? */
 RAW_STR_CHR ([^\(\)\\])
 RAW_STR_CHR_OLD (({ESCAPE_SEQ})|[^\(\)\\])
-RAW_STR_CHR_OLD_TODO_REMOVE (ESCAPE_SEQ|[^\(\)\\])
 RAW_STR ({RAW_STR_CHR})+
-RAW_STR_OLD_TODO_REMOVE RAW_STR_CHR+
      /*////////////////////WHOLE_RAW_STR \((RAW_STR|(\\ENDLINE))*(RAW_STR)?\) // TODO - does have to end with ENDLINE?*/
 START_RAW_STR \(
 END_RAW_STR \)
     /*/////////////////////MID_RAW_STR (RAW_STR|(\\ENDLINE))*(RAW_STR)?*/
 	/*/////////////////////TODO - is the ENDLINE optional?*/
 ESCAPE_RAW_STR (\\)({ENDLINE})
-ESCAPE_RAW_STR_TODO_REMOVE (\\)(ENDLINE)
 
 START_HEX <
 END_HEX >
-WHITESPACE_OLD_TODO_REMOVE_WITH_WRONG_SYNTAX [ \t]|ENDLINE
 WHITESPACE ([ \t])|({ENDLINE})
 
      /*///////////////////HEX_STR <(HEXNUM( )?)*> // TODO - can it be empty? (no HEXNUM)*/
-
 NAME \/({ALPHANUM})+
 STREAM_INIT stream
 STREAM_END endstream
-
-     /*///////////////////JOKER - TODO REMOVE*/
-JOKER_CHR .
 
 CATCH_ILLEGAL_CHAR .
 CHR_WITH_ESCAPE \\.
@@ -156,14 +144,15 @@ CHR_WITH_ESCAPE \\.
 {ESCAPE_START} BEGIN(ESCAPE_STATE);
 
 
-{START_COMMENT} BEGIN(COMMENT_STATE);
+{START_COMMENT} { printf("%%") ; BEGIN(COMMENT_STATE); }
+<COMMENT_STATE>{END_COMMENT} {BEGIN(INITIAL); }
+<COMMENT_STATE>{COMMENT} printf("%d COMMENT %s\n",yylineno, yytext);
 
-%{ /* TODO - do we need to print '%' with the comment*/
-%}
 
-
-<COMMENT_STATE>COMMENT printf("%d COMMENT %%%s\n",yylineno, yytext);
-<COMMENT_STATE>END_COMMENT BEGIN(INITIAL);
+{STREAM_INIT} BEGIN(RAW_STREAM_STATE);
+<RAW_STREAM_STATE>{STREAM_END} { print_and_clean_buffer("STREAM"); }
+<RAW_STREAM_STATE><<EOF>> {printf("Error unclosed stream\n"); exit(0);}
+<RAW_STREAM_STATE>.  add_string_to_buffer(yytext);
 
 
 {START_RAW_STR} BEGIN(RAW_STRING_STATE);

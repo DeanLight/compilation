@@ -13,7 +13,7 @@ function compile {
 
 function get_infile_array {
 	dir=${1}
-	array=`find $dir | grep .in$ | rev | cut -d'.' -f2- | rev ` # removes the in suffix
+	array=`find $dir | grep .in$ | rev | cut -d'.' -f2- | rev | sort  ` # removes the in suffix
 
 	echo $array
 
@@ -30,11 +30,10 @@ function do_test {
     infile_arr=$(get_infile_array $tests_folder)
 
 
-
 	for i in $infile_arr ; do
-        echo $i ;
-		./objname ${i} > ${i}.myout ;
-
+        echo checking ${i}.in 
+		./a.out < ${i}.in > ${i}.myout 
+        echo run it
 		if cmp ${i}.out ${i}.myout 
 		then
 			echo ${i} passed tests
@@ -43,8 +42,8 @@ function do_test {
 			echo ${i} failed tests
 			echo 
 			diff ${i}.out ${i}.myout
-            break
 			echo	
+            break
 		fi ;
 	done 
 
