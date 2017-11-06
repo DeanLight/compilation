@@ -42,8 +42,8 @@ function do_test {
 			echo ${i} failed tests
 			echo 
 			diff ${i}.out ${i}.myout
-			echo	
             break
+			echo	
 		fi ;
 	done 
 
