@@ -116,11 +116,6 @@ CHR_WITH_ESCAPE \\.
 	/* (( {ENDLINE2} printf("avoided a ENDLINE2"); )) TODO avoiding printing blanks\end of lines when not in strings*/
 {WHITESPACE}
 
-
-    /* TODO escaping needs to happne inside strings. we need to fix the current code*/
-{ESCAPE_START} BEGIN(ESCAPE_STATE);
-
-
 {START_COMMENT} {  BEGIN(COMMENT_STATE); }
 <COMMENT_STATE>{END_COMMENT} {BEGIN(INITIAL); }
 <COMMENT_STATE>{COMMENT} printf("%d COMMENT %%%s\n",yylineno, yytext);
