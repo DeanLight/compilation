@@ -1,0 +1,104 @@
+1 OBJ obj
+2 ENDOBJ endobj
+3 OBJ obj
+4 ENDOBJ endobj
+5 OBJ obj
+5 OBJ obj
+5 OBJ obj
+5 ENDOBJ endobj
+5 OBJ obj
+6 LBRACE [
+6 RBRACE ]
+6 RBRACE ]
+6 LBRACE [
+6 LBRACE [
+6 LBRACE [
+6 RBRACE ]
+6 RBRACE ]
+7 LDICT <<
+7 RDICT >>
+7 RDICT >>
+7 LDICT <<
+7 LDICT <<
+7 LDICT <<
+7 RDICT >>
+7 RDICT >>
+8 COMMENT % This is a comment, a very good one. % Commentception
+9 COMMENT % Another comment, should be ok with all chars: !"#$%&'()*+,-.0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~	
+10 TRUE true
+10 FALSE false
+10 FALSE false
+10 TRUE true
+10 TRUE true
+10 TRUE true
+10 FALSE false
+10 TRUE true
+10 FALSE false
+11 FALSE false
+12 TRUE true
+13 INTEGER 1
+13 INTEGER +12
+13 INTEGER -123
+13 INTEGER 123
+13 INTEGER +123
+13 INTEGER 0
+13 INTEGER +0
+13 INTEGER -0
+13 INTEGER 000000002
+14 REAL .1
+14 REAL +.12
+14 REAL -0.123
+14 REAL 1.23
+14 REAL +123.02
+14 REAL +123.
+14 INTEGER 0
+14 REAL +0.0
+14 REAL -0.0
+14 REAL 000.000002000
+14 REAL -.123200
+15 STRING Ground Tom
+15 STRING To
+15 STRING Maj. CTRL
+16 STRING Ground Major
+To Control Tom
+
+17 STRING Parents () HAD escaped!!! CALL DA policia
+19 STRING  git me baby 1 more t1m3
+19 STRING 
+26 STRING  
+27 STRING ()
+28 STRING ESCAPING DA va'hadat mishma'hat 
+	()\
+30 STRING Do you like avocado?
+31 STRING  !"#$%&'*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~
+32 STRING Motor all freeze functions
+33 STRING Motor all freeze functions
+34 STRING Motor all freeze functions
+35 STRING 
+36 NAME /Hello
+36 NAME /my
+36 NAME /name
+36 NAME /Yaakov
+36 NAME /whats
+36 NAME /your
+36 NAME /name
+36 NAME /my
+36 NAME /name
+36 NAME /is
+36 NAME /Ernnio
+37 NAME /12
+37 NAME /234123
+37 NAME /523524
+37 NAME /o
+44 STREAM xœÕ]Y7’~ ÿP/TÍ¢S<“IÀhlw«ÛÐ@Û’û`ïƒÖ–m
+¼Z¤ÁìÏ_ž™<ƒ¬,¶0‹w««"øF>{óö××ÿôÇ»Ÿ>¾úêYð×³o?þüîãû¿®¯oŸßÏ¾ÓßÜ½x~@Ï^¾U_{wõâåéúú 	nß<}òì0Ÿä|xóËÓ'ø€Ôÿð09qzŒNt9¼ùoE÷õkŒ¿~zúDýÔ?¾~úä‡¯¹a×WRÿ–×Lýº¯¯¸þóîšŸ*"óç½ûÍÕgB?Œ¢êß7×WDÓ-ú;ûÈÍõÞüùé“{%äáþ¥Žþñl—ö¸¦ý¦/™õýJKvýæ¯c uó“Æb‘ù)&çAÄ$¬8?Xy®œi°3®±Ú
+6ß9³_¹¯ý‹lv­4”’,CÑ<1šŠ‚YÚØ>»°"GÕ	¸ ü¸ñÀKC@ŠÛ[<í\dË&,U[QbËÅ´¤Úú‘dfð­¼6óš»AvY0èÔ×ã$\Š23%“‡š£XFÓ‹¦¡jLÇÓëøðû‰ßäñOCF6VÜÒ”'JÍ³±+n®ÏWÇëøƒ_’Å5Fºï‘s¸ù'ZjÌxÙì³A•)›T!'O’fäÄ®ow×FçF”;Q™1:[×Ä¶eáçöÓÚi†»ýÎ<ÄüŸ#G:®z‚Uaí#…Ú’€11áÃ,ñ4ÏÛÄÃ×Q·ûeÁ™oý{¾Æ$YIl?¨Ã’3ûÑ@›²¶F8Öh°Iysnq³ÊÏ³œ$ÛFq2e²Ô†6lZ¦;h	þ[r-JØÁ÷—oÙ†ä
+%L›§!á±=£	gß¯²6Û9ÎÝ[DÎæ	Ñ‚jäDƒ“¤õç¦“ O‚Gm;ÑãûßÕ·(oño?}ä+DÛ=Èeš3M‡Â\ôÂBuˆÈ:„ÚQˆí`0t$PÂ²(
+Ï:»Ì7ß¨fƒ¢Î>Œé\Ru¼åžfDNl>ÌjæaG›©¦]½Ó°ÓTm¯x¸~˜5"\	æð[ë:W?}×¶iÚ)§>“@èÃšŠê'…­n¾dKÚ6Ò"‚ -Âè¹BJ¬
+45 NULL null
+45 NULL null
+45 NULL null
+45 NULL null
+45 NULL null
+46 NULL null
+46 EOF 

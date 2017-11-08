@@ -1,0 +1,41 @@
+#!/bin/bash
+
+executable=./a.out
+
+${executable} < Basic.in > Basic.res
+${executable} < Advanced.in > Advanced.res
+${executable} < err1_1.in > err1_1.res
+${executable} < err1_2.in > err1_2.res
+${executable} < err2_1.in > err2_1.res
+${executable} < err2_2.in > err2_2.res
+${executable} < err3_1.in > err3_1.res
+${executable} < err3_2.in > err3_2.res
+${executable} < err3_3.in > err3_3.res
+${executable} < err4_1.in > err4_1.res
+${executable} < err4_2.in > err4_2.res
+${executable} < err5_1.in > err5_1.res
+
+${executable} < err_precedence_1.in > err_precedence_1.res
+${executable} < err_precedence_2.in > err_precedence_2.res
+${executable} < err_precedence_3.in > err_precedence_3.res
+${executable} < err_precedence_4.in > err_precedence_4.res
+${executable} < err_precedence_5.in > err_precedence_5.res
+
+diff Basic.out Basic.res
+diff Advanced.out Advanced.res
+diff err1_1.out err1_1.res
+diff err1_2.out err1_2.res
+diff err2_1.out err2_1.res
+diff err2_2.out err2_2.res
+diff err3_1.out err3_1.res
+diff err3_2.out err3_2.res
+diff err3_3.out err3_3.res
+diff err4_1.out err4_1.res
+diff err4_2.out err4_2.res
+diff err5_1.out err5_1.res
+
+diff err_precedence_1.out err_precedence_1.res
+diff err_precedence_2.out err_precedence_2.res
+diff err_precedence_3.out err_precedence_3.res
+diff err_precedence_4.out err_precedence_4.res
+diff err_precedence_5.out err_precedence_5.res

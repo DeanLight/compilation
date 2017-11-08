@@ -77,9 +77,9 @@ COMMENT [^\r\n]*
 TRUE true
 FALSE false
 
-INTEGER ({SIGN})?({UNSIGNED})
+INTEGER ({SIGN})?({DIGIT})+
     /* REAL ((({SIGN})?({UNSIGNED})?\.(({UNSIGNED})|0*)({UNSIGNED})?)|(({INTEGER})\.)) */
-REAL ({SIGN})?((\.({DIGIT})+)|({UNSIGNED}\.({DIGIT})*))
+REAL ({SIGN})?((\.({DIGIT})+)|({DIGIT}+\.({DIGIT})*))
 
 	/* TODO - does it accidently catche EOF? */
 RAW_STR_CHR ([^\(\)\n\\\r])
