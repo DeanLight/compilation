@@ -23,6 +23,11 @@ struct grammar_rule {
 	grammar_rule(nonterminal _lhs, std::vector<int> _rhs) :lhs(_lhs), rhs(_rhs) {}
 };
 
+
+//TODO add our grammar rules as structs deriving grammar_rules
+// std::unordered_map<nonterminal,std::vector<grammer_rule>> MY_GRAMMER = {...}
+
+
 extern std::vector<grammar_rule> grammar;
 
 void print_nullable(const std::vector<bool>& nullables);
