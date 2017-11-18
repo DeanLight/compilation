@@ -21,6 +21,7 @@ void print_and_clean_buffer(char*);
 
 void error_half_hex();
 void error_unclosed_string();
+void error_unclosed_stream();
 void error_illegal_character();
 void error_wrong_escape();
 
@@ -35,7 +36,7 @@ void error_wrong_escape();
 %x RAW_STRING_STATE
 %x RAW_HEX_STATE
 %x COMMENT_STATE
-%x ESCAPE_STATE
+	/* %x ESCAPE_STATE */
 
 
 CR \r
@@ -124,7 +125,7 @@ CHR_WITH_ESCAPE \\.
 
 {STREAM_INIT} BEGIN(RAW_STREAM_STATE);
 <RAW_STREAM_STATE>{STREAM_END} return STREAM
-<RAW_STREAM_STATE><<EOF>> {printf("Error unclosed stream\n"); exit(0);}
+<RAW_STREAM_STATE><<EOF>> error_unclosed_stream();
 <RAW_STREAM_STATE>.  
 <RAW_STREAM_STATE>\n  
 
@@ -169,7 +170,7 @@ CHR_WITH_ESCAPE \\.
 {REAL} return REAL;
 {NAME} return NAME;
 {NULL} return NUL;
-<INITIAL><<EOF>> return EF; 
+<INITIAL><<EOF>> return EF;
 {CATCH_ILLEGAL_CHAR} error_illegal_character();
 
 
@@ -283,6 +284,12 @@ void error_unclosed_string()
 	printf("Error unclosed string\n");
 	exit(0);
 }
+void error_unclosed_stream()
+{
+	printf("Error unclosed stream\n"); 
+	exit(0);
+}
+
 
 void error_illegal_character()
 {
