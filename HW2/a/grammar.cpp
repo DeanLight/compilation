@@ -69,7 +69,7 @@ std::vector<grammar_rule> make_grammar() {
 	res.push_back(grammar_rule(Obj,std::vector<int>(rule0,rule0+5))); //RULE 1
 
 	res.push_back(grammar_rule(Body,std::vector<int>(1,Dict))); // RULE 2
-	res.push_back(grammar_rule(Body,std::vector<int>(1,Arr))); // RULE 3
+	//res.push_back(grammar_rule(Body,std::vector<int>(1,Arr))); // RULE 3 // WITHOUT for section 'a'
 	
 	int rule3[] = {LDICT, KVList}; //OLD : {LDICT, KVList,RDICT};
 	res.push_back(grammar_rule(Dict, std::vector<int>(rule3,rule3 + 2))); // RULE 4 MODIFIED

@@ -27,6 +27,8 @@ struct grammar_rule {
 //TODO add our grammar rules as structs deriving grammar_rules
 // std::unordered_map<nonterminal,std::vector<grammer_rule>> MY_GRAMMER = {...}
 
+void print_token(tokens tok);
+void print_nonterminal(nonterminal var);
 
 extern std::vector<grammar_rule> grammar;
 

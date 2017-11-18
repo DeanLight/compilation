@@ -927,7 +927,7 @@ case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
 #line 127 "a/lexer.lex"
-return STREAM
+return STREAM;
 	YY_BREAK
 case YY_STATE_EOF(RAW_STREAM_STATE):
 #line 128 "a/lexer.lex"
