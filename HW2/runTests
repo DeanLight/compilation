@@ -1,8 +1,8 @@
 #!/bin/bash
 make
 
-executableA=../a/a
-executableB=../b/b
+executableA=./hw2a
+executableB=./hw2b
 
 tests=(e1 e2 e3 e4 e5 e6 e7 e8 e9 p1 p2 t1 t2 t3)
 for t in "${tests[@]}"

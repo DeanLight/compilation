@@ -1,5 +1,4 @@
 #include "grammar.h"
-#include "grammar.cpp"
 #include <stdio.h>
 
 
