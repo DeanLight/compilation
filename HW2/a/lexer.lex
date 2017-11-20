@@ -7,6 +7,7 @@
 
 #include <string.h> // TODO cpp - check if needs to be strict c
 #define MAX_BUFF 2048
+#define ERR_ENUM -1
 
 char chrBuff [MAX_BUFF];
 char * writePtr = chrBuff;
@@ -19,11 +20,11 @@ void add_hexStr_to_buffer(char*);
 
 void print_and_clean_buffer(char*);
 
-void error_half_hex();
-void error_unclosed_string();
-void error_unclosed_stream();
-void error_illegal_character();
-void error_wrong_escape();
+int error_half_hex();
+int error_unclosed_string();
+int error_unclosed_stream();
+int error_illegal_character();
+int error_wrong_escape();
 
 %} 
  
@@ -124,36 +125,36 @@ CHR_WITH_ESCAPE \\.
 
 
 {STREAM_INIT} BEGIN(RAW_STREAM_STATE);
-<RAW_STREAM_STATE>{STREAM_END} return STREAM;
-<RAW_STREAM_STATE><<EOF>> error_unclosed_stream();
+<RAW_STREAM_STATE>{STREAM_END} BEGIN(INITIAL); return STREAM;
+<RAW_STREAM_STATE><<EOF>> return error_unclosed_stream();
 <RAW_STREAM_STATE>.  
 <RAW_STREAM_STATE>\n  
 
 
 {START_RAW_STR} BEGIN(RAW_STRING_STATE);
-<RAW_STRING_STATE><<EOF>> error_unclosed_string();
+<RAW_STRING_STATE><<EOF>> return error_unclosed_string();
 	/* legal encounters of '\' in the string: */
 <RAW_STRING_STATE>\\{ENDLINE} 
-<RAW_STRING_STATE>{ENDLINE} error_illegal_character();
+<RAW_STRING_STATE>[\r\n] return error_illegal_character();
 <RAW_STRING_STATE>{STRING_OCTAL3} 
 <RAW_STRING_STATE>{LEGAL_ESCAPE_CHR} 
 	/* TODO - I think this is a possible state for (2.) error: */
-<RAW_STRING_STATE>{HALF_STRING_OCTAL} error_wrong_escape();
+<RAW_STRING_STATE>{HALF_STRING_OCTAL} return error_wrong_escape();
 	/* here we catche all \\. - if it was caught here and not before - it's an illegal escaping: */
-<RAW_STRING_STATE>{CHR_WITH_ESCAPE} error_wrong_escape();
+<RAW_STRING_STATE>{CHR_WITH_ESCAPE} return error_wrong_escape();
 <RAW_STRING_STATE>{RAW_STR} 
-<RAW_STRING_STATE>{END_RAW_STR} return STRING;
-<RAW_STRING_STATE>{CATCH_ILLEGAL_CHAR} error_illegal_character();
+<RAW_STRING_STATE>{END_RAW_STR} BEGIN(INITIAL); return STRING;
+<RAW_STRING_STATE>{CATCH_ILLEGAL_CHAR} return error_illegal_character();
 
 
 
 {START_HEX} BEGIN(RAW_HEX_STATE);
 <RAW_HEX_STATE>{WHITESPACE}
 <RAW_HEX_STATE>{HEXNUM_FULL_WITH_SPACE} 
-<RAW_HEX_STATE>{END_HEX} return STRING;
-<RAW_HEX_STATE><<EOF>> error_unclosed_string();
-<RAW_HEX_STATE>{HEXNUM_HALF} error_half_hex();
-<RAW_HEX_STATE>{CATCH_ILLEGAL_CHAR} error_illegal_character();
+<RAW_HEX_STATE>{END_HEX} BEGIN(INITIAL); return STRING;
+<RAW_HEX_STATE><<EOF>> return error_unclosed_string();
+<RAW_HEX_STATE>{HEXNUM_HALF} return error_half_hex();
+<RAW_HEX_STATE>{CATCH_ILLEGAL_CHAR} return error_illegal_character();
 
 
 
@@ -171,7 +172,7 @@ CHR_WITH_ESCAPE \\.
 {NAME} return NAME;
 {NULL} return NUL;
 <INITIAL><<EOF>> return EF;
-{CATCH_ILLEGAL_CHAR} error_illegal_character();
+{CATCH_ILLEGAL_CHAR} return error_illegal_character();
 
 
 
@@ -273,35 +274,42 @@ void print_and_clean_buffer(char *type)
 	BEGIN(INITIAL); // TODO - will it work here?
 }
 
-void error_half_hex()
+int error_half_hex()
 {
 	printf("Error incomplete byte\n");
-	exit(0);
+	return ERR_ENUM;
+
 }
 
-void error_unclosed_string()
+int error_unclosed_string()
 {
+
 	printf("Error unclosed string\n");
-	exit(0);
+	return ERR_ENUM;
+
 }
-void error_unclosed_stream()
+
+int error_unclosed_stream()
 {
+	
 	printf("Error unclosed stream\n"); 
-	exit(0);
+	return ERR_ENUM;
 }
 
 
-void error_illegal_character()
+int error_illegal_character()
 {
+
 	printf("Error %s\n",yytext);
-	exit(0);
+	return ERR_ENUM;
 }
 
-void error_wrong_escape()
+int error_wrong_escape()
 {
+
 	//yytext == \X for some illegal character X
 	printf("Error undefined escape sequence %c\n",yytext[1]);
-	exit(0);
+	return ERR_ENUM;
 }
 
 

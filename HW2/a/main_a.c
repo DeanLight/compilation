@@ -31,7 +31,7 @@ int main(){
 
 	// TODO -remove all prints and such
 	nt_type root_type = Obj;
-	t_type curr_tt;
+	t_type curr_tt=NOTOKEN;
 	get_next_token(curr_tt);
 	ASTNodePtr root = match(root_type,curr_tt);
 	ast_print(*root);
@@ -51,12 +51,18 @@ int main(){
 
 
 void get_next_token(enum tokens& tt ){
-	if (tt == '$') // TODO - check that it'll fnished with that?
+	if (tt == EF || tt == ERROR)
 	{
-		printf("No more tokens for you\n"); // TODO REMOVE
+		tt = ERROR;
 		return;
 	}
-	tt = t_type(yylex());
+	int res = yylex();
+	if (res < 0){
+		//lexer error
+		exit(1);
+	}
+
+	tt = (t_type)(res);
 	return;
 }
 
@@ -98,7 +104,7 @@ struct grammar_rule choose_rule(const nt_type&  var, const t_type& tt){
     {
 		// TODO FIX_ME  - there might be a clash between the two enums...
 		// WELL - actually 0 notm because htey made them be in seperate ranges;
-        if ((grammar[i].lhs == var) && (grammar[i].rhs[0] == tt))
+        if ((grammar[i].lhs == var) && (grammar[i].rhs.size()!=0) && (grammar[i].rhs[0] == tt))
 		{
 			// found a rule with matching starting terminal
 			ret_index = i;
@@ -111,9 +117,9 @@ struct grammar_rule choose_rule(const nt_type&  var, const t_type& tt){
 		return grammar[ret_index];
 	}
 	// haven't found yet - check for variable rule:
-		for(int i=0; i<grammar.size(); i++)
+	for(int i=0; i<grammar.size(); i++)
     {
-        if ((grammar[i].lhs == var) && (grammar[i].rhs[0] <= MAX_NONTERM_ENUM_VAL))
+        if ((grammar[i].lhs == var) && (grammar[i].rhs.size()!=0) && (grammar[i].rhs[0] <= MAX_NONTERM_ENUM_VAL))
 		{
 			// found a var rule starting with a variable
 			if (ret_index >=0)
@@ -123,6 +129,9 @@ struct grammar_rule choose_rule(const nt_type&  var, const t_type& tt){
 			}
 			ret_index = i;
 		}
+    }
+    if(ret_index<0){
+        PRINT_SYNTAX_ERROR_AND_EXIT();
     }
 	return grammar[ret_index];
 }

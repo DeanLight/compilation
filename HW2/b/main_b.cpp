@@ -139,7 +139,7 @@ std::vector<std::set<tokens > > calculate_first(std::vector<grammar_rule> gramma
             // get last consecutive nullable j
             last_nullable=get_last_consecutive_nullable(nullables,it->rhs);
             // for every token i in rhs from 0 to j including j
-            for(int i=0, rhs_enum=it->rhs[i] ; i<=last_nullable; i++,rhs_enum++){
+            for(int i=0, rhs_enum=it->rhs[i] ; i<=last_nullable; i++,rhs_enum=it->rhs[i]){
                 std::set<tokens>first_rhs=std::set<tokens>();
                 // if rhs is terminal it first is itself
                 if(rhs_enum>NONTERMINAL_ENUM_SIZE){

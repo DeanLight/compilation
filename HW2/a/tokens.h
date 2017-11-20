@@ -16,7 +16,9 @@ enum tokens {
 	NAME,
 	STREAM,
 	NUL,
-	EF
+	EF,
+	NOTOKEN=100,
+	ERROR=101
 };
 
 
