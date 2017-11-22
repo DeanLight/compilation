@@ -34,6 +34,10 @@ int main(){
 	t_type curr_tt=NOTOKEN;
 	get_next_token(curr_tt);
 	ASTNodePtr root = match(root_type,curr_tt);
+	if (curr_tt != EF) // if there are tokens left
+ 	{
+ 		PRINT_SYNTAX_ERROR_AND_EXIT();
+	}
 	ast_print(*root);
 	/* // TODO REMOVE
 	while (curr_tt != EF){
@@ -82,7 +86,7 @@ ASTNodePtr create_ASTNodePtr(const struct grammar_rule& my_rule, const vector<AS
 		case Dict: //currently only one Ctor, no need to consult rule
 			return new DictNode(dynamic_cast<KVListNode*>(my_sons[0]));
 		case KVList:
-			if (my_rule.rhs[0] == RDICT) // rule 6 modified (TODO - could also check by size of my_sons)
+			if (my_rule.rhs.size() == 0 ) // rule 6 modified
 				return new KVListNode();
 			else // rule 5
 				return new KVListNode(dynamic_cast<KVNode*>(my_sons[0]), dynamic_cast<KVListNode*>(my_sons[1]));
@@ -115,6 +119,14 @@ struct grammar_rule choose_rule(const nt_type&  var, const t_type& tt){
 	{
 		// we've found a rule for terminal:
 		return grammar[ret_index];
+	}
+	if (var == KVList) // sort of lookahead for KVList
+	{
+		if (tt == NAME)
+			return grammar[3];
+		if (tt == RDICT)
+			return grammar[4];
+		PRINT_SYNTAX_ERROR_AND_EXIT();
 	}
 	// haven't found yet - check for variable rule:
 	for(int i=0; i<grammar.size(); i++)
@@ -173,15 +185,7 @@ ASTNodePtr match(const nt_type &curr_var, t_type &tt){
 			if (son == tt) // yay
 				get_next_token(tt);
 			else // wrong terminal :(
-			{
-				/* // TODO 4DEBUG
-				printf("Wrong Terminal!rule looking for:");
-				print_token(t_type(son));
-				printf(" but finding: ");
-				print_token(t_type(tt));
-				printf(" instead.\n");
-				*/
-				
+			{				
 				PRINT_SYNTAX_ERROR_AND_EXIT();
 			}
 		}

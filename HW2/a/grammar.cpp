@@ -71,12 +71,12 @@ std::vector<grammar_rule> make_grammar() {
 	res.push_back(grammar_rule(Body,std::vector<int>(1,Dict))); // RULE 2
 	//res.push_back(grammar_rule(Body,std::vector<int>(1,Arr))); // RULE 3 // WITHOUT for section 'a'
 	
-	int rule3[] = {LDICT, KVList}; //OLD : {LDICT, KVList,RDICT};
-	res.push_back(grammar_rule(Dict, std::vector<int>(rule3,rule3 + 2))); // RULE 4 MODIFIED
+	int rule3[] = {LDICT, KVList, RDICT}; //OLD : {LDICT, KVList,RDICT};
+	res.push_back(grammar_rule(Dict, std::vector<int>(rule3,rule3 + 3))); // RULE 4 
 
 	int rule4[] = {KV, KVList};
 	res.push_back(grammar_rule(KVList,std::vector<int>(rule4,rule4+2))); // RULE 5
-	res.push_back(grammar_rule(KVList,std::vector<int>(1,RDICT))); // RULE 6 MODIFIED
+	res.push_back(grammar_rule(KVList,std::vector<int>()));
 
 	int rule6[] = {NAME, Exp};
 	res.push_back(grammar_rule(KV,std::vector<int>(rule6,rule6+2))); // RULE 7

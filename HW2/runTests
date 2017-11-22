@@ -4,7 +4,7 @@ make
 executableA=./hw2a
 executableB=./hw2b
 
-tests=(e1 e2 e3 e4 e5 e6 e7 e8 e9 p1 p2 t1 t2 t3 testtesttest1 testtesttest2 testtesttest3  testtesttest4 testtesttest5 testtesttest6 )
+tests=(e1 e2 e3 e4 e5 e6 e7 e8 e9 p1 p2 t1 t2 t3 testtesttest1 testtesttest2 testtesttest3  testtesttest4 testtesttest5 testtesttest6 patch1)
 for t in "${tests[@]}"
 do
 	echo -ne "\e[0mRunning Test $t - "
