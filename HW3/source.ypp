@@ -1,40 +1,33 @@
 %{
     #include <iostream>
     #include "source.hpp"
-    #define YYSTYPE Node*
     int yylex();
-    void yyerror(chonst char*);
-
-
-
+    void yyerror(const char*);
 %}
 
-%token INT
-%token DOUBLE
-%token ID
-%token ADD
+%token NUM
+%left PLUS
+%left MINUS
 
 
 
 %%
+prog: prog line {$$ = new Prog($1,$2);}
+	| /*epsilon*/ {$$ = new Prog();}
+;	
+line:   exp '\n' {$$ = new Line($1);}
+;
 
-
-prog:   prog line
-        | /*epsilon*/
-
-line:   Type ID {
-        | exp
-
-exp:    ID
-        | exp ADD exp
-
-
-
-
-
-
+exp:    NUM {$$ = $1;}
+		| exp PLUS exp {$$ = new Exp((Exp*)($1),(Plus*)($2),(Exp*)($3));}
+        | exp MINUS exp {$$ = new Exp((Exp*)($1),(Minus*)($2),(Exp*)($3));}
+;
 %%
+void yyerror (const char*) { std::cout << "syntax error" << std::endl; }
 
+int main(){
+	return yyparse();
+}
 
 
 
