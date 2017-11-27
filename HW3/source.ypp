@@ -1,0 +1,41 @@
+%{
+    #include <iostream>
+    #include "source.hpp"
+    #define YYSTYPE Node*
+    int yylex();
+    void yyerror(chonst char*);
+
+
+
+%}
+
+%token INT
+%token DOUBLE
+%token ID
+%token ADD
+
+
+
+%%
+
+
+prog:   prog line
+        | /*epsilon*/
+
+line:   Type ID {
+        | exp
+
+exp:    ID
+        | exp ADD exp
+
+
+
+
+
+
+%%
+
+
+
+
+
