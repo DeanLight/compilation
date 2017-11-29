@@ -4,12 +4,10 @@
     #include "semantic_rules.cpp"
     #define YYSTYPE Node*
     int yylex();
-    void yyerror(chonst char*);
-
-
-
+    void yyerror(const char*);
 %}
 
+<<<<<<< HEAD
 %token VOID
 %token INT
 %token BYTE
@@ -118,7 +116,11 @@ Exp:			LPAREN Exp RPAREN
 
 
 %%
+void yyerror (const char*) { std::cout << "syntax error" << std::endl; }
 
+int main(){
+	return yyparse();
+}
 
 
 

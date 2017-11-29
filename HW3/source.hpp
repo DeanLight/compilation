@@ -1,83 +1,87 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#define YYSTYPE Node*
 
-using std::vector
+using std::vector;
+using std::string;
 
-struct Table_entry{
-    std::string id;
-    int numline;
-
-}
-int last_index=-1;
-Table_entry[100] symbol_table;
 
 class Node{
-    virtual std::string prettyPrint();
-
-    void * eval(void);
+	public:
 	Node* father;
     vector<Node*> sons;
+	
+	Node(){};
+	
+    int eval(void);
+	void addSon(Node* son)   	{sons.push_back(son);}
 };
 
-/*
-class Program: Public Node{
-};
+class ProgramNode: public Node{};
 
+class FuncsNode : public Node{};
 
+class FuncDecl : public Node{};
 
-class Funcs: Public Node{
-};
+class RetTypeNode : public Node{};
 
+class FormalsNode : public Node{};
 
-class FuncDecl: Public Node{
-};
+class FormalsListNode : public Node{};
 
+class FormalDeclNode : public Node{};
 
-class RetType: Public Node{
+class StatementsNode : public Node{};
 
-};
+class StatementNode : public Node{};
 
+class CaseListNode : public Node{};
 
-class Statements: Public Node{
-};
+class CaseStatementNode : public Node{};
 
+class CaseDecNode : public Node{};
 
-class Statement: Public Node{
-};
+class CallNode : public Node{};
 
+class ExpListNode : public Node{};
 
+class TypeNode : public Node{};
 
-class ID: Public Node{
-};
+class ExpNode : public Node{};
 
-
-class Formals: Public Node{
-};
-
-
-
-class Type: Public Node{
-    int type;
-};
-
-*/
-
-
-class Type: Public Node{
-    int type;
-};
-
-class ID: Public Node{
-    std::string name;
-};
-
-
-class Add: Public Node{
-    int type;
-    int value;
-};
-
-
+class Void : public Node{};
+class Int : public Node{};
+class Byte : public Node{};
+class B_Node: public Node{};
+class Bool : public Node{};
+class And : public Node{};
+class Or: public Node{};
+class Not : public Node{};
+class True : public Node{};
+class False: public Node{};
+class Return : public Node{};
+class If : public Node{};
+class Else : public Node{};
+class While : public Node{};
+class Switch : public Node{};
+class Case : public Node{};
+class Break : public Node{};
+class Default : public Node{};
+class Colon : public Node{};
+class SC_Node : public Node{};
+class Comma : public Node();
+class Lparen : public Node();
+class Rparen : public Node();
+class Lbrace : public Node();
+class Rbrace : public Node();
+class Assign : public Node();
+class Relop : public Node();
+class Binop : public Node();
+class Comma : public Node();
+class Id : public Node();
+class Num : public Node();
+class String : public Node();
 
 
