@@ -71,6 +71,17 @@ class Break : public Node{};
 class Default : public Node{};
 class Colon : public Node{};
 class SC_Node : public Node{};
-
+class Comma : public Node();
+class Lparen : public Node();
+class Rparen : public Node();
+class Lbrace : public Node();
+class Rbrace : public Node();
+class Assign : public Node();
+class Relop : public Node();
+class Binop : public Node();
+class Comma : public Node();
+class Id : public Node();
+class Num : public Node();
+class String : public Node();
 
 

@@ -1,23 +1,24 @@
 %{
 #include "output.hpp"
 #include "source.hpp"
-#include "source.tab.hpp"
+% #include "source.tab.hpp" % revert back
 #include <iostream>
 %}
 
 colon_t :
 sc_t ;
 comma_t ,
-lparen_t (
-rparen_t )
-lbrace_t [
-rbrace_t ]
+lparen_t \(
+rparen_t \)
+lbrace_t \[
+rbrace_t \]
 ass_t =
 relop_t (==)|(!=)|(<)|(>)|(<=)|(>=)
 binop_t [\+\-\*/]
 id_t [a-zA-Z]([a-zA-Z0-9])*
 num_t (0)|([1-9]([0-9])*)
-string_t "([^\n\r\"\\]|\\[rnt"\\])+"
+	/* TODO CHECK: */
+string_t \"([^\n\r\"\\]|\\[rnt"\\])+\"
 
 
 %%
@@ -26,7 +27,7 @@ void {yyval = new Void(yytext);
 	return VOID;};
 	
 int {yyval = new Int(yytext);
-	return INT;);
+	return INT;};
 
 byte {yyval = new Byte(yytext);
 	return Byte;};
@@ -76,6 +77,15 @@ break {yyval = new Break(yytext);
 default {yyval = new Default(yytext);
 	return DEFAULT;};
 
+colon_t	{yyval = new Colon(yytext);
+	return COLON;};
+
+sc_t {yyval = new SC_Node(yytext);
+	return SC;};
+
+comma_t	{yyval = new Comma(yytext);
+	return COMMA;};	
+	
 {lparen_t} {yyval = new Lparen(yytext);
 	return LPAREN;};
 	
@@ -101,13 +111,13 @@ ass_t {yyval = new Assign(yytext);
 	return ID;};
 	
 {num_t} { yyval = new Num(yytext);
-	return NUM;);
+	return NUM;};
 	
 {string_t} { yyval = new String(yytext);
-	return STRING;);
+	return STRING;};
 	
 	/* if nothing else - an error!*/
 . {errorLex(yylineno);
 	exit(1);};
-
+	/* TODO _ EOF? */
 %%
