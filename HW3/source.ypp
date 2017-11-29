@@ -1,6 +1,7 @@
 %{
     #include <iostream>
     #include "source.hpp"
+    #include "semantic_rules.cpp"
     #define YYSTYPE Node*
     int yylex();
     void yyerror(chonst char*);
@@ -9,27 +10,110 @@
 
 %}
 
+%token VOID
 %token INT
-%token DOUBLE
+%token BYTE
+%token B
+%token BOOL
+%token AND
+%token OR
+%token NOT
+%token TRUE
+%token FALSE
+%token RETURN
+%token IF
+%token ELSE
+%token WHILE
+%token SWITCH
+%token CASE
+%token BREAK
+%token DEFAULT
+%token COLON
+%token SC
+%token COMMA
+%token LPAREN
+%token RPAREN
+%token LBRACE
+%token RBRACE
+%token ASSIGN
+%token RELOP
+%token BINOP
 %token ID
-%token ADD
-
+%token NUM
+%token STRING
 
 
 %%
 
+Program:        Funcs
 
-prog:   prog line
-        | /*epsilon*/
+Funcs:          FuncDecl Funcs
+                | /*epsilon*/
 
-line:   Type ID {
-        | exp
+FuncDecl:       RetType ID LPAREN Formals REPAREN LBRACE Statement RBRACE
 
-exp:    ID
-        | exp ADD exp
+RetType:        Type
+                |VOID
 
+Formals:        FormalsList
+                | /*epsilon*/
 
+FormalsList:    FormalDecl
+				|FormalDecl COMMA FormalsList
 
+FormalsDecl:	Type ID
+
+Statements:		Statement
+				|Statements Statement
+
+Statement:		LBRACE Statements RBRACE
+				| Type ID SC
+				| Type ID ASSIGN Exp SC
+				| ID ASSIGN Exp SC
+				| Call SC
+				| RETURN SC
+				| RETURN Exp SC
+				| IF LPAREN Exp RPAREN Statement
+				| IF LPAREN Exp RPAREN Statement ELSE Statement
+				| WHILE LPAREN Exp RPAREN Statement
+				| BREAK SC
+				| SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE SC
+
+CaseList:		CaseList CaseStatement
+				| CaseStatement
+
+CaseStatement:	CaseDec Statements
+				|CaseDec
+
+CaseDec:		CASE NUM COLON
+				| CASE NUM B COLON
+				| DEFAULT COLON
+
+Call:			ID LPAREN ExpList RPAREN
+				| ID LPAREN RPAREN
+
+ExpList:		Exp
+				|Exp COMMA ExpList
+
+Type:			INT
+				| BYTE
+				| BOOL
+
+SecPartExp: 	AND Exp
+				| OR Exp
+				| RELOP Exp
+				| BINOP Exp
+
+Exp:			LPAREN Exp RPAREN
+				| Exp SecPartExp
+				| ID
+				| Call
+				| NUM
+				| NUM B
+				| STRING
+				| TRUE
+				| FALSE
+				| NOT Exp
 
 
 
