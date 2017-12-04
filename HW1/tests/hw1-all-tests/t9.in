@@ -1,0 +1,6 @@
+%escape sequences
+()(\(a string\))
+(\n\r\t\b\f\\\000\101)
+(abc\
+def)
+(\a)

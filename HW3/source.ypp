@@ -7,7 +7,7 @@
     void yyerror(const char*);
 %}
 
-<<<<<<< HEAD
+
 %token VOID
 %token INT
 %token BYTE
@@ -41,6 +41,11 @@
 %token STRING
 
 
+
+%left L_ASSOC
+
+
+
 %%
 
 Program:        Funcs
@@ -48,7 +53,7 @@ Program:        Funcs
 Funcs:          FuncDecl Funcs
                 | /*epsilon*/
 
-FuncDecl:       RetType ID LPAREN Formals REPAREN LBRACE Statement RBRACE
+FuncDecl:       RetType ID LPAREN Formals RPAREN LBRACE Statement RBRACE
 
 RetType:        Type
                 |VOID
@@ -102,8 +107,11 @@ SecPartExp: 	AND Exp
 				| RELOP Exp
 				| BINOP Exp
 
-Exp:			LPAREN Exp RPAREN
-				| Exp SecPartExp
+Exp:			Exp AND Exp %prec L_ASSOC
+				| Exp OR Exp %prec L_ASSOC
+				| Exp RELOP Exp %prec L_ASSOC
+				| Exp BINOP Exp %prec L_ASSOC
+				| LPAREN Exp RPAREN 
 				| ID
 				| Call
 				| NUM

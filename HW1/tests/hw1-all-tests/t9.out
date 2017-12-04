@@ -1,0 +1,7 @@
+1 COMMENT %escape sequences
+2 STRING 
+2 STRING (a string)
+3 STRING 
+	\
+5 STRING abcdef
+Error undefined escape sequence a

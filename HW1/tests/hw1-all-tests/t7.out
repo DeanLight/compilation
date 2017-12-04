@@ -1,0 +1,5 @@
+1 COMMENT %strings1
+2 STRING A string with some stuff
+3 STRING And a string with more stuff
+4 STRING 1234^&$%abcde
+Error (

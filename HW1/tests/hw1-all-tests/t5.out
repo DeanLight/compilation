@@ -1,0 +1,13 @@
+1 COMMENT %literals
+2 OBJ obj
+2 ENDOBJ endobj
+3 LBRACE [
+3 RBRACE ]
+3 RBRACE ]
+3 LBRACE [
+4 RDICT >>
+4 LDICT <<
+4 NULL null
+5 TRUE true
+5 FALSE false
+6 EOF 

@@ -1,0 +1,3 @@
+tests 1,2 are worth 14 points each
+3-14 are worth 6 points each
+either t9.out or t9-2.out are accepted outputs for t9.in

@@ -1,0 +1,6 @@
+%names
+/Name
+/anothername
+/Several/names/in/a/row
+/alnumname123/Just/num/name/7047/%error here
+false%this should not be lexed
