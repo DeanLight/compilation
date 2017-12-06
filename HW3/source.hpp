@@ -56,7 +56,9 @@ class RetTypeNode : public Node{};
 
 class FormalsNode : public Node{};
 
-class FormalsListNode : public Node{};
+class FormalsListNode : public Node{
+	std::vector<enum type_enum> typesvec;
+};
 
 class FormalDeclNode : public Node{};
 
@@ -69,18 +71,21 @@ public:
 
 class StatementNode : public Node{
 public:
+	bool has_break;
 	enum type_enum Type;
 	StatementNode():Type(Uninit){};	
 };
 
 class CaseListNode : public Node{
 public:
+	enum type_enum Type;
 	bool has_default
 	CaseListNode():has_default(FALSE){};
 };
 
 class CaseStatementNode : public Node{
 public:
+	enum type_enum Type;
 	bool is_default
 	CaseStatementNode():has_default(FALSE){};
 };
@@ -93,7 +98,9 @@ public:
 
 class CallNode : public Node{};
 
-class ExpListNode : public Node{};
+class ExpListNode : public Node{
+	std::vector<enum type_enum> typesvec;
+};
 
 class TypeNode : public Node{
 public:

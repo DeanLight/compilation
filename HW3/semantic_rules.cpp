@@ -191,65 +191,114 @@ void Statements_Semantic(class StatementsNode* Self,class StatementsNode* rest_o
 
 //Statement:		LBRACE Statements RBRACE
 void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+    // no need to check break ehre since we might be inside an ineer scope inside a while
+
+	// Self has break and self Type should be inherited from statements
+
+	// print end of scope
 
 }
 
 //Statement:		Type ID SC
-void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+void Statement_Semantic(class StatementNode* Self, class TypeNode* type, class Id* id){
+	// check scope table if ID has been defined in this scope already
+		// if so errorDef(lineno,id.string)
+		// else add to scope table with Type.type
+
+
 
 }
 
 //Statement:		ID ASSIGN Exp SC
 void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+    // check Id exists in acope table
+    	//if not errorUndef(lineno,id)
+
+	//if id,getType() is int and Exp.Type is Byte, no error
+
+	//else if Id.getType() != Exp.Type
+		// errorMismatch(lineno)
+
 
 }
 
 //Statement:		Type ID ASSIGN Exp SC
 void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+    //call routine for Statement:		Type ID SC
+    //call routine for Statement:		ID ASSIGN Exp SC
 
 }
 
 
 
-//Statement:		LBRACE Statements RBRACE
-void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+
+//Statement:		Call SC
+void Statement_Semantic(class StatementNode* Self, class CallNode* call){
+    //no semantic checks to do
 
 }
 
-//Statement:		LBRACE Statements RBRACE
-void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+//Statement:		RETURN SC
+void Statement_Semantic(class StatementNode* Self, class Return* ret){
+	// Self.Type=Void    
 
 }
 
-//Statement:		LBRACE Statements RBRACE
-void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+//Statement:		RETURN Exp SC
+void Statement_Semantic(class StatementNode* Self, class Return* ret, class ExpNode* exp){
+    //Self.Type=exp.Type
 
 }
 
-//Statement:		LBRACE Statements RBRACE
-void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+//Statement:		IF LPAREN Exp RPAREN Statement
+void Statement_Semantic(class StatementNode* Self, class If* if, class ExpNode* exp, class StatementNode* statement){
+	// if exp.Type is not Bool
+			//errorMismatch()
+	//   Self.Type , Self.hasBreak = Statement.Type, Statement.hasBreak
 
 }
 
-//Statement:		LBRACE Statements RBRACE
-void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+//Statement:		IF LPAREN Exp RPAREN Statement ELSE Statement
+void Statement_Semantic(class StatementNode* Self, class If* if, class ExpNode* exp, class StatementNode* statement1, class Else* else , class StatementNode statement2){
+    // if exp.Type is not Bool
+			//errorMismatch()
+	// Self.hasBreak = statement1.hasBreak or statement2.hadBreak
+	// if statements 1 and 2 has different Types that are not Uninit, then we have a type error. 
+		//error mismatch
+
+
 
 }
 
-//Statement:		LBRACE Statements RBRACE
-void Statement_Semantic(class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    
+//Statement:		WHILE LPAREN Exp RPAREN Statement
+void Statement_Semantic(class StatementNode* Self, class While* while, class ExpNode* exp,class StatementsNode* statement, class Rbrace* br){
+    // if exp.Type is not Bool
+		//errorMismatch()
+	// we dont inherit has break from statement since the whiole catches it
+	// Self.Type=Statement.Type
+
+
+	// print end of scope
 
 }
+
+//Statement:		BREAK SC
+void Statement_Semantic(class StatementNode* Self, class Break* break ){
+    //Self.hasbreak=true
+
+}
+
+//Statement:		SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE SC
+void Statement_Semantic(class StatementNode* Self, class Switch* switch , class ExpNode* exp, class CaseListNode* caselist ){
+    //if exp.Type is not int or byte
+    	//errorMismatch
+	// Self.Type=CaseList,Type
+
+
+
+}
+
+
 
 
 //CaseList:		CaseList CaseStatement
@@ -302,37 +351,51 @@ void CaseDec_Semantic(class CaseDecNode* Self,class Default* default){
 
 //Call:			ID LPAREN ExpList RPAREN
 void Call_Semantic(class CallNode* Self, class Id* id, class ExpListNode* expList){
+	// Look up Id in id table as a fucntion. 
+		//  if not ufnction or doesnt exist
+			//errorUndefFunc(lineno,id)
+
+	// if found in as function id, get all possible Type List and comparte to List of ExpList.
+		// if Type lists dont match
+			// errorPrototypeMismatch(lineno,id,types)
 
 }
 
 //Call:			ID LPAREN RPAREN
 void Call_Semantic(class CallNode* Self, class Id* id){
+	// Look up Id in id table as a fucntion. 
+		//  if not ufnction or doesnt exist
+			//errorUndefFunc(lineno,id)
+	// if found as a function  but does not have an argumentless decleration
+		// errorPrototypeMismatch(lineno,id,types)
 
 }
 
 //ExpList:		Exp
 void ExpList_Semantic(class ExpListNode* Self,class ExpNode* exp){
+	// add Exp Type to Self. TypeList
 
 }
 
 //ExpList:		Exp COMMA ExpList
 void ExpList_Semantic(class ExpListNode* Self,class ExpNode* exp, class ExpListNode* rest_of_list){
-
+	//Self.TypeList=rest_of_list.TypeList
+	//Self.TypeList.insert_to_beggining(exp.Type)
 }
 
 //Type:			INT
 void Type_Semantic(class TypeNode* Self, class Int* int_node){
-
+	//Self.Type=Int
 }
 
 //Type:			Byte
 void Type_Semantic(class TypeNode* Self, class Byte* byte_node){
-
+	//Self.Type=Byte
 }
 
 //Type:			BOOL
 void Type_Semantic(class TypeNode* Self, class Bool* bool_node){
-
+	//Self.Type=Error
 }
 
 
@@ -346,7 +409,7 @@ void Exp_Semantic(class ExpNode* Self,class ExpNode* exp1, class Or* or, class E
 
 }
 
-//Exp:			xp RELOP Exp 
+//Exp:			Exp RELOP Exp 
 void Exp_Semantic(class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2){
 
 }
