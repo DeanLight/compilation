@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <stdexcept>
 #define YYSTYPE Node*
 
 using std::vector;
@@ -12,9 +13,21 @@ enum type_enum{
 	Void,
 	String,
 	Int,
-	Byte
-
+	Byte,
+	Bool
 };
+
+std::string str_of_type(enum type_enum tt){
+	switch(tt)
+	{
+		case Void: return "VOID";
+		case String: return "STRING";
+		case Int: return "INT";
+		case Byte: return "BYTE";
+		case Bool: return "BOOL"
+		case Unint: throw std::runtime_error("Uninitialized var");
+		default : throw std::runtime_error("bla bla - illegal type ");
+}
 
 enum id_type{
 	Uninit,
