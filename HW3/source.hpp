@@ -41,8 +41,7 @@ class Node{
     vector<Node*> sons;
 	
 	Node(){};
-    //TODO add constructor that adds yytext to a field called content or string
-    //or something
+    string str_content;
     int eval(void);
 	void addSon(Node* son)   	{sons.push_back(son);}
 };
@@ -61,44 +60,70 @@ public:
 
 class FuncDeclNode : public Node{
 public:
-	bool is_main
 	ProgramNode():is_main(FALSE){};
 };
 
-class RetTypeNode : public Node{};
-
-class FormalsNode : public Node{};
-
-class FormalsListNode : public Node{
-	std::vector<enum type_enum> typesvec;
+class FuncDeclNode : public Node{
+public:
+	ProgramNode():is_main(FALSE){};
 };
 
-class FormalDeclNode : public Node{};
+class FuncHeadNode : public Node{
+public:
+	FuncHeadNode():is_main(FALSE){};
+};
+
+class FuncStateNode : public Node{
+public:
+	FuncStateNode(){};
+};
+
+class RetTypeNode : public Node{
+public: 
+	enum type_enum Type;
+	RetTypeNode(): Type(Uninit){};
+};
+
+class FormalsNode : public Node{
+	public:
+	std::vector<enum type_enum> types_vec;
+	std::vector<string> idvec;
+	//TODO add constructor that inits types vec to empty vec
+
+};
+
+class FormalsListNode : public Node{
+public:
+	std::vector<enum type_enum> typesvec;
+	std::vector<string> idvec;
+	//TODO add constructor that inits types vec to empty vec
+};
+
+class FormalDeclNode : public Node{
+public:
+	enum type_enum Type;
+	FormalDeclNode():Type(Uninit){};
+
+};
 
 class StatementsNode : public Node{
 public:
-	bool has_break;
-	enum type_enum Type;
 	StatementsNode():Type(Uninit),has_break(FALSE){};
 };
 
 class StatementNode : public Node{
 public:
-	bool has_break;
-	enum type_enum Type;
 	StatementNode():Type(Uninit){};	
 };
 
 class CaseListNode : public Node{
 public:
-	enum type_enum Type;
 	bool has_default
 	CaseListNode():has_default(FALSE){};
 };
 
 class CaseStatementNode : public Node{
 public:
-	enum type_enum Type;
 	bool is_default
 	CaseStatementNode():has_default(FALSE){};
 };
@@ -109,7 +134,11 @@ public:
 	CaseStatementNode():has_default(FALSE){};
 };
 
-class CallNode : public Node{};
+class CallNode : public Node{
+public:
+	enum type_enum Type;
+	CallNode():Type(Uninit){}; 
+};
 
 class ExpListNode : public Node{
 	std::vector<enum type_enum> typesvec;
@@ -124,8 +153,7 @@ public:
 class ExpNode : public Node{
 public:
 	enum type_enum Type;
-	bool is_lval;
-	ExpNode():is_lval(FALSE),Type(Uninit){}; 
+	ExpNode():Type(Uninit){}; 
 };
 
 class Void : public Node{};

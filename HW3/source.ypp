@@ -50,12 +50,15 @@
 
 Program:        Funcs
 
+
 Funcs:          FuncDecl Funcs
                 | /*epsilon*/
 
 FuncDecl:       FuncHead FuncState
 
-FuncHead:		RetType ID LPAREN Formals RPAREN 
+FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN 
+
+Func_Scope_init: 	/*epsilon*/
 
 FuncState:		LBRACE Statement RBRACE
 
@@ -75,18 +78,28 @@ FormalsDecl:	Type ID
 Statements:		Statement
 				|Statements Statement
 
-Statement:		LBRACE Statements RBRACE
+Statement:		LBRACE Scope_init Statements RBRACE
 				| Type ID SC
 				| Type ID ASSIGN Exp SC
 				| ID ASSIGN Exp SC
 				| Call SC
 				| RETURN SC
 				| RETURN Exp SC
-				| IF LPAREN Exp RPAREN Statement %prec PRIO_REGIF
-				| IF LPAREN Exp RPAREN Statement ELSE Statement %prec PRIO_IFELSE
-				| WHILE LPAREN Exp RPAREN Statement
+				| IF LPAREN BoolExp RPAREN Scope_init Statement %prec PRIO_REGIF
+				| IF LPAREN BoolExp RPAREN Scope_init Statement ELSE Statement %prec PRIO_IFELSE
+				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement
 				| BREAK SC
-				| SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE SC
+				| SWITCH LPAREN NumExp RPAREN LBRACE Switch_Scope_init CaseList RBRACE SC
+
+NumExp:			Exp
+
+BoolExp:		Exp
+
+While_Scope_init:	/*epsilon*/
+
+Switch_Scope_init:	/*epsilon*/
+
+Scope_init:	/*epsilon*/
 
 CaseList:		CaseList CaseStatement
 				| CaseStatement

@@ -34,6 +34,7 @@ typedef struct scope_data{
     v_type rewt_type;
     int defaults_count;
     bool isBreakable;
+    
     bool is_scope_breakable();
     int inc_defaults();// increase the count by one, returns new value
     v_type get_ret_value()

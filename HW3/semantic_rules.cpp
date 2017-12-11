@@ -62,20 +62,15 @@ All end of scope must call the prinitng fucntions explained in the IO section of
 /////////////////////////////////////////////////////////////////////////////////////
 //helper functions
 
-enum id_type is_id_in_current_scope(std::string id_string);
-enum id_type is_id_in_reachable_scope(std::string id_string);
-bool is_func_declared(std::string func_id_string,std::vector<Type_enum> types_vec);
-enum Type_enum operator_return_type_eval(std::vector<Type_enum> argument_types);
 
 bool is_num_legal_byte(int num);
-
-// some iterator functions for all ids in scope
-
-void print_end_of_scope();
 
 
 class SymbolTable symtab=SymbolTable();
 
+bool glob_containsMain=false;
+
+//TODO declare global scope in before calling bison
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //semantic functions
@@ -85,30 +80,18 @@ class SymbolTable symtab=SymbolTable();
 void Program_Semantic(int lineno,class ProgramNode* Self, class FuncsNode* funcs){
     
 	// if Funcs.has_main==FALSE
-	if( funcs->has_main==false ){
+	//if( containsMain==false ){
 		//erorMainMissing()
-		errorMainMissing();
-	}
+	//	errorMainMissing();
+	//}
     // print end of scope
-    symtab.exit_scope()
+    //symtab.exit_scope()
 
 }
 
 // Funcs: FuncDecl Funcs
 void Funcs_Semantic(int lineno,class FuncsNode* Self, class FuncDeclNode* func_decl , class FuncsNode* funcs){
     
-    // if funcDecl.is_main and funcs.has_main
-    if( func_decl->is_main && funcs->has_main){
-    	// this means there are too many names so
-		//errorSyn()
-		errorSyn(lineno);
-    }
-    
-    if( func_decl->is_main || funcs->has_main){	
-	// if funcDel.is_main or funcs.hasmain
-		// self.hasmain=true
-		Self->has_main=true;
-    }
 
 }
 
@@ -118,29 +101,44 @@ void Funcs_Semantic(int lineno,class FuncsNode* Self){
 
 }
 
-//FuncDecl:       RetType ID LPAREN Formals RPAREN LBRACE Statement RBRACE
+//FuncDecl:       FuncHead FuncState
 void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class RetTypeNode* rettype, class Id* id,class FormalsNode* formals, class StatementsNode* statements){
-    // if Statement.hasbreak==true
-    	//errorUnexpectedBreak
-
-    // if retType.Type is not same as statements.Type
-    	// errorMismatch()
-	
-	// if func,formals is already defined
-		// errorDef()
-	
-	// if id is main 
-		//if retType is not void
-			//errorSyn()
-		// else
-			//self.isMain=true
-	
-
 
 
 	//print end of scope
-	//TODO decide if we need to open new scope here
+
 }
+
+//FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN 
+void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp){
+	// if main but not void
+		// errorSyn(lineno)
+	// if main with void
+		// if (glob_containsmain==true)
+			// errorSyn(lineno);
+		//glob_containsmain=true; 
+
+	// if such function is in symbol table
+		// errorDef(lineno,id->str_content)
+	
+	// add function to symbol table
+
+	// initialize function scope with type of retval
+
+}
+
+//Func_Scope_init:	/*epsilon*/
+void Func_scope_init_Semantic(int lineno){
+	//open function scope
+}
+
+//FuncState:		LBRACE Statement RBRACE
+void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, class StatementsNode* statements , class Rbrace* rb){
+
+
+}
+
+
 
 //RetType:        Type
 void RetType_Semantic(int lineno,class RetTypeNode* Self, class TypeNode* type){
@@ -156,7 +154,8 @@ void RetType_Semantic(int lineno,class RetTypeNode* Self){
 
 //Formals:        FormalsList
 void Formals_Semantic(int lineno,class FormalsNode* Self, class FormalsListNode* formalsList){
-    
+    //Self->typesvec=formalsList->typesvec;
+    //Self->idvec=formalsList->idvec;
 
 }
 
@@ -169,50 +168,49 @@ void Formals_Semantic(int lineno,class FormalsNode* Self){
 
 //FormalsList:    FormalDecl
 void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDeclNode* formalDecl){
-    
+    //Self->typesvec.pushback(FormalDecl->Type);
+    //Self->idvec.pushback(FormalDecl->str_content);
 
 }
 
 //FormalsList:    FormalDecl COMMA FormalsList
 void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDeclNode* formalDecl,class FormalsListNode* rest_of_list){
-    
+    // concatenates type and id of formaldecl with rest_of_list
+   // Self->typesvec.pushback(FormalDecl->Type);
+    //Self->idvec.pushback(FormalDecl->str_content);
+    //Self->typesvec.insert(Self->typesvec.end(),rest_of_list->typesvec.begin(),rest_of_list->typesvec.end() );
+    //Self->idvec.insert(Self->idvec.end(),rest_of_list->idvec.begin(),rest_of_list->idvec.end() );
 
 }
 
 
 //FormalsDecl:	Type ID
 void FormalDecl_Semantic(int lineno,class FormalDeclNode* Self, class TypeNode* type , class Id* id){
-    // if is_id_in_current_scope(Id.string)==Variable
-    	//errorDef(lineno,id)
+    // if is_id_in_current_scope(id.str_content)
+    	//errorDef(lineno,id.str_content)
+	// symboltable.addparam(type->Type,id->str_content);
+
+	//Self->str_content=id->str_content;
+	//Self->Type=type->Type;
 
 }
 
 //Statements:		Statement
 void Statements_Semantic(int lineno,class StatementsNode* Self, class StatementNode* statement){
-    //Self.Type=statement.Type
 
 }
 
 //Statements:		Statements Statement
 void Statements_Semantic(int lineno,class StatementsNode* Self,class StatementsNode* rest_of_statements, class StatementNode* statement){
-    // if statement and rest_of types are both Uninit
-    	//keep self.Type as Uninit
-	// if only one has initialized type or both have the same initialized type
-		// sel.Type= that Type
 
-	// if they have different types
-		//errorMismatch()
 
 }
 
-//TODO decide what to do with the dangling else in the statement rule
 
 
-//Statement:		LBRACE Statements RBRACE
+//Statement:		LBRACE Scope_init Statements RBRACE
 void Statement_Semantic(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    // no need to check break ehre since we might be inside an ineer scope inside a while
 
-	// Self has break and self Type should be inherited from statements
 
 	// print end of scope
 
@@ -259,62 +257,85 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class CallNode* ca
 
 //Statement:		RETURN SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret){
-	// Self.Type=Void    
+	// if getscope rettype is not void
+		//  errorMismatch(lineno);
 
 }
 
 //Statement:		RETURN Exp SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp){
-    //Self.Type=exp.Type
+    //if getscope.rettype!=Exp.type
+		//  errorMismatch(lineno);    	
 
 }
 
-//Statement:		IF LPAREN Exp RPAREN Statement
+//Statement:		IF LPAREN Exp RPAREN Scope_init Statement
 void Statement_Semantic(int lineno,class StatementNode* Self, class If* if, class ExpNode* exp, class StatementNode* statement){
-	// if exp.Type is not Bool
-			//errorMismatch()
-	//   Self.Type , Self.hasBreak = Statement.Type, Statement.hasBreak
+
+	// close scope
 
 }
 
-//Statement:		IF LPAREN Exp RPAREN Statement ELSE Statement
+//Statement:		IF LPAREN Exp RPAREN Scope_init Statement ELSE Statement
 void Statement_Semantic(int lineno,class StatementNode* Self, class If* if, class ExpNode* exp, class StatementNode* statement1, class Else* else , class StatementNode statement2){
-    // if exp.Type is not Bool
-			//errorMismatch()
-	// Self.hasBreak = statement1.hasBreak or statement2.hadBreak
-	// if statements 1 and 2 has different Types that are not Uninit, then we have a type error. 
-		//error mismatch
 
+	// close scope
 
 
 }
 
-//Statement:		WHILE LPAREN Exp RPAREN Statement
+//Statement:		WHILE LPAREN Exp RPAREN Breakable_Scope_init Statement
 void Statement_Semantic(int lineno,class StatementNode* Self, class While* while, class ExpNode* exp,class StatementsNode* statement, class Rbrace* br){
-    // if exp.Type is not Bool
-		//errorMismatch()
-	// we dont inherit has break from statement since the whiole catches it
-	// Self.Type=Statement.Type
 
 
-	// print end of scope
+	// close scope
 
 }
 
 //Statement:		BREAK SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Break* break ){
-    //Self.hasbreak=true
+    // if currscope.isbreakable ==False
+    	// errorUnexpectedBreak(lineno);
 
 }
 
-//Statement:		SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE SC
+//Statement:		SWITCH LPAREN Exp RPAREN LBRACE Breakable_Scope_init CaseList RBRACE SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Switch* switch , class ExpNode* exp, class CaseListNode* caselist ){
-    //if exp.Type is not int or byte
-    	//errorMismatch
-	// Self.Type=CaseList,Type
+
+	// close scope
+
+}
+
+// side effect var
+//	NumExp: 		Exp
+void is_exp_numeric(int lineno, class ExpNode* exp){
+	// if exp is not numeric( int or Byte)
+		// errorMismatch(lineno);
+}
+
+// side effect var
+//	BoolExp: 		Exp
+void is_exp_bool(int lineno, class ExpNode* exp){
+	// if exp is not numeric( int or Byte)
+		// errorMismatch(lineno);
+}
 
 
 
+//While_Scope_init:	/*epsilon*/
+void While_Scope_init_Semantic(int lineno){
+	// open while scope
+}
+
+
+//Switch_Scope_init:	/*epsilon*/
+void Switch_Scope_init_Semantic(int lineno){
+	// open switch scope
+}
+
+//Scope_init:	/*epsilon*/
+void Scope_init_Semantic(int lineno){
+	//open regular scope
 }
 
 
@@ -322,39 +343,34 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class Switch* swit
 
 //CaseList:		CaseList CaseStatement
 void CaseList_Semantic(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, class CaseStatementNode* case){
-    // if rest_of_list.hasdefault and casestatement.isdefault
-    	//errorTooManyDefaults()
+    
 
-	// if only one of them
-		//Self.hasDefaults=true
+
 
 
 }
 
 //CaseList:		CaseStatement
 void CaseList_Semantic(int lineno,class CaseListNode* Self, class CaseStatementNode* case){
-    //Self.hasdefault=Case.isdefault
 
 }
 
 
 //CaseStatement:	CaseDec Statements
 void CaseStatement_Semantic(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec, class StatementsNode* statements){
-	//no need to check if Statennts has a break since we are catching it here vacuously    
 
-	// self.isdefault=casedec.isdefault
 }
 
 
 //CaseStatement:	CaseDec 
 void CaseStatement_Semantic(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec){
- 	// self.isdefault=casedec.isdefault   
 
 }
 
 //CaseDec:		CASE NUM COLON
 void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num){
-
+	// if scope case type is byte
+		//errorByteTooLarge(lineno,value);
 }
 
 //CaseDec:		CASE NUM B COLON
@@ -365,7 +381,11 @@ void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num, clas
 
 //CaseDec:		DEFAULT COLON
 void CaseDec_Semantic(int lineno,class CaseDecNode* Self,class Default* default){
-	//Self.isdefault=true
+	// if scope default counter =1
+		//	errorTooManyDefaults(lineno);
+
+	//else
+		// scope default counter =1
 }
 
 //Call:			ID LPAREN ExpList RPAREN
@@ -377,6 +397,9 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 	// if found in as function id, get all possible Type List and comparte to List of ExpList.
 		// if Type lists dont match
 			// errorPrototypeMismatch(lineno,id,types)
+
+	// get retval of func
+	//Self->Type=retval.Type
 
 }
 
@@ -398,8 +421,9 @@ void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp){
 
 //ExpList:		Exp COMMA ExpList
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp, class ExpListNode* rest_of_list){
-	//Self.TypeList=rest_of_list.TypeList
-	//Self.TypeList.insert_to_beggining(exp.Type)
+	//Self.TypeList.pushback_to_beggining(exp.Type)
+	//Self.TypeList.insert(Self->TypeList.end(),rest_of_list->TypeList.begin(),rest_of_list->TypeList.end() );
+	
 }
 
 //Type:			INT
@@ -414,73 +438,94 @@ void Type_Semantic(int lineno,class TypeNode* Self, class Byte* byte_node){
 
 //Type:			BOOL
 void Type_Semantic(int lineno,class TypeNode* Self, class Bool* bool_node){
-	//Self.Type=Error
+	//Self.Type=Bool
 }
 
 
 //Exp:			Exp AND Exp 
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and, class ExpNode* exp2){
-
+	// if exp1 or exp 2 are not bools
+		// errorMismatch(lineno);
+	//else
+		// Self->Type=Bool
 }
 
 //Exp:			Exp OR Exp 
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or, class ExpNode* exp2){
-
+	// if exp1 or exp 2 are not bools
+		// errorMismatch(lineno);
+	//else
+		// Self->Type=Bool
 }
 
 //Exp:			Exp RELOP Exp 
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2){
-
+	// if exp1 or exp 2 are not numeric
+		// errorMismatch(lineno);
+	//else
+		// Self->Type=Bool
 }
 
 //Exp:			Exp BINOP Exp 
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* binop, class ExpNode* exp2){
-
+	// if exp1 or exp 2 are not numeric
+		// errorMismatch(lineno);
+	//else
+		// Self->Type=numeric
 }
 
 //Exp:			LPAREN Exp RPAREN  
 void Exp_Semantic(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp){
-
+	//Self->Type=exp1->Type;
 }
 
 //Exp:			ID 
 void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id){
-
+	// if id->str_content is not in scopeTable,
+		//	errorUndef(lineno,id->str_content);
 }
 
 //Exp:			Call 
 void Exp_Semantic(int lineno,class ExpNode* Self,class CallNode* call){
-
+	//Self->Type=call->Type;
 }
 
 //Exp:			NUM 
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num){
+	//Self->Type=int;
 
 }
 
 //Exp:			NUM B
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
+	// if Num >255 
+		//errorByteTooLarge(lineno,int(Num->str_content)
+	//Self->Type=call->Byte;
 
 }
 
 //Exp:			STRING 
 void Exp_Semantic(int lineno,class ExpNode* Self,class String* string){
-
+	//Self->Type=string;
 }
 
 //Exp:			TRUE 
 void Exp_Semantic(int lineno,class ExpNode* Self,class True* true_val){
+	//Self->Type=Bool;
 
 }
 
 //Exp:			FALSE 
 void Exp_Semantic(int lineno,class ExpNode* Self,class False* false_val){
-
+	//Self->Type=Bool;
 }
 
 //Exp:			NOT Exp 
 void Exp_Semantic(int lineno,class ExpNode* Self,class Not* not , class ExpNode* exp1){
-
+	// if exp1  not bool
+		// errorMismatch(lineno);
+	//else
+		// Self->Type=Bool
 }
 
 
