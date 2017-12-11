@@ -27,6 +27,8 @@ std::string str_of_type(enum type_enum tt){
 		case Bool: return "BOOL"
 		case Unint: throw std::runtime_error("Uninitialized var");
 		default : throw std::runtime_error("bla bla - illegal type ");
+	}
+	return "";
 }
 
 enum id_type{
