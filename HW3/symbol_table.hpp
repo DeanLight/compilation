@@ -85,9 +85,12 @@ class SymbolTable
         //std::unordered_set<var_data> get_func_data(std::string func_id); // TODO REMOVE?
         v_type get_type(std::string id);
 
+        v_type change_retType_for_current_scope(v_type tt);
+
         bool add_var(std::string &var_id, v_type tt);
         bool add_param(std::string &var_id, v_type tt); // gets a negative offset
-//        bool add_func_into_global_scope(std::string &func_name, v_type ret_t,vector<v_type> paramsTypes);
+
+        bool add_func_into_global_scope(std::string &func_name, v_type ret_t, vector<v_type> paramsTypes);
 
         bool enter_new_func_scope(v_type ret_tt);
         bool enter_new_switch_scope(v_type switch_type);
@@ -96,10 +99,10 @@ class SymbolTable
 
         bool exit_scope();
 
-//        bool enter_func_scope(std::vector<v_type> params); // enters the parms with negative offsets
 	private:
         unsigned var_size(v_type tt) { return 1;}; // return size of type
         std::vector<scope_data> all_scopes;
+        bool enter_new_scope(v_type ret_tt, v_type switch_type, bool is_break);
 };
 
 // TODO add break flag and default countta;be

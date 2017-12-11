@@ -3,7 +3,7 @@
 
 SymbolTable::SymbolTable():all_scopes() {
     scope_data globalScope(0,0,Void,Void,false);
-    all_scopes.insert(globalScope);
+    all_scopes.push_back(globalScope);
 }
 bool SymbolTable::exit_scope() {
     all_scopes.pop_back();
@@ -73,8 +73,8 @@ bool SymbolTable::add_var(std::string var_id, v_type tt) {
     int os = currScope.curr_offset;
     currScope.curr_offset += var_size(tt);
     var_data newV (os, false, tt, id);
-    currScope.varSymbT.insert(newV);
-    currScope.variables.insert(currScope.varSymbT[id]);
+    currScope.varSymbT[id] = newV;
+    currScope.variables.push_back(currScope.varSymbT[id]);
     return true;
 }
 
@@ -88,13 +88,57 @@ bool SymbolTable::add_param(std::string &var_id, v_type tt) {
         os = 0;
     os -= var_size(tt);
     var_data newP (os, false, tt, id);
-    currScope.varSymbT.insert(newP);
-    currScope.variables.insert(currScope.varSymbT[id]);
+    currScope.varSymbT[id] = newP;
+    currScope.variables.push_back(currScope.varSymbT[id]);
+    return true;
+}
+
+
+bool SymbolTable::enter_new_scope(v_type ret_tt, v_type switch_type, bool is_break) {
+    auto& last_scope = all_scopes[all_scopes.size()-1];
+    unsigned last_used_offset = last_scope.curr_offset;
+    if (ret_tt == Uninit)
+    {
+        ret_tt = last_scope.ret_type;
+    }
+    if (!is_break)
+    {
+        is_break = last_scope.isBreakable;
+    }
+    scope_data new_s (last_used_offset, ret_tt, switch_type, is_break);
+    all_scopes.push_back(new_s);
     return true;
 }
 
 bool SymbolTable::enter_new_func_scope(v_type ret_tt)
 {
+    return enter_new_scope(ret_tt,Void,false);
+}
+
+bool SymbolTable::enter_new_switch_scope(v_type switch_type) {
+    return enter_new_scope(Uninit,switch_type,true);
+}
+
+bool SymbolTable::enter_new_while_scope() {
+    return enter_new_scope(Unint,Void,true);
+}
+
+bool SymbolTable::enter_new_other_scope() {
+    return enter_new_scope(Uninit,Void,false);
+}
+
+v_type SymbolTable::change_retType_for_current_scope(v_type tt) {
+    auto& curr_scope = all_scopes[all_scopes.size()-1];
+    curr_scope.ret_type = tt;
+    return tt;
+}
+
+bool SymbolTable::add_func_into_global_scope(std::string &func_name, v_type ret_t, vector<v_type> &paramsTypes) {
+    //var_data(int os, bool isF, v_type tt, std::string &str_id)
+
+    var_data func_data (0, true, ret_t, func_name);
+    func_data.params = paramsTypes;
+    all_scopes[0].funcSymbT[func_name] = func_data;
     return true;
 }
 
