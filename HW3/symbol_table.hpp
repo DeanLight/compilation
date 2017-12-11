@@ -87,7 +87,7 @@ class SymbolTable
 
         bool add_var(std::string &var_id, v_type tt);
         bool add_param(std::string &var_id, v_type tt); // gets a negative offset
-//        bool add_func_into_global_scope(std::string &func_name, v_type ret_t,vector<v_type> paramsTypes);
+        bool add_func_into_global_scope(std::string &func_name, v_type ret_t,vector<v_type> paramsTypes);
 
         bool enter_new_func_scope(v_type ret_tt);
         bool enter_new_switch_scope(v_type switch_type);

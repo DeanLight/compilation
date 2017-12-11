@@ -13,8 +13,11 @@ Here we have all the semantic rules that supplement the bison AST generation
 #include "symbol_table.hpp"
 #include "output.hpp"
 
+using std::vector;
+using std::string;
 
-
+typedef enum type_enum v_type;
+typedef std::vector<v_type> types_vec;
 
 /*
 Type of rules we need to generate
@@ -79,13 +82,13 @@ bool glob_containsMain=false;
 // Program: Funcs
 void Program_Semantic(int lineno,class ProgramNode* Self, class FuncsNode* funcs){
     
-	// if Funcs.has_main==FALSE
-	//if( containsMain==false ){
+	//if program doesnt have main
+	if( containsMain==false ){
 		//erorMainMissing()
-	//	errorMainMissing();
-	//}
+		errorMainMissing();
+	}
     // print end of scope
-    //symtab.exit_scope()
+    symtab.exit_scope();
 
 }
 
@@ -105,31 +108,56 @@ void Funcs_Semantic(int lineno,class FuncsNode* Self){
 void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class RetTypeNode* rettype, class Id* id,class FormalsNode* formals, class StatementsNode* statements){
 
 
-	//print end of scope
+	symtab.exit_scope();
 
 }
 
 //FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN 
 void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp){
-	// if main but not void
-		// errorSyn(lineno)
-	// if main with void
-		// if (glob_containsmain==true)
-			// errorSyn(lineno);
-		//glob_containsmain=true; 
+
+
+	if(id->str_content.compare("main")==0){ //if main
+		if(rettype->Type!=Void){ // if not void
+			errorSyn(lineno);
+			exit(1);
+		}else{//retType is void
+
+			if(glob_containsMain==true){ // already another main
+				errorSyn(lineno);
+				exit(1);
+			}else{// first main
+				glob_containsMain=true;
+			}
+
+
+		}
+
+
+	}
+
+
+
 
 	// if such function is in symbol table
 		// errorDef(lineno,id->str_content)
+	if(symtab.is_func(id->str_content)){
+		errorDef(lineno,id->str_content);
+		exit(1);
+	}
 	
 	// add function to symbol table
 
-	// initialize function scope with type of retval
+	symTab.add_func_into_global_scope(id->str_content,rettype->Type,formals->typesvec);
+
+	//TODO change type to current scope
+	
 
 }
 
 //Func_Scope_init:	/*epsilon*/
 void Func_scope_init_Semantic(int lineno){
 	//open function scope
+	symTab.enter_new_func_scope(Uninit);
 }
 
 //FuncState:		LBRACE Statement RBRACE
@@ -143,12 +171,14 @@ void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, 
 //RetType:        Type
 void RetType_Semantic(int lineno,class RetTypeNode* Self, class TypeNode* type){
     // selfType=type.Type
+    Self->Type=type->Type;
 
 }
 
 //RetType:        Void
 void RetType_Semantic(int lineno,class RetTypeNode* Self){
     // Self.Type=Void
+	Self->Type=Void;    
 
 }
 
@@ -156,6 +186,8 @@ void RetType_Semantic(int lineno,class RetTypeNode* Self){
 void Formals_Semantic(int lineno,class FormalsNode* Self, class FormalsListNode* formalsList){
     //Self->typesvec=formalsList->typesvec;
     //Self->idvec=formalsList->idvec;
+    Self->typesvec=formalsList->typesvec;
+    Self->idvec=formalsList->idvec;
 
 }
 
@@ -170,16 +202,17 @@ void Formals_Semantic(int lineno,class FormalsNode* Self){
 void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDeclNode* formalDecl){
     //Self->typesvec.pushback(FormalDecl->Type);
     //Self->idvec.pushback(FormalDecl->str_content);
-
+	Self->typesvec.pushback(FormalDecl->Type);
+    Self->idvec.pushback(FormalDecl->str_content);
 }
 
 //FormalsList:    FormalDecl COMMA FormalsList
 void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDeclNode* formalDecl,class FormalsListNode* rest_of_list){
     // concatenates type and id of formaldecl with rest_of_list
-   // Self->typesvec.pushback(FormalDecl->Type);
-    //Self->idvec.pushback(FormalDecl->str_content);
-    //Self->typesvec.insert(Self->typesvec.end(),rest_of_list->typesvec.begin(),rest_of_list->typesvec.end() );
-    //Self->idvec.insert(Self->idvec.end(),rest_of_list->idvec.begin(),rest_of_list->idvec.end() );
+    Self->typesvec.pushback(FormalDecl->Type);
+    Self->idvec.pushback(FormalDecl->str_content);
+    Self->typesvec.insert(Self->typesvec.end(),rest_of_list->typesvec.begin(),rest_of_list->typesvec.end() );
+    Self->idvec.insert(Self->idvec.end(),rest_of_list->idvec.begin(),rest_of_list->idvec.end() );
 
 }
 
@@ -188,10 +221,18 @@ void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDe
 void FormalDecl_Semantic(int lineno,class FormalDeclNode* Self, class TypeNode* type , class Id* id){
     // if is_id_in_current_scope(id.str_content)
     	//errorDef(lineno,id.str_content)
+
+	if(symTab.is_var_in_curr_scope(id->str_content)){
+		errorDef(lineno,od->str_content);
+		exit(1);
+	}
 	// symboltable.addparam(type->Type,id->str_content);
 
-	//Self->str_content=id->str_content;
-	//Self->Type=type->Type;
+	symTab.add_param(id->str_content,type->Type);
+
+	// inheret type and str_content from sons
+	Self->str_content=id->str_content;
+	Self->Type=type->Type;
 
 }
 
@@ -212,7 +253,7 @@ void Statements_Semantic(int lineno,class StatementsNode* Self,class StatementsN
 void Statement_Semantic(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
 
 
-	// print end of scope
+	symTab.exit_scope();
 
 }
 
@@ -220,9 +261,14 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class Lbrace* lbr,
 void Statement_Semantic(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id){
 	// check scope table if ID has been defined in this scope already
 		// if so errorDef(lineno,id.string)
-		// else add to scope table with Type.type
+	// else add to scope table with Type.type
 
+	if(symTab.is_var_in_curr_scope(id->str_content)){
+		errorDef(lineno,id->str_content);
+		exit(1);
+	}
 
+	symTab.add_var(id->str_content,type->Type);
 
 }
 
