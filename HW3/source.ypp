@@ -43,8 +43,8 @@
 
 
 %left L_ASSOC
-
-
+%token PRIO_REGIF
+%token PRIO_IFELSE
 
 %%
 
@@ -53,7 +53,13 @@ Program:        Funcs
 Funcs:          FuncDecl Funcs
                 | /*epsilon*/
 
-FuncDecl:       RetType ID LPAREN Formals RPAREN LBRACE Statement RBRACE
+FuncDecl:       FuncHead FuncState
+
+FuncHead:		RetType ID LPAREN Formals RPAREN 
+
+FuncState:		LBRACE Statement RBRACE
+
+#TODO split funcdecl to two parts 
 
 RetType:        Type
                 |VOID
@@ -76,8 +82,8 @@ Statement:		LBRACE Statements RBRACE
 				| Call SC
 				| RETURN SC
 				| RETURN Exp SC
-				| IF LPAREN Exp RPAREN Statement
-				| IF LPAREN Exp RPAREN Statement ELSE Statement
+				| IF LPAREN Exp RPAREN Statement %prec PRIO_REGIF
+				| IF LPAREN Exp RPAREN Statement ELSE Statement %prec PRIO_IFELSE
 				| WHILE LPAREN Exp RPAREN Statement
 				| BREAK SC
 				| SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE SC

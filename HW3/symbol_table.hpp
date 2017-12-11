@@ -30,6 +30,14 @@ typedef struct scope_data{
 
     std::vector<const var_data&> variables;
     std::vector<const var_data&> params;
+
+    v_type rewt_type;
+    int defaults_count;
+    bool isBreakable;
+    bool is_scope_breakable();
+    int inc_defaults();// increase the count by one, returns new value
+    v_type get_ret_value()
+
 } scope;
 
 class SymbolTable
@@ -44,7 +52,14 @@ class SymbolTable
         bool add_var(std::string var_id, v_type tt);
         bool add_func(std::string func_name,std::vector<v_type> params, v_type ret_t);
 
-        bool enter_new_scope();
+        bool enter_new_func_scope(v_type tt);
+        bool enter_new_switch_scope();
+        bool enter_new_while_scope();
+        bool enter_new_other_scope();
+
+
+
+
         bool exit_scope();
 
         bool enter_func_scope(std::vector<v_type> params); // enters the parms with negative offsets
@@ -53,5 +68,8 @@ class SymbolTable
         std::vector<scope> all_scopes;
 };
 
+// TODO add break flag and default countta;be
+
 
 #endif //COMPILATION_TMP_SYMBOLTABLE_H
+
