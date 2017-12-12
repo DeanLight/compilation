@@ -8,7 +8,7 @@
 %}
 
 
-%token VOID
+%token VOID 
 %token INT
 %token BYTE
 %token B
@@ -62,7 +62,7 @@ Func_Scope_init: 	/*epsilon*/
 
 FuncState:		LBRACE Statement RBRACE
 
-#TODO split funcdecl to two parts 
+	/* TODO split funcdecl to two parts */ 
 
 RetType:        Type
                 |VOID
@@ -73,7 +73,7 @@ Formals:        FormalsList
 FormalsList:    FormalDecl
 				|FormalDecl COMMA FormalsList
 
-FormalsDecl:	Type ID
+FormalDecl:	Type ID
 
 Statements:		Statement
 				|Statements Statement
@@ -120,11 +120,6 @@ ExpList:		Exp
 Type:			INT
 				| BYTE
 				| BOOL
-
-SecPartExp: 	AND Exp
-				| OR Exp
-				| RELOP Exp
-				| BINOP Exp
 
 Exp:			Exp AND Exp %prec L_ASSOC
 				| Exp OR Exp %prec L_ASSOC

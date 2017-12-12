@@ -1,3 +1,6 @@
+#ifndef COMPILATION_SOURCE_H
+#define COMPILATION_SOURCE_H
+
 
 #include <string>
 #include <vector>
@@ -8,14 +11,14 @@
 using std::vector;
 using std::string;
 
-enum type_enum{
+typedef enum type_enum{
 	Uninit,
 	Void,
 	String,
 	Int,
 	Byte,
 	Bool
-};
+} type_e;
 
 std::string str_of_type(enum type_enum tt){
 	switch(tt)
@@ -24,18 +27,19 @@ std::string str_of_type(enum type_enum tt){
 		case String: return "STRING";
 		case Int: return "INT";
 		case Byte: return "BYTE";
-		case Bool: return "BOOL"
-		case Unint: throw std::runtime_error("Uninitialized var");
+		case Bool: return "BOOL";
+		case Uninit: throw std::runtime_error("Uninitialized var");
 		default : throw std::runtime_error("bla bla - illegal type ");
 	}
 	return "";
 }
 
+/* // is used?
 enum id_type{
 	Uninit,
 	Variable,
 	Func
-};
+};*/
 
 class Node{
 	public:
@@ -43,52 +47,52 @@ class Node{
     vector<Node*> sons;
 	
 	Node(){};
-    string str_content;
+	string str_content;
     int eval(void);
 	void addSon(Node* son)   	{sons.push_back(son);}
+
 };
 
 class ProgramNode: public Node{
 public:
-	bool has_main
-	ProgramNode():has_main(FALSE){};
+	//ProgramNode():{};
 };
 
 class FuncsNode : public Node{
 public:
-	bool has_main
-	ProgramNode():has_main(FALSE){};
+	//ProgramNode(){};
 };
+
+/* // double FuncDeclNode -- was it supposed to be something else?
+class FuncDeclNode : public Node{
+public:
+	//ProgramNode(){};
+};*/
 
 class FuncDeclNode : public Node{
 public:
-	ProgramNode():is_main(FALSE){};
-};
-
-class FuncDeclNode : public Node{
-public:
-	ProgramNode():is_main(FALSE){};
+	//ProgramNode(){}; //default
 };
 
 class FuncHeadNode : public Node{
 public:
-	FuncHeadNode():is_main(FALSE){};
+	//FuncHeadNode(){}; //default
 };
 
 class FuncStateNode : public Node{
 public:
-	FuncStateNode(){};
+	//FuncStateNode(){}; // default
 };
 
 class RetTypeNode : public Node{
 public: 
-	enum type_enum Type;
+	type_e Type;
 	RetTypeNode(): Type(Uninit){};
 };
 
 class FormalsNode : public Node{
 	public:
-	std::vector<enum type_enum> types_vec;
+	std::vector<type_e> types_vec;
 	std::vector<string> idvec;
 	//TODO add constructor that inits types vec to empty vec
 
@@ -96,44 +100,47 @@ class FormalsNode : public Node{
 
 class FormalsListNode : public Node{
 public:
-	std::vector<enum type_enum> typesvec;
+	std::vector<type_e> typesvec;
 	std::vector<string> idvec;
 	//TODO add constructor that inits types vec to empty vec
 };
 
 class FormalDeclNode : public Node{
 public:
-	enum type_enum Type;
+	type_e Type;
 	FormalDeclNode():Type(Uninit){};
 
 };
 
 class StatementsNode : public Node{
 public:
-	StatementsNode():Type(Uninit),has_break(FALSE){};
+//	StatementsNode(){}; // default
 };
 
 class StatementNode : public Node{
 public:
-	StatementNode():Type(Uninit){};	
+	//StatementNode(){}; // default
+};
+
+class SwitchHead_Node : public Node{
+public:
+	//SwitchHead_Node(){}; // default
 };
 
 class CaseListNode : public Node{
 public:
-	bool has_default
-	CaseListNode():has_default(FALSE){};
+
+	//CaseListNode(){};// default
 };
 
 class CaseStatementNode : public Node{
 public:
-	bool is_default
-	CaseStatementNode():has_default(FALSE){};
+	// CaseStatementNode(){};// default
 };
 
 class CaseDecNode : public Node{
 public:
-	bool is_default
-	CaseStatementNode():has_default(FALSE){};
+	// default CaseStatementNode(){}; // default
 };
 
 class CallNode : public Node{
@@ -143,7 +150,9 @@ public:
 };
 
 class ExpListNode : public Node{
+public:
 	std::vector<enum type_enum> typesvec;
+	//TODO initialize empty vector
 };
 
 class TypeNode : public Node{
@@ -158,11 +167,27 @@ public:
 	ExpNode():Type(Uninit){}; 
 };
 
-class Void : public Node{};
-class Int : public Node{};
-class Byte : public Node{};
-class B_Node: public Node{};
-class Bool : public Node{};
+class Void_Node : public Node{};
+class Int_Node : public Node{
+	public:
+		std::string value;
+		Int_Node(const char* txt):value(txt){};
+};
+class Byte_Node : public Node{
+	public:
+		std::string value;
+		Byte_Node(const char* txt):value(txt){};
+};
+class B_Node: public Node{
+	public:
+		std::string value;
+		B_Node(const char* txt):value(txt){};
+};
+class Bool_Node : public Node{
+	public:
+		std::string value;
+		Bool_Node(const char* txt):value(txt){};
+};
 class And : public Node{};
 class Or: public Node{};
 class Not : public Node{};
@@ -178,17 +203,30 @@ class Break : public Node{};
 class Default : public Node{};
 class Colon : public Node{};
 class SC_Node : public Node{};
-class Comma : public Node();
-class Lparen : public Node();
-class Rparen : public Node();
-class Lbrace : public Node();
-class Rbrace : public Node();
-class Assign : public Node();
-class Relop : public Node();
-class Binop : public Node();
-class Comma : public Node();
-class Id : public Node();
-class Num : public Node();
-class String : public Node();
+//class Comma : public Node{}; // defined bellow already
+class Lparen : public Node{};
+class Rparen : public Node{};
+class Lbrace : public Node{};
+class Rbrace : public Node{};
+class Assign : public Node{};
+class Relop : public Node{};
+class Binop : public Node{};
+class Comma : public Node{};
+class Id : public Node{
+	public:
+		std::string value;
+		Id(const char* txt):value(txt){};
+};
+class Num : public Node{
+	public:
+		std::string value;
+		Num(const char* txt):value(txt){};
+};
+class String : public Node{
+	public:
+		std::string value;
+		String(const char* txt):value(txt){};
+};
 
 
+#endif //COMPILATION_SOURCE_H

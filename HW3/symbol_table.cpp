@@ -121,7 +121,7 @@ bool SymbolTable::enter_new_switch_scope(v_type switch_type) {
 }
 
 bool SymbolTable::enter_new_while_scope() {
-    return enter_new_scope(Unint,Void,true);
+    return enter_new_scope(Uninit,Void,true);
 }
 
 bool SymbolTable::enter_new_other_scope() {
@@ -154,3 +154,13 @@ v_type SymbolTable::get_curr_scope_ret_type() const{
 int SymbolTable::increase_curr_scope_defaults() {
     return all_scopes[all_scopes.size()-1].inc_defaults();
 }
+
+int SymbolTable::get_curr_scope_defaults() const {
+    return all_scopes[all_scopes.size()-1].defaults_count;
+}
+
+v_type SymbolTable::get_curr_scope_switch_type() const {
+    return all_scopes[all_scopes.size()-1].case_type;
+}
+
+
