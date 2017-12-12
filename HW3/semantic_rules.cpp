@@ -9,12 +9,14 @@ Here we have all the semantic rules that supplement the bison AST generation
 #include <iostream>
 #include <vector>
 #include <string>
+#include <stdlib>
 #include "source.hpp"
 #include "symbol_table.hpp"
 #include "output.hpp"
 
 using std::vector;
 using std::string;
+using namespace output;
 
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
@@ -122,7 +124,7 @@ void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* r
 			exit(1);
 		}else{//retType is void
 
-			if(glob_containsMain==true){ // already another main
+			if(glob_containsMain){ // already another main
 				errorSyn(lineno);
 				exit(1);
 			}else{// first main
@@ -147,7 +149,7 @@ void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* r
 	
 	// add function to symbol table
 
-	symTab.add_func_into_global_scope(id->str_content,rettype->Type,formals->typesvec);
+	symtab.add_func_into_global_scope(id->str_content,rettype->Type,formals->typesvec);
 
 	//TODO change type to current scope
 	
@@ -157,7 +159,7 @@ void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* r
 //Func_Scope_init:	/*epsilon*/
 void Func_scope_init_Semantic(int lineno){
 	//open function scope
-	symTab.enter_new_func_scope(Uninit);
+	symtab.enter_new_func_scope(Uninit);
 }
 
 //FuncState:		LBRACE Statement RBRACE
@@ -222,13 +224,13 @@ void FormalDecl_Semantic(int lineno,class FormalDeclNode* Self, class TypeNode* 
     // if is_id_in_current_scope(id.str_content)
     	//errorDef(lineno,id.str_content)
 
-	if(symTab.is_var_in_curr_scope(id->str_content)){
+	if(symtab.is_var_in_curr_scope(id->str_content)){
 		errorDef(lineno,od->str_content);
 		exit(1);
 	}
 	// symboltable.addparam(type->Type,id->str_content);
 
-	symTab.add_param(id->str_content,type->Type);
+	symtab.add_param(id->str_content,type->Type);
 
 	// inheret type and str_content from sons
 	Self->str_content=id->str_content;
@@ -253,7 +255,7 @@ void Statements_Semantic(int lineno,class StatementsNode* Self,class StatementsN
 void Statement_Semantic(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
 
 
-	symTab.exit_scope();
+	symtab.exit_scope();
 
 }
 
@@ -263,33 +265,54 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class TypeNode* ty
 		// if so errorDef(lineno,id.string)
 	// else add to scope table with Type.type
 
-	if(symTab.is_var_in_curr_scope(id->str_content)){
+	if(symtab.is_var_in_curr_scope(id->str_content)){
 		errorDef(lineno,id->str_content);
 		exit(1);
 	}
 
-	symTab.add_var(id->str_content,type->Type);
+	symtab.add_var(id->str_content,type->Type);
+
+}
+
+bool legal_type_conversion(v_type from,v_type to){
+
+	if(from==to){
+		return true;
+	}
+	if(from==Byte && to==Int){
+		return true;
+	}
+
+
+	return false;
 
 }
 
 //Statement:		ID ASSIGN Exp SC
-void Statement_Semantic(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-    // check Id exists in acope table
+void Statement_Semantic(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp){
+    // check Id exists in scope table
     	//if not errorUndef(lineno,id)
+	if(symtab.is_func(id->str_content)==0){
+		errorUndef(lineno,id->str_content);
+		exit(1);
+	}
+	const var_data& var=symtab.get_var_data(id->str_content);
 
-	//if id,getType() is int and Exp.Type is Byte, no error
+	// if not legal type conversion, missmatch err
+	if(!legal_type_conversion(exp->Type,var.type)){
+		errorMismatch(lineno);
+	}
 
-	//else if Id.getType() != Exp.Type
-		// errorMismatch(lineno)
 
 
 }
 
 //Statement:		Type ID ASSIGN Exp SC
-void Statement_Semantic(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
+void Statement_Semantic(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id, class Assign* assign, class ExpNode* exp){
     //call routine for Statement:		Type ID SC
+	Statement_Semantic(lineno,Self,type,id);
     //call routine for Statement:		ID ASSIGN Exp SC
-
+	Statement_Semantic(lineno,Self,id,assign,exp);
 }
 
 
@@ -303,60 +326,65 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class CallNode* ca
 
 //Statement:		RETURN SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret){
-	// if getscope rettype is not void
+	// if getscope rettype is not void //TODO i didnt get an API for get current scope data
 		//  errorMismatch(lineno);
 
 }
 
 //Statement:		RETURN Exp SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp){
-    //if getscope.rettype!=Exp.type
+    //if getscope.rettype!=Exp.type //TODO i didnt get an API for get current scope data
 		//  errorMismatch(lineno);    	
 
 }
 
-//Statement:		IF LPAREN Exp RPAREN Scope_init Statement
-void Statement_Semantic(int lineno,class StatementNode* Self, class If* if, class ExpNode* exp, class StatementNode* statement){
-
-	// close scope
+//Statement:		IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse
+void Statement_Semantic(int lineno,class StatementNode* Self, class If* if_ptr, class ExpNode* exp, class StatementNode* statement){
 
 }
 
-//Statement:		IF LPAREN Exp RPAREN Scope_init Statement ELSE Statement
-void Statement_Semantic(int lineno,class StatementNode* Self, class If* if, class ExpNode* exp, class StatementNode* statement1, class Else* else , class StatementNode statement2){
-
-	// close scope
 
 
-}
-
-//Statement:		WHILE LPAREN Exp RPAREN Breakable_Scope_init Statement
-void Statement_Semantic(int lineno,class StatementNode* Self, class While* while, class ExpNode* exp,class StatementsNode* statement, class Rbrace* br){
+//Statement:		WHILE LPAREN BoolExp RPAREN Breakable_Scope_init Statement
+void Statement_Semantic(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementsNode* statement, class Rbrace* br){
 
 
 	// close scope
+	symtab.exit_scope();
 
 }
 
 //Statement:		BREAK SC
-void Statement_Semantic(int lineno,class StatementNode* Self, class Break* break ){
-    // if currscope.isbreakable ==False
+void Statement_Semantic(int lineno,class StatementNode* Self, class Break* break_ptr ){
+    // if currscope.isbreakable ==False //TODO i didnt get an API for get current scope data
     	// errorUnexpectedBreak(lineno);
 
 }
 
 //Statement:		SWITCH LPAREN Exp RPAREN LBRACE Breakable_Scope_init CaseList RBRACE SC
-void Statement_Semantic(int lineno,class StatementNode* Self, class Switch* switch , class ExpNode* exp, class CaseListNode* caselist ){
+void Statement_Semantic(int lineno,class StatementNode* Self, class Switch* switch_ptr , class ExpNode* exp, class CaseListNode* caselist ){
 
 	// close scope
+    symtab.exit_scope();
 
 }
+
+//SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE
+void SwitchHead_Semantic(int lineno, class SwitchHead_Node* Self,class ExpNode* exp ){
+	//open switch scope
+	symtab.enter_new_switch_scope(exp->Type);
+
+}
+
 
 // side effect var
 //	NumExp: 		Exp
 void is_exp_numeric(int lineno, class ExpNode* exp){
 	// if exp is not numeric( int or Byte)
 		// errorMismatch(lineno);
+	if(not (exp->Type==Int || exp->Type==Byte) ){
+		errorMismatch(lineno);
+	}
 }
 
 // side effect var
@@ -364,6 +392,9 @@ void is_exp_numeric(int lineno, class ExpNode* exp){
 void is_exp_bool(int lineno, class ExpNode* exp){
 	// if exp is not numeric( int or Byte)
 		// errorMismatch(lineno);
+	if(not (exp->Type==Bool) ){
+		errorMismatch(lineno);
+	}
 }
 
 
@@ -371,24 +402,30 @@ void is_exp_bool(int lineno, class ExpNode* exp){
 //While_Scope_init:	/*epsilon*/
 void While_Scope_init_Semantic(int lineno){
 	// open while scope
+	symtab.enter_new_while_scope();
 }
 
 
-//Switch_Scope_init:	/*epsilon*/
-void Switch_Scope_init_Semantic(int lineno){
-	// open switch scope
-}
+
 
 //Scope_init:	/*epsilon*/
 void Scope_init_Semantic(int lineno){
 	//open regular scope
+	symtab.enter_new_other_scope();
 }
+
+//Scope_end:	/*epsilon*/
+void Scope_end_Semantic(int lineno){
+	//close  scope
+	symtab.exit_scope();
+}
+
 
 
 
 
 //CaseList:		CaseList CaseStatement
-void CaseList_Semantic(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, class CaseStatementNode* case){
+void CaseList_Semantic(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, class CaseStatementNode* case_ptr){
     
 
 
@@ -397,7 +434,7 @@ void CaseList_Semantic(int lineno,class CaseListNode* Self, class CaseListNode* 
 }
 
 //CaseList:		CaseStatement
-void CaseList_Semantic(int lineno,class CaseListNode* Self, class CaseStatementNode* case){
+void CaseList_Semantic(int lineno,class CaseListNode* Self, class CaseStatementNode* case_ptr){
 
 }
 
@@ -415,7 +452,7 @@ void CaseStatement_Semantic(int lineno,class CaseStatementNode* Self, class Case
 
 //CaseDec:		CASE NUM COLON
 void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num){
-	// if scope case type is byte
+	// if scope case type is byte  // TODO need API to get scope type
 		//errorByteTooLarge(lineno,value);
 }
 
@@ -423,11 +460,15 @@ void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num){
 void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num, class B_Node* b){
 	// if num not legal byte
 		//errorByteTooLarge(lineno,value)
+	if(itoa(num->str_content)>255){
+		errorByteTooLarge(lineno,num->str_content);
+		exit(1);
+	}
 }
 
 //CaseDec:		DEFAULT COLON
-void CaseDec_Semantic(int lineno,class CaseDecNode* Self,class Default* default){
-	// if scope default counter =1
+void CaseDec_Semantic(int lineno,class CaseDecNode* Self,class Default* default_ptr){
+	// if scope default counter =1 //TODO need API to acess scope default counter
 		//	errorTooManyDefaults(lineno);
 
 	//else
@@ -439,29 +480,44 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 	// Look up Id in id table as a fucntion. 
 		//  if not ufnction or doesnt exist
 			//errorUndefFunc(lineno,id)
+	if(symtab.is_func(id->str_content)==0){
+		errorUndefFunc(lineno,id->str_content);
+		exit(1);
+	}
+
+	const var_data& func_dat=symtab.get_func_data(id->str_content);
+	types_vec fun_params=func_dat.params;
+	types_vec actual_params=expList->typesvec;
 
 	// if found in as function id, get all possible Type List and comparte to List of ExpList.
-		// if Type lists dont match
-			// errorPrototypeMismatch(lineno,id,types)
+	// if Type lists dont match
+	// errorPrototypeMismatch(lineno,id,types)
+
+
+	if(actual_params!=fun_params){
+		errorPrototypeMismatch(lineno,id->str_content,fun_params);
+		exit(1);
+	}
 
 	// get retval of func
 	//Self->Type=retval.Type
+	Self->Type=func_dat.type;
+
 
 }
 
 //Call:			ID LPAREN RPAREN
 void Call_Semantic(int lineno,class CallNode* Self, class Id* id){
-	// Look up Id in id table as a fucntion. 
-		//  if not ufnction or doesnt exist
-			//errorUndefFunc(lineno,id)
-	// if found as a function  but does not have an argumentless decleration
-		// errorPrototypeMismatch(lineno,id,types)
-
+	//call semantic for //Call:			ID LPAREN ExpList RPAREN
+	// with empty expList
+	class ExpListNode fake_exp_list=ExpListNode();
+	Call_Semantic(lineno,Self,id,&fake_exp_list);
 }
 
 //ExpList:		Exp
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp){
 	// add Exp Type to Self. TypeList
+	Self->typesvec.pushback(exp->Type);
 
 }
 
@@ -469,76 +525,113 @@ void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp){
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp, class ExpListNode* rest_of_list){
 	//Self.TypeList.pushback_to_beggining(exp.Type)
 	//Self.TypeList.insert(Self->TypeList.end(),rest_of_list->TypeList.begin(),rest_of_list->TypeList.end() );
-	
+	Self->typesvec.pushback(exp->Type);
+	Self->typesvec.insert(Self->typesvec.end(),rest_of_list->typesvec.begin(),rest_of_list->typesvec.end());
+
 }
 
 //Type:			INT
 void Type_Semantic(int lineno,class TypeNode* Self, class Int* int_node){
 	//Self.Type=Int
+	Self->Type=Int;
 }
 
 //Type:			Byte
 void Type_Semantic(int lineno,class TypeNode* Self, class Byte* byte_node){
 	//Self.Type=Byte
+	Self->Type=Byte;
 }
 
 //Type:			BOOL
 void Type_Semantic(int lineno,class TypeNode* Self, class Bool* bool_node){
 	//Self.Type=Bool
+	Self->Type=Bool;
 }
 
 
 //Exp:			Exp AND Exp 
-void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and, class ExpNode* exp2){
+void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2){
 	// if exp1 or exp 2 are not bools
 		// errorMismatch(lineno);
+	if (not(exp1->Type==Bool && exp2->Type==Bool)){
+		errorMismatch(lineno);
+		exit(1);
+	}
 	//else
 		// Self->Type=Bool
+	Self->Type=Bool;
 }
 
 //Exp:			Exp OR Exp 
-void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or, class ExpNode* exp2){
+void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2){
 	// if exp1 or exp 2 are not bools
-		// errorMismatch(lineno);
+	// errorMismatch(lineno);
+	if (not(exp1->Type==Bool && exp2->Type==Bool)){
+		errorMismatch(lineno);
+		exit(1);
+	}
 	//else
-		// Self->Type=Bool
+	// Self->Type=Bool
+	Self->Type=Bool;
 }
 
 //Exp:			Exp RELOP Exp 
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2){
 	// if exp1 or exp 2 are not numeric
-		// errorMismatch(lineno);
+	// errorMismatch(lineno);
+	if (not(exp1->Type==Int || exp1->Type==Byte)||not(exp2->Type==Int || exp2->Type==Byte)){
+		errorMismatch(lineno);
+		exit(1);
+	}
 	//else
-		// Self->Type=Bool
+	// Self->Type=Bool
+	Self->Type=Bool;
 }
 
 //Exp:			Exp BINOP Exp 
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* binop, class ExpNode* exp2){
+
 	// if exp1 or exp 2 are not numeric
-		// errorMismatch(lineno);
+	// errorMismatch(lineno);
+	if (not(exp1->Type==Int || exp1->Type==Byte)||not(exp2->Type==Int || exp2->Type==Byte)){
+		errorMismatch(lineno);
+		exit(1);
+	}
 	//else
-		// Self->Type=numeric
+	// is the largest type of numeric out of exp1 and exp2
+	if(exp1->Type==Int || exp2->Type==Int){
+		Self->Type=Int;
+	}else{
+		Self->Type=Byte;
+	}
 }
 
 //Exp:			LPAREN Exp RPAREN  
 void Exp_Semantic(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp){
 	//Self->Type=exp1->Type;
+	Self->Type=exp1->Type;
 }
 
 //Exp:			ID 
 void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id){
 	// if id->str_content is not in scopeTable,
 		//	errorUndef(lineno,id->str_content);
+	if(!symtab.is_var(id->str_content)){
+		errorUndef(lineno,id->str_content);
+		exit(1);
+	}
 }
 
 //Exp:			Call 
 void Exp_Semantic(int lineno,class ExpNode* Self,class CallNode* call){
 	//Self->Type=call->Type;
+	Self->Type=call->Type;
 }
 
 //Exp:			NUM 
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num){
 	//Self->Type=int;
+	Self->Type=Int;
 
 }
 
@@ -546,32 +639,45 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num){
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
 	// if Num >255 
 		//errorByteTooLarge(lineno,int(Num->str_content)
+	if(itoa(num->str_content)>255){
+		errorByteTooLarge(lineno,num->str_content);
+		exit(1);
+	}
 	//Self->Type=call->Byte;
+	Self->Type=Byte;
 
 }
 
 //Exp:			STRING 
 void Exp_Semantic(int lineno,class ExpNode* Self,class String* string){
 	//Self->Type=string;
+	Self->Type=String;
 }
 
 //Exp:			TRUE 
 void Exp_Semantic(int lineno,class ExpNode* Self,class True* true_val){
 	//Self->Type=Bool;
+	Self->Type=Bool;
 
 }
 
 //Exp:			FALSE 
 void Exp_Semantic(int lineno,class ExpNode* Self,class False* false_val){
 	//Self->Type=Bool;
+	Self->Type=Bool;
 }
 
 //Exp:			NOT Exp 
-void Exp_Semantic(int lineno,class ExpNode* Self,class Not* not , class ExpNode* exp1){
+void Exp_Semantic(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1){
 	// if exp1  not bool
 		// errorMismatch(lineno);
-	//else
+	if(exp1->Type!=Bool){
+		errorMismatch(lineno);
+		exit(1);
+	}
+		//else
 		// Self->Type=Bool
+	Self->Type=Bool;
 }
 
 

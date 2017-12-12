@@ -24,7 +24,7 @@ std::string str_of_type(enum type_enum tt){
 		case String: return "STRING";
 		case Int: return "INT";
 		case Byte: return "BYTE";
-		case Bool: return "BOOL"
+		case Bool: return "BOOL";
 		case Unint: throw std::runtime_error("Uninitialized var");
 		default : throw std::runtime_error("bla bla - illegal type ");
 	}
@@ -50,29 +50,27 @@ class Node{
 
 class ProgramNode: public Node{
 public:
-	bool has_main
-	ProgramNode():has_main(FALSE){};
+	ProgramNode(){};
 };
 
 class FuncsNode : public Node{
 public:
-	bool has_main
-	ProgramNode():has_main(FALSE){};
+	ProgramNode(){};
 };
 
 class FuncDeclNode : public Node{
 public:
-	ProgramNode():is_main(FALSE){};
+	ProgramNode(){};
 };
 
 class FuncDeclNode : public Node{
 public:
-	ProgramNode():is_main(FALSE){};
+	ProgramNode(){};
 };
 
 class FuncHeadNode : public Node{
 public:
-	FuncHeadNode():is_main(FALSE){};
+	FuncHeadNode(){};
 };
 
 class FuncStateNode : public Node{
@@ -110,30 +108,35 @@ public:
 
 class StatementsNode : public Node{
 public:
-	StatementsNode():Type(Uninit),has_break(FALSE){};
+	StatementsNode(){};
 };
 
 class StatementNode : public Node{
 public:
-	StatementNode():Type(Uninit){};	
+	StatementNode(){};
+};
+
+class SwitchHead_Node : public Node{
+public:
+	SwitchHead_Node(){};
 };
 
 class CaseListNode : public Node{
 public:
-	bool has_default
-	CaseListNode():has_default(FALSE){};
+
+	CaseListNode(){};
 };
 
 class CaseStatementNode : public Node{
 public:
-	bool is_default
-	CaseStatementNode():has_default(FALSE){};
+
+	CaseStatementNode(){};
 };
 
 class CaseDecNode : public Node{
 public:
-	bool is_default
-	CaseStatementNode():has_default(FALSE){};
+
+	CaseStatementNode(){};
 };
 
 class CallNode : public Node{
@@ -143,7 +146,9 @@ public:
 };
 
 class ExpListNode : public Node{
+public:
 	std::vector<enum type_enum> typesvec;
+	//TODO initialize empty vector
 };
 
 class TypeNode : public Node{
@@ -178,17 +183,17 @@ class Break : public Node{};
 class Default : public Node{};
 class Colon : public Node{};
 class SC_Node : public Node{};
-class Comma : public Node();
-class Lparen : public Node();
-class Rparen : public Node();
-class Lbrace : public Node();
-class Rbrace : public Node();
-class Assign : public Node();
-class Relop : public Node();
-class Binop : public Node();
-class Comma : public Node();
-class Id : public Node();
-class Num : public Node();
-class String : public Node();
+class Comma : public Node{};
+class Lparen : public Node{};
+class Rparen : public Node{};
+class Lbrace : public Node{};
+class Rbrace : public Node{};
+class Assign : public Node{};
+class Relop : public Node{};
+class Binop : public Node{};
+class Comma : public Node{};
+class Id : public Node{};
+class Num : public Node{};
+class String : public Node{};
 
 
