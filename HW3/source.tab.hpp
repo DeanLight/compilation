@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.0.2.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -45,9 +45,40 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NUM = 258,
-    PLUS = 259,
-    MINUS = 260
+    VOID = 258,
+    INT = 259,
+    BYTE = 260,
+    B = 261,
+    BOOL = 262,
+    TRUE = 263,
+    FALSE = 264,
+    RETURN = 265,
+    IF = 266,
+    ELSE = 267,
+    WHILE = 268,
+    SWITCH = 269,
+    CASE = 270,
+    BREAK = 271,
+    DEFAULT = 272,
+    COLON = 273,
+    SC = 274,
+    COMMA = 275,
+    LPAREN = 276,
+    RPAREN = 277,
+    LBRACE = 278,
+    RBRACE = 279,
+    ASSIGN = 280,
+    RELOP = 281,
+    BINOP = 282,
+    OR = 283,
+    AND = 284,
+    NOT = 285,
+    ID = 286,
+    NUM = 287,
+    STRING = 288,
+    L_ASSOC = 289,
+    PRIO_REGIF = 290,
+    PRIO_IFELSE = 291
   };
 #endif
 

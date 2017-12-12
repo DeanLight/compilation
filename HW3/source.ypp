@@ -5,6 +5,7 @@
     #define YYSTYPE Node*
     int yylex();
     void yyerror(const char*);
+    int yydebug=1; //TODO remove this
 %}
 
 
@@ -13,14 +14,11 @@
 %token BYTE
 %token B
 %token BOOL
-%token AND
-%token OR
-%token NOT
 %token TRUE
 %token FALSE
 %token RETURN
 %token IF
-%token ELSE
+
 %token WHILE
 %token SWITCH
 %token CASE
@@ -34,8 +32,13 @@
 %token LBRACE
 %token RBRACE
 %token ASSIGN
-%token RELOP
-%token BINOP
+
+%left RELOP
+%left BINOP
+%left OR
+%left AND
+%left NOT
+
 %token ID
 %token NUM
 %token STRING
@@ -43,8 +46,9 @@
 
 
 %left L_ASSOC
-%token PRIO_REGIF
-%token PRIO_IFELSE
+%left PRIO_REGIF
+%left ELSE
+%left PRIO_IFELSE
 
 %%
 
@@ -72,7 +76,7 @@ Formals:        FormalsList
 FormalsList:    FormalDecl
 				|FormalDecl COMMA FormalsList
 
-FormalsDecl:	Type ID
+FormalDecl:	Type ID
 
 Statements:		Statement
 				|Statements Statement

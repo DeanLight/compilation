@@ -43,9 +43,10 @@ class Node{
     vector<Node*> sons;
 	
 	Node(){};
-    string str_content;
+	string str_content;
     int eval(void);
 	void addSon(Node* son)   	{sons.push_back(son);}
+
 };
 
 class ProgramNode: public Node{
