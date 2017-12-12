@@ -8,9 +8,7 @@
 
 //#include <stack>
 #include "Source.hpp"
-#include <unordered multimap>
 #include <vector>
-#include <unordered_set>
 #include <unordered_map>
 
 typedef enum type_enum v_type;
@@ -42,7 +40,7 @@ typedef struct scope_data{
     
     bool is_scope_breakable();
     int inc_defaults();// increase the count by one, returns new value
-    v_type get_ret_value()
+    v_type get_ret_value() {return ret_type;};
 
     scope_data(unsigned start_os, v_type ret_tt, v_type case_tt, bool allowBreak):
             start_offset(start_os), curr_offset(start_os),funcs(),variables(),params(),
@@ -75,27 +73,33 @@ class SymbolTable
         SymbolTable();
         ~SymbolTable() = default; // TODO
 
-        bool is_defined(std::string &id); // searches for
-        bool is_func(std::string &id);
-        bool is_var(std::string &id);
-        bool is_var_in_curr_scope(std::string& var_id); // for current scope only (shadowing)
+        bool is_defined(const std::string &id) const; // searches for
+        bool is_func(const tstd::string &id) const;
+        bool is_var(const std::string &id) const;
+        bool is_var_in_curr_scope(const std::string& var_id) const; // for current scope only (shadowing)
 
-        const var_data& get_var_data(std::string &var_id); // throw error if not found
-        const var_data& get_func_data(std::string &var_id); //
+        const var_data& get_var_data(const std::string &var_id) const; // throw error if not found
+        const var_data& get_func_data(const std::string &var_id) const; //
         //std::unordered_set<var_data> get_func_data(std::string func_id); // TODO REMOVE?
-        v_type get_type(std::string id);
+        v_type get_type(const std::string &id) const;
 
         v_type change_retType_for_current_scope(v_type tt);
 
-        bool add_var(std::string &var_id, v_type tt);
-        bool add_param(std::string &var_id, v_type tt); // gets a negative offset
+        bool add_var(const std::string &var_id, v_type tt);
+        bool add_param(const std::string &var_id, v_type tt); // gets a negative offset
 
-        bool add_func_into_global_scope(std::string &func_name, v_type ret_t, vector<v_type> paramsTypes);
+        bool add_func_into_global_scope(const std::string &func_name, v_type ret_t, vector<v_type> paramsTypes);
 
         bool enter_new_func_scope(v_type ret_tt);
         bool enter_new_switch_scope(v_type switch_type);
         bool enter_new_while_scope();
         bool enter_new_other_scope(); // inherits, for ifs and blocks
+
+        bool is_curr_scope_breakable() const;
+        v_type get_curr_scope_ret_type() const;
+        int increase_curr_scope_defaults(); // increases by 1 and returns updated value
+
+
 
         bool exit_scope();
 
@@ -104,9 +108,6 @@ class SymbolTable
         std::vector<scope_data> all_scopes;
         bool enter_new_scope(v_type ret_tt, v_type switch_type, bool is_break);
 };
-
-// TODO add break flag and default countta;be
-
 
 #endif //COMPILATION_TMP_SYMBOLTABLE_H
 
