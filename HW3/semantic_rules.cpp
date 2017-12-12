@@ -59,7 +59,7 @@ All end of scope must call the prinitng fucntions explained in the IO section of
 
 */
 
-// TODO: create break and return stacks
+
 
 // Create main counter
 
@@ -75,7 +75,7 @@ class SymbolTable symtab=SymbolTable();
 
 bool glob_containsMain=false;
 
-//TODO declare global scope in before calling bison
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //semantic functions
@@ -151,7 +151,8 @@ void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* r
 
 	symtab.add_func_into_global_scope(id->str_content,rettype->Type,formals->typesvec);
 
-	//TODO change type to current scope
+	// change type to current scope
+	symtab.change_retType_for_current_scope(rettype->Type);
 	
 
 }
@@ -326,15 +327,23 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class CallNode* ca
 
 //Statement:		RETURN SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret){
-	// if getscope rettype is not void //TODO i didnt get an API for get current scope data
+	// if getscope rettype is not void
 		//  errorMismatch(lineno);
+	if(symtab.get_curr_scope_ret_type()!=Void){
+		errorMismatch(lineno);
+		exit(1);
+	}
 
 }
 
 //Statement:		RETURN Exp SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp){
-    //if getscope.rettype!=Exp.type //TODO i didnt get an API for get current scope data
-		//  errorMismatch(lineno);    	
+    //if getscope.rettype!=Exp.type or theres a legal conversion
+		//  errorMismatch(lineno);
+	if(not legal_type_conversion( exp->Type,symtab.get_curr_scope_ret_type() ) ){
+		errorMismatch(lineno);
+		exit(1);
+	}
 
 }
 
@@ -356,8 +365,12 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class While* while
 
 //Statement:		BREAK SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Break* break_ptr ){
-    // if currscope.isbreakable ==False //TODO i didnt get an API for get current scope data
+    // if currscope.isbreakable ==False
     	// errorUnexpectedBreak(lineno);
+	if(!symtab.is_curr_scope_breakable()){
+		errorUnexpectedBreak(lineno);
+		exit(1);
+	}
 
 }
 
@@ -682,7 +695,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpN
 
 
 
-//TODO if we should have a semantic rule for terminals
+
 
 void Void_Semantic(){
     
