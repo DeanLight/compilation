@@ -75,6 +75,8 @@ class SymbolTable
 {
 	public:
 
+        SymbolTable();
+
         bool is_defined(const std::string &id) const; // searches for
         bool is_func(const std::string &id) const;
         bool is_var(const std::string &id) const;
