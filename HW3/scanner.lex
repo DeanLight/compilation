@@ -1,7 +1,7 @@
 %{
 #include "output.hpp"
 #include "source.hpp"
-#include "source.tab.hpp"
+#include "parser.tab.hpp"
 #include <iostream>
 %}
 
@@ -113,11 +113,11 @@ ass_t {yylval = new Assign();
 {num_t} { yylval = new Num(yytext);
 	return NUM;};
 	
-{string_t} { yylval = new String(yytext);
+{string_t} { yylval = new String_Node(yytext);
 	return STRING;};
 	
 	/* if nothing else - an error!*/
-. {errorLex(yylineno);
+. {output::errorLex(yylineno);
 	exit(1);};
 	/* TODO _ EOF? */
 %%

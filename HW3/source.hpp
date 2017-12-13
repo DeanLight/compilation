@@ -222,10 +222,10 @@ class Num : public Node{
 		std::string value;
 		Num(const char* txt):value(txt){};
 };
-class String : public Node{
+class String_Node : public Node{
 	public:
 		std::string value;
-		String(const char* txt):value(txt){};
+		String_Node(const char* txt):value(txt){};
 };
 
 
