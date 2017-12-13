@@ -149,7 +149,7 @@ void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* r
 	
 	// add function to symbol table
 
-	symtab.add_func_into_global_scope(id->str_content,rettype->Type,formals->typesvec);
+	symtab.add_func_into_global_scope(id->str_content,rettype->Type,formals->types_vec);
 
 	// change type to current scope
 	symtab.change_retType_for_current_scope(rettype->Type);
@@ -189,7 +189,7 @@ void RetType_Semantic(int lineno,class RetTypeNode* Self){
 void Formals_Semantic(int lineno,class FormalsNode* Self, class FormalsListNode* formalsList){
     //Self->typesvec=formalsList->typesvec;
     //Self->idvec=formalsList->idvec;
-    Self->typesvec=formalsList->typesvec;
+    Self->typesvec=formalsList->types_vec;
     Self->idvec=formalsList->idvec;
 
 }
@@ -205,15 +205,15 @@ void Formals_Semantic(int lineno,class FormalsNode* Self){
 void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDeclNode* formalDecl){
     //Self->typesvec.pushback(FormalDecl->Type);
     //Self->idvec.pushback(FormalDecl->str_content);
-	Self->typesvec.pushback(FormalDecl->Type);
-    Self->idvec.pushback(FormalDecl->str_content);
+	Self->typesvec.push_back(FormalDecl->Type);
+    Self->idvec.push_back(FormalDecl->str_content);
 }
 
 //FormalsList:    FormalDecl COMMA FormalsList
 void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDeclNode* formalDecl,class FormalsListNode* rest_of_list){
     // concatenates type and id of formaldecl with rest_of_list
-    Self->typesvec.pushback(FormalDecl->Type);
-    Self->idvec.pushback(FormalDecl->str_content);
+    Self->typesvec.push_back(FormalDecl->Type);
+    Self->idvec.push_back(FormalDecl->str_content);
     Self->typesvec.insert(Self->typesvec.end(),rest_of_list->typesvec.begin(),rest_of_list->typesvec.end() );
     Self->idvec.insert(Self->idvec.end(),rest_of_list->idvec.begin(),rest_of_list->idvec.end() );
 
@@ -226,7 +226,7 @@ void FormalDecl_Semantic(int lineno,class FormalDeclNode* Self, class TypeNode* 
     	//errorDef(lineno,id.str_content)
 
 	if(symtab.is_var_in_curr_scope(id->str_content)){
-		errorDef(lineno,od->str_content);
+		errorDef(lineno,id->str_content);
 		exit(1);
 	}
 	// symboltable.addparam(type->Type,id->str_content);

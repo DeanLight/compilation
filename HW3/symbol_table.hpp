@@ -12,6 +12,7 @@
 //#include <map>
 #include <map>
 #include <algorithm>
+using std::pair;
 
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
@@ -26,16 +27,16 @@ typedef class var_details
         var_details(int os, bool isF, v_type tt, std::string &str_id):
                 offset(os), isFunc(isF),type(tt), id(str_id){};
 } var_data;
-
+typedef std::map<std::string, var_data> var_map;
 // start of scope's offset, and the hash_table for the scope
 typedef struct scope_data{
     unsigned start_offset;// TODO is needed?
     unsigned curr_offset;
-    std::map<std::string, var_data> varSymbT;
-    std::map<std::string, var_data> funcSymbT;
+    var_map varSymbT;
+    var_map funcSymbT;
 
-    std::vector<const var_data&> variables;
-    std::vector<const var_data&> params;
+    std::vector<pair<std::string,int> > variables;
+    std::vector<pair<std::string,int> > params;
     v_type ret_type;
     v_type case_type;
     int defaults_count;
@@ -46,7 +47,8 @@ typedef struct scope_data{
     //v_type get_ret_value() {return ret_type;};
 
     scope_data(unsigned start_os, v_type ret_tt, v_type case_tt, bool allowBreak):
-            start_offset(start_os), curr_offset(start_os),funcs(),variables(),params(),
+            start_offset(start_os), curr_offset(start_os),varSymbT(),funcSymbT(),
+            variables(),params(),
             ret_type(ret_tt), case_type(case_tt), defaults_count(0),
             isBreakable(allowBreak){};
 
@@ -73,11 +75,8 @@ class SymbolTable
 {
 	public:
 
-        SymbolTable();
-        ~SymbolTable() = default; // TODO
-
         bool is_defined(const std::string &id) const; // searches for
-        bool is_func(const tstd::string &id) const;
+        bool is_func(const std::string &id) const;
         bool is_var(const std::string &id) const;
         bool is_var_in_curr_scope(const std::string& var_id) const; // for current scope only (shadowing)
 

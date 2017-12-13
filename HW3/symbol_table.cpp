@@ -11,10 +11,10 @@ bool SymbolTable::exit_scope() {
     return true;
 }
 bool SymbolTable::is_var(const std::string& var_name) const {
-    notFound = true;
+    bool notFound = true;
     for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
     {
-        auto *ith_varT = &((all_scopes[i]).varSymbT);
+        var_map *ith_varT = &((all_scopes[i]).varSymbT);
         notFound = (ith_varT)->find(var_name) == (ith_varT)->end();
     }
     return !notFound;
@@ -38,8 +38,8 @@ bool SymbolTable::is_defined(const std::string &id) const{
 const var_data& SymbolTable::get_var_data(const std::string &var_id) const{
     for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
     {
-        auto *ith_funcT = &((all_scopes[i]).funcSymbT);
-        auto findIter = (ith_funcT)->find(var_name);
+        var_map *ith_funcT = &((all_scopes[i]).funcSymbT);
+        std::map<std::string, var_data>::iterator findIter = (ith_funcT)->find(var_name);
         if (findIter ==(ith_funcT)->end())
         {
             continue;
@@ -75,7 +75,7 @@ bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
     currScope.curr_offset += var_size(tt);
     var_data newV (os, false, tt, var_id);
     currScope.varSymbT[var_id] = newV;
-    currScope.variables.push_back(currScope.varSymbT[var_id]);
+    currScope.variables.push_back(std::make_pair(var_id,currScope.varSymbT[var_id].offset));
     return true;
 }
 
@@ -84,13 +84,13 @@ bool SymbolTable::add_param(const std::string &var_id, v_type tt) {
     auto &currScope = all_scopes[all_scopes.size()-1];
     int os;
     if (currScope.params.empty())
-        os = currScope.params[currScope.params.size()-1].offset;
+        os = currScope.params[currScope.params.size()-1].second;
     else
         os = 0;
     os -= var_size(tt);
     var_data newP (os, false, tt, id);
     currScope.varSymbT[id] = newP;
-    currScope.variables.push_back(currScope.varSymbT[id]);
+    currScope.params.push_back(std::make_pair(var_id,currScope.varSymbT[var_id].offset));
     return true;
 }
 
