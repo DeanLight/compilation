@@ -98,6 +98,8 @@ class SymbolTable
         bool is_curr_scope_breakable() const;
         v_type get_curr_scope_ret_type() const;
         int increase_curr_scope_defaults(); // increases by 1 and returns updated value
+        v_type get_curr_scope_switch_type() const;
+        int get_curr_scope_defaults() const;
 
 
 

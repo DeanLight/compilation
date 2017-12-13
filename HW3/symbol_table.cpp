@@ -154,3 +154,13 @@ v_type SymbolTable::get_curr_scope_ret_type() const{
 int SymbolTable::increase_curr_scope_defaults() {
     return all_scopes[all_scopes.size()-1].inc_defaults();
 }
+
+int SymbolTable::get_curr_scope_defaults() const {
+    return all_scopes[all_scopes.size()-1].defaults_count;
+}
+
+v_type SymbolTable::get_curr_scope_switch_type() const {
+    return all_scopes[all_scopes.size()-1].case_type;
+}
+
+

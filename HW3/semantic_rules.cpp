@@ -465,8 +465,12 @@ void CaseStatement_Semantic(int lineno,class CaseStatementNode* Self, class Case
 
 //CaseDec:		CASE NUM COLON
 void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num){
-	// if scope case type is byte  // TODO need API to get scope type
+	// if scope case type is byte
 		//errorByteTooLarge(lineno,value);
+	if(symtab.get_curr_scope_switch_type()==Byte){
+		errorByteTooLarge(lineno,num->str_content);
+		exit(1);
+	}
 }
 
 //CaseDec:		CASE NUM B COLON
@@ -481,9 +485,14 @@ void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num, clas
 
 //CaseDec:		DEFAULT COLON
 void CaseDec_Semantic(int lineno,class CaseDecNode* Self,class Default* default_ptr){
-	// if scope default counter =1 //TODO need API to acess scope default counter
+	// if scope default counter =1
 		//	errorTooManyDefaults(lineno);
+	if(symtab.get_curr_scope_defaults()>0){
+		errorTooManyDefaults((lineno));
+		exit(1);
+	}
 
+	symtab.increase_curr_scope_defaults();
 	//else
 		// scope default counter =1
 }
