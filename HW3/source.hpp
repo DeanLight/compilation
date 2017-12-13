@@ -20,7 +20,7 @@ typedef enum type_enum{
 	Bool
 } type_e;
 
-std::string str_of_type(enum type_enum tt){
+string str_of_type(enum type_enum tt){
 	switch(tt)
 	{
 		case Void: return "VOID";
@@ -64,10 +64,10 @@ public:
 };
 
 
-class FuncDeclNode : public Node{
-public:
+class FuncDeclNode : public Node {
+	public:
 	//ProgramNode(){}; //default
-
+};
 class FuncHeadNode : public Node{
 public:
 	//FuncHeadNode(){}; //default

@@ -104,7 +104,6 @@ BoolExp:		Exp
 
 While_Scope_init:	/*epsilon*/
 
-Switch_Scope_init:	/*epsilon*/
 
 Scope_init:	/*epsilon*/
 

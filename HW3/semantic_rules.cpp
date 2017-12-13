@@ -9,7 +9,7 @@ Here we have all the semantic rules that supplement the bison AST generation
 #include <iostream>
 #include <vector>
 #include <string>
-#include <stdlib>
+
 #include "source.hpp"
 #include "symbol_table.hpp"
 #include "output.hpp"

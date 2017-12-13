@@ -41,9 +41,9 @@ typedef struct scope_data{
     int defaults_count;
     bool isBreakable;
     
-    bool is_scope_breakable();
-    int inc_defaults();// increase the count by one, returns new value
-    v_type get_ret_value() {return ret_type;};
+    //bool is_scope_breakable();
+    //int inc_defaults();// increase the count by one, returns new value
+    //v_type get_ret_value() {return ret_type;};
 
     scope_data(unsigned start_os, v_type ret_tt, v_type case_tt, bool allowBreak):
             start_offset(start_os), curr_offset(start_os),funcs(),variables(),params(),
