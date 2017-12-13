@@ -9,7 +9,7 @@
 %}
 
 
-%token VOID
+%token VOID 
 %token INT
 %token BYTE
 %token B
@@ -129,11 +129,6 @@ ExpList:		Exp
 Type:			INT
 				| BYTE
 				| BOOL
-
-SecPartExp: 	AND Exp
-				| OR Exp
-				| RELOP Exp
-				| BINOP Exp
 
 Exp:			Exp AND Exp %prec L_ASSOC
 				| Exp OR Exp %prec L_ASSOC

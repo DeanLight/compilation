@@ -7,29 +7,32 @@
 #define COMPILATION_TMP_SYMBOLTABLE_H
 
 //#include <stack>
-#include "Source.hpp"
+#include "source.hpp"
 #include <vector>
-#include <unordered_map>
+//#include <map>
+#include <map>
+#include <algorithm>
 
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
-typedef
-typedef struct var_details{
-    int offset;
-    bool isFunc;
-    v_type type; // serves as ret type for functions
-    std::string id;
-    types_vec params;
-    var_data(int os, bool isF, v_type tt, std::string &str_id):
-            offset(os), isFunc(isF),type(tt), id(str_id){};
+typedef class var_details
+{
+    public:
+        int offset;
+        bool isFunc;
+        v_type type; // serves as ret type for functions
+        std::string id;
+        types_vec params;
+        var_details(int os, bool isF, v_type tt, std::string &str_id):
+                offset(os), isFunc(isF),type(tt), id(str_id){};
 } var_data;
 
 // start of scope's offset, and the hash_table for the scope
 typedef struct scope_data{
     unsigned start_offset;// TODO is needed?
     unsigned curr_offset;
-    std::unordered_map<std::string, var_data> varSymbT;
-    std::unordered_map<std::string, var_data> funcSymbT;
+    std::map<std::string, var_data> varSymbT;
+    std::map<std::string, var_data> funcSymbT;
 
     std::vector<const var_data&> variables;
     std::vector<const var_data&> params;

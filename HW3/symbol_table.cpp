@@ -121,7 +121,7 @@ bool SymbolTable::enter_new_switch_scope(v_type switch_type) {
 }
 
 bool SymbolTable::enter_new_while_scope() {
-    return enter_new_scope(Unint,Void,true);
+    return enter_new_scope(Uninit,Void,true);
 }
 
 bool SymbolTable::enter_new_other_scope() {
