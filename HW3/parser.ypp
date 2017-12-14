@@ -12,7 +12,6 @@
 %token VOID 
 %token INT
 %token BYTE
-%token B
 %token BOOL
 %token TRUE
 %token FALSE
@@ -40,9 +39,9 @@
 %left NOT
 
 %token ID
-%token NUM
+%nonassoc NUM
 %token STRING
-
+%nonassoc B
 
 
 %left L_ASSOC
@@ -60,11 +59,11 @@ Funcs:          FuncDecl Funcs
 
 FuncDecl:       FuncHead FuncState
 
-FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN 
+FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN {std::cout << "[FinFuncHead]";}
 
 Func_Scope_init: 	/*epsilon*/
 
-FuncState:		LBRACE Statement RBRACE
+FuncState:		LBRACE Statements RBRACE
 
 
 RetType:        Type
@@ -78,22 +77,22 @@ FormalsList:    FormalDecl
 
 FormalDecl:	Type ID
 
-Statements:		Statement
-				|Statements Statement
+Statements:		Statement {std::cout << "[State]";}
+				|Statements Statement {std::cout << "[States S]";}
 
 Statement:		LBRACE Scope_init Statements RBRACE
-				| Type ID SC
-				| Type ID ASSIGN Exp SC
+				| Type ID SC {std::cout << "[TypeID_SC]";}
+				| Type ID ASSIGN Exp SC {std::cout << "[TypeIDAssignExpSC]";}
 				| ID ASSIGN Exp SC
 				| Call SC
-				| RETURN SC
+				| RETURN SC {std::cout << "[returnSC]";}
 				| RETURN Exp SC
 				| IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse
 				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement
 				| BREAK SC
-				| SwitchHead CaseList RBRACE SC
+				| SwitchHead CaseList RBRACE SC {std::cout << "[Switch]";}
 
-SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE
+SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE  {std::cout << "[switchHead]";}
 
 PossibleElse:   /*epsilon*/ %prec PRIO_REGIF
                 | ELSE Scope_init Statement Scope_end %prec PRIO_IFELSE
@@ -109,15 +108,15 @@ Scope_init:	/*epsilon*/
 
 Scope_end:	/*epsilon*/
 
-CaseList:		CaseList CaseStatement
-				| CaseStatement
+CaseList:		CaseList CaseStatement {std::cout << "[CaseList CaseState]";}
+				| CaseStatement {std::cout << "[CaseState]";}
 
-CaseStatement:	CaseDec Statements
-				|CaseDec
+CaseStatement:	CaseDec Statements {std::cout << "[CaseDec S]";}
+				|CaseDec {std::cout << "[CaseDec]";}
 
-CaseDec:		CASE NUM COLON
-				| CASE NUM B COLON
-				| DEFAULT COLON
+CaseDec:		CASE NUM COLON {std::cout << "[NumCase]";}
+				| CASE NUM B COLON {std::cout << "[Num_B_Case]";}
+				| DEFAULT COLON {std::cout << "[DefaultCase]";}
 
 Call:			ID LPAREN ExpList RPAREN
 				| ID LPAREN RPAREN
@@ -134,10 +133,10 @@ Exp:			Exp AND Exp %prec L_ASSOC
 				| Exp RELOP Exp %prec L_ASSOC
 				| Exp BINOP Exp %prec L_ASSOC
 				| LPAREN Exp RPAREN 
-				| ID
+				| ID {std::cout << "[ID]";}
 				| Call
-				| NUM
-				| NUM B
+				| NUM {std::cout << "[NUM]";}
+				| NUM B {std::cout << "[NUM B]";}
 				| STRING
 				| TRUE
 				| FALSE
