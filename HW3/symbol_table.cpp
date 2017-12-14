@@ -2,8 +2,8 @@
 #include <exception>
 
 SymbolTable::SymbolTable():all_scopes() {
-    // start_offset, last_offset, ret_type, switch_type, is_breakable
-    scope_data globalScope(0,0,Void,Void,false);
+    // start_offset, ret_type, switch_type, is_breakable
+    scope_data globalScope(0,Void,Void,false);
     all_scopes.push_back(globalScope);
 }
 bool SymbolTable::exit_scope() {
@@ -11,16 +11,17 @@ bool SymbolTable::exit_scope() {
     return true;
 }
 bool SymbolTable::is_var(const std::string& var_name) const {
-    notFound = true;
+    bool notFound = true;
     for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
     {
-        auto *ith_varT = &((all_scopes[i]).varSymbT);
-        notFound = (ith_varT)->find(var_name) == (ith_varT)->end();
+//        var_map *ith_varT = &((all_scopes[scopeLvl]).varSymbT);
+//        notFound = (ith_varT)->find(var_name) == (ith_varT)->end();
+        notFound = all_scopes[scopeLvl].varSymbT.find(var_name) == all_scopes[scopeLvl].varSymbT.end();
     }
     return !notFound;
 }
 bool SymbolTable::is_var_in_curr_scope(const std::string &var_name) const {
-    auto & curr_scope = all_scopes[all_scopes.size()-1];
+    const scope_data &curr_scope = all_scopes[all_scopes.size()-1];
     return curr_scope.varSymbT.find(var_name) != curr_scope.varSymbT.end();
 }
 bool SymbolTable::is_func(const std::string& funcName) const{
@@ -36,67 +37,69 @@ bool SymbolTable::is_defined(const std::string &id) const{
     return is_var(id) || is_func(id);
 }
 const var_data& SymbolTable::get_var_data(const std::string &var_id) const{
-    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
+    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0; scopeLvl--)
     {
-        auto *ith_funcT = &((all_scopes[i]).funcSymbT);
-        auto findIter = (ith_funcT)->find(var_name);
+        const var_map *ith_funcT = &((all_scopes[scopeLvl]).funcSymbT);
+        std::map<std::string, var_data>::const_iterator findIter = (ith_funcT)->find(var_id);
         if (findIter ==(ith_funcT)->end())
         {
             continue;
         }
-        return *(findIter);
+        return (*ith_funcT).find(var_id)->second; // returning the value and not the key
     }
     throw std::runtime_error("Tried to get var_data " + var_id + " which isn't defined");
 }
-const var_data& SymbolTable::get_func_data(const std::string &var_id) const
+const var_data& SymbolTable::get_func_data(const std::string &func_id) const
 {
-    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
-    {
-        auto *ith_varT = &((all_scopes[i]).varSymbT);
-        auto findIter = (ith_varT)->find(var_name);
-        if (findIter ==(ith_varT)->end())
-        {
-            continue;
-        }
-        return *(findIter);
-    }
-    throw std::runtime_error("Tried to get func_data " + var_id + " which isn't defined");
+    return (all_scopes[0].funcSymbT.find(func_id))->second; //returning the value, not the key
+//    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
+//    {
+//        auto *ith_varT = &((all_scopes[i]).varSymbT);
+//        auto findIter = (ith_varT)->find(var_id);
+//        if (findIter ==(ith_varT)->end())
+//        {
+//            continue;
+//        }
+//        return *(findIter);
+//    }
+//    throw std::runtime_error("Tried to get func_data " + var_id + " which isn't defined");
 }
 v_type SymbolTable::get_type(const std::string &id) const{
     if (is_var(id))
         return get_var_data(id).type;
     if (is_func(id))
         return get_func_data(id).type;
-    return Unint; // TODO is that ok? should we throw an error?
+    return Uninit; // TODO is that ok? should we throw an error?
 }
 bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
-    auto &currScope = all_scopes[all_scopes.size()-1];
+    scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os = currScope.curr_offset;
     currScope.curr_offset += var_size(tt);
     var_data newV (os, false, tt, var_id);
+    //currScope.varSymbT[var_id] = newV;
     currScope.varSymbT[var_id] = newV;
-    currScope.variables.push_back(currScope.varSymbT[var_id]);
+    currScope.variables.push_back(std::make_pair(var_id,currScope.varSymbT[var_id].offset));
     return true;
 }
 
 bool SymbolTable::add_param(const std::string &var_id, v_type tt) {
     // this is written to the curr scope which should be the new func's scope
-    auto &currScope = all_scopes[all_scopes.size()-1];
+    scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os;
     if (currScope.params.empty())
-        os = currScope.params[currScope.params.size()-1].offset;
+        os = currScope.params[currScope.params.size()-1].second;
     else
         os = 0;
     os -= var_size(tt);
-    var_data newP (os, false, tt, id);
-    currScope.varSymbT[id] = newP;
-    currScope.variables.push_back(currScope.varSymbT[id]);
+    var_data newP (os, false, tt, var_id);
+    currScope.varSymbT[var_id] = newP;
+    currScope.params.push_back(std::make_pair(var_id,currScope.varSymbT[var_id].offset));
     return true;
 }
 
 
 bool SymbolTable::enter_new_scope(v_type ret_tt, v_type switch_type, bool is_break) {
-    auto& last_scope = all_scopes[all_scopes.size()-1];
+    scope_data &last_scope = all_scopes[all_scopes.size()-1];
     unsigned last_used_offset = last_scope.curr_offset;
     if (ret_tt == Uninit)
     {
@@ -129,7 +132,7 @@ bool SymbolTable::enter_new_other_scope() {
 }
 
 v_type SymbolTable::change_retType_for_current_scope(v_type tt) {
-    auto& curr_scope = all_scopes[all_scopes.size()-1];
+    scope_data &curr_scope = all_scopes[all_scopes.size()-1];
     curr_scope.ret_type = tt;
     return tt;
 }
