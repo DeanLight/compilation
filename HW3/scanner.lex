@@ -3,7 +3,12 @@
 #include "source.hpp"
 #include "parser.tab.hpp"
 #include <iostream>
+
+
+
 %}
+
+%option yylineno
 
 %option noyywrap
 

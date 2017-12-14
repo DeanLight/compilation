@@ -133,7 +133,7 @@ void Funcs_Semantic(int lineno,class FuncsNode* Self){
 }
 
 //FuncDecl:       FuncHead FuncState
-void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class RetTypeNode* rettype, class Id* id,class FormalsNode* formals, class StatementsNode* statements){
+void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode state){
 
 
 	symtab.exit_scope();
@@ -190,7 +190,7 @@ void Func_scope_init_Semantic(int lineno){
 }
 
 //FuncState:		LBRACE Statement RBRACE
-void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, class StatementsNode* statements , class Rbrace* rb){
+void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, class StatementNode* statement , class Rbrace* rb){
 
 
 }
@@ -381,7 +381,7 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class If* if_ptr, 
 
 
 //Statement:		WHILE LPAREN BoolExp RPAREN Breakable_Scope_init Statement
-void Statement_Semantic(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementsNode* statement, class Rbrace* br){
+void Statement_Semantic(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementNode* statement){
 
 
 	// close scope
@@ -400,8 +400,8 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class Break* break
 
 }
 
-//Statement:		SWITCH LPAREN Exp RPAREN LBRACE Breakable_Scope_init CaseList RBRACE SC
-void Statement_Semantic(int lineno,class StatementNode* Self, class Switch* switch_ptr , class ExpNode* exp, class CaseListNode* caselist ){
+//Statement:		SwitchHead CaseList RBRACE SC
+void Statement_Semantic(int lineno,class StatementNode* Self, class SwitchHeadNode* switch_ptr ,  class CaseListNode* caselist ){
 
 	// close scope
     symtab.exit_scope();
@@ -413,6 +413,17 @@ void SwitchHead_Semantic(int lineno, class SwitchHead_Node* Self,class ExpNode* 
 	//open switch scope
 	symtab.enter_new_switch_scope(exp->Type);
 
+}
+
+
+//PossibleElse:   /*epsilon*/
+void PossibleElseSemantic(int lineno, class PossibleElseNode* Self ){
+	
+}
+
+//PossibleElse:   ELSE Scope_init Statement Scope_end
+void PossibleElseSemantic(int lineno, class PossibleElseNode* Self , class StatementNode* state  ){
+	
 }
 
 
