@@ -24,8 +24,26 @@ typedef class var_details
         v_type type; // serves as ret type for functions
         std::string id;
         types_vec params;
-        var_details(int os, bool isF, v_type tt, std::string &str_id):
+        var_details(int os, bool isF, v_type tt,const  std::string &str_id):
                 offset(os), isFunc(isF),type(tt), id(str_id){};
+        //CCtor
+        var_details(const var_details &otherVarDet):
+                offset(otherVarDet.offset),isFunc(otherVarDet.isFunc),
+                type(otherVarDet.type), id(otherVarDet.id){};
+        var_details():offset(-1354),isFunc(false),id("EmptyID"){};
+
+        var_details& operator=(var_details &other)
+        {
+            //against self assignment
+            if(&other == this)
+                return *this;
+            offset = other.offset;
+            isFunc = other.isFunc;
+            type = other.type;
+            id = other.id;
+            params = other.params;
+        }
+
 } var_data;
 typedef std::map<std::string, var_data> var_map;
 // start of scope's offset, and the hash_table for the scope
@@ -62,13 +80,13 @@ typedef struct scope_data{
 //        isBreakable = allowBreak;
 //    };
 
-    bool is_scope_breakable(){return isBreakable;};
+    bool is_scope_breakable() const {return isBreakable;};
     int inc_defaults()
     {
         defaults_count++;
         return defaults_count;
     };// increase the count by one, returns new value
-    v_type get_ret_value() {return ret_type;};
+    v_type get_ret_value() const {return ret_type;};
 } scope;
 
 class SymbolTable
@@ -92,7 +110,7 @@ class SymbolTable
         bool add_var(const std::string &var_id, v_type tt);
         bool add_param(const std::string &var_id, v_type tt); // gets a negative offset
 
-        bool add_func_into_global_scope(const std::string &func_name, v_type ret_t, vector<v_type> paramsTypes);
+        bool add_func_into_global_scope(const std::string &func_name, v_type ret_t, vector<v_type> &paramsTypes);
 
         bool enter_new_func_scope(v_type ret_tt);
         bool enter_new_switch_scope(v_type switch_type);

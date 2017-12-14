@@ -39,19 +39,19 @@ bool SymbolTable::is_defined(const std::string &id) const{
 const var_data& SymbolTable::get_var_data(const std::string &var_id) const{
     for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0; scopeLvl--)
     {
-        var_map *ith_funcT = &((all_scopes[i]).funcSymbT);
-        std::map<std::string, var_data>::iterator findIter = (ith_funcT)->find(var_id);
+        const var_map *ith_funcT = &((all_scopes[scopeLvl]).funcSymbT);
+        std::map<std::string, var_data>::const_iterator findIter = (ith_funcT)->find(var_id);
         if (findIter ==(ith_funcT)->end())
         {
             continue;
         }
-        return (*ith_funcT)[var_id];
+        return (*ith_funcT).find(var_id)->second; // returning the value and not the key
     }
     throw std::runtime_error("Tried to get var_data " + var_id + " which isn't defined");
 }
 const var_data& SymbolTable::get_func_data(const std::string &func_id) const
 {
-    return all_scopes[0].funcSymbT[func_id];
+    return (all_scopes[0].funcSymbT.find(func_id))->second; //returning the value, not the key
 //    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
 //    {
 //        auto *ith_varT = &((all_scopes[i]).varSymbT);
@@ -62,7 +62,7 @@ const var_data& SymbolTable::get_func_data(const std::string &func_id) const
 //        }
 //        return *(findIter);
 //    }
-    throw std::runtime_error("Tried to get func_data " + var_id + " which isn't defined");
+//    throw std::runtime_error("Tried to get func_data " + var_id + " which isn't defined");
 }
 v_type SymbolTable::get_type(const std::string &id) const{
     if (is_var(id))
@@ -76,6 +76,7 @@ bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
     int os = currScope.curr_offset;
     currScope.curr_offset += var_size(tt);
     var_data newV (os, false, tt, var_id);
+    //currScope.varSymbT[var_id] = newV;
     currScope.varSymbT[var_id] = newV;
     currScope.variables.push_back(std::make_pair(var_id,currScope.varSymbT[var_id].offset));
     return true;
@@ -90,8 +91,8 @@ bool SymbolTable::add_param(const std::string &var_id, v_type tt) {
     else
         os = 0;
     os -= var_size(tt);
-    var_data newP (os, false, tt, id);
-    currScope.varSymbT[id] = newP;
+    var_data newP (os, false, tt, var_id);
+    currScope.varSymbT[var_id] = newP;
     currScope.params.push_back(std::make_pair(var_id,currScope.varSymbT[var_id].offset));
     return true;
 }
