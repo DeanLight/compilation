@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #	link to Makefile:
-makefileurl="http://webcourse.cs.technion.ac.il/236360/Spring2017/hw/WCFiles/Makefile"
+makefileurl="http://webcourse.cs.technion.ac.il/236360/Winter2017-2018/hw/WCFiles/Makefile"
 #	link to tests:
-testsurl="http://webcourse.cs.technion.ac.il/236360/Spring2017/hw/WCFiles/hw3-tests.zip"
+testsurl="http://webcourse.cs.technion.ac.il/236360/Winter2017-2018/hw/WCFiles/hw3-tests.zip"
 #	number of tests:
 numtests=2
 #	command to execute test:
@@ -47,7 +47,7 @@ fi
 
 cd "$tmpdir"
 
-wget "$makefileurl" &> /dev/null
+wget --no-check-certificate "$makefileurl" &> /dev/null
 if [ ! -f Makefile ]
 	then
 		echo "Unable to download Makefile!"
@@ -61,7 +61,7 @@ if [[ $? != 0 ]]
 		exit
 fi
 
-wget "$testsurl" &> /dev/null
+wget --no-check-certificate "$testsurl" &> /dev/null
 if [ ! -f Makefile ]
 	then
 		echo "Unable to download tests!"

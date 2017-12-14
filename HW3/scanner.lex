@@ -12,8 +12,8 @@ sc_t ;
 comma_t ,
 lparen_t \(
 rparen_t \)
-lbrace_t \[
-rbrace_t \]
+lbrace_t \{
+rbrace_t \}
 ass_t =
 relop_t (==)|(!=)|(<)|(>)|(<=)|(>=)
 binop_t [\+\-\*/]
@@ -21,6 +21,10 @@ id_t [a-zA-Z]([a-zA-Z0-9])*
 num_t (0)|([1-9]([0-9])*)
 	/* TODO CHECK: */
 string_t \"([^\n\r\"\\]|\\[rnt"\\])+\"
+CR \r
+LF \n
+ENDLINE ((({CR})({LF}))|{CR}|{LF}) 
+WHITESPACE ([ \t])|({ENDLINE})
 
 
 %%
@@ -79,13 +83,13 @@ break {yylval = new Break();
 default {yylval = new Default();
 	return DEFAULT;};
 
-colon_t	{yylval = new Colon();
+{colon_t}	{yylval = new Colon();
 	return COLON;};
 
-sc_t {yylval = new SC_Node();
+{sc_t} {yylval = new SC_Node();
 	return SC;};
 
-comma_t	{yylval = new Comma();
+{comma_t}	{yylval = new Comma();
 	return COMMA;};	
 	
 {lparen_t} {yylval = new Lparen();
@@ -100,7 +104,7 @@ comma_t	{yylval = new Comma();
 {rbrace_t} {yylval = new Rbrace();
 	return RBRACE;};
 	
-ass_t {yylval = new Assign();
+{ass_t} {yylval = new Assign();
 	return ASSIGN;};
 
 {relop_t} {yylval = new Relop();
@@ -118,8 +122,10 @@ ass_t {yylval = new Assign();
 {string_t} { yylval = new String_Node(yytext);
 	return STRING;};
 	
-	/* if nothing else - an error!*/
-. {output::errorLex(yylineno);
+{WHITESPACE}
+
+	/* if nothing else - an error__*/
+. { output::errorLex(yylineno);
 	exit(1);};
 	/* TODO _ EOF? */
 %%
