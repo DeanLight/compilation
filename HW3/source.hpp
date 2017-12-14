@@ -1,6 +1,5 @@
-#ifndef COMPILATION_SOURCE_H
-#define COMPILATION_SOURCE_H
-
+#ifndef COMPILATION_SOURCE_H_HW3
+#define COMPILATION_SOURCE_H_HW3
 
 #include <string>
 #include <vector>

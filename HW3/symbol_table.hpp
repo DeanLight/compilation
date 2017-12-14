@@ -6,10 +6,9 @@
 #ifndef COMPILATION_TMP_SYMBOLTABLE_H
 #define COMPILATION_TMP_SYMBOLTABLE_H
 
-//#include <stack>
+
 #include "source.hpp"
 #include <vector>
-//#include <map>
 #include <map>
 #include <algorithm>
 using std::pair;

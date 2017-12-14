@@ -10,9 +10,8 @@ Here we have all the semantic rules that supplement the bison AST generation
 #include <vector>
 #include <string>
 
-#include "source.hpp"
-#include "symbol_table.hpp"
 #include "output.hpp"
+#include "semantic_rules.hpp"
 
 using std::vector;
 using std::string;
