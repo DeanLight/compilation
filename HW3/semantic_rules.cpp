@@ -77,6 +77,18 @@ bool glob_containsMain=false;
 
 
 
+vector<string>& stringify_type_vec(const types_vec& vec){
+	vector<string>* res = new vector<string>();
+	for( vector<type_e>::const_iterator i=vec.begin();i!=vec.end(); i++){
+		res->push_back(str_of_type(*i));
+	}
+
+	return *res;
+
+}
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //semantic functions
 
@@ -85,7 +97,7 @@ bool glob_containsMain=false;
 void Program_Semantic(int lineno,class ProgramNode* Self, class FuncsNode* funcs){
     
 	//if program doesnt have main
-	if( containsMain==false ){
+	if( glob_containsMain==false ){
 		//erorMainMissing()
 		errorMainMissing();
 	}
@@ -508,16 +520,17 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 	}
 
 	const var_data& func_dat=symtab.get_func_data(id->str_content);
-	types_vec fun_params=func_dat.params;
-	types_vec actual_params=expList->typesvec;
+	types_vec& actual_params=expList->typesvec;
 
 	// if found in as function id, get all possible Type List and comparte to List of ExpList.
 	// if Type lists dont match
 	// errorPrototypeMismatch(lineno,id,types)
 
 
-	if(actual_params!=fun_params){
-		errorPrototypeMismatch(lineno,id->str_content,fun_params);
+	if(actual_params!=func_dat.params){
+		vector<string>& str_vec=stringify_type_vec(func_dat.params);
+		errorPrototypeMismatch(lineno,id->str_content,str_vec);
+		delete &str_vec;
 		exit(1);
 	}
 
@@ -527,6 +540,8 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 
 
 }
+
+
 
 //Call:			ID LPAREN RPAREN
 void Call_Semantic(int lineno,class CallNode* Self, class Id* id){

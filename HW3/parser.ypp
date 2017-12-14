@@ -1,7 +1,7 @@
 %{
     #include <iostream>
     #include "source.hpp"
-    #include "semantic_rules.cpp"
+    #include "semantic_rules.hpp"
     #define YYSTYPE Node*
     int yylex();
     void yyerror(const char*);
