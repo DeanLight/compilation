@@ -76,6 +76,20 @@ bool glob_containsMain=false;
 
 
 
+string str_of_type(enum type_enum tt){
+	switch(tt)
+	{
+		case Void: return "VOID";
+		case String: return "STRING";
+		case Int: return "INT";
+		case Byte: return "BYTE";
+		case Bool: return "BOOL";
+		case Uninit: throw std::runtime_error("Uninitialized var");
+		default : throw std::runtime_error("bla bla - illegal type ");
+	}
+	return "";
+}
+
 vector<string>& stringify_type_vec(const types_vec& vec){
 	vector<string>* res = new vector<string>();
 	for( vector<type_e>::const_iterator i=vec.begin();i!=vec.end(); i++){
@@ -85,6 +99,7 @@ vector<string>& stringify_type_vec(const types_vec& vec){
 	return *res;
 
 }
+
 
 
 

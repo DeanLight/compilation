@@ -5,6 +5,8 @@
 #include <iostream>
 %}
 
+%option noyywrap
+
 colon_t :
 sc_t ;
 comma_t ,

@@ -19,20 +19,6 @@ typedef enum type_enum{
 	Bool
 } type_e;
 
-string str_of_type(enum type_enum tt){
-	switch(tt)
-	{
-		case Void: return "VOID";
-		case String: return "STRING";
-		case Int: return "INT";
-		case Byte: return "BYTE";
-		case Bool: return "BOOL";
-		case Uninit: throw std::runtime_error("Uninitialized var");
-		default : throw std::runtime_error("bla bla - illegal type ");
-	}
-	return "";
-}
-
 /* // is used?
 enum id_type{
 	Uninit,
