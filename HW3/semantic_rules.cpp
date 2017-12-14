@@ -189,7 +189,7 @@ void RetType_Semantic(int lineno,class RetTypeNode* Self){
 void Formals_Semantic(int lineno,class FormalsNode* Self, class FormalsListNode* formalsList){
     //Self->typesvec=formalsList->typesvec;
     //Self->idvec=formalsList->idvec;
-    Self->typesvec=formalsList->types_vec;
+    Self->types_vec=formalsList->typesvec;
     Self->idvec=formalsList->idvec;
 
 }
@@ -205,15 +205,15 @@ void Formals_Semantic(int lineno,class FormalsNode* Self){
 void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDeclNode* formalDecl){
     //Self->typesvec.pushback(FormalDecl->Type);
     //Self->idvec.pushback(FormalDecl->str_content);
-	Self->typesvec.push_back(FormalDecl->Type);
-    Self->idvec.push_back(FormalDecl->str_content);
+	Self->typesvec.push_back(formalDecl->Type);
+    Self->idvec.push_back(formalDecl->str_content);
 }
 
 //FormalsList:    FormalDecl COMMA FormalsList
 void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDeclNode* formalDecl,class FormalsListNode* rest_of_list){
     // concatenates type and id of formaldecl with rest_of_list
-    Self->typesvec.push_back(FormalDecl->Type);
-    Self->idvec.push_back(FormalDecl->str_content);
+    Self->typesvec.push_back(formalDecl->Type);
+    Self->idvec.push_back(formalDecl->str_content);
     Self->typesvec.insert(Self->typesvec.end(),rest_of_list->typesvec.begin(),rest_of_list->typesvec.end() );
     Self->idvec.insert(Self->idvec.end(),rest_of_list->idvec.begin(),rest_of_list->idvec.end() );
 
@@ -477,7 +477,7 @@ void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num){
 void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num, class B_Node* b){
 	// if num not legal byte
 		//errorByteTooLarge(lineno,value)
-	if(itoa(num->str_content)>255){
+	if(std::atoi(num->str_content.c_str())>255){
 		errorByteTooLarge(lineno,num->str_content);
 		exit(1);
 	}
@@ -539,7 +539,7 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id){
 //ExpList:		Exp
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp){
 	// add Exp Type to Self. TypeList
-	Self->typesvec.pushback(exp->Type);
+	Self->typesvec.push_back(exp->Type);
 
 }
 
@@ -547,7 +547,7 @@ void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp){
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp, class ExpListNode* rest_of_list){
 	//Self.TypeList.pushback_to_beggining(exp.Type)
 	//Self.TypeList.insert(Self->TypeList.end(),rest_of_list->TypeList.begin(),rest_of_list->TypeList.end() );
-	Self->typesvec.pushback(exp->Type);
+	Self->typesvec.push_back(exp->Type);
 	Self->typesvec.insert(Self->typesvec.end(),rest_of_list->typesvec.begin(),rest_of_list->typesvec.end());
 
 }
@@ -661,7 +661,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num){
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
 	// if Num >255 
 		//errorByteTooLarge(lineno,int(Num->str_content)
-	if(itoa(num->str_content)>255){
+	if(std::atoi(num->str_content.c_str())>255){
 		errorByteTooLarge(lineno,num->str_content);
 		exit(1);
 	}
@@ -785,10 +785,10 @@ void Colon_Semantic(){
 void SC_Node_Semantic(){
     
 }
-
-void Comma_Semantic(){
-    
-}
+//
+//void Comma_Semantic(){
+//
+//}
 
 void Lparen_Semantic(){
     
