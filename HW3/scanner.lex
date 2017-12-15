@@ -103,6 +103,7 @@ default {yylval = new Default();
 	return DEFAULT;};
 
 {colon_t}	{yylval = new Colon();
+	printf(":__"); // TODO REMOVE
 	return COLON;};
 
 {sc_t} {yylval = new SC_Node();
@@ -130,12 +131,15 @@ default {yylval = new Default();
 	return RBRACE;};
 	
 {ass_t} {yylval = new Assign();
+	printf("=__"); // TODO REMOVE
 	return ASSIGN;};
 
 {relop_t} {yylval = new Relop();
+	printf("RelOp__"); // TODO REMOVE
 	return RELOP;};
 	
 {binop_t} {yylval = new Binop();
+	printf("BinOp__"); // TODO REMOVE
 	return BINOP;};
 
 {id_t} {yylval = new Id(yytext);
