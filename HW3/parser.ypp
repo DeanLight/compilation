@@ -59,7 +59,7 @@ Funcs:          FuncDecl Funcs
 
 FuncDecl:       FuncHead FuncState
 
-FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN {std::cout << "[FinFuncHead]";}
+FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN
 
 Func_Scope_init: 	/*epsilon*/
 
@@ -77,22 +77,22 @@ FormalsList:    FormalDecl
 
 FormalDecl:	Type ID
 
-Statements:		Statement {std::cout << "[State]";}
-				|Statements Statement {std::cout << "[States S]";}
+Statements:		Statement
+				|Statements Statement
 
 Statement:		LBRACE Scope_init Statements RBRACE
-				| Type ID SC {std::cout << "[TypeID_SC]";}
-				| Type ID ASSIGN Exp SC {std::cout << "[TypeIDAssignExpSC]";}
+				| Type ID SC
+				| Type ID ASSIGN Exp SC
 				| ID ASSIGN Exp SC
 				| Call SC
-				| RETURN SC {std::cout << "[returnSC]";}
+				| RETURN SC
 				| RETURN Exp SC
 				| IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse
 				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement
 				| BREAK SC
-				| SwitchHead CaseList RBRACE SC {std::cout << "[Switch]";}
+				| SwitchHead CaseList RBRACE SC
 
-SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE  {std::cout << "[switchHead]";}
+SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE
 
 PossibleElse:   /*epsilon*/ %prec PRIO_REGIF
                 | ELSE Scope_init Statement Scope_end %prec PRIO_IFELSE
@@ -108,15 +108,15 @@ Scope_init:	/*epsilon*/
 
 Scope_end:	/*epsilon*/
 
-CaseList:		CaseList CaseStatement {std::cout << "[CaseList CaseState]";}
-				| CaseStatement {std::cout << "[CaseState]";}
+CaseList:		CaseList CaseStatement
+				| CaseStatement
 
-CaseStatement:	CaseDec Statements {std::cout << "[CaseDec S]";}
-				|CaseDec {std::cout << "[CaseDec]";}
+CaseStatement:	CaseDec Statements
+				|CaseDec
 
-CaseDec:		CASE NUM COLON {std::cout << "[NumCase]";}
-				| CASE NUM B COLON {std::cout << "[Num_B_Case]";}
-				| DEFAULT COLON {std::cout << "[DefaultCase]";}
+CaseDec:		CASE NUM COLON
+				| CASE NUM B COLON
+				| DEFAULT COLON
 
 Call:			ID LPAREN ExpList RPAREN
 				| ID LPAREN RPAREN
@@ -135,8 +135,8 @@ Exp:			Exp AND Exp %prec L_ASSOC
 				| LPAREN Exp RPAREN 
 				| ID {std::cout << "[ID]";}
 				| Call
-				| NUM {std::cout << "[NUM]";}
-				| NUM B {std::cout << "[NUM B]";}
+				| NUM
+				| NUM B
 				| STRING
 				| TRUE
 				| FALSE
