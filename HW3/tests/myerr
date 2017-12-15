@@ -1,0 +1,20 @@
+Lex Ate token int__
+Lex Ate token  id__f__
+Lex Ate token  (__
+Lex Ate token int__
+Lex Ate token  id__x__
+<<FormalDecl_Semantic: id[x]>>
+Lex Ate token )__
+<<FormalsSem>><<FuncHead_semantic, id:[f]>>
+Lex Ate token  {__
+Lex Ate token return__
+Lex Ate token  id__x__
+Lex Ate token  BinOp__*__
+<<[Exp_Semantic_Id]>>
+Lex Ate token  id__x__
+Lex Ate token  ;__
+<<[Exp_Semantic_Id]>>
+<<RetExp, ExpT:[3] scopeT:[3]>>
+Lex Ate token  }__
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  bla bla - illegal type 

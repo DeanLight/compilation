@@ -212,55 +212,60 @@ string str_off_type(enum type_enum tt){
         case Byte: return "BYTE";
         case Bool: return "BOOL";
         case Uninit: throw std::runtime_error("Uninitialized var");
-        default : throw std::runtime_error("bla bla - illegal type ");
+        default : throw std::runtime_error("bla bla bla - illegal type ");
     }
     return "";
 }
 
+
+vector<string>& stringify_type_vec2(const types_vec& vec){
+    vector<string>* res = new vector<string>();
+    for( vector<type_e>::const_iterator i=vec.begin();i!=vec.end(); i++){
+        res->push_back(str_off_type(*i));
+    }
+
+    return *res;
+
+}
+
 void scope::print_scope(){
-    output::endScope(); //TODO print here correctly
+    output::endScope();
     // for every param
-    for( vector< pair<string,int> >::iterator it = params.begin() ; it!= params.end() ; ++it ){
+    if(not(params.empty())){
+        for( vector< pair<string,int> >::iterator it = params.begin() ; it!= params.end() ; ++it ){
+            //output::printID(id,offset,type) // should be negative since params
+            v_type var_type=varSymbT[it->first].type;
 
-        //output::printID(id,offset,type) // should be negative since params
+            if(varSymbT[it->first].id=="EmptyID"){// end of iterator trash
+                break;
+            }
 
 
-        v_type var_type=varSymbT[it->first].type;
-        string type_string=str_off_type(var_type);
-        output::printID(it->first,it->second,type_string);
+
+            string type_string=str_off_type(var_type);
+            output::printID(it->first,it->second,type_string);
+
+        }
+    }
+
+    if(not(variables.empty())){
+        for( vector< pair<string,int> >::iterator it = variables.begin() ; it!= params.end() ; ++it ) {
+            bool is_func = false;
+            var_data *vardat = &varSymbT[it->first];
+            if(vardat->id=="EmptyID"){// end of iterator trash
+                break;
+            }
+
+            if (vardat->isFunc) {
+                output::printID(it->first, 0, output::makeFunctionType(str_off_type(vardat->type),
+                                                                       stringify_type_vec2(vardat->params)));
+            } else {
+                output::printID(it->first, it->second, str_off_type(vardat->type));
+            }
+        }
 
     }
 
-    for( vector< pair<string,int> >::iterator it = variables.begin() ; it!= params.end() ; ++it ){
-        bool is_func=false;
-        var_data* vardat;
-
-
-        if(varSymbT.count(it->first)==1){
-            vardat=&varSymbT[it->first];
-        }
-//        else if(funcSymbT.count(it->first)==1){ // TODO REVERT BACK
-//            is_func=true;
-//            vardat=&funcSymbT[it->first];
-//        }else{
-//            // should reach here since all variables must be in
-//            throw();
-//        }
-
-        if(is_func){
-
-
-            //output::printID(it->first,0,); TODO REVERT BACK
-        }
-
-
-
-    }
-    // for every variable or func id
-    //if variable
-    //output::printID(id,offset,type)
-    // if function
-    //output::printID(id,0,output::makeFunctionType(func_type,param_types))
 
 
 }

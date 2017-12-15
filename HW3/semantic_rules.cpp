@@ -324,6 +324,7 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class Id* id, clas
 	// if not legal type conversion, missmatch err
 	if(!legal_type_conversion(exp->Type,var.type)){
 		errorMismatch(lineno);
+        exit(1);
 	}
 }
 

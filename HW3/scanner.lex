@@ -9,6 +9,7 @@
 
 %}
 
+%option yylineno
 %option noyywrap
 
 colon_t :
