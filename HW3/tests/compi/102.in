@@ -9,7 +9,7 @@ printi(50);
 	bool y = false;
 	byte semek;
 	semek = 252b + 5b;
-	//hereeah
+
 	int z;
 	z=3;
 	if (x) {
@@ -21,23 +21,23 @@ printi(50);
 		byte big;
 	byte big;
 	while (y) {int sc1=5;}
-	while (false) {bool sc1;}  // the cake is a lie :(
+	while (false) {bool sc1;} 
 	if (big > z) 
-		print("hello!");//1
+		print("hello!");
 	else {
 		print("not hello");
 		z=8+2*(2+5);
 		int sc1=2+4+1+1+1+1444+f(5)+f(big);
 		bool sc2=false;
-		while(sc2) sc1=big+big;//2
+		while(sc2) sc1=big+big;
 		while(sc2 or x) {
 			bool sc3;
 			switch(z) {
 				case 4:
 				case 8b: break;
-				case 45: {break; printi(50);}//3
+				case 45: {break; printi(50);}
 				default: main();
-			};//4
+			};
 		}
 	}
 }

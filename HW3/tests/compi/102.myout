@@ -1,3 +1,16 @@
 ---end scope---
 x INT -1
-syntax error
+---end scope---
+---end scope---
+---end scope---
+---end scope---
+big BYTE 4
+---end scope---
+sc1 INT 5
+---end scope---
+---end scope---
+sc1 BOOL 5
+---end scope---
+---end scope---
+---end scope---
+---end scope---

@@ -530,6 +530,23 @@ void CaseDec_Semantic(int lineno,class CaseDecNode* Self,class Default* default_
 		// scope default counter =1
 }
 
+bool are_params_convertible(const types_vec& from ,const  types_vec& to){
+    if(from.size()!=to.size()){
+        return false;
+    }
+
+    for (int i=0; i<from.size() ;++i){
+        if (legal_type_conversion(from[i],to[i])==false ){
+            return false;
+        }
+
+    }
+
+    return true;
+
+
+}
+
 //Call:			ID LPAREN ExpList RPAREN
 void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListNode* expList){
 #ifdef PARSEDEBUG
@@ -556,7 +573,7 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 	// if Type lists dont match
 	// errorPrototypeMismatch(lineno,id,types)
 
-	if(actual_params!=func_dat.params){
+	if(are_params_convertible(actual_params,func_dat.params) == false  ){
 		vector<string>& str_vec=stringify_type_vec(func_dat.params);
 #ifdef PARSEDEBUG
         //TODO REMOVE:
