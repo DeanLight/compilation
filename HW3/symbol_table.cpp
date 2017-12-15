@@ -249,7 +249,7 @@ void scope::print_scope(){
     }
 
     if(not(variables.empty())){
-        for( vector< pair<string,int> >::iterator it = variables.begin() ; it!= params.end() ; ++it ) {
+        for( vector< pair<string,int> >::iterator it = variables.begin() ; it!= variables.end() ; ++it ) {
             bool is_func = false;
             var_data *vardat = &varSymbT[it->first];
             if(vardat->id=="EmptyID"){// end of iterator trash

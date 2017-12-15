@@ -550,7 +550,7 @@ bool are_params_convertible(const types_vec& from ,const  types_vec& to){
 //Call:			ID LPAREN ExpList RPAREN
 void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListNode* expList){
 #ifdef PARSEDEBUG
-    cerr << "<<CallSemantics! id[" << id->str_content << "] type0:[" << expList->typesvec[0] <<"]>>"; // TODO REMOVE
+//    cerr << "<<CallSemantics! id[" << id->str_content << "] type0:[" << expList->typesvec[0] <<"]>>"; // TODO REMOVE
 #endif
 
 
@@ -564,11 +564,14 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 
 	const var_data& func_dat=symtab.get_func_data(id->str_content);
     // TOOD REMOVE:
+#ifdef PARSEDEBUG
     cerr << "tmpParams: " << func_dat.params.size() << endl;
+#endif
 	types_vec& actual_params=expList->typesvec;
+#ifdef PARSEDEBUG
     cerr << "tmpActP: " << actual_params.size() << endl;
-        cerr << "tmptmp: " << symtab.get_func_data("print").params.size() << endl;
-
+    cerr << "tmptmp: " << symtab.get_func_data("print").params.size() << endl;
+#endif
 	// if found in as function id, get all possible Type List and comparte to List of ExpList.
 	// if Type lists dont match
 	// errorPrototypeMismatch(lineno,id,types)
