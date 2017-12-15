@@ -32,6 +32,7 @@ class Node{
     vector<Node*> sons;
 	
 	Node(){};
+    Node(std::string txt):str_content(txt){;}; //
 	string str_content;
     int eval(void);
 	void addSon(Node* son)   	{sons.push_back(son);}
@@ -87,7 +88,8 @@ public:
 class FormalDeclNode : public Node{
 public:
 	type_e Type;
-	FormalDeclNode():Type(Uninit){};
+	//FormalDeclNode(std::string txt):Node(txt),Type(Uninit){};
+    FormalDeclNode():Type(Uninit){}; // for now TODO
 
 };
 
@@ -201,17 +203,17 @@ class Comma : public Node{};
 class Id : public Node{
 	public:
 		std::string value;
-		Id(const char* txt):value(txt){};
+		Id(const char* txt):Node(txt),value(txt){};
 };
 class Num : public Node{
 	public:
 		std::string value;
-		Num(const char* txt):value(txt){};
+		Num(const char* txt):Node(txt),value(txt){}; // TODO - there a double fields
 };
 class String_Node : public Node{
 	public:
 		std::string value;
-		String_Node(const char* txt):value(txt){};
+		String_Node(const char* txt):Node(txt),value(txt){};
 };
 
 

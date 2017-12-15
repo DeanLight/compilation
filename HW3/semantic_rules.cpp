@@ -139,7 +139,7 @@ void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class FuncHeadNode* 
 //FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN 
 void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp){
 
-
+//    cout << "<<FuncHead_semantic, id:[" << id->str_content << "]>>"; // TODO REMOVE
 	if(id->str_content.compare("main")==0){ //if main
 		if(rettype->Type!=Void){ // if not void
 			errorSyn(lineno);
@@ -152,43 +152,31 @@ void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* r
 			}else{// first main
 				glob_containsMain=true;
 			}
-
-
 		}
-
-
 	}
-
-
-
-
 	// if such function is in symbol table
 		// errorDef(lineno,id->str_content)
 	if(symtab.is_func(id->str_content)){
 		errorDef(lineno,id->str_content);
 		exit(1);
 	}
-	
 	// add function to symbol table
-
 	symtab.add_func_into_global_scope(id->str_content,rettype->Type,formals->types_vec);
 
 	// change type to current scope
 	symtab.change_retType_for_current_scope(rettype->Type);
-	
-
 }
 
 //Func_Scope_init:	/*epsilon*/
 void Func_scope_init_Semantic(int lineno){
 	//open function scope
 	symtab.enter_new_func_scope(Uninit);
+    
 }
 
 //FuncState:		LBRACE Statement RBRACE
 void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, class StatementNode* statement , class Rbrace* rb){
-
-
+    // TODO - does it need to open a new scope?
 }
 
 
@@ -211,9 +199,10 @@ void RetType_Semantic(int lineno,class RetTypeNode* Self){
 void Formals_Semantic(int lineno,class FormalsNode* Self, class FormalsListNode* formalsList){
     //Self->typesvec=formalsList->typesvec;
     //Self->idvec=formalsList->idvec;
+    cout << "<<FormalsSem>>"; // TODO REMOVE
     Self->types_vec=formalsList->typesvec;
     Self->idvec=formalsList->idvec;
-
+    cout << "<<End_FormalsSem>>"; // TODO REMOVE
 }
 
 //Formals:        epsilon
@@ -228,7 +217,7 @@ void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDe
     //Self->typesvec.pushback(FormalDecl->Type);
     //Self->idvec.pushback(FormalDecl->str_content);
 	Self->typesvec.push_back(formalDecl->Type);
-    Self->idvec.push_back(formalDecl->str_content);
+    Self->idvec.push_back(formalDecl->str_content); //
 }
 
 //FormalsList:    FormalDecl COMMA FormalsList
@@ -246,7 +235,7 @@ void FormalsList_Semantic(int lineno,class FormalsListNode* Self, class FormalDe
 void FormalDecl_Semantic(int lineno,class FormalDeclNode* Self, class TypeNode* type , class Id* id){
     // if is_id_in_current_scope(id.str_content)
     	//errorDef(lineno,id.str_content)
-
+    std::cout << "<<FormalDecl_Semantic: id[" << id->str_content << "]>>"; // TODO REMOVE
 	if(symtab.is_var_in_curr_scope(id->str_content)){
 		errorDef(lineno,id->str_content);
 		exit(1);
@@ -258,7 +247,7 @@ void FormalDecl_Semantic(int lineno,class FormalDeclNode* Self, class TypeNode* 
 	// inheret type and str_content from sons
 	Self->str_content=id->str_content;
 	Self->Type=type->Type;
-
+    cout << "<<end FormalDecl_Semantic>>";
 }
 
 //Statements:		Statement
@@ -287,47 +276,41 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class TypeNode* ty
 	// check scope table if ID has been defined in this scope already
 		// if so errorDef(lineno,id.string)
 	// else add to scope table with Type.type
-
+    cout << "<<[Statement_Semantic][TypeID_SC] id:[" << id->str_content << "]type:["<<type->str_content << "]>>"; // TODO REMOVE
 	if(symtab.is_var_in_curr_scope(id->str_content)){
 		errorDef(lineno,id->str_content);
 		exit(1);
 	}
 
 	symtab.add_var(id->str_content,type->Type);
-
+    cout << "<<END [Statement_Semantic][TyeID_SC] >>";
 }
 
 bool legal_type_conversion(v_type from,v_type to){
-
 	if(from==to){
 		return true;
 	}
 	if(from==Byte && to==Int){
 		return true;
 	}
-
-
 	return false;
-
 }
 
 //Statement:		ID ASSIGN Exp SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp){
     // check Id exists in scope table
+    cout << "<<Statement_Semantic with id[" << id->str_content <<"]=exp>>"; // TODO REMOVE
     	//if not errorUndef(lineno,id)
-	if(symtab.is_func(id->str_content)==0){
+	//if(symtab.is_func(id->str_content)==0){ // FIX unless I'm really wrong, you mean to check a var
+    if(symtab.is_var(id->str_content)==0){
 		errorUndef(lineno,id->str_content);
 		exit(1);
 	}
 	const var_data& var=symtab.get_var_data(id->str_content);
-
 	// if not legal type conversion, missmatch err
 	if(!legal_type_conversion(exp->Type,var.type)){
 		errorMismatch(lineno);
 	}
-
-
-
 }
 
 //Statement:		Type ID ASSIGN Exp SC
@@ -344,7 +327,6 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class TypeNode* ty
 //Statement:		Call SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class CallNode* call){
     //no semantic checks to do
-
 }
 
 //Statement:		RETURN SC
@@ -355,18 +337,18 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret)
 		errorMismatch(lineno);
 		exit(1);
 	}
-
 }
 
 //Statement:		RETURN Exp SC
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp){
     //if getscope.rettype!=Exp.type or theres a legal conversion
 		//  errorMismatch(lineno);
+    cout << "<<RetExp, ExpT:[" << exp->Type << "] scopeT:[" << symtab.get_curr_scope_ret_type() << "]>>"; // TODO REMOVE
 	if(not legal_type_conversion( exp->Type,symtab.get_curr_scope_ret_type() ) ){
 		errorMismatch(lineno);
 		exit(1);
 	}
-
+    cout << "<<EndRetExp>>"; // TODO REMOVE
 }
 
 //Statement:		IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse
@@ -458,6 +440,7 @@ void While_Scope_init_Semantic(int lineno){
 void Scope_init_Semantic(int lineno){
 	//open regular scope
 	symtab.enter_new_other_scope();
+    
 }
 
 //Scope_end:	/*epsilon*/
@@ -532,6 +515,7 @@ void CaseDec_Semantic(int lineno,class CaseDecNode* Self,class Default* default_
 
 //Call:			ID LPAREN ExpList RPAREN
 void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListNode* expList){
+    cout << "<<CallSemantics! id[" << id->str_content << "] type0:[" << expList->typesvec[0] <<"]>>"; // TODO REMOVE
 	// Look up Id in id table as a fucntion. 
 		//  if not ufnction or doesnt exist
 			//errorUndefFunc(lineno,id)
@@ -541,15 +525,29 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 	}
 
 	const var_data& func_dat=symtab.get_func_data(id->str_content);
+    // TOOD REMOVE:
+    cout << "tmpParams: " << func_dat.params.size() << endl;
 	types_vec& actual_params=expList->typesvec;
+    cout << "tmpActP: " << actual_params.size() << endl;
+        cout << "tmptmp: " << symtab.get_func_data("print").params.size() << endl;
 
 	// if found in as function id, get all possible Type List and comparte to List of ExpList.
 	// if Type lists dont match
 	// errorPrototypeMismatch(lineno,id,types)
 
-
 	if(actual_params!=func_dat.params){
 		vector<string>& str_vec=stringify_type_vec(func_dat.params);
+        //TODO REMOVE:
+        cout << "func params:" << endl;
+        for (int i=0; i<func_dat.params.size(); i++)
+        {
+            cout << func_dat.params[i] << ",";
+        }
+        cout << "actual params:" << endl;
+        for (int i=0; i<actual_params.size(); i++)
+        {
+            cout << actual_params[i] << ",";
+        }
 		errorPrototypeMismatch(lineno,id->str_content,str_vec);
 		delete &str_vec;
 		exit(1);
@@ -672,12 +670,17 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode
 
 //Exp:			ID 
 void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id){
-	// if id->str_content is not in scopeTable,
+    cout<<"<<[Exp_Semantic_Id]>>"; // TODO REMVOVE
+    // if id->str_content is not in scopeTable,
 		//	errorUndef(lineno,id->str_content);
 	if(!symtab.is_var(id->str_content)){
 		errorUndef(lineno,id->str_content);
 		exit(1);
 	}
+    cout<<"<<reached_ExpSemantic!>>";
+    // adding type..
+    Self->Type = symtab.get_type(id->str_content);
+    cout<<"<<[End_Exp_Semantic_Id]>>"; // TODO REMVOVE
 }
 
 //Exp:			Call 
@@ -716,7 +719,6 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class String_Node* stringptr){
 void Exp_Semantic(int lineno,class ExpNode* Self,class True* true_val){
 	//Self->Type=Bool;
 	Self->Type=Bool;
-
 }
 
 //Exp:			FALSE 

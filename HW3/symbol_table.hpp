@@ -11,6 +11,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <string>
 using std::pair;
 
 typedef enum type_enum v_type;
@@ -28,7 +29,7 @@ typedef class var_details
         //CCtor
         var_details(const var_details &otherVarDet):
                 offset(otherVarDet.offset),isFunc(otherVarDet.isFunc),
-                type(otherVarDet.type), id(otherVarDet.id){};
+                type(otherVarDet.type), id(otherVarDet.id),params(otherVarDet.params){};
         var_details():offset(-1354),isFunc(false),id("EmptyID"){};
 
         var_details& operator=(var_details &other)
@@ -42,7 +43,6 @@ typedef class var_details
             id = other.id;
             params = other.params;
         }
-
 } var_data;
 typedef std::map<std::string, var_data> var_map;
 // start of scope's offset, and the hash_table for the scope
@@ -109,7 +109,7 @@ class SymbolTable
         bool add_var(const std::string &var_id, v_type tt);
         bool add_param(const std::string &var_id, v_type tt); // gets a negative offset
 
-        bool add_func_into_global_scope(const std::string &func_name, v_type ret_t, vector<v_type> &paramsTypes);
+        bool add_func_into_global_scope(const std::string &func_name, v_type ret_t, const vector<v_type> &paramsTypes);
 
         bool enter_new_func_scope(v_type ret_tt);
         bool enter_new_switch_scope(v_type switch_type);

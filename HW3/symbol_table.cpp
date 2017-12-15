@@ -8,6 +8,14 @@ SymbolTable::SymbolTable():all_scopes() {
     // start_offset, ret_type, switch_type, is_breakable
     scope_data globalScope(0,Void,Void,false);
     all_scopes.push_back(globalScope);
+    // adding print functions:
+    vector<v_type> single_print_param(1);
+    single_print_param[0] = String;
+    add_func_into_global_scope("print",Void,single_print_param);
+    single_print_param[0] = Int;
+    add_func_into_global_scope("printi",Void,single_print_param);
+    cout << "print param:" << get_func_data("print").params[0] << "(" << get_func_data("print").params.size() << ")" << endl; // TODO REMOVE
+    cout << "printi param:" << get_func_data("printi").params[0] << "(" << get_func_data("printi").params.size() << ")" << endl; // TODO REMOVE
 }
 bool SymbolTable::exit_scope() {
     all_scopes.pop_back();
@@ -42,7 +50,7 @@ bool SymbolTable::is_defined(const std::string &id) const{
 const var_data& SymbolTable::get_var_data(const std::string &var_id) const{
     for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0; scopeLvl--)
     {
-        const var_map *ith_funcT = &((all_scopes[scopeLvl]).funcSymbT);
+        const var_map *ith_funcT = &((all_scopes[scopeLvl]).varSymbT);
         std::map<std::string, var_data>::const_iterator findIter = (ith_funcT)->find(var_id);
         if (findIter ==(ith_funcT)->end())
         {
@@ -75,6 +83,7 @@ v_type SymbolTable::get_type(const std::string &id) const{
     return Uninit; // TODO is that ok? should we throw an error?
 }
 bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
+    cout << "<<adding var: [" << var_id <<"] of type [" << tt << "]>>"; // TODO REMOVE
     scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os = currScope.curr_offset;
     currScope.curr_offset += var_size(tt);
@@ -87,6 +96,7 @@ bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
 
 bool SymbolTable::add_param(const std::string &var_id, v_type tt) {
     // this is written to the curr scope which should be the new func's scope
+    cout << "<<adding param: [" << var_id <<"] of type [" << tt << "]>>"; // TODO REMOVE
     scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os;
     if (!currScope.params.empty())
@@ -140,12 +150,13 @@ v_type SymbolTable::change_retType_for_current_scope(v_type tt) {
     return tt;
 }
 
-bool SymbolTable::add_func_into_global_scope(const std::string &func_name, v_type ret_t, vector<v_type> &paramsTypes) {
+bool SymbolTable::add_func_into_global_scope(const std::string &func_name, v_type ret_t, const vector<v_type> &paramsTypes) {
     //var_data(int os, bool isF, v_type tt, std::string &str_id)
 
     var_data func_data (0, true, ret_t, func_name);
-    func_data.params = paramsTypes;
+    func_data.params = vector<v_type>(paramsTypes); //
     all_scopes[0].funcSymbT[func_name] = func_data;
+    std::cout << "[[[ added func: " << func_name << " with " << paramsTypes.size() << " params]]]" << endl; // TODO REMOVE
     return true;
 }
 
