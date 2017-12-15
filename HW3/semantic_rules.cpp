@@ -133,7 +133,7 @@ void Funcs_Semantic(int lineno,class FuncsNode* Self){
 }
 
 //FuncDecl:       FuncHead FuncState
-void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode state){
+void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode* state){
 
 
 	symtab.exit_scope();
@@ -409,7 +409,7 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class SwitchHeadNo
 }
 
 //SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE
-void SwitchHead_Semantic(int lineno, class SwitchHead_Node* Self,class ExpNode* exp ){
+void SwitchHead_Semantic(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
 	//open switch scope
 	symtab.enter_new_switch_scope(exp->Type);
 
@@ -593,19 +593,19 @@ void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp, cla
 }
 
 //Type:			INT
-void Type_Semantic(int lineno,class TypeNode* Self, class Int* int_node){
+void Type_Semantic(int lineno,class TypeNode* Self, class Int_Node* int_node){
 	//Self.Type=Int
 	Self->Type=Int;
 }
 
 //Type:			Byte
-void Type_Semantic(int lineno,class TypeNode* Self, class Byte* byte_node){
+void Type_Semantic(int lineno,class TypeNode* Self, class Byte_Node* byte_node){
 	//Self.Type=Byte
 	Self->Type=Byte;
 }
 
 //Type:			BOOL
-void Type_Semantic(int lineno,class TypeNode* Self, class Bool* bool_node){
+void Type_Semantic(int lineno,class TypeNode* Self, class Bool_Node* bool_node){
 	//Self.Type=Bool
 	Self->Type=Bool;
 }
@@ -711,7 +711,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b
 }
 
 //Exp:			STRING 
-void Exp_Semantic(int lineno,class ExpNode* Self,class String* string){
+void Exp_Semantic(int lineno,class ExpNode* Self,class String_Node* stringptr){
 	//Self->Type=string;
 	Self->Type=String;
 }

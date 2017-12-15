@@ -60,7 +60,7 @@ Program:        Funcs                                             { $$=new Progr
 Funcs:          FuncDecl Funcs                                    { $$=new FuncsNode() ; Funcs_Semantic(yylineno,(FuncsNode*)$$,(FuncDeclNode*)$1,(FuncsNode*)$2 ) ; }
                 | /*epsilon*/                                     { $$=new FuncsNode() ; Funcs_Semantic(yylineno,(FuncsNode*)$$) ; }
 
-FuncDecl:       FuncHead FuncState                                { $$=new FuncDeclNode() ; FuncDecl_Semantic(yylineno,(FuncsNode*)$$,(FuncHeadNode*)$1,(FuncStateNode*)$2 ) ; }
+FuncDecl:       FuncHead FuncState                                { $$=new FuncDeclNode() ; FuncDecl_Semantic(yylineno,(FuncDeclNode*)$$,(FuncHeadNode*)$1,(FuncStateNode*)$2 ) ; }
 
 FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN  { $$=new FuncHeadNode() ; FuncHead_Semantic(yylineno,(FuncHeadNode*)$$,(RetTypeNode*)$1,(Id*)$1,(Lparen*)$3,(FormalsNode*)$5,(Rparen*)$6) ; }
 
@@ -76,7 +76,7 @@ Formals:        FormalsList                                       { $$=new Forma
                 | /*epsilon*/                                     { $$=new FormalsNode() ; Formals_Semantic(yylineno,(FormalsNode*)$$) ; }
 
 FormalsList:    FormalDecl                                        { $$=new FormalsListNode() ; FormalsList_Semantic(yylineno,(FormalsListNode*)$$,(FormalDeclNode*)$1) ; }
-				|FormalDecl COMMA FormalsList                     { $$=new FormalsListNode() ; FormalsList_Semantic(yylineno,(FormalsListNode*)$$,(FormalDeclNode*)$1, FormalsListNode*)$3 ) ; }
+				|FormalDecl COMMA FormalsList                     { $$=new FormalsListNode() ; FormalsList_Semantic(yylineno,(FormalsListNode*)$$,(FormalDeclNode*)$1, (FormalsListNode*)$3 ) ; }
 
 FormalDecl:	Type ID                                               { $$=new FormalDeclNode() ; FormalDecl_Semantic(yylineno,(FormalDeclNode*)$$,(TypeNode*)$1,(Id*)$2  ) ; }
 
@@ -91,7 +91,7 @@ Statement:		LBRACE Scope_init Statements RBRACE                                 
 				| RETURN SC                                                                 { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1  ) ; }
 				| RETURN Exp SC                                                             { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1,(ExpNode*)$2  ) ; }
 				| IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse      { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(If*)$1,(ExpNode*)$3,(StatementNode*)$6  ) ; }
-				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement                    { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(While*)$1,(ExpNode*)$3,(StaetementNode*)$6  ) ; }
+				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement                    { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(While*)$1,(ExpNode*)$3,(StatementNode*)$6  ) ; }
 				| BREAK SC                                                                  { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Break*)$1  ) ; }
 				| SwitchHead CaseList RBRACE SC                                             { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(SwitchHeadNode*)$1,(CaseListNode*)$2  ) ; }
   
@@ -116,8 +116,8 @@ CaseList:		CaseList CaseStatement      { $$=new CaseListNode() ; CaseList_Semant
 CaseStatement:	CaseDec Statements          { $$=new CaseStatementNode() ; CaseStatement_Semantic(yylineno,(CaseStatementNode*)$$ ,(CaseDecNode*)$1,(StatementsNode*)$2 ) ; }
 				|CaseDec                    { $$=new CaseStatementNode() ; CaseStatement_Semantic(yylineno,(CaseStatementNode*)$$ ,(CaseDecNode*)$1 ) ; }
 
-CaseDec:		CASE NUM COLON              { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(CaseDecNode*)$1,(Num*)$2 ) ; }
-				| CASE NUM B COLON          { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(CaseDecNode*)$1,(Num*)$2,(B_Node*)$3 ) ; }
+CaseDec:		CASE NUM COLON              { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Num*)$2 ) ; }
+				| CASE NUM B COLON          { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Num*)$2,(B_Node*)$3 ) ; }
 				| DEFAULT COLON             { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Default*)$1 ) ; }
 
 Call:			ID LPAREN ExpList RPAREN    { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1,(ExpListNode*)$3 ) ; }
@@ -126,9 +126,9 @@ Call:			ID LPAREN ExpList RPAREN    { $$=new CallNode() ; Call_Semantic(yylineno
 ExpList:		Exp                         { $$=new ExpListNode() ; ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ; }
 				|Exp COMMA ExpList          { $$=new ExpListNode() ; ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$2 ) ; }
 
-Type:			INT                         { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Int*)$1 ) ; }
-				| BYTE                      { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Byte*)$1 ) ; }
-				| BOOL  					{ $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Bool*)$1 ) ; }
+Type:			INT     { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Int_Node*)$1 ) ; }
+				| BYTE  { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Byte_Node*)$1 ) ; }
+				| BOOL  { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Bool_Node*)$1 ) ; }
   
 Exp:			Exp AND Exp %prec L_ASSOC		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (ExpNode*)$3  ) ; }	  
 				| Exp OR Exp %prec L_ASSOC		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (ExpNode*)$3  ) ; }	  
@@ -139,7 +139,7 @@ Exp:			Exp AND Exp %prec L_ASSOC		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(Ex
 				| Call							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(CallNode*)$1   ) ; }
 				| NUM							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Num*)$1   ) ; }
 				| NUM B							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Num*)$1 , (B_Node*)$2   ) ; }
-				| STRING						{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(String*)$1   ) ; }
+				| STRING						{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(String_Node*)$1   ) ; }
 				| TRUE							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(True*)$1   ) ; }
 				| FALSE							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(False*)$1   ) ; }
 				| NOT Exp						{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Not*)$1 , (ExpNode*)$2   ) ; }
