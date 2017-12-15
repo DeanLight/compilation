@@ -53,10 +53,10 @@ bool SymbolTable::is_func(const std::string& funcName) const{
 //    notFound = true;
 //    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
 //    {
-//        auto *ith_funcT = &((all_scopes[i]).funcSymbT);
+//        auto *ith_funcT = &((all_scopes[i]).varSymbT);
 //        notFound = (ith_funcT)->find(var_name) == (ith_funcT)->end();
 //    }
-    return all_scopes[0].funcSymbT.find(funcName) != all_scopes[0].funcSymbT.end();
+    return all_scopes[0].varSymbT.find(funcName) != all_scopes[0].varSymbT.end();
 }
 bool SymbolTable::is_defined(const std::string &id) const{
     return is_var(id) || is_func(id);
@@ -64,19 +64,21 @@ bool SymbolTable::is_defined(const std::string &id) const{
 const var_data& SymbolTable::get_var_data(const std::string &var_id) const{
     for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0; scopeLvl--)
     {
-        const var_map *ith_funcT = &((all_scopes[scopeLvl]).varSymbT);
-        std::map<std::string, var_data>::const_iterator findIter = (ith_funcT)->find(var_id);
-        if (findIter ==(ith_funcT)->end())
+        const var_map *ith_varT = &((all_scopes[scopeLvl]).varSymbT);
+        std::map<std::string, var_data>::const_iterator findIter = (ith_varT)->find(var_id);
+        if (findIter ==(ith_varT)->end())
         {
             continue;
         }
-        return (*ith_funcT).find(var_id)->second; // returning the value and not the key
+        // FIX - we can write it much better
+        return (*findIter).second; // FIX if there are prbolems - revert
+        //return (*ith_varT).find(var_id)->second; // returning the value and not the key // OLD
     }
     throw std::runtime_error("Tried to get var_data " + var_id + " which isn't defined");
 }
 const var_data& SymbolTable::get_func_data(const std::string &func_id) const
 {
-    return (all_scopes[0].funcSymbT.find(func_id))->second; //returning the value, not the key
+    return (all_scopes[0].varSymbT.find(func_id))->second; //returning the value, not the key
 //    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
 //    {
 //        auto *ith_varT = &((all_scopes[i]).varSymbT);
@@ -92,7 +94,7 @@ const var_data& SymbolTable::get_func_data(const std::string &func_id) const
 v_type SymbolTable::get_type(const std::string &id) const{
     if (is_var(id))
         return get_var_data(id).type;
-    if (is_func(id))
+    if (is_func(id)) // FIX technically we can remove it
         return get_func_data(id).type;
     return Uninit; // TODO is that ok? should we throw an error?
 }
@@ -173,7 +175,8 @@ bool SymbolTable::add_func_into_global_scope(const std::string &func_name, v_typ
 
     var_data func_data (0, true, ret_t, func_name);
     func_data.params = vector<v_type>(paramsTypes); //
-    all_scopes[0].funcSymbT[func_name] = func_data;
+    all_scopes[0].varSymbT[func_name] = func_data;
+    all_scopes[0].variables.push_back(make_pair(func_name,0));
 #ifdef SYMTABDEBUG
     std::cerr << "[[[ added func: " << func_name << " with " << paramsTypes.size() << " params]]]" << endl; // TODO REMOVE
 #endif
@@ -235,18 +238,19 @@ void scope::print_scope(){
 
         if(varSymbT.count(it->first)==1){
             vardat=&varSymbT[it->first];
-        }else if(funcSymbT.count(it->first)==1){
-            is_func=true;
-            vardat=&funcSymbT[it->first];
-        }else{
-            // should reach here since all variables must be in
-            throw();
         }
+//        else if(funcSymbT.count(it->first)==1){ // TODO REVERT BACK
+//            is_func=true;
+//            vardat=&funcSymbT[it->first];
+//        }else{
+//            // should reach here since all variables must be in
+//            throw();
+//        }
 
         if(is_func){
 
 
-            output::printID(it->first,0,)
+            //output::printID(it->first,0,); TODO REVERT BACK
         }
 
 

@@ -53,7 +53,7 @@ typedef struct scope_data{
     unsigned start_offset;// TODO is needed?
     unsigned curr_offset;
     var_map varSymbT;
-    var_map funcSymbT;
+//    var_map funcSymbT; // REMOVED
 
     std::vector<pair<std::string,int> > variables;
     std::vector<pair<std::string,int> > params;
@@ -69,7 +69,7 @@ typedef struct scope_data{
     //v_type get_ret_value() {return ret_type;};
 
     scope_data(unsigned start_os, v_type ret_tt, v_type case_tt, bool allowBreak):
-            start_offset(start_os), curr_offset(start_os),varSymbT(),funcSymbT(),
+            start_offset(start_os), curr_offset(start_os),varSymbT(),
             variables(),params(),
             ret_type(ret_tt), case_type(case_tt), defaults_count(0),
             isBreakable(allowBreak){};
