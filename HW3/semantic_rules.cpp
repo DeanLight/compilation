@@ -245,7 +245,8 @@ void FormalDecl_Semantic(int lineno,class FormalDeclNode* Self, class TypeNode* 
 #ifdef PARSEDEBUG
     std::cerr << "<<FormalDecl_Semantic: id[" << id->str_content << "]>>" << endl; // TODO REMOVE
 #endif
-	if(symtab.is_var_in_curr_scope(id->str_content)){
+	//if(symtab.is_var_in_curr_scope(id->str_content)){
+    if(symtab.is_defined(id->str_content)){ // we don't allow any repeatition of ids TODO
 		errorDef(lineno,id->str_content);
 		exit(1);
 	}
@@ -288,7 +289,8 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class TypeNode* ty
     cerr << "<<[Statement_Semantic][TypeID_SC] id:[" << id->str_content << "]type:["<<type->str_content << "]>>"<< endl; // TODO REMOVE
 #endif
 
-	if(symtab.is_var_in_curr_scope(id->str_content)){
+	//if(symtab.is_var_in_curr_scope(id->str_content)){
+    if(symtab.is_defined(id->str_content)){ // we don't allow any repeatition of ids TODO
 		errorDef(lineno,id->str_content);
 		exit(1);
 	}
@@ -429,6 +431,8 @@ void is_exp_numeric(int lineno, class ExpNode* exp){
 		// errorMismatch(lineno);
 	if(not (exp->Type==Int || exp->Type==Byte) ){
 		errorMismatch(lineno);
+        //added exit: // TODO
+        exit(1);
 	}
 }
 
@@ -439,6 +443,8 @@ void is_exp_bool(int lineno, class ExpNode* exp){
 		// errorMismatch(lineno);
 	if(not (exp->Type==Bool) ){
 		errorMismatch(lineno);
+        //added exit: // TODO
+        exit(1);
 	}
 }
 
@@ -550,14 +556,15 @@ bool are_params_convertible(const types_vec& from ,const  types_vec& to){
 //Call:			ID LPAREN ExpList RPAREN
 void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListNode* expList){
 #ifdef PARSEDEBUG
-//    cerr << "<<CallSemantics! id[" << id->str_content << "] type0:[" << expList->typesvec[0] <<"]>>"; // TODO REMOVE
+    //cerr << "<<CallSemantics! id[" << id->str_content << "] type0:[" << expList->typesvec[0] <<"]>>"; // TODO REMOVE
+    cerr << "<<CallSemantics [ID(Exp)] >>" << endl; // TODO REMOVE
 #endif
 
 
 	// Look up Id in id table as a fucntion. 
 		//  if not ufnction or doesnt exist
 			//errorUndefFunc(lineno,id)
-	if(symtab.is_func(id->str_content)==0){
+	if(symtab.is_func(id->str_content)==0){ // why not '!' ?
 		errorUndefFunc(lineno,id->str_content);
 		exit(1);
 	}
@@ -714,7 +721,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode
 
 //Exp:			ID 
 void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id){
-    cerr<<"<<[Exp_Semantic_Id]>>"<< endl; // TODO REMVOVE
+    cerr<<"<<[Exp_Semantic_Id] id:[" << id->str_content << "]>>"<< endl; // TODO REMVOVE
     // if id->str_content is not in scopeTable,
 		//	errorUndef(lineno,id->str_content);
 	if(!symtab.is_var(id->str_content)){
@@ -722,7 +729,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id){
 		exit(1);
 	}
 
-    // adding type..
+    // adding type to Node
     Self->Type = symtab.get_type(id->str_content);
 
 }

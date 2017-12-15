@@ -12,6 +12,10 @@
 %option yylineno
 %option noyywrap
 
+CR \r
+LF \n
+ENDLINE ((({CR})({LF}))|{CR}|{LF})
+COMMENT "//"([^\r\n]*){ENDLINE}
 colon_t :
 sc_t ;
 comma_t ,
@@ -27,13 +31,15 @@ id_t [a-zA-Z]([a-zA-Z0-9])*
 num_t (0)|([1-9]([0-9])*)
 	/* TODO CHECK: */
 string_t \"([^\n\r\"\\]|\\[rnt"\\])+\"
-CR \r
-LF \n
-ENDLINE ((({CR})({LF}))|{CR}|{LF}) 
 WHITESPACE ([ \t])|({ENDLINE})
 
 
 %%
+{COMMENT} {;
+            #ifdef LEXDEBUG
+           	fprintf(stderr,"Lex Ate comment:%s\n",yytext); // TODO REMOVE
+           	#endif
+           	}
 
 void {yylval = new Void_Node();
     #ifdef LEXDEBUG
