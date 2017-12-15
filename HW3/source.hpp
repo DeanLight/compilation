@@ -101,10 +101,17 @@ public:
 	//StatementNode(){}; // default
 };
 
-class SwitchHead_Node : public Node{
+class SwitchHeadNode : public Node{
 public:
 	//SwitchHead_Node(){}; // default
 };
+
+
+class PossibleElseNode : public Node{
+public:
+	//SwitchHead_Node(){}; // default
+};
+
 
 class CaseListNode : public Node{
 public:

@@ -10,10 +10,10 @@ typedef std::vector<v_type> types_vec;
 void Program_Semantic(int lineno,class ProgramNode* Self, class FuncsNode* funcs);
 void Funcs_Semantic(int lineno,class FuncsNode* Self, class FuncDeclNode* func_decl , class FuncsNode* funcs);
 void Funcs_Semantic(int lineno,class FuncsNode* Self);
-void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class RetTypeNode* rettype, class Id* id,class FormalsNode* formals, class StatementsNode* statements);
+void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode* state);
 void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp);
 void Func_scope_init_Semantic(int lineno);
-void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, class StatementsNode* statements , class Rbrace* rb);
+void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, class StatementNode* statement , class Rbrace* rb);
 void RetType_Semantic(int lineno,class RetTypeNode* Self, class TypeNode* type);
 void RetType_Semantic(int lineno,class RetTypeNode* Self);
 void Formals_Semantic(int lineno,class FormalsNode* Self, class FormalsListNode* formalsList);
@@ -31,10 +31,12 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class CallNode* ca
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret);
 void Statement_Semantic(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp);
 void Statement_Semantic(int lineno,class StatementNode* Self, class If* if_ptr, class ExpNode* exp, class StatementNode* statement);
-void Statement_Semantic(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementsNode* statement, class Rbrace* br);
+void Statement_Semantic(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementNode* statement);
 void Statement_Semantic(int lineno,class StatementNode* Self, class Break* break_ptr );
-void Statement_Semantic(int lineno,class StatementNode* Self, class Switch* switch_ptr , class ExpNode* exp, class CaseListNode* caselist );
-void SwitchHead_Semantic(int lineno, class SwitchHead_Node* Self,class ExpNode* exp );
+void Statement_Semantic(int lineno,class StatementNode* Self, class SwitchHeadNode* switch_ptr ,  class CaseListNode* caselist );
+void SwitchHead_Semantic(int lineno, class SwitchHeadNode* Self,class ExpNode* exp );
+void PossibleElseSemantic(int lineno, class PossibleElseNode* Self );
+void PossibleElseSemantic(int lineno, class PossibleElseNode* Self , class StatementNode* state  );
 void is_exp_numeric(int lineno, class ExpNode* exp);
 void is_exp_bool(int lineno, class ExpNode* exp);
 void While_Scope_init_Semantic(int lineno);
@@ -51,9 +53,9 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 void Call_Semantic(int lineno,class CallNode* Self, class Id* id);
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp);
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp, class ExpListNode* rest_of_list);
-void Type_Semantic(int lineno,class TypeNode* Self, class Int* int_node);
-void Type_Semantic(int lineno,class TypeNode* Self, class Byte* byte_node);
-void Type_Semantic(int lineno,class TypeNode* Self, class Bool* bool_node);
+void Type_Semantic(int lineno,class TypeNode* Self, class Int_Node* int_node);
+void Type_Semantic(int lineno,class TypeNode* Self, class Byte_Node* byte_node);
+void Type_Semantic(int lineno,class TypeNode* Self, class Bool_Node* bool_node);
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2);
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2);
@@ -63,7 +65,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id);
 void Exp_Semantic(int lineno,class ExpNode* Self,class CallNode* call);
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num);
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b);
-void Exp_Semantic(int lineno,class ExpNode* Self,class String* string);
+void Exp_Semantic(int lineno,class ExpNode* Self,class String_Node* string_ptr);
 void Exp_Semantic(int lineno,class ExpNode* Self,class True* true_val);
 void Exp_Semantic(int lineno,class ExpNode* Self,class False* false_val);
 void Exp_Semantic(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1);
@@ -98,6 +100,7 @@ void Comma_Semantic();
 void Id_Semantic();
 void Num_Semantic();
 void String_Semantic();
+
 
 
 #endif

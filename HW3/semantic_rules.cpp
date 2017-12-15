@@ -133,7 +133,7 @@ void Funcs_Semantic(int lineno,class FuncsNode* Self){
 }
 
 //FuncDecl:       FuncHead FuncState
-void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class RetTypeNode* rettype, class Id* id,class FormalsNode* formals, class StatementsNode* statements){
+void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode* state){
 
 
 	symtab.exit_scope();
@@ -190,7 +190,7 @@ void Func_scope_init_Semantic(int lineno){
 }
 
 //FuncState:		LBRACE Statement RBRACE
-void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, class StatementsNode* statements , class Rbrace* rb){
+void FuncState_Semantic(int lineno,class FuncStateNode* Self, class Lbrace* lb, class StatementNode* statement , class Rbrace* rb){
 
 
 }
@@ -381,7 +381,7 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class If* if_ptr, 
 
 
 //Statement:		WHILE LPAREN BoolExp RPAREN Breakable_Scope_init Statement
-void Statement_Semantic(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementsNode* statement, class Rbrace* br){
+void Statement_Semantic(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementNode* statement){
 
 
 	// close scope
@@ -400,8 +400,8 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class Break* break
 
 }
 
-//Statement:		SWITCH LPAREN Exp RPAREN LBRACE Breakable_Scope_init CaseList RBRACE SC
-void Statement_Semantic(int lineno,class StatementNode* Self, class Switch* switch_ptr , class ExpNode* exp, class CaseListNode* caselist ){
+//Statement:		SwitchHead CaseList RBRACE SC
+void Statement_Semantic(int lineno,class StatementNode* Self, class SwitchHeadNode* switch_ptr ,  class CaseListNode* caselist ){
 
 	// close scope
     symtab.exit_scope();
@@ -409,10 +409,21 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class Switch* swit
 }
 
 //SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE
-void SwitchHead_Semantic(int lineno, class SwitchHead_Node* Self,class ExpNode* exp ){
+void SwitchHead_Semantic(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
 	//open switch scope
 	symtab.enter_new_switch_scope(exp->Type);
 
+}
+
+
+//PossibleElse:   /*epsilon*/
+void PossibleElseSemantic(int lineno, class PossibleElseNode* Self ){
+	
+}
+
+//PossibleElse:   ELSE Scope_init Statement Scope_end
+void PossibleElseSemantic(int lineno, class PossibleElseNode* Self , class StatementNode* state  ){
+	
 }
 
 
@@ -582,19 +593,19 @@ void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp, cla
 }
 
 //Type:			INT
-void Type_Semantic(int lineno,class TypeNode* Self, class Int* int_node){
+void Type_Semantic(int lineno,class TypeNode* Self, class Int_Node* int_node){
 	//Self.Type=Int
 	Self->Type=Int;
 }
 
 //Type:			Byte
-void Type_Semantic(int lineno,class TypeNode* Self, class Byte* byte_node){
+void Type_Semantic(int lineno,class TypeNode* Self, class Byte_Node* byte_node){
 	//Self.Type=Byte
 	Self->Type=Byte;
 }
 
 //Type:			BOOL
-void Type_Semantic(int lineno,class TypeNode* Self, class Bool* bool_node){
+void Type_Semantic(int lineno,class TypeNode* Self, class Bool_Node* bool_node){
 	//Self.Type=Bool
 	Self->Type=Bool;
 }
@@ -700,7 +711,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b
 }
 
 //Exp:			STRING 
-void Exp_Semantic(int lineno,class ExpNode* Self,class String* string){
+void Exp_Semantic(int lineno,class ExpNode* Self,class String_Node* stringptr){
 	//Self->Type=string;
 	Self->Type=String;
 }
