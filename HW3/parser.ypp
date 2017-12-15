@@ -5,6 +5,8 @@
     #define YYSTYPE Node*
     int yylex();
     void yyerror(const char*);
+    extern int yylineno;
+
     int yydebug=1; //TODO remove this
 %}
 
@@ -51,97 +53,95 @@
 
 %%
 
-Program:        Funcs
+Program:        Funcs                                             { $$=new ProgramNode() ; Program_Semantic(yylineno,(ProgramNode*)$$,(FuncsNode*)$1) ; }
+
+Funcs:          FuncDecl Funcs                                    { $$=new FuncsNode() ; Funcs_Semantic(yylineno,(FuncsNode*)$$,(FuncDeclNode*)$1,(FuncsNode*)$2 ) ; }
+                | /*epsilon*/                                     { $$=new FuncsNode() ; Funcs_Semantic(yylineno,(FuncsNode*)$$) ; }
+
+FuncDecl:       FuncHead FuncState                                { $$=new FuncDeclNode() ; FuncDecl_Semantic(yylineno,(FuncDeclNode*)$$,(FuncHeadNode*)$1,(FuncStateNode*)$2 ) ; }
+
+FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN  { $$=new FuncHeadNode() ; FuncHead_Semantic(yylineno,(FuncHeadNode*)$$,(RetTypeNode*)$1,(Id*)$1,(Lparen*)$3,(FormalsNode*)$5,(Rparen*)$6) ; }
+
+Func_Scope_init: 	/*epsilon*/                                   { Scope_init_Semantic(yylineno) ; }
+
+FuncState:		LBRACE Statements RBRACE                           { $$=new FuncStateNode() ; FuncState_Semantic(yylineno,(FuncStateNode*)$$,(Lbrace*)$1,(StatementNode*)$2,(Rbrace*)$3 ) ; }
 
 
-Funcs:          FuncDecl Funcs
-                | /*epsilon*/
+RetType:        Type                                              { $$=new RetTypeNode() ; RetType_Semantic(yylineno,(RetTypeNode*)$$,(TypeNode*)$1) ; }
+                |VOID                                             { $$=new RetTypeNode() ; RetType_Semantic(yylineno,(RetTypeNode*)$$) ; }
 
-FuncDecl:       FuncHead FuncState
+Formals:        FormalsList                                       { $$=new FormalsNode() ; Formals_Semantic(yylineno,(FormalsNode*)$$,(FormalsListNode*)$1) ; }
+                | /*epsilon*/                                     { $$=new FormalsNode() ; Formals_Semantic(yylineno,(FormalsNode*)$$) ; }
 
-FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN
+FormalsList:    FormalDecl                                        { $$=new FormalsListNode() ; FormalsList_Semantic(yylineno,(FormalsListNode*)$$,(FormalDeclNode*)$1) ; }
+				|FormalDecl COMMA FormalsList                     { $$=new FormalsListNode() ; FormalsList_Semantic(yylineno,(FormalsListNode*)$$,(FormalDeclNode*)$1, (FormalsListNode*)$3 ) ; }
 
-Func_Scope_init: 	/*epsilon*/
+FormalDecl:	Type ID                                               { $$=new FormalDeclNode() ; FormalDecl_Semantic(yylineno,(FormalDeclNode*)$$,(TypeNode*)$1,(Id*)$2  ) ; }
 
-FuncState:		LBRACE Statements RBRACE
+Statements:		Statement                                         { $$=new StatementsNode() ; Statements_Semantic(yylineno,(StatementsNode*)$$,(StatementNode*)$1 ) ; }
+				|Statements Statement                             { $$=new StatementsNode() ; Statements_Semantic(yylineno,(StatementsNode*)$$,(StatementsNode*)$1,(StatementNode*)$2 ) ; }
 
+Statement:		LBRACE Scope_init Statements RBRACE                                         { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Lbrace*)$1,(StatementsNode*)$3,(Rbrace*)$4 ) ; }
+				| Type ID SC                                                                { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2 ) ; }
+				| Type ID ASSIGN Exp SC                                                     { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$4  ) ; }
+				| ID ASSIGN Exp SC                                                          { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Id*)$1,(Assign*)$2,(ExpNode*)$3  ) ; }
+				| Call SC                                                                   { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(CallNode*)$1  ) ; }
+				| RETURN SC                                                                 { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1  ) ; }
+				| RETURN Exp SC                                                             { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1,(ExpNode*)$2  ) ; }
+				| IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse      { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(If*)$1,(ExpNode*)$3,(StatementNode*)$6  ) ; }
+				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement                    { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(While*)$1,(ExpNode*)$3,(StatementNode*)$6  ) ; }
+				| BREAK SC                                                                  { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Break*)$1  ) ; }
+				| SwitchHead CaseList RBRACE SC                                             { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(SwitchHeadNode*)$1,(CaseListNode*)$2  ) ; }
+  
+SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE                         { $$=new SwitchHeadNode() ; SwitchHead_Semantic(yylineno,(SwitchHeadNode*)$$,(ExpNode*)$3  ) ; }
 
-RetType:        Type
-                |VOID
+PossibleElse:   /*epsilon*/ %prec PRIO_REGIF                               { $$=new PossibleElseNode() ; PossibleElseSemantic(yylineno,(PossibleElseNode*)$$  ) ; }
+                | ELSE Scope_init Statement Scope_end %prec PRIO_IFELSE    { $$=new PossibleElseNode() ; PossibleElseSemantic(yylineno,(PossibleElseNode*)$$,(StatementNode*)$3  ) ; }
+  
+NumExp:			Exp                         { $$=$1 ; is_exp_numeric(yylineno,(ExpNode*)$1  ) ; }
 
-Formals:        FormalsList
-                | /*epsilon*/
+BoolExp:		Exp                         { $$=$1 ; is_exp_bool(yylineno,(ExpNode*)$1  ) ; }
 
-FormalsList:    FormalDecl
-				|FormalDecl COMMA FormalsList
+While_Scope_init:	/*epsilon*/             {  While_Scope_init_Semantic(yylineno) ; }
 
-FormalDecl:	Type ID
+Scope_init:	/*epsilon*/                     {  Scope_init_Semantic(yylineno) ; }
 
-Statements:		Statement
-				|Statements Statement
+Scope_end:	/*epsilon*/                     {  Scope_end_Semantic(yylineno) ; }
 
-Statement:		LBRACE Scope_init Statements RBRACE
-				| Type ID SC
-				| Type ID ASSIGN Exp SC
-				| ID ASSIGN Exp SC
-				| Call SC
-				| RETURN SC
-				| RETURN Exp SC
-				| IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse
-				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement
-				| BREAK SC
-				| SwitchHead CaseList RBRACE SC
+CaseList:		CaseList CaseStatement      { $$=new CaseListNode() ; CaseList_Semantic(yylineno,(CaseListNode*)$$,(CaseListNode*)$1,(CaseStatementNode*)$2  ) ; }
+				| CaseStatement             { $$=new CaseListNode() ; CaseList_Semantic(yylineno,(CaseListNode*)$$,(CaseStatementNode*)$1  ) ; }
 
-SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE
+CaseStatement:	CaseDec Statements          { $$=new CaseStatementNode() ; CaseStatement_Semantic(yylineno,(CaseStatementNode*)$$ ,(CaseDecNode*)$1,(StatementsNode*)$2 ) ; }
+				|CaseDec                    { $$=new CaseStatementNode() ; CaseStatement_Semantic(yylineno,(CaseStatementNode*)$$ ,(CaseDecNode*)$1 ) ; }
 
-PossibleElse:   /*epsilon*/ %prec PRIO_REGIF
-                | ELSE Scope_init Statement Scope_end %prec PRIO_IFELSE
+CaseDec:		CASE NUM COLON              { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Num*)$2 ) ; }
+				| CASE NUM B COLON          { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Num*)$2,(B_Node*)$3 ) ; }
+				| DEFAULT COLON             { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Default*)$1 ) ; }
 
-NumExp:			Exp
+Call:			ID LPAREN ExpList RPAREN    { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1,(ExpListNode*)$3 ) ; }
+				| ID LPAREN RPAREN          { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1 ) ; }
 
-BoolExp:		Exp
+ExpList:		Exp                         { $$=new ExpListNode() ; ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ; }
+				|Exp COMMA ExpList          { $$=new ExpListNode() ; ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$2 ) ; }
 
-While_Scope_init:	/*epsilon*/
-
-
-Scope_init:	/*epsilon*/
-
-Scope_end:	/*epsilon*/
-
-CaseList:		CaseList CaseStatement
-				| CaseStatement
-
-CaseStatement:	CaseDec Statements
-				|CaseDec
-
-CaseDec:		CASE NUM COLON
-				| CASE NUM B COLON
-				| DEFAULT COLON
-
-Call:			ID LPAREN ExpList RPAREN
-				| ID LPAREN RPAREN
-
-ExpList:		Exp
-				|Exp COMMA ExpList
-
-Type:			INT
-				| BYTE
-				| BOOL
-
-Exp:			Exp AND Exp %prec L_ASSOC
-				| Exp OR Exp %prec L_ASSOC
-				| Exp RELOP Exp %prec L_ASSOC
-				| Exp BINOP Exp %prec L_ASSOC
-				| LPAREN Exp RPAREN 
-				| ID {std::cout << "[ID]";}
-				| Call
-				| NUM
-				| NUM B
-				| STRING
-				| TRUE
-				| FALSE
-				| NOT Exp
-
+Type:			INT     { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Int_Node*)$1 ) ; }
+				| BYTE  { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Byte_Node*)$1 ) ; }
+				| BOOL  { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Bool_Node*)$1 ) ; }
+  
+Exp:			Exp AND Exp %prec L_ASSOC		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (ExpNode*)$3  ) ; }	  
+				| Exp OR Exp %prec L_ASSOC		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (ExpNode*)$3  ) ; }	  
+				| Exp RELOP Exp %prec L_ASSOC	{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ; }		  
+				| Exp BINOP Exp %prec L_ASSOC	{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Binop*)$2 , (ExpNode*)$3  ) ; }		  
+				| LPAREN Exp RPAREN 			{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Lparen*)$1 , (ExpNode*)$2 , (Rparen*)$3  ) ; }
+				| ID							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Id*)$1   ) ; }
+				| Call							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(CallNode*)$1   ) ; }
+				| NUM							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Num*)$1   ) ; }
+				| NUM B							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Num*)$1 , (B_Node*)$2   ) ; }
+				| STRING						{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(String_Node*)$1   ) ; }
+				| TRUE							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(True*)$1   ) ; }
+				| FALSE							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(False*)$1   ) ; }
+				| NOT Exp						{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Not*)$1 , (ExpNode*)$2   ) ; }
+																									
 
 
 %%

@@ -1,5 +1,8 @@
 #include "symbol_table.hpp"
 #include <exception>
+#include <iostream> // TODO REMOVE
+using std::cout;
+using std::endl;
 
 SymbolTable::SymbolTable():all_scopes() {
     // start_offset, ret_type, switch_type, is_breakable
@@ -86,8 +89,8 @@ bool SymbolTable::add_param(const std::string &var_id, v_type tt) {
     // this is written to the curr scope which should be the new func's scope
     scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os;
-    if (currScope.params.empty())
-        os = currScope.params[currScope.params.size()-1].second;
+    if (!currScope.params.empty())
+        os = currScope.params[currScope.params.size() - 1].second;
     else
         os = 0;
     os -= var_size(tt);
