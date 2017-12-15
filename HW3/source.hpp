@@ -26,6 +26,7 @@ enum id_type{
 	Func
 };*/
 
+
 class Node{
 	public:
 	Node* father;

@@ -8,11 +8,14 @@
 
 
 #include "source.hpp"
+#include "output.hpp"
 #include <vector>
 #include <map>
 #include <algorithm>
 #include <string>
 using std::pair;
+using std::string;
+using std::vector;
 
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
@@ -58,7 +61,9 @@ typedef struct scope_data{
     v_type case_type;
     int defaults_count;
     bool isBreakable;
-    
+
+    void print_scope();
+
     //bool is_scope_breakable();
     //int inc_defaults();// increase the count by one, returns new value
     //v_type get_ret_value() {return ret_type;};
@@ -127,6 +132,7 @@ class SymbolTable
         bool exit_scope();
 
 	private:
+
         unsigned var_size(v_type tt) { return 1;}; // return size of type
         std::vector<scope_data> all_scopes;
         bool enter_new_scope(v_type ret_tt, v_type switch_type, bool is_break);

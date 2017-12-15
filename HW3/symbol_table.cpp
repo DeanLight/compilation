@@ -1,7 +1,11 @@
 #include "symbol_table.hpp"
 #include <exception>
 #include <iostream> // TODO REMOVE
+
+//#define SYMTABDEBUG
+
 using std::cout;
+using std::cerr;
 using std::endl;
 
 SymbolTable::SymbolTable():all_scopes() {
@@ -14,13 +18,23 @@ SymbolTable::SymbolTable():all_scopes() {
     add_func_into_global_scope("print",Void,single_print_param);
     single_print_param[0] = Int;
     add_func_into_global_scope("printi",Void,single_print_param);
-    cout << "print param:" << get_func_data("print").params[0] << "(" << get_func_data("print").params.size() << ")" << endl; // TODO REMOVE
-    cout << "printi param:" << get_func_data("printi").params[0] << "(" << get_func_data("printi").params.size() << ")" << endl; // TODO REMOVE
+
+#ifdef SYMTABDEBUG
+    cerr << "print param:" << get_func_data("print").params[0] << "(" << get_func_data("print").params.size() << ")" << endl; // TODO REMOVE
+    cerr << "printi param:" << get_func_data("printi").params[0] << "(" << get_func_data("printi").params.size() << ")" << endl; // TODO REMOVE
+#endif
+
 }
+
 bool SymbolTable::exit_scope() {
+    // get last scope
+    all_scopes.back().print_scope();
     all_scopes.pop_back();
     return true;
 }
+
+
+
 bool SymbolTable::is_var(const std::string& var_name) const {
     bool notFound = true;
     for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
@@ -83,7 +97,9 @@ v_type SymbolTable::get_type(const std::string &id) const{
     return Uninit; // TODO is that ok? should we throw an error?
 }
 bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
-    cout << "<<adding var: [" << var_id <<"] of type [" << tt << "]>>"; // TODO REMOVE
+#ifdef SYMTABDEBUG
+    cerr << "<<adding var: [" << var_id <<"] of type [" << tt << "]>>"; // TODO REMOVE
+#endif
     scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os = currScope.curr_offset;
     currScope.curr_offset += var_size(tt);
@@ -96,7 +112,9 @@ bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
 
 bool SymbolTable::add_param(const std::string &var_id, v_type tt) {
     // this is written to the curr scope which should be the new func's scope
-    cout << "<<adding param: [" << var_id <<"] of type [" << tt << "]>>"; // TODO REMOVE
+#ifdef SYMTABDEBUG
+    cerr << "<<adding param: [" << var_id <<"] of type [" << tt << "]>>"; // TODO REMOVE
+#endif
     scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os;
     if (!currScope.params.empty())
@@ -156,7 +174,9 @@ bool SymbolTable::add_func_into_global_scope(const std::string &func_name, v_typ
     var_data func_data (0, true, ret_t, func_name);
     func_data.params = vector<v_type>(paramsTypes); //
     all_scopes[0].funcSymbT[func_name] = func_data;
-    std::cout << "[[[ added func: " << func_name << " with " << paramsTypes.size() << " params]]]" << endl; // TODO REMOVE
+#ifdef SYMTABDEBUG
+    std::cerr << "[[[ added func: " << func_name << " with " << paramsTypes.size() << " params]]]" << endl; // TODO REMOVE
+#endif
     return true;
 }
 
@@ -180,4 +200,64 @@ v_type SymbolTable::get_curr_scope_switch_type() const {
     return all_scopes[all_scopes.size()-1].case_type;
 }
 
+string str_off_type(enum type_enum tt){
+    switch(tt)
+    {
+        case Void: return "VOID";
+        case String: return "STRING";
+        case Int: return "INT";
+        case Byte: return "BYTE";
+        case Bool: return "BOOL";
+        case Uninit: throw std::runtime_error("Uninitialized var");
+        default : throw std::runtime_error("bla bla - illegal type ");
+    }
+    return "";
+}
+
+void scope::print_scope(){
+    output::endScope(); //TODO print here correctly
+    // for every param
+    for( vector< pair<string,int> >::iterator it = params.begin() ; it!= params.end() ; ++it ){
+
+        //output::printID(id,offset,type) // should be negative since params
+
+
+        v_type var_type=varSymbT[it->first].type;
+        string type_string=str_off_type(var_type);
+        output::printID(it->first,it->second,type_string);
+
+    }
+
+    for( vector< pair<string,int> >::iterator it = variables.begin() ; it!= params.end() ; ++it ){
+        bool is_func=false;
+        var_data* vardat;
+
+
+        if(varSymbT.count(it->first)==1){
+            vardat=&varSymbT[it->first];
+        }else if(funcSymbT.count(it->first)==1){
+            is_func=true;
+            vardat=&funcSymbT[it->first];
+        }else{
+            // should reach here since all variables must be in
+            throw();
+        }
+
+        if(is_func){
+
+
+            output::printID(it->first,0,)
+        }
+
+
+
+    }
+    // for every variable or func id
+    //if variable
+    //output::printID(id,offset,type)
+    // if function
+    //output::printID(id,0,output::makeFunctionType(func_type,param_types))
+
+
+}
 
