@@ -1,0 +1,40 @@
+TESTS
+
+add a test with all rellop and binop 
+
+break tests with alot of scopes within scopes
+
+switch within a switch
+
+function with two return values
+
+Dangling else test
+
+Byte<= 255 only
+
+check And and OR between ints
+
+Check precedence between operators (maybe)?
+
+recursion and a function call within a function call
+
+check swithc has a scope but each case does not
+
+check conversion from byte to int but not form int to byte
+
+test with print and printi that only they can print string
+
+return byte to a function with retType int
+
+switch only gest numerical expresion 
+
+
+check only 1 correctly typed main
+
+prototype mismatch test with big function with calls that can and cannot be cast
+
+to run valgrinf
+
+valgrind ./hw3 <tests/compi/10.in
+
+
