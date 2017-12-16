@@ -600,7 +600,7 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
         cerr << endl;
 #endif
 		errorPrototypeMismatch(lineno,id->str_content,str_vec);
-		delete &str_vec;
+
 		exit(1);
 	}
 

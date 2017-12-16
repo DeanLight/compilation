@@ -151,6 +151,7 @@ void yyerror (const char*) { output::errorSyn(yylineno);}
 
 int main(){
 	return yyparse();
+
 }
 
 
