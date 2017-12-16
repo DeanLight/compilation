@@ -1,0 +1,20 @@
+---end scope---
+bb2 BOOL 3
+---end scope---
+bb BYTE 2
+bb2 BOOL 3
+---end scope---
+r INT 1
+bb INT 2
+---end scope---
+x INT -1
+y INT -2
+z BYTE -3
+w INT 0
+r BYTE 1
+---end scope---
+---end scope---
+print (STRING)->VOID 0
+printi (INT)->VOID 0
+foo (INT,INT,BYTE)->BYTE 0
+main ()->VOID 0

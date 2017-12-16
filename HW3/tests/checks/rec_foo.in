@@ -1,0 +1,13 @@
+int foo(int x)
+{
+	return foo(x);
+}
+int foo2(int x)
+{
+	return foo2(x);
+}
+// no option for forawrds decleration
+void main()
+{
+	foo(5);
+}

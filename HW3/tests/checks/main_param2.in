@@ -1,0 +1,8 @@
+void main (int param)
+{
+	return;
+}
+void main()
+{
+	return;
+}

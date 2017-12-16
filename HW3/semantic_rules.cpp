@@ -113,6 +113,8 @@ void Program_Semantic(int lineno,class ProgramNode* Self, class FuncsNode* funcs
 	if( glob_containsMain==false ){
 		//erorMainMissing()
 		errorMainMissing();
+        // added exit:
+        exit(1);
 	}
     // print end of scope
     symtab.exit_scope();
@@ -147,19 +149,17 @@ void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* r
 #endif
 
 	if(id->str_content.compare("main")==0){ //if main
-		if(rettype->Type!=Void){ // if not void
-			errorSyn(lineno);
-			exit(1);
-		}else{//retType is void
-
-			if(glob_containsMain){ // already another main
-				errorSyn(lineno);
-				exit(1);
-			}else{// first main
-				glob_containsMain=true;
-			}
-		}
+		if(rettype->Type==Void) { // if void
+            if (symtab.is_func("main")) { // already another main
+                errorDef(lineno,id->str_content);
+                exit(1);
+            }
+            // first main:
+            if (formals->types_vec.empty()) // with no params
+                glob_containsMain = true;
+        }
 	}
+    // EMPHASIZE - when we see a "wrong" main we don't fail - just treat it as a normal function.
 	// if such function is in symbol table
 		// errorDef(lineno,id->str_content)
 	if(symtab.is_func(id->str_content)){

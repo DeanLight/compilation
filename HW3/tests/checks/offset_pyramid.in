@@ -1,0 +1,22 @@
+byte foo(int x,int y,byte z)
+{
+	int w; //0
+	{
+		int r; //1
+		{
+			byte bb = 54b; //2 
+			{
+				bool bb2 = false; //3
+			}
+			bool bb2 = true; //3
+		}
+		int bb = 0; //2
+	}
+	byte r = z; //1
+	x = y;
+	return r;
+}
+void main()
+{
+	return;
+}

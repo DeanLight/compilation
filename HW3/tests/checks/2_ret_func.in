@@ -1,0 +1,18 @@
+byte fii(byte x, byte y)
+{
+	return x-y;
+	return x*y;
+}
+
+int int foo(int x,int y)
+{
+	return x+y;
+}
+
+void main ()
+{
+	int x;
+	int y;
+	Byte z;
+	z = foo(x,y);
+}

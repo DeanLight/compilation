@@ -1,0 +1,20 @@
+//sw&sw2
+
+//switch in switch
+void main()
+{
+	int x;
+	switch(x)
+	{
+		default:
+			switch(x)
+			{
+				default:
+					switch (x)
+					{
+						default:
+							int x;
+					};
+			};
+	};
+}

@@ -1,0 +1,24 @@
+//switch in switch
+void main()
+{
+	int x;
+	switch(x)
+	{
+		default:
+			switch(x)
+			{
+				default:
+					switch (x)
+					{
+						default:
+							return;
+						case 5:
+							x=2;
+					};
+				case 4:
+				case 4:
+					x=3;
+					int y=5;
+			};
+	};
+}

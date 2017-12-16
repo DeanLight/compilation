@@ -1,22 +1,30 @@
+ADDED SONS LINKING - valgrind doesn't work in windows
+
 TESTS
 
-add a test with all rellop and binop 
+add a test with all rellop and binop  [V]
 
-break tests with alot of scopes within scopes
+break tests with alot of scopes within scopes [V]
 
-switch within a switch
+switch within a switch [V]
 
-function with two return values
+int main [V]
+
+main with params [V]
+
+function with two return values [V]
+
+offsets_check [V]
 
 Dangling else test
 
-Byte<= 255 only
+Byte<= 255 only [V]
 
-check And and OR between ints
+check And and OR between ints [V]
 
 Check precedence between operators (maybe)?
 
-recursion and a function call within a function call
+recursion and a function call within a function call [V]
 
 check swithc has a scope but each case does not
 

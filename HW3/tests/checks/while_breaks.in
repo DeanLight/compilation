@@ -1,0 +1,27 @@
+void main()
+{
+	while(1>2)
+	{
+		{
+			{
+				break;
+				{
+					int x;
+					break;
+				}
+			}
+			{
+				int x;
+				{
+					return;
+				}
+			}
+			{
+				int x;
+				break;
+			}
+			break;
+		}
+		break;
+	}
+}

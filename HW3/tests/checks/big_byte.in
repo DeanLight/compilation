@@ -1,0 +1,6 @@
+void main()
+{
+	int x;
+	byte y = 5 b;
+	byte bigByte = 256 b;
+}
