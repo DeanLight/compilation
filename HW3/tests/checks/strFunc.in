@@ -1,0 +1,16 @@
+//str_func
+
+void notherPrint()
+{
+	print("superkalifragilisticexpialidosduisdh");
+}
+
+void myPrint(string s)
+{
+	print(s);
+}
+
+void main()
+{
+	myPrint("boo!");
+}

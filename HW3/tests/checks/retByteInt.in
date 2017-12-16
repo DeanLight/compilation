@@ -1,0 +1,16 @@
+//retByteInt
+
+int foo(byte me)
+{
+	return me;
+}
+
+byte foo2(int riguing)
+{
+	return riguing;
+}
+
+void main()
+{
+	return foo(4b);
+}

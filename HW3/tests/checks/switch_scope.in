@@ -1,0 +1,21 @@
+//switch scope
+
+void main()
+{
+	int y1;
+	switch(5)
+	{
+		case 5:
+			y1 = 1;
+		default:
+			int z;
+		case 5:
+			y1=2;
+		case 6:
+			int z=5;
+			break;
+		case 7:
+			return;
+	};
+	int x;
+}

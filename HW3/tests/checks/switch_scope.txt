@@ -1,0 +1,11 @@
+//switch scope
+
+void main()
+{
+	switch(5)
+	{
+		default:
+			return;
+	};
+	int x;
+}

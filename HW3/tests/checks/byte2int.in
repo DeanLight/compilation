@@ -1,0 +1,12 @@
+//byte to int
+
+void main()
+{
+	int ii;
+	byte bb;
+	{
+		int z;
+	}
+	ii = bb;
+	bb = ii;
+}

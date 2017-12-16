@@ -1,0 +1,16 @@
+//switch_bool
+
+int main()
+{
+	bool hope=true;
+	bool logic = false;
+	bool goodIntentions = true;
+	switch(hope)
+	{
+		case logic:
+			return 1;
+		case good_intentions:
+			return 3;
+	}
+	return 0;
+}

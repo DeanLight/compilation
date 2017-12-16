@@ -1,0 +1,9 @@
+//strVar
+
+void main()
+{
+	printi(42 b);
+	print("blueeeeeeee");
+	string s = "blaaaa";
+	print(s);
+}
