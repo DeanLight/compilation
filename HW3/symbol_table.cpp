@@ -218,13 +218,13 @@ string str_off_type(enum type_enum tt){
 }
 
 
-vector<string>& stringify_type_vec2(const types_vec& vec){
-    vector<string>* res = new vector<string>();
+vector<string> stringify_type_vec2(const types_vec& vec){
+    vector<string> res =  vector<string>();
     for( vector<type_e>::const_iterator i=vec.begin();i!=vec.end(); i++){
-        res->push_back(str_off_type(*i));
+        res.push_back(str_off_type(*i));
     }
 
-    return *res;
+    return res;
 
 }
 
@@ -257,8 +257,10 @@ void scope::print_scope(){
             }
 
             if (vardat->isFunc) {
+                vector<string> str_vec=stringify_type_vec2(vardat->params);
                 output::printID(it->first, 0, output::makeFunctionType(str_off_type(vardat->type),
-                                                                       stringify_type_vec2(vardat->params)));
+                                                                       str_vec));
+
             } else {
                 output::printID(it->first, it->second, str_off_type(vardat->type));
             }

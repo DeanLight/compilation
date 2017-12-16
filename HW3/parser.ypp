@@ -92,7 +92,7 @@ Statement:		LBRACE Scope_init Statements RBRACE                                 
 				| IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse      { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(If*)$1,(ExpNode*)$3,(StatementNode*)$6  ) ; $$->addSon($1,$2,$3,$4,$6,$8);}
 				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement                    { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(While*)$1,(ExpNode*)$3,(StatementNode*)$6  ) ;$$->addSon($1,$2,$3,$4,$6); }
 				| BREAK SC                                                                  { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Break*)$1  ) ;$$->addSon($1,$2); }
-                    | SwitchHead CaseList RBRACE SC                                             { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(SwitchHeadNode*)$1,(CaseListNode*)$2  ) ; $$->addSon($1,$2,$3,$4);}
+                | SwitchHead CaseList RBRACE SC                                             { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(SwitchHeadNode*)$1,(CaseListNode*)$2  ) ; $$->addSon($1,$2,$3,$4);}
   
 SwitchHead:     SWITCH LPAREN NumExp RPAREN LBRACE                         { $$=new SwitchHeadNode() ; SwitchHead_Semantic(yylineno,(SwitchHeadNode*)$$,(ExpNode*)$3  ) ; $$->addSon($1,$2,$3,$4,$5);}
 

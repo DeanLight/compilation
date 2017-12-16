@@ -16,7 +16,7 @@ Here we have all the semantic rules that supplement the bison AST generation
 using std::vector;
 using std::string;
 using namespace output;
-#define PARSEDEBUG
+//#define PARSEDEBUG
 
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
@@ -89,13 +89,13 @@ string str_of_type(enum type_enum tt){
 }
 
 
-vector<string>& stringify_type_vec(const types_vec& vec){
-	vector<string>* res = new vector<string>();
+vector<string> stringify_type_vec(const types_vec& vec){
+	vector<string> res = vector<string>();
 	for( vector<type_e>::const_iterator i=vec.begin();i!=vec.end(); i++){
-		res->push_back(str_of_type(*i));
+		res.push_back(str_of_type(*i));
 	}
 
-	return *res;
+	return res;
 
 }
 
@@ -584,7 +584,7 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 	// errorPrototypeMismatch(lineno,id,types)
 
 	if(are_params_convertible(actual_params,func_dat.params) == false  ){
-		vector<string>& str_vec=stringify_type_vec(func_dat.params);
+		vector<string> str_vec=stringify_type_vec(func_dat.params);
 #ifdef PARSEDEBUG
         //TODO REMOVE:
         cerr << "func params:" << endl;
@@ -721,7 +721,9 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode
 
 //Exp:			ID 
 void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id){
+#ifdef PARSEDEBUG
     cerr<<"<<[Exp_Semantic_Id] id:[" << id->str_content << "]>>"<< endl; // TODO REMVOVE
+#endif
     // if id->str_content is not in scopeTable,
 		//	errorUndef(lineno,id->str_content);
 	if(!symtab.is_var(id->str_content)){

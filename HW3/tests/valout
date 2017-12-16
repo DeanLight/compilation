@@ -1,0 +1,51 @@
+==3040== Memcheck, a memory error detector
+==3040== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==3040== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==3040== Command: ./hw3
+==3040== 
+==3040== 
+==3040== HEAP SUMMARY:
+==3040==     in use at exit: 89,162 bytes in 4 blocks
+==3040==   total heap usage: 362 allocs, 358 frees, 120,171 bytes allocated
+==3040== 
+==3040== 8 bytes in 1 blocks are still reachable in loss record 1 of 4
+==3040==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3040==    by 0x404656: yyalloc(unsigned long) (lex.yy.c:2162)
+==3040==    by 0x404161: yyensure_buffer_stack() (lex.yy.c:1858)
+==3040==    by 0x4020CE: yylex() (lex.yy.c:782)
+==3040==    by 0x406CC5: yyparse() (parser.tab.cpp:1254)
+==3040==    by 0x409545: main (parser.ypp:153)
+==3040== 
+==3040== 64 bytes in 1 blocks are still reachable in loss record 2 of 4
+==3040==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3040==    by 0x404656: yyalloc(unsigned long) (lex.yy.c:2162)
+==3040==    by 0x403CE8: yy_create_buffer(_IO_FILE*, int) (lex.yy.c:1697)
+==3040==    by 0x4020F8: yylex() (lex.yy.c:784)
+==3040==    by 0x406CC5: yyparse() (parser.tab.cpp:1254)
+==3040==    by 0x409545: main (parser.ypp:153)
+==3040== 
+==3040== 16,386 bytes in 1 blocks are still reachable in loss record 3 of 4
+==3040==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3040==    by 0x404656: yyalloc(unsigned long) (lex.yy.c:2162)
+==3040==    by 0x403D1F: yy_create_buffer(_IO_FILE*, int) (lex.yy.c:1706)
+==3040==    by 0x4020F8: yylex() (lex.yy.c:784)
+==3040==    by 0x406CC5: yyparse() (parser.tab.cpp:1254)
+==3040==    by 0x409545: main (parser.ypp:153)
+==3040== 
+==3040== 72,704 bytes in 1 blocks are still reachable in loss record 4 of 4
+==3040==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3040==    by 0x4EC3EFF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==3040==    by 0x40106B9: call_init.part.0 (dl-init.c:72)
+==3040==    by 0x40107CA: call_init (dl-init.c:30)
+==3040==    by 0x40107CA: _dl_init (dl-init.c:120)
+==3040==    by 0x4000C69: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+==3040== 
+==3040== LEAK SUMMARY:
+==3040==    definitely lost: 0 bytes in 0 blocks
+==3040==    indirectly lost: 0 bytes in 0 blocks
+==3040==      possibly lost: 0 bytes in 0 blocks
+==3040==    still reachable: 89,162 bytes in 4 blocks
+==3040==         suppressed: 0 bytes in 0 blocks
+==3040== 
+==3040== For counts of detected and suppressed errors, rerun with: -v
+==3040== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

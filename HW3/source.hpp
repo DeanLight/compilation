@@ -34,7 +34,7 @@ class Node{
 	
 	Node(){};
     Node(std::string txt):str_content(txt){;}; //
-    ~Node()
+    virtual ~Node()
     {
         for (int i=0; i<sons.size();i++)
         {
