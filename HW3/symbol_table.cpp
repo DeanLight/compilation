@@ -2,7 +2,7 @@
 #include <exception>
 #include <iostream> // TODO REMOVE
 
-//#define SYMTABDEBUG
+#define SYMTABDEBUG
 
 using std::cout;
 using std::cerr;
@@ -36,27 +36,26 @@ bool SymbolTable::exit_scope() {
 
 
 bool SymbolTable::is_var(const std::string& var_name) const {
-    bool notFound = true;
-    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
+    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 ; scopeLvl--)
     {
-//        var_map *ith_varT = &((all_scopes[scopeLvl]).varSymbT);
-//        notFound = (ith_varT)->find(var_name) == (ith_varT)->end();
-        notFound = all_scopes[scopeLvl].varSymbT.find(var_name) == all_scopes[scopeLvl].varSymbT.end();
+        if (all_scopes[scopeLvl].varSymbT.find(var_name) != all_scopes[scopeLvl].varSymbT.end())
+        {
+            if (all_scopes[scopeLvl].varSymbT.find(var_name)->second.isFunc)
+                return false;
+            return true;
+        }
     }
-    return !notFound;
+    return false;
 }
 bool SymbolTable::is_var_in_curr_scope(const std::string &var_name) const {
     const scope_data &curr_scope = all_scopes[all_scopes.size()-1];
     return curr_scope.varSymbT.find(var_name) != curr_scope.varSymbT.end();
 }
 bool SymbolTable::is_func(const std::string& funcName) const{
-//    notFound = true;
-//    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
-//    {
-//        auto *ith_funcT = &((all_scopes[i]).varSymbT);
-//        notFound = (ith_funcT)->find(var_name) == (ith_funcT)->end();
-//    }
-    return all_scopes[0].varSymbT.find(funcName) != all_scopes[0].varSymbT.end();
+
+    if(all_scopes[0].varSymbT.find(funcName) == all_scopes[0].varSymbT.end())
+        return false;
+    return all_scopes[0].varSymbT.find(funcName)->second.isFunc;
 }
 bool SymbolTable::is_defined(const std::string &id) const{
     return is_var(id) || is_func(id);

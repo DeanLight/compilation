@@ -16,7 +16,7 @@ Here we have all the semantic rules that supplement the bison AST generation
 using std::vector;
 using std::string;
 using namespace output;
-//#define PARSEDEBUG
+#define PARSEDEBUG
 
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
@@ -507,8 +507,11 @@ void CaseDec_Semantic(int lineno,class CaseDecNode* casedec,class Num* num){
 	// if scope case type is byte
 		//errorByteTooLarge(lineno,value);
 	if(symtab.get_curr_scope_switch_type()==Byte){
-		errorByteTooLarge(lineno,num->str_content);
-		exit(1);
+        if (std::atoi(num->str_content.c_str())>255)
+        {
+            errorByteTooLarge(lineno,num->str_content);
+            exit(1);
+        }
 	}
 }
 
@@ -751,6 +754,9 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num){
 
 //Exp:			NUM B
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
+#ifdef PARSEDEBUG
+    cerr<<"<<[Exp_Semantic] B:[" << num->str_content << "]>>"<< endl; // TODO REMVOVE
+#endif
 	// if Num >255 
 		//errorByteTooLarge(lineno,int(Num->str_content)
 	if(std::atoi(num->str_content.c_str())>255){

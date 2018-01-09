@@ -29,28 +29,30 @@
 %token COLON
 %token SC
 %token COMMA
-%token LPAREN
-%token RPAREN
-%token LBRACE
-%token RBRACE
 %token ASSIGN
 
-%left RELOP
-%left BINOP
+
 %left OR
 %left AND
 %left NOT
+%left RELOP
+%left BINOP
 
 %token ID
 %nonassoc NUM
 %token STRING
 %nonassoc B
 
+%token LPAREN
+%token RPAREN
+%token LBRACE
+%token RBRACE
 
 %left L_ASSOC
 %left PRIO_REGIF
 %left ELSE
 %left PRIO_IFELSE
+
 
 %%
 
@@ -129,10 +131,10 @@ Type:			INT     { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Int
 				| BYTE  { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Byte_Node*)$1 ) ; $$->addSon($1);}
 				| BOOL  { $$=new TypeNode() ; Type_Semantic(yylineno,(TypeNode*)$$ ,(Bool_Node*)$1 ) ;$$->addSon($1); }
   
-Exp:			Exp AND Exp %prec L_ASSOC		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (ExpNode*)$3  ) ;$$->addSon($1,$2,$3); }
-				| Exp OR Exp %prec L_ASSOC		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (ExpNode*)$3  ) ; $$->addSon($1,$2,$3);}
-				| Exp RELOP Exp %prec L_ASSOC	{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ; $$->addSon($1,$2,$3);}
-				| Exp BINOP Exp %prec L_ASSOC	{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Binop*)$2 , (ExpNode*)$3  ) ; $$->addSon($1,$2,$3);}
+Exp:			Exp AND Exp 		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (ExpNode*)$3  ) ;$$->addSon($1,$2,$3); }
+				| Exp OR Exp 		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (ExpNode*)$3  ) ; $$->addSon($1,$2,$3);}
+				| Exp RELOP Exp 	{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ; $$->addSon($1,$2,$3);}
+				| Exp BINOP Exp 	{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Binop*)$2 , (ExpNode*)$3  ) ; $$->addSon($1,$2,$3);}
 				| LPAREN Exp RPAREN 			{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Lparen*)$1 , (ExpNode*)$2 , (Rparen*)$3  ) ; $$->addSon($1,$2,$3);}
 				| ID							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Id*)$1   ) ;$$->addSon($1); }
 				| Call							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(CallNode*)$1   ) ;$$->addSon($1); }
