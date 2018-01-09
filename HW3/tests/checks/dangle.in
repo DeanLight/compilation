@@ -1,0 +1,11 @@
+int f(int x) {
+	if(true)
+		if(true)
+			int y=3;
+		else
+			int y=5;
+}
+
+void main(){
+	int z=34;
+}
