@@ -28,7 +28,7 @@ SymbolTable::SymbolTable():all_scopes() {
 
 bool SymbolTable::exit_scope() {
     // get last scope
-    all_scopes.back().print_scope();
+    //all_scopes.back().print_scope();
     all_scopes.pop_back();
     return true;
 }

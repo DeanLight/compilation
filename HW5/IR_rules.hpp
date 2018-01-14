@@ -2,7 +2,7 @@
 #define IR_RULEZ
 #include "source.hpp"
 #include "symbol_table.hpp"
-
+#include "emitter.hpp"
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
 

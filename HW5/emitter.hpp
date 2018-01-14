@@ -8,15 +8,34 @@
 
 using namespace std;
 
-CodeBuffer codebuffer=CodeBuffer()
+
+
+extern CodeBuffer& codebuffer;
+
+enum binop_enum{
+  ADD,
+  SUB,
+  MULT,
+  DIV,
+  ADDB,
+  SUBB,
+  MULTB,
+  DIVB
+} ;
+
+
 
 class Emitter{
 public:
 	Emitter(){
-		binop_map["+"]="add"
-		binop_map["+"]="sub"
-		binop_map["+"]="mult"
-		binop_map["+"]="div"
+		int_binop_map["+"]=ADD;
+		int_binop_map["-"]=SUB;
+		int_binop_map["*"]=MULT;
+		int_binop_map["/"]=DIV;
+    byte_binop_map["+"]=ADDB;
+    byte_binop_map["-"]=SUBB;
+    byte_binop_map["*"]=MULTB;
+    byte_binop_map["/"]=DIVB;
 	};
 
 	void add(string& dreg, string& sreg1 ,string& sreg2);
@@ -44,9 +63,10 @@ public:
 
 
 
-	map<string,string> binop_map;
+	map<string,binop_enum> int_binop_map;
+  map<string,binop_enum> byte_binop_map;
 
-}
+};
 
 
 #endif
