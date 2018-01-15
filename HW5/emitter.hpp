@@ -27,23 +27,14 @@ enum binop_enum{
 
 class Emitter{
 public:
-	Emitter(){
-		int_binop_map["+"]=ADD;
-		int_binop_map["-"]=SUB;
-		int_binop_map["*"]=MULT;
-		int_binop_map["/"]=DIV;
-    byte_binop_map["+"]=ADDB;
-    byte_binop_map["-"]=SUBB;
-    byte_binop_map["*"]=MULTB;
-    byte_binop_map["/"]=DIVB;
-	};
+	Emitter(){};
 
 	void add(string& dreg, string& sreg1 ,string& sreg2);
 	void subtruct(string& dreg, string& sreg1 ,string& sreg2);
 	void multiply(string& dreg, string& sreg1 ,string& sreg2);
 	void div(string& dreg, string& sreg1 ,string& sreg2);
 
-  void num_toreg(string& reg, int num);
+  void num_toreg(string& reg, string num);
 
 	void add_byte(string& dreg, string& sreg1 ,string& sreg2);
 	void subtruct_byte(string& dreg, string& sreg1 ,string& sreg2);
@@ -55,7 +46,7 @@ public:
 	void register_jump(string& jreg);
 
 	// returns label to patch to
-	string patchy_jump();
+	int patchy_jump();
 
 	void assign(string dreg,string sreg);
 	void comment(string comment);
@@ -63,8 +54,6 @@ public:
 
 
 
-	map<string,binop_enum> int_binop_map;
-  map<string,binop_enum> byte_binop_map;
 
 };
 
