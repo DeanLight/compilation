@@ -98,8 +98,12 @@ typedef struct scope_data{
 class SymbolTable
 {
 	public:
+        static SymbolTable& getSymbolTable(){
+            static SymbolTable _glob_symbTable;
+            return _glob_symbTable;
+        }
 
-        SymbolTable();
+        // SymbolTable(); // removed because it's a singleton now
 
         bool is_defined(const std::string &id) const; // searches for
         bool is_func(const std::string &id) const;
@@ -137,6 +141,9 @@ class SymbolTable
         bool exit_scope();
 
 	private:
+        SymbolTable();
+        SymbolTable(const SymbolTable&); // NOT IMPLEMENTED
+        void operator=(const SymbolTable&); // DO NOT IMPLEMENT
 
         unsigned var_size(v_type tt) { return 4;}; // return size of type
         std::vector<scope_data> all_scopes;
