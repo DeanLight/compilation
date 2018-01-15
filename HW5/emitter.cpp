@@ -8,7 +8,7 @@
 
 CodeBuffer& codebuffer=CodeBuffer::instance();
 
-void Emitter::add(string& dreg, string& sreg1 ,string& sreg2){
+void Emitter::add(const string& dreg,const string& sreg1 ,const string& sreg2) const{
 	const string command = string( "\tadd\t" + dreg +","+ sreg1 +","+ sreg2 );
 
 	codebuffer.emit(command);
@@ -16,14 +16,14 @@ void Emitter::add(string& dreg, string& sreg1 ,string& sreg2){
 }
 
 
-void Emitter::subtruct(string& dreg, string& sreg1 ,string& sreg2){
+void Emitter::subtruct(const string& dreg, const string& sreg1 ,const string& sreg2) const{
 	const string command = "\tsub\t" + dreg +","+ sreg1 +","+ sreg2 ;
 
 	codebuffer.emit(command);
 }
 
 
-void Emitter::multiply(string& dreg, string& sreg1 ,string& sreg2){
+void Emitter::multiply(const string& dreg, const string& sreg1 ,const string& sreg2) const{
 	const string command1 = "\tmult\t" +  sreg1 +","+ sreg2 ;
 	codebuffer.emit(command1);
 	const string command2 = "\tmflow\t"+ dreg;
@@ -32,7 +32,7 @@ void Emitter::multiply(string& dreg, string& sreg1 ,string& sreg2){
 }
 
 
-void Emitter::div(string& dreg, string& sreg1 ,string& sreg2){
+void Emitter::div(const string& dreg, const string& sreg1 ,const string& sreg2) const{
 	//emit check for div by 0 code
 
 	const string command1 = "\tbeq\t" +  sreg1 +","+ "zero"+","+"" ; //TODO add jump to div by zero handler
@@ -46,7 +46,7 @@ void Emitter::div(string& dreg, string& sreg1 ,string& sreg2){
 
 }
 
-void num_toreg(string& reg, string& num){
+void Emitter::num_toreg(const string& reg, const string& num) const{
 
 
   const string command = "\tli\t" +  reg +","+ num ;
@@ -56,14 +56,14 @@ void num_toreg(string& reg, string& num){
 
 }
 
-void Emitter::jump(string& target){
+void Emitter::jump(const string& target) const{
 
 	const string& command = "\tj\t"+ target;
 	codebuffer.emit(command);
 }
 
 
-void Emitter::register_jump(string& jreg){
+void Emitter::register_jump(const string& jreg) const{
 
 	const string command = "\tjr\t"+ jreg;
 	codebuffer.emit(command);
@@ -71,7 +71,7 @@ void Emitter::register_jump(string& jreg){
 
 
 // returns label to patch t
-int Emitter::patchy_jump(){
+int Emitter::patchy_jump() const{
   const string command = "\tj\t";
   int address=codebuffer.emit(command);
   return address;
@@ -79,12 +79,12 @@ int Emitter::patchy_jump(){
 }
 
 
-void Emitter::assign(string dreg,string sreg){
-
+void Emitter::assign(const string &dreg,const string & sreg) const{
+    // TODO - this is empty!!!!
 }
 
 
-void Emitter::comment(string comment){
+void Emitter::comment(const string &comment) const{
 #ifdef MIPS_COMMENT_DBG
   const string command = "\t\t#"+comment;
   codebuffer.emit(command);
@@ -92,7 +92,7 @@ void Emitter::comment(string comment){
 }
 
 
-void Emitter::debug_print(string debug_print){
+void Emitter::debug_print(const string &debug_print) const{
 
 #ifdef MIPS_DBG
   string label = codebuffer.next();
@@ -109,13 +109,12 @@ void Emitter::debug_print(string debug_print){
 }
 
 
-void get_var_value(string& dreg, string& sp_offset){
+void Emitter::get_var_value(const string& dreg, const string& sp_offset) const{
   const string command = "\tlw"+dreg+", " +sp_offset;
   codebuffer.emit(command);
 
 }
 
 int main(){
-
   return 0;
 }

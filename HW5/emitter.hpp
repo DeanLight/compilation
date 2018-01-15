@@ -29,30 +29,30 @@ class Emitter{
 public:
 	Emitter(){};
 
-	void add(string& dreg, string& sreg1 ,string& sreg2);
-	void subtruct(string& dreg, string& sreg1 ,string& sreg2);
-	void multiply(string& dreg, string& sreg1 ,string& sreg2);
-	void div(string& dreg, string& sreg1 ,string& sreg2);
+	void add(const string& dreg,const  string& sreg1 ,const string& sreg2) const;
+	void subtruct(const string& dreg, const string& sreg1 ,const string& sreg2) const;
+	void multiply(const string& dreg, const string& sreg1 ,const string& sreg2) const;
+	void div(const string& dreg, const string& sreg1 ,const string& sreg2) const;
 
-  void num_toreg(string& reg, string num);
+  void num_toreg(const string& reg, const string& num) const;
 
-	void add_byte(string& dreg, string& sreg1 ,string& sreg2);
-	void subtruct_byte(string& dreg, string& sreg1 ,string& sreg2);
-	void multiply_byte(string& dreg, string& sreg1 ,string& sreg2);
-	void div_byte(string& dreg, string& sreg1 ,string& sreg2);
+	void add_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const;
+	void subtruct_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const;
+	void multiply_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const;
+	void div_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const;
 
 
-	void jump(string& target);
-	void register_jump(string& jreg);
+	void jump(const string& target) const;
+	void register_jump(const string& jreg) const;
 
 	// returns label to patch to
-	int patchy_jump();
+	int patchy_jump() const;
 
-	void assign(string dreg,string sreg);
-	void comment(string comment);
-	void debug_print(string debug_print);
+	void assign(const string& dreg,const string &sreg) const;
+	void comment(const string & comment) const;
+	void debug_print(const string &debug_print) const;
 
-  void get_var_value(const string& dreg, const string& sp_offset);
+  void get_var_value(const string& dreg, const string& sp_offset) const;
 
 
 };
