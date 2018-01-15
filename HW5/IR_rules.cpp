@@ -1,5 +1,5 @@
 #include "IR_rules.hpp"
-#include "RegMngr.hpp"
+#include "RegMngr.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -12,7 +12,7 @@ using namespace std;
 
 Emitter emitter;
 
-class RegMngr regmn;
+RegMngr& regmn=RegMngr::getRegMngr();
 
 //Exp -> Exp1 And Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);
@@ -25,16 +25,32 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* rel
 
 // Exp -> Exp1 Binop Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* binop, class ExpNode* exp2){
-	//get last 2 used registers
 
+  // prepare map for switch case;
+  map<string,binop_enum> int_binop_map;
+  map<string,binop_enum> byte_binop_map;
+
+  int_binop_map["+"]=ADD;
+  int_binop_map["-"]=SUB;
+  int_binop_map["*"]=MULT;
+  int_binop_map["/"]=DIV;
+  byte_binop_map["+"]=ADDB;
+  byte_binop_map["-"]=SUBB;
+  byte_binop_map["*"]=MULTB;
+  byte_binop_map["/"]=DIVB;
+
+  //get last 2 used registers
+  pair<string,string> exp_regs=regmn.last_two_regs();
+  string& reg1=exp_regs.first;
+  string& reg2=exp_regs.second;
 	//get binop map command {}
   const string& op_str = binop->str_content;
   binop_enum oper;
 
   if(Self->Type == Int){
-    oper=emitter.int_binop_map.find("asda");
+    oper=int_binop_map[binop->str_content];
   } else if (Self-> Type == Byte){
-    oper=emitter.byte_binop_map[binop->str_content];
+    oper=byte_binop_map[binop->str_content];
   } else{
     // shouldnt get here
     throw std::logic_error( "binop should recieve either byte or int");
@@ -42,21 +58,21 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
 
   switch(oper){
     case binop_enum::ADD:
-      emitter.add( dreg,  sreg1 , sreg2); break;
+      emitter.add( reg1,  reg1 , reg2); break;
     case binop_enum::SUB:
-      emitter.subtruct( dreg,  sreg1 , sreg2); break;
+      emitter.subtruct( reg1,  reg1 , reg2); break;
     case binop_enum::MULT:
-      emitter.multiply( dreg,  sreg1 , sreg2); break;
+      emitter.multiply( reg1,  reg1 , reg2); break;
     case binop_enum::DIV:
-      emitter.div( dreg,  sreg1 , sreg2); break;
+      emitter.div( reg1,  reg1 , reg2); break;
     case binop_enum::ADDB:
-      emitter.add_byte( dreg,  sreg1 , sreg2); break;
+      emitter.add_byte( reg1,  reg1 , reg2); break;
     case binop_enum::SUBB:
-      emitter.subtruct_byte( dreg,  sreg1 , sreg2); break;
+      emitter.subtruct_byte( reg1,  reg1 , reg2); break;
     case binop_enum::MULTB:
-      emitter.multiply_byte( dreg,  sreg1 , sreg2); break;
+      emitter.multiply_byte( reg1,  reg1 , reg2); break;
     case binop_enum::DIVB:
-      emitter.div_byte( dreg,  sreg1 , sreg2); break;
+      emitter.div_byte( reg1,  reg1 , reg2); break;
 
   }
 
@@ -81,7 +97,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Num* num){
 
 // Exp -> Num B
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
-  Exp_IR(lineno,self,num);
+  Exp_IR(lineno,Self,num);
 
 }
 

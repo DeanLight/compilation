@@ -14,37 +14,38 @@ function get_infile_array {
 
 function do_test {
 
-	tests_folder=$1
+  executable=$1
+	tests_folder=$2
 
-
-    infile_arr=$(get_infile_array $tests_folder)
+  #gets the names of all files in tests_folder with suffix .in , removes the '.in'
+  infile_arr=$(get_infile_array $tests_folder)
 
 
 	for i in $infile_arr ; do
-        echo checking ${i}.in 
-		touch  ${i}.myout  
-		./hw3 < ${i}.in > ${i}.myout  2>${i}.err 
-        echo run it
-		if cmp ${i}.out ${i}.myout 
+    echo checking ${i}.in
+		./${executable} < ${i}.in >! ${i}_mips.s  2>! ${i}.Cerr
+    ./spim -file ${i}_mips.s | tee >( grep -E "^@@@" >! ${i}.Serr ) | grep -v -E "^@@@" >! ${i}.myout
+
+		if cmp ${i}.out ${i}.myout
 		then
 			echo ${i} passed tests
-			rm ${i}.myout ${i}.err
+			rm -f ${i}.myout ${i}.Cerr ${i}.Serr ${i}_mips.s
+      echo
 		else
 			echo ${i} failed tests
-			echo 
-			diff ${i}.out ${i}.myout
-            break
-			echo	
+			echo
+      subl -n ${i}.myout ${i}.Cerr ${i}.Serr ${i}_mips.s
+      break
 		fi ;
-	done 
+	done
 
 	rm hw3
 
 }
 
-echo cleaning up 
+echo cleaning up
 make clean
 
 echo building objects
 
-make && do_test  $1
+make && do_test  $1 $2
