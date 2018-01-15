@@ -5,7 +5,7 @@
 #include <map>
 #include <string>
 
-
+#define ZERO_DIV_LABEL "nayalo"
 using namespace std;
 
 
@@ -51,6 +51,7 @@ public:
 	void assign(const string& dreg,const string &sreg) const;
 	void comment(const string & comment) const;
 	void debug_print(const string &debug_print) const;
+	void msg_print(const string &msg) const;
 
 	void get_var_value(const string& dreg, const string& sp_offset) const;
 	void add_print_func(void) const;

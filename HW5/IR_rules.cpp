@@ -33,7 +33,10 @@ void FIRST_PROGRAM_POINT(void) // CHANGE add marker
     emitter.add_printi_func();
     symtab.set_func_labal("printi","printi");
     emitter.comment("printi func:");
-    //emitter.write_div_zero_handle();
+    emitter.comment("div by 0 handler:");
+    //emitter.writeLabel(ZERO_DIV_LABEL);
+    emitter.msg_print("Error division by zero\n");
+    //emitter.halt();
 }
 
 
