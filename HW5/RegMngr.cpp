@@ -53,6 +53,26 @@ void RegMngr::free_last_k_regs(int k) {
     next_free_reg -= k;
 }
 
+std::pair<std::string, std::string> RegMngr::last_two_regs() const
+{
+#ifdef PARSEDEBUG
+    if (next_free_reg < 2) // out of bounds
+        std::cerr << "ERROR: Asked last two regs, when only " << next_free_reg << " are used" << std::endl;
+#endif
+    std::pair<std::string,std::string> regPair;
+    regPair.first = tmpRegI(next_free_reg-2);
+    regPair.second = tmpRegI(next_free_reg-1);
+    return regPair;
+};
+
+std::string RegMngr::last_reg() const {
+#ifdef PARSEDEBUG
+    if (next_free_reg == 0) // out of bounds
+        std::cerr << "ERROR: Asked last regs, when  none are used" << std::endl;
+#endif
+    return tmpRegI(next_free_reg-1);
+}
+
 std::string RegMngr::get_next_free_reg() {
 #ifdef PARSEDEBUG
     if (next_free_reg >= MAX_TMP_REG) // out of bounds
