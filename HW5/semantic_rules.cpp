@@ -67,7 +67,7 @@ All end of scope must call the prinitng fucntions explained in the IO section of
 bool is_num_legal_byte(int num);
 
 
-class SymbolTable symtab=SymbolTable();
+SymbolTable &symtab=SymbolTable::getSymbolTable();
 
 bool glob_containsMain=false;
 
