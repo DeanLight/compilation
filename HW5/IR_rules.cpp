@@ -1,5 +1,6 @@
 #include "IR_rules.hpp"
 #include "RegMngr.h"
+#include "symbol_table.hpp"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -44,7 +45,6 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
   string& reg1=exp_regs.first;
   string& reg2=exp_regs.second;
 	//get binop map command {}
-  const string& op_str = binop->str_content;
   binop_enum oper;
 
   if(Self->Type == Int){
@@ -83,14 +83,13 @@ void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1
 
 // Exp -> id
 void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
-  // get sp offset of id from symbolTable
-
-
+  // get sp offset of id from symbolTable currently returns something like 4($sp)
+  string& sp_offset=symtab.get_var_sp(id->str_content);
   // get next free reg
-
+  const string& reg1= regmn.get_next_free_reg();
 
   // emit assign
-
+  emitter.get_var_value(reg1,sp_offset);
 
 
 }
