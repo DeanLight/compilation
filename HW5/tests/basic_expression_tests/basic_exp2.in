@@ -1,0 +1,11 @@
+void main(){
+	printi(1+1);
+	print("\t");
+	printi(30-20);
+	print("\t");
+	printi(3*5);
+	print("\t");
+	printi(50/2);
+	print("\t");
+	printi(49/2);
+}

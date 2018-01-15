@@ -1,0 +1,11 @@
+void main(){
+	int x=10;
+	printi(x);
+	print("\n");
+	int y=x+5;
+	printi(x);
+	print("\n");
+	int x=x+y;
+	printi(x);
+	print("\n");
+}
