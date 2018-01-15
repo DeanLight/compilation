@@ -15,6 +15,9 @@ Emitter emitter;
 
 RegMngr& regmn=RegMngr::getRegMngr();
 
+SymbolTable &symtab=SymbolTable::getSymbolTable();
+
+
 //Exp -> Exp1 And Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);
 
@@ -84,7 +87,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1
 // Exp -> id
 void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   // get sp offset of id from symbolTable currently returns something like 4($sp)
-  string& sp_offset=symtab.get_var_sp(id->str_content);
+  const string& sp_offset=symtab.get_var_sp(id->str_content);
   // get next free reg
   const string& reg1= regmn.get_next_free_reg();
 
