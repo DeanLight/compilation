@@ -56,9 +56,14 @@ class Node{
 
 class ProgramNode: public Node{
 public:
-	//ProgramNode():{};
+	int jump_to_main_address;
+	ProgramNode(int bpAddress):jump_to_main_address(bpAddress){};
 };
-
+class InitProgNode: public Node{
+public:
+	int jump_to_main_address;
+	InitProgNode(int lineNum):jump_to_main_address(lineNum){};
+};
 class FuncsNode : public Node{
 public:
 	//ProgramNode(){};

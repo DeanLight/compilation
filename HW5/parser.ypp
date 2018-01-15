@@ -3,6 +3,7 @@
     #include "source.hpp"
     #include "semantic_rules.hpp"
     #include "output.hpp" //
+    #include "IR_rules.hpp"
     #define YYSTYPE Node*
     int yylex();
     void yyerror(const char*);
@@ -56,7 +57,9 @@
 
 %%
 
-Program:        Funcs                                             { $$=new ProgramNode() ; Program_Semantic(yylineno,(ProgramNode*)$$,(FuncsNode*)$1) ; $$->addSon($1); delete($$);} // TODO delete at end
+Program:        Prog_init Funcs                                             { $$=new ProgramNode(((InitProgNode*)$1)->jump_to_main_address) ; Program_Semantic(yylineno,(ProgramNode*)$$,(FuncsNode*)$2) ; $$->addSon($2); delete($$); delete($1)} // TODO delete at end
+
+Prog_init:      /*epsilon*/                                        { $$ = new InitProgNode(FIRST_PROGRAM_POINT())}
 
 Funcs:          FuncDecl Funcs                                    { $$=new FuncsNode() ; Funcs_Semantic(yylineno,(FuncsNode*)$$,(FuncDeclNode*)$1,(FuncsNode*)$2 );$$->addSon($1,$2); }
                 | /*epsilon*/                                     { $$=new FuncsNode() ; Funcs_Semantic(yylineno,(FuncsNode*)$$) ; }

@@ -34,7 +34,7 @@ typedef class var_details
         var_details(const var_details &otherVarDet):
                 offset(otherVarDet.offset),isFunc(otherVarDet.isFunc),
                 type(otherVarDet.type), id(otherVarDet.id),
-                func_label(otherVarDet.func_label),(otherVarDet.params){};
+                func_label(otherVarDet.func_label),params(otherVarDet.params){};
         var_details():offset(-1354),isFunc(false),id("EmptyID"){};
 
         var_details& operator=(var_details &other)
