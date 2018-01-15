@@ -13,9 +13,21 @@ using namespace std;
 
 Emitter emitter;
 
-RegMngr& regmn=RegMngr::getRegMngr();
 
 SymbolTable &symtab=SymbolTable::getSymbolTable();
+
+
+enum binop_enum{
+  ADD,
+  SUB,
+  MULT,
+  DIV,
+  ADDB,
+  SUBB,
+  MULTB,
+  DIVB
+} ;
+
 
 // special - creating the first point of the program to jump into main
 void FIRST_PROGRAM_POINT(void) // CHANGE add marker

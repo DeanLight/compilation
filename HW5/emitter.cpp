@@ -1,5 +1,6 @@
 #include "emitter.hpp"
 #include "bp.hpp"
+#include "RegMngr.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define MIPS_COMMENT_DBG
@@ -7,6 +8,9 @@
 
 
 CodeBuffer& codebuffer=CodeBuffer::instance();
+
+RegMngr& regmn=RegMngr::getRegMngr();
+
 
 void Emitter::add_print_func() const {
     codebuffer.emit("lw $a0,0($sp)");
@@ -122,7 +126,7 @@ void Emitter::debug_print(const string &debug_print) const{
 
 void Emitter::msg_print(const string &msg) const{
     string label = codebuffer.next();
-    codebuffer.emitData(label+":\t.asciiz \""+"@@@"+msg+ "\"");
+    codebuffer.emitData(label+":\t.asciiz \""+msg+ "\"");
     const string command1 = "\tli\t$v0, 4";
     const string command2 = "\tla\t$a0, "+label;
     const string command3 = "\tsyscall";
@@ -137,6 +141,65 @@ void Emitter::get_var_value(const string& dreg, const string& sp_offset) const{
 
 }
 
-int main(){
-  return 0;
+
+void Emitter::add_label(const string& label){
+
+  const string command = label+":";
+  codebuffer.emit(command);
 }
+
+void Emitter::halt(){
+
+  const string command = "\tdone";
+  codebuffer.emit(command);
+}
+
+
+
+void func_call(const string& func_label){
+}
+
+// does not store params
+int func_call_patchy(){
+
+  const string command = "\tjal\t";
+  int address=codebuffer.emit(command);
+  return address;
+
+}
+
+// returns the number of registers that where stored in stack
+int store_registers(){
+  int reg_num=regmn.regs_currently_used();
+  for(int i=0; i<reg_num; i++){
+    // get name of reg, store him and free the reg stack
+  }
+
+
+}
+
+// restore regnum registers from the stack
+void restore_registers(int regnum){
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

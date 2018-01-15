@@ -4,7 +4,6 @@
 
 #include <map>
 #include <string>
-
 #define ZERO_DIV_LABEL "nayalo"
 using namespace std;
 
@@ -12,16 +11,6 @@ using namespace std;
 
 //extern CodeBuffer& codebuffer;
 
-enum binop_enum{
-  ADD,
-  SUB,
-  MULT,
-  DIV,
-  ADDB,
-  SUBB,
-  MULTB,
-  DIVB
-} ;
 
 
 
@@ -56,6 +45,20 @@ public:
 	void get_var_value(const string& dreg, const string& sp_offset) const;
 	void add_print_func(void) const;
 	void add_printi_func(void)const;
+
+  void add_label(const string& label);
+  void halt();
+
+  void func_call(const string& func_label);
+  // does not store params
+  int func_call_patchy();
+  // returns the number of registers that where stored in stack
+  int store_registers();
+  // restore regnum registers from the stack
+  void restore_registers(int regnum);
+
+
+
 };
 
 
