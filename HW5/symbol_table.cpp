@@ -30,10 +30,10 @@ void SymbolTable::set_func_label(const std::string &func_id, const std::string &
         cerr << "[set_func_label] ERROR - asked to set label for none-existing func: " << func_id << endl;
     }
 #endif
-    (all_scopes[0].varSymbT[func_id]).label = label; //
+    (all_scopes[0].varSymbT[func_id]).func_label = label; //
 }
 
-std::string SymbolTable::get_func_label(const std, string &func_id) const
+std::string SymbolTable::get_func_label(const std::string &func_id) const
 {
     #ifdef SYMTABDEBUG
     if(!is_func(func_id))
@@ -41,7 +41,7 @@ std::string SymbolTable::get_func_label(const std, string &func_id) const
         cerr << "[set_func_label] ERROR - asked to set label for none-existing func: " << func_id << endl;
     }
     #endif
-    return (all_scopes[0].varSymbT.at(func_id)).label; //
+    return (all_scopes[0].varSymbT.at(func_id)).func_label; //
 }
 
 
@@ -264,8 +264,10 @@ vector<string> stringify_type_vec2(const types_vec& vec){
 
 }
 
+#if(0)
 void scope::print_scope(){
     output::endScope();
+
     // for every param
     if(not(params.empty())){
         for( vector< pair<string,int> >::iterator it = params.begin() ; it!= params.end() ; ++it ){
@@ -303,8 +305,6 @@ void scope::print_scope(){
         }
 
     }
-
-
-
 }
+#endif
 
