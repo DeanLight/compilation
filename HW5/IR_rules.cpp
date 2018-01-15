@@ -17,15 +17,44 @@ RegMngr& regmn=RegMngr::getRegMngr();
 
 SymbolTable &symtab=SymbolTable::getSymbolTable();
 
+// special - creating the first point of the program to jump into main
+void FIRST_PROGRAM_POINT(void) // CHANGE add marker
+{
+    emitter.comment("first program point");
+    // emitter.writeLabel("main"); // no backpatching needed
+    int lineNum_jumpToMain = //emitter.jump_func_patchy);
+    // emitter.halt();
+    emitter.comment("print func:");
+    //emitter.writeLabel("print");
+    symtab.set_func_labal("print","print");
+    emitter.add_print_func();
+    emitter.comment("printi func:");
+    //emitter.writeLabel("printi");
+    emitter.add_printi_func();
+    symtab.set_func_labal("printi","printi");
+    emitter.comment("printi func:");
+    //emitter.write_div_zero_handle();
+}
+
+
 
 //Exp -> Exp1 And Exp2
-void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);
+void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2)
+{
+    // TODO - bool
+}
 
 //Exp -> Exp1 OR Exp2
-void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2);
+void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2)
+{
+    // TODO - bool
+}
 
 // Exp -> Exp1 Relop Exp2
-void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2);
+void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2)
+{
+    // TODO - bool
+}
 
 // Exp -> Exp1 Binop Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* binop, class ExpNode* exp2){
@@ -76,25 +105,23 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
       emitter.multiply_byte( reg1,  reg1 , reg2); break;
     case binop_enum::DIVB:
       emitter.div_byte( reg1,  reg1 , reg2); break;
-
   }
-
+    regmn.free_last_reg(); // free reg2 for new use
 }
 
 // Exp -> ( Exp1 )
-void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp);
+void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp)
+{
+    //NADA!
+}
+
 
 // Exp -> id
 void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   // get sp offset of id from symbolTable currently returns something like 4($sp)
   const string& sp_offset=symtab.get_var_sp(id->str_content);
-  // get next free reg
-  const string& reg1= regmn.get_next_free_reg();
-
-  // emit assign
-  emitter.get_var_value(reg1,sp_offset);
-
-
+  const string& reg1= regmn.get_next_free_reg(); // get next free reg
+  emitter.get_var_value(reg1,sp_offset); // emit assign
 }
 
 // Exp -> Call
@@ -104,8 +131,6 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call);
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num){
   string reg =regmn.get_next_free_reg();
   emitter.num_toreg(reg,num->str_content);
-
-
 }
 
 // Exp -> Num B

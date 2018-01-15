@@ -52,9 +52,9 @@ public:
 	void comment(const string & comment) const;
 	void debug_print(const string &debug_print) const;
 
-  void get_var_value(const string& dreg, const string& sp_offset) const;
-
-
+	void get_var_value(const string& dreg, const string& sp_offset) const;
+	void add_print_func(void) const;
+	void add_printi_func(void)const;
 };
 
 

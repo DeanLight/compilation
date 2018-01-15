@@ -8,6 +8,19 @@
 
 CodeBuffer& codebuffer=CodeBuffer::instance();
 
+void Emitter::add_print_func() const {
+    codebuffer.emit("lw $a0,0($sp)");
+    codebuffer.emit("li $v0,1");
+    codebuffer.emit("syscall");
+    codebuffer.emit("jr $ra");
+}
+void Emitter::add_printi_func() const {
+    codebuffer.emit("lw $a0,0($sp)");
+    codebuffer.emit("li $v0,4");
+    codebuffer.emit("syscall");
+    codebuffer.emit("jr $ra");
+}
+
 void Emitter::add(const string& dreg,const string& sreg1 ,const string& sreg2) const{
 	const string command = string( "\tadd\t" + dreg +","+ sreg1 +","+ sreg2 );
 
