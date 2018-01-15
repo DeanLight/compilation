@@ -1,12 +1,29 @@
 #include "symbol_table.hpp"
 #include <exception>
 #include <iostream> // TODO REMOVE
+#include <sstream> // for num to string conversion
 
 #define SYMTABDEBUG
 
 using std::cout;
 using std::cerr;
 using std::endl;
+
+
+std::string SymbolTable::getVarStr(const std::string &var_id) const {
+#ifdef SYMTABDEBUG
+    if(!is_var(var_id))
+    {
+        cerr << "[getVarStr] ERROR - asked for a string of none-existing variable: " << var_id << endl;
+    }
+#endif
+    unsigned offset = get_var_data(var_id).offset;
+    std::stringstream numStr;
+    numStr << offset;
+    return numStr.str() + "(SP)"; // TODO FIX
+}
+
+
 
 SymbolTable::SymbolTable():all_scopes() {
     // start_offset, ret_type, switch_type, is_breakable

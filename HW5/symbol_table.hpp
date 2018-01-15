@@ -127,7 +127,7 @@ class SymbolTable
         v_type get_curr_scope_switch_type() const;
         int get_curr_scope_defaults() const;
 
-
+        std::string getVarStr(const std::string &var_id) const;
 
         bool exit_scope();
 
