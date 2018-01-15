@@ -26,13 +26,15 @@ typedef class var_details
         bool isFunc;
         v_type type; // serves as ret type for functions
         std::string id;
+        std::string func_label;
         types_vec params;
         var_details(int os, bool isF, v_type tt,const  std::string &str_id):
-                offset(os), isFunc(isF),type(tt), id(str_id){};
+                offset(os), isFunc(isF),type(tt), id(str_id),func_label(""){};
         //CCtor
         var_details(const var_details &otherVarDet):
                 offset(otherVarDet.offset),isFunc(otherVarDet.isFunc),
-                type(otherVarDet.type), id(otherVarDet.id),params(otherVarDet.params){};
+                type(otherVarDet.type), id(otherVarDet.id),
+                func_label(otherVarDet.func_label),(otherVarDet.params){};
         var_details():offset(-1354),isFunc(false),id("EmptyID"){};
 
         var_details& operator=(var_details &other)
@@ -127,16 +129,16 @@ class SymbolTable
         v_type get_curr_scope_switch_type() const;
         int get_curr_scope_defaults() const;
 
-        std::string getVarStr(const std::string &var_id) const;
+        std::string get_var_sp(const std::string &var_id) const;
 
         void set_func_labal(const std::string &func_id, const std::string &labal);
-        std::string get_func_label(const std:string& func_id);
+        std::string get_func_label(const std::string& func_id) const;
 
         bool exit_scope();
 
 	private:
 
-        unsigned var_size(v_type tt) { return 1;}; // return size of type
+        unsigned var_size(v_type tt) { return 4;}; // return size of type
         std::vector<scope_data> all_scopes;
         bool enter_new_scope(v_type ret_tt, v_type switch_type, bool is_break);
 };

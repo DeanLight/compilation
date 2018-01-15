@@ -10,19 +10,39 @@ using std::cerr;
 using std::endl;
 
 
-std::string SymbolTable::getVarStr(const std::string &var_id) const {
+std::string SymbolTable::get_var_sp(const std::string &var_id) const {
 #ifdef SYMTABDEBUG
     if(!is_var(var_id))
     {
-        cerr << "[getVarStr] ERROR - asked for a string of none-existing variable: " << var_id << endl;
+        cerr << "[get_var_sp] ERROR - asked for a string of none-existing variable: " << var_id << endl;
     }
 #endif
     unsigned offset = get_var_data(var_id).offset;
     std::stringstream numStr;
     numStr << offset;
-    return numStr.str() + "(SP)"; // TODO FIX
+    return numStr.str() + "($sp)"; // TODO FIX
 }
 
+void SymbolTable::set_func_labal(const std::string &func_id, const std::string &label) {
+#ifdef SYMTABDEBUG
+    if(!is_func(func_id))
+    {
+        cerr << "[set_func_label] ERROR - asked to set label for none-existing func: " << func_id << endl;
+    }
+#endif
+    (all_scopes[0].varSymbT[func_id]).label = label; //
+}
+
+std::string SymbolTable::get_func_label(const std, string &func_id) const
+{
+    #ifdef SYMTABDEBUG
+    if(!is_func(func_id))
+    {
+        cerr << "[set_func_label] ERROR - asked to set label for none-existing func: " << func_id << endl;
+    }
+    #endif
+    return (all_scopes[0].varSymbT.at(func_id)).label; //
+}
 
 
 SymbolTable::SymbolTable():all_scopes() {
