@@ -1,7 +1,7 @@
 #ifndef EMMITERZ
 #define EMMITERZ
 
-#include "bp.hpp"
+
 #include <map>
 #include <string>
 
@@ -10,7 +10,7 @@ using namespace std;
 
 
 
-extern CodeBuffer& codebuffer;
+//extern CodeBuffer& codebuffer;
 
 enum binop_enum{
   ADD,
