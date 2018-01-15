@@ -135,7 +135,7 @@ class SymbolTable
 
         std::string get_var_sp(const std::string &var_id) const;
 
-        void set_func_labal(const std::string &func_id, const std::string &labal);
+        void set_func_label(const std::string &func_id, const std::string &labal);
         std::string get_func_label(const std::string& func_id) const;
 
         bool exit_scope();

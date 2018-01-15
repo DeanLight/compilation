@@ -8,6 +8,19 @@
 
 CodeBuffer& codebuffer=CodeBuffer::instance();
 
+void Emitter::add_print_func() const {
+    codebuffer.emit("lw $a0,0($sp)");
+    codebuffer.emit("li $v0,1");
+    codebuffer.emit("syscall");
+    codebuffer.emit("jr $ra");
+}
+void Emitter::add_printi_func() const {
+    codebuffer.emit("lw $a0,0($sp)");
+    codebuffer.emit("li $v0,4");
+    codebuffer.emit("syscall");
+    codebuffer.emit("jr $ra");
+}
+
 void Emitter::add(const string& dreg,const string& sreg1 ,const string& sreg2) const{
 	const string command = string( "\tadd\t" + dreg +","+ sreg1 +","+ sreg2 );
 
@@ -104,10 +117,19 @@ void Emitter::debug_print(const string &debug_print) const{
   codebuffer.emit(command2);
   codebuffer.emit(command3);
 #endif
-
-
 }
 
+
+void Emitter::msg_print(const string &msg) const{
+    string label = codebuffer.next();
+    codebuffer.emitData(label+":\t.asciiz \""+"@@@"+msg+ "\"");
+    const string command1 = "\tli\t$v0, 4";
+    const string command2 = "\tla\t$a0, "+label;
+    const string command3 = "\tsyscall";
+    codebuffer.emit(command1);
+    codebuffer.emit(command2);
+    codebuffer.emit(command3);
+}
 
 void Emitter::get_var_value(const string& dreg, const string& sp_offset) const{
   const string command = "\tlw"+dreg+", " +sp_offset;

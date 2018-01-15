@@ -23,7 +23,7 @@ std::string SymbolTable::get_var_sp(const std::string &var_id) const {
     return numStr.str() + "($sp)"; // TODO FIX
 }
 
-void SymbolTable::set_func_labal(const std::string &func_id, const std::string &label) {
+void SymbolTable::set_func_label(const std::string &func_id, const std::string &label) {
 #ifdef SYMTABDEBUG
     if(!is_func(func_id))
     {
