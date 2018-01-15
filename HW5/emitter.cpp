@@ -109,6 +109,12 @@ void Emitter::debug_print(string debug_print){
 }
 
 
+void get_var_value(string& dreg, string& sp_offset){
+  const string command = "\tlw"+dreg+", " +sp_offset;
+  codebuffer.emit(command);
+
+}
+
 int main(){
 
   return 0;
