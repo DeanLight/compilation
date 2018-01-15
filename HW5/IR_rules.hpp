@@ -6,7 +6,7 @@
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
 
-
+int FIRST_PROGRAM_POINT(void);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2);

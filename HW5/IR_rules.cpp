@@ -18,7 +18,7 @@ RegMngr& regmn=RegMngr::getRegMngr();
 SymbolTable &symtab=SymbolTable::getSymbolTable();
 
 // special - creating the first point of the program to jump into main
-void FIRST_PROGRAM_POINT(void) // CHANGE add marker
+int FIRST_PROGRAM_POINT(void) // CHANGE add marker
 {
     emitter.comment("first program point");
     // emitter.writeLabel("main"); // no backpatching needed
@@ -37,6 +37,7 @@ void FIRST_PROGRAM_POINT(void) // CHANGE add marker
     //emitter.writeLabel(ZERO_DIV_LABEL);
     emitter.msg_print("Error division by zero\n");
     //emitter.halt();
+    return lineNum_jumpToMain;
 }
 
 
