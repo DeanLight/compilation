@@ -82,7 +82,18 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
 void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp);
 
 // Exp -> id
-void Exp_IR(int lineno,class ExpNode* Self,class Id* id);
+void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
+  // get sp offset of id from symbolTable
+
+
+  // get next free reg
+
+
+  // emit assign
+
+
+
+}
 
 // Exp -> Call
 void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call);

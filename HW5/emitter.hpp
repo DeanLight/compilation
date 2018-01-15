@@ -52,7 +52,7 @@ public:
 	void comment(string comment);
 	void debug_print(string debug_print);
 
-
+  void get_var_value(string& dreg, string& sp_offset);
 
 
 };
