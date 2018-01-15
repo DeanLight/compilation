@@ -46,7 +46,7 @@ public:
 	void register_jump(string& jreg);
 
 	// returns label to patch to
-	string patchy_jump();
+	int patchy_jump();
 
 	void assign(string dreg,string sreg);
 	void comment(string comment);

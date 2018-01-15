@@ -71,11 +71,10 @@ void Emitter::register_jump(string& jreg){
 
 
 // returns label to patch t
-string Emitter::patchy_jump(){
-  string label = codebuffer.next();
+int Emitter::patchy_jump(){
   const string command = "\tj\t";
-  codebuffer.emit(command);
-  return label;
+  int address=codebuffer.emit(command);
+  return address;
 
 }
 
