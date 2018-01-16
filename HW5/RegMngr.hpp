@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <string>
-
+using namespace std;
 #define MAX_TMP_REG 19
 
 class RegMngr
@@ -26,10 +26,11 @@ class RegMngr
     std::string get_next_free_reg(); //returns reg name
     int regs_currently_used() const;
 //        string enter_new_scope_and_save_all_regs_to_stack(); // returns cmd of saving
-    std::string save_all_regs_to_stack() const; // returns cmd of saving
+    vector<string> save_all_regs_to_stack() const; // returns cmd of saving
 //        void enter_new_scope(); // create a clean scope regarding regs
 //        string exit_last_scope_and_restore_all_regs_from_stack(); // returns cmd of restoring
-    std::string restore_all_regs_from_stack() const; // returns cmd of restoring
+    vector<string> restore_all_regs_from_stack(int num_of_reg_to_restore) const;
+ // returns cmd of restoring
 //        void exit_last_scope(); // deletes last scope regarding regs
 
     // getting special registers:

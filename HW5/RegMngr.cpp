@@ -4,6 +4,7 @@
 #include "RegMngr.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
 #define PARSEDEBUG
 
 //std::string intToStr(int i)
@@ -12,6 +13,13 @@
 //    itoa(i,str,10);
 //    return std::string(str);
 //}
+
+string intToString ( int Number ) {
+     ostringstream ss;
+     ss << Number;
+     return ss.str();
+  }
+
 
 RegMngr::RegMngr()
 {
@@ -87,27 +95,36 @@ int RegMngr::regs_currently_used() const {
     return next_free_reg;
 }
 
-std::string RegMngr::save_all_regs_to_stack() const {
-    std::string cmd;
-    for (int i=0; i<next_free_reg; i++)
+vector<string> RegMngr::save_all_regs_to_stack() const {
+    vector<string> cmds;
+    // the +1 is to save the $ra
+    int sp_change = 4*(next_free_reg+1);
+    string expand_stack = "\taddiu $sp, $sp, -"+intToString(sp_change);
+    cmds.push_back(expand_stack);
+    for (int i=0,offset=sp_change; i<next_free_reg; i++,sp_change-=4)
     { // TODO
-        std::string line = std::string("TODO_CHANGE:sw ") + tmpRegI(i) + "\n";
-//                ",-" + atoi(i+1) + "(" + getSP() + ")\n";
-        cmd = cmd + line;
+        std::string line = std::string("\tsw ") + tmpRegI(i) +","+intToString(offset)+"($sp)" ;
+        cmds.push_back(line);
     }
-    cmd += "TODO: moving the SP DOWN \n"; // TODO
-    return cmd;
+    string store_ra=std::string("\tsw ") + "$ra" +","+"($sp)" ;
+    cmds.push_back(store_ra);
+    return cmds;
 }
 
-std::string RegMngr::restore_all_regs_from_stack() const {
-    std::string cmd;
-    for (int i=next_free_reg-1; i>=0; i--)
-    { // TODO
-        std::string line = std::string("TODO_CHANGE:lw ") + tmpRegI(i) + "\n";
-//                      "," + atoi(i+1) + "(" + getSP() + ")\n";
-        cmd = cmd + line;
-    }
-    cmd += "TODO: moving the SP back UP\n"; // TODO
-    return cmd;
+vector<string> RegMngr::restore_all_regs_from_stack(int num_of_reg_to_restore) const {
+  vector<string> cmds;
+  // the +1 is to save the $ra
+  int sp_change = 4*(num_of_reg_to_restore+1);
+  for (int i=0,offset=sp_change; i<num_of_reg_to_restore; i++,sp_change-=4)
+  { // TODO
+      std::string line = std::string("\tlw ") + tmpRegI(i) +","+intToString(offset)+"($sp)" ;
+      cmds.push_back(line);
+  }
+  string restore_ra=std::string("\tlw ") + "$ra" +","+"($sp)" ;
+  string collapse_stack = "\taddiu $sp, $sp, "+intToString(sp_change);
+  cmds.push_back(restore_ra);
+  cmds.push_back(collapse_stack);
+  return cmds;
+
 }
 

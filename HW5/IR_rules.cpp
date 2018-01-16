@@ -30,26 +30,27 @@ enum binop_enum{
 
 
 // special - creating the first point of the program to jump into main
+// returns the adress that backpatches the jump to the main function of the C program
 int FIRST_PROGRAM_POINT(void) // CHANGE add marker
 {
     emitter.comment("first program point");
-    // emitter.writeLabel("main"); // no backpatching needed
-    int lineNum_jumpToMain = 0;//emitter.jump_func_patchy); // TODO CHANGE
-    // emitter.halt();
+    emitter.add_label("main"); // no backpatching needed
+    int line_addr_jumpToMain=emitter.func_call_patchy(); // TODO CHANGE
+    emitter.halt();
     emitter.comment("print_func:");
-    //emitter.writeLabel("print");
+    emitter.add_label("print");
     symtab.set_func_label("print","print");
     emitter.add_print_func();
     emitter.comment("printi func:");
-    //emitter.writeLabel("printi");
+    emitter.add_label("printi");
     emitter.add_printi_func();
     symtab.set_func_label("printi","printi");
     emitter.comment("printi func:");
     emitter.comment("div by 0 handler:");
-    //emitter.writeLabel(ZERO_DIV_LABEL);
+    emitter.add_label("ZERO_DIV_LABEL");
     emitter.msg_print("Error division by zero\n");
-    //emitter.halt();
-    return lineNum_jumpToMain;
+    emitter.halt();
+    return line_addr_jumpToMain;
 }
 
 

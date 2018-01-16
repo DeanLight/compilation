@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #define MIPS_COMMENT_DBG
 #define MIPS_DBG
-
+using namespace std;
 
 CodeBuffer& codebuffer=CodeBuffer::instance();
 
@@ -214,16 +214,25 @@ int func_call_patchy(){
 // returns the number of registers that where stored in stack
 int store_registers(){
   int reg_num=regmn.regs_currently_used();
-  for(int i=0; i<reg_num; i++){
-    // get name of reg, store him and free the reg stack
+  vector<string> cmds=regmn.save_all_regs_to_stack();
+  regmn.free_last_k_regs(reg_num);
+  for(vector<string>::iterator it=cmds.begin(); it!=cmds.end(); it++){
+    codebuffer.emit(*it);
   }
-
-
+  return reg_num;
 }
 
 // restore regnum registers from the stack
 void restore_registers(int regnum){
+  vector<string> cmds=regmn.restore_all_regs_from_stack(regnum);
+  // reallocate the registers
+  for(int i=0 ; i<regnum ; i++ ){
+    regmn.get_next_free_reg();
 
+  }
+  for(vector<string>::iterator it=cmds.begin(); it!=cmds.end(); it++){
+    codebuffer.emit(*it);
+  }
 
 }
 
