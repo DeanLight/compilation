@@ -63,6 +63,49 @@ void Emitter::div(const string& dreg, const string& sreg1 ,const string& sreg2) 
 
 }
 
+void Emitter::add_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const{
+
+  const string command = string( "\tadd\t" + dreg +","+ sreg1 +","+ sreg2 );
+
+  codebuffer.emit(command);
+
+}
+
+void Emitter::subtruct_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const{
+
+  const string command = "\tsub\t" + dreg +","+ sreg1 +","+ sreg2 ;
+
+  codebuffer.emit(command);
+
+}
+
+
+void Emitter::multiply_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const{
+
+  const string command1 = "\tmult\t" +  sreg1 +","+ sreg2 ;
+  codebuffer.emit(command1);
+  const string command2 = "\tmflow\t"+ dreg;
+  codebuffer.emit(command2);
+
+
+}
+
+
+void Emitter::div_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const{
+
+  const string command1 = "\tbeq\t" +  sreg1 +","+ "zero"+","+"" ; //TODO add jump to div by zero handler
+  codebuffer.emit(command1);
+  const string command2 = "\tdiv\t" +  sreg1 +","+ sreg2 ;
+  codebuffer.emit(command2);
+
+  const string command3 = "\tmflow\t"+ dreg;
+  codebuffer.emit(command3);
+
+}
+
+
+
+
 void Emitter::num_toreg(const string& reg, const string& num) const{
 
 
