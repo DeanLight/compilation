@@ -1,7 +1,7 @@
 //
 // Created by pnueli on 1/9/2018.
 //
-#include "RegMngr.h"
+#include "RegMngr.hpp"
 #include <iostream>
 #include <cstdlib>
 #define PARSEDEBUG

@@ -1,6 +1,6 @@
 #include "emitter.hpp"
 #include "bp.hpp"
-#include "RegMngr.h"
+#include "RegMngr.hpp"
 #include <stdio.h>
 #include <stdlib.h>
 #define MIPS_COMMENT_DBG

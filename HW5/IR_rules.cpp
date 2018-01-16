@@ -1,5 +1,5 @@
 #include "IR_rules.hpp"
-#include "RegMngr.h"
+#include "RegMngr.hpp"
 #include "symbol_table.hpp"
 #include <vector>
 #include <string>
@@ -34,16 +34,16 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
 {
     emitter.comment("first program point");
     // emitter.writeLabel("main"); // no backpatching needed
-    int lineNum_jumpToMain = //emitter.jump_func_patchy);
+    int lineNum_jumpToMain = 0;//emitter.jump_func_patchy); // TODO CHANGE
     // emitter.halt();
-    emitter.comment("print func:");
+    emitter.comment("print_func:");
     //emitter.writeLabel("print");
-    symtab.set_func_labal("print","print");
+    symtab.set_func_label("print","print");
     emitter.add_print_func();
     emitter.comment("printi func:");
     //emitter.writeLabel("printi");
     emitter.add_printi_func();
-    symtab.set_func_labal("printi","printi");
+    symtab.set_func_label("printi","printi");
     emitter.comment("printi func:");
     emitter.comment("div by 0 handler:");
     //emitter.writeLabel(ZERO_DIV_LABEL);
@@ -89,7 +89,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
   byte_binop_map["/"]=DIVB;
 
   //get last 2 used registers
-  pair<string,string> exp_regs=regmn.last_two_regs();
+  pair<string,string> exp_regs=RegMngr::getRegMngr().last_two_regs();
   string& reg1=exp_regs.first;
   string& reg2=exp_regs.second;
 	//get binop map command {}
@@ -105,24 +105,24 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
   }
 
   switch(oper){
-    case binop_enum::ADD:
+    case ADD:
       emitter.add( reg1,  reg1 , reg2); break;
-    case binop_enum::SUB:
+    case SUB:
       emitter.subtruct( reg1,  reg1 , reg2); break;
-    case binop_enum::MULT:
+    case MULT:
       emitter.multiply( reg1,  reg1 , reg2); break;
-    case binop_enum::DIV:
+    case DIV:
       emitter.div( reg1,  reg1 , reg2); break;
-    case binop_enum::ADDB:
+    case ADDB:
       emitter.add_byte( reg1,  reg1 , reg2); break;
-    case binop_enum::SUBB:
+    case SUBB:
       emitter.subtruct_byte( reg1,  reg1 , reg2); break;
-    case binop_enum::MULTB:
+    case MULTB:
       emitter.multiply_byte( reg1,  reg1 , reg2); break;
-    case binop_enum::DIVB:
+    case DIVB:
       emitter.div_byte( reg1,  reg1 , reg2); break;
   }
-    regmn.free_last_reg(); // free reg2 for new use
+    RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
 }
 
 // Exp -> ( Exp1 )
@@ -136,7 +136,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1
 void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   // get sp offset of id from symbolTable currently returns something like 4($sp)
   const string& sp_offset=symtab.get_var_sp(id->str_content);
-  const string& reg1= regmn.get_next_free_reg(); // get next free reg
+  const string& reg1= RegMngr::getRegMngr().get_next_free_reg(); // get next free reg
   emitter.get_var_value(reg1,sp_offset); // emit assign
 }
 
@@ -145,7 +145,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call);
 
 // Exp -> Num
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num){
-  string reg =regmn.get_next_free_reg();
+  string reg =RegMngr::getRegMngr().get_next_free_reg();
   emitter.num_toreg(reg,num->str_content);
 }
 

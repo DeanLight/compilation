@@ -5,10 +5,11 @@
 #ifndef COMPILATION_TMP_REGMNGR_H
 #define COMPILATION_TMP_REGMNGR_H
 
-#include <string>
 #include <vector>
+#include <string>
 
 #define MAX_TMP_REG 19
+
 class RegMngr
 {
     public:
@@ -20,7 +21,8 @@ class RegMngr
     std::string tmpRegI(int i) const;
     void free_last_reg();
     void free_last_k_regs(int k);
-    // TODO: get last two registers used (in pair)
+    std::pair<std::string, std::string> last_two_regs() const;
+    std::string last_reg() const;
     std::string get_next_free_reg(); //returns reg name
     int regs_currently_used() const;
 //        string enter_new_scope_and_save_all_regs_to_stack(); // returns cmd of saving
@@ -37,7 +39,6 @@ class RegMngr
     std::string getFP() const { return "$fp";};
     std::string getRA() const { return "$ra";};
 
-
     private:
         RegMngr();
         RegMngr(const RegMngr&); // DO NOT IMPLEMENT
@@ -52,3 +53,4 @@ class RegMngr
 
 
 #endif //COMPILATION_TMP_REGMNGR_H
+
