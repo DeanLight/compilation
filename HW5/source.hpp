@@ -31,7 +31,7 @@ class Node{
 	public:
 	Node* father;
     vector<Node*> sons;
-	
+
 	Node(){};
     Node(std::string txt):str_content(txt){;}; //
     virtual ~Node()
@@ -85,7 +85,7 @@ public:
 };
 
 class RetTypeNode : public Node{
-public: 
+public:
 	type_e Type;
 	RetTypeNode(): Type(Uninit){};
 };
@@ -154,7 +154,12 @@ public:
 class CallNode : public Node{
 public:
 	enum type_enum Type;
-	CallNode():Type(Uninit){}; 
+	CallNode():Type(Uninit){};
+};
+
+class CallHeaderNode : public Node{
+public:
+  CallHeaderNode(){};
 };
 
 class ExpListNode : public Node{
@@ -172,7 +177,7 @@ public:
 class ExpNode : public Node{
 public:
 	enum type_enum Type;
-	ExpNode():Type(Uninit){}; 
+	ExpNode():Type(Uninit){};
 };
 
 class Void_Node : public Node{};

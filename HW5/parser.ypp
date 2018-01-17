@@ -130,8 +130,10 @@ CaseDec:		CASE NUM COLON              { $$=new CaseDecNode() ; CaseDec_Semantic(
 				| CASE NUM B COLON          { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Num*)$2,(B_Node*)$3 ) ;$$->addSon($1,$2,$3,$4);}
 				| DEFAULT COLON             { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Default*)$1 ) ; $$->addSon($1,$2);}
 
-Call:			ID LPAREN ExpList RPAREN    { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1,(ExpListNode*)$3 ) ;$$->addSon($1,$2,$3,$4);}
-				| ID LPAREN RPAREN          { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1 ) ; $$->addSon($1,$2,$3);}
+Call:		CallHeader	ID LPAREN ExpList RPAREN    { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1,(ExpListNode*)$3 ) ;$$->addSon($1,$2,$3,$4,$5);}
+				| CallHeader ID LPAREN RPAREN          { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1 ) ; $$->addSon($1,$2,$3,$4);}
+
+CallHeader:   /*epsilon*/           { $$=new CallHeaderNode() ; CallHeader_IR(yylineno) ; }
 
 ExpList:		Exp                         { $$=new ExpListNode() ; ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ; $$->addSon($1);}
 				|Exp COMMA ExpList          { $$=new ExpListNode() ; ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$3 ) ; $$->addSon($1,$2,$3);} //changed 2 to 3

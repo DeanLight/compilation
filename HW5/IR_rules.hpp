@@ -27,22 +27,15 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
 // both of those - doing the "return
 // the second one - saves iv v0 the relevent data
 
-void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg class FuncsNode* funcs);
+void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class FuncsNode* funcs);
+
 // backpatch first point to main
 
 
-void Call_IR(int lineno,class CallNode* Self, class Id* id, class ExpListNode* expList);
-void Call_IR(int lineno,class CallNode* Self, class Id* id);
-void prep_for_func(int k_regs,int k_params);
-/*save registers
- * save fp (old fp)
- * save ra (old ra)
- * save arguments
- * update sp accordingly
- * tocheck - check if JAL updates fp
- */
-// jal
-/* restore above
- *
- */
+void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id, class ExpListNode* expList);
+void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id);
+
+void CallHeader_IR(int lineno) ;
+
+
 #endif
