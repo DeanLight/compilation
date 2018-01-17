@@ -317,7 +317,6 @@ void Statement_Semantic(int lineno,class StatementNode* Self, class Id* id, clas
 #endif
 
     	//if not errorUndef(lineno,id)
-	//if(symtab.is_func(id->str_content)==0){ // FIX unless I'm really wrong, you mean to check a var
     if(symtab.is_var(id->str_content)==0){
 		errorUndef(lineno,id->str_content);
 		exit(1);

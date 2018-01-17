@@ -10,17 +10,17 @@ using std::cerr;
 using std::endl;
 
 
-std::string SymbolTable::get_var_sp(const std::string &var_id) const {
+std::string SymbolTable::get_var_fp(const std::string &var_id) const {
 #ifdef SYMTABDEBUG
     if(!is_var(var_id))
     {
         cerr << "[get_var_sp] ERROR - asked for a string of none-existing variable: " << var_id << endl;
     }
 #endif
-    unsigned offset = get_var_data(var_id).offset;
+    int offset = get_var_data(var_id).offset;
     std::stringstream numStr;
     numStr << offset;
-    return numStr.str() + "($sp)"; // TODO FIX
+    return numStr.str() + "($fp)";
 }
 
 void SymbolTable::set_func_label(const std::string &func_id, const std::string &label) {
@@ -85,8 +85,6 @@ bool SymbolTable::exit_scope() {
     return true;
 }
 
-
-
 bool SymbolTable::is_var(const std::string& var_name) const {
     for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 ; scopeLvl--)
     {
@@ -130,17 +128,7 @@ const var_data& SymbolTable::get_var_data(const std::string &var_id) const{
 const var_data& SymbolTable::get_func_data(const std::string &func_id) const
 {
     return (all_scopes[0].varSymbT.find(func_id))->second; //returning the value, not the key
-//    for (int scopeLvl = all_scopes.size()-1; scopeLvl>=0 && notFound; scopeLvl--)
-//    {
-//        auto *ith_varT = &((all_scopes[i]).varSymbT);
-//        auto findIter = (ith_varT)->find(var_id);
-//        if (findIter ==(ith_varT)->end())
-//        {
-//            continue;
-//        }
-//        return *(findIter);
-//    }
-//    throw std::runtime_error("Tried to get func_data " + var_id + " which isn't defined");
+
 }
 v_type SymbolTable::get_type(const std::string &id) const{
     if (is_var(id))
