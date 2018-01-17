@@ -21,5 +21,28 @@ void Exp_IR(int lineno,class ExpNode* Self,class True* true_val);
 void Exp_IR(int lineno,class ExpNode* Self,class False* false_val);
 void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1);
 
+void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp);
+void Statement_IR(int lineno,class StatementNode* Self, class Return* ret); // void return
+void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp); // none void return
+// both of those - doing the "return
+// the second one - saves iv v0 the relevent data
 
+void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg class FuncsNode* funcs);
+// backpatch first point to main
+
+
+void Call_IR(int lineno,class CallNode* Self, class Id* id, class ExpListNode* expList);
+void Call_IR(int lineno,class CallNode* Self, class Id* id);
+void prep_for_func(int k_regs,int k_params);
+/*save registers
+ * save fp (old fp)
+ * save ra (old ra)
+ * save arguments
+ * update sp accordingly
+ * tocheck - check if JAL updates fp
+ */
+// jal
+/* restore above
+ *
+ */
 #endif

@@ -57,6 +57,11 @@ public:
   // restore regnum registers from the stack
   void restore_registers(int regnum);
 
+	void allocate_words_on_stack(int kwords);
+	void free_words_on_stack(int kwords);
+
+
+
 
 
 };

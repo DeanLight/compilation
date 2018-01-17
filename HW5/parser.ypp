@@ -59,7 +59,11 @@
 
 %%
 
-Program:        Prog_init Funcs                                             { $$=new ProgramNode(((InitProgNode*)$1)->jump_to_main_address) ; Program_Semantic(yylineno,(ProgramNode*)$$,(FuncsNode*)$2) ; $$->addSon($2); delete($$); delete($1);} // TODO delete at end
+Program:        Prog_init Funcs                                             { $$=new ProgramNode(((InitProgNode*)$1)->jump_to_main_address) ;
+                                                                              Program_Semantic(yylineno,(ProgramNode*)$$,(FuncsNode*)$2) ;
+                                                                              $$->addSon($1,$2);
+                                                                              Program_IR(yylineno,(ProgramNode*)$$,(InitProgNode*)$1,(FuncsNode*)$2),
+                                                                              delete($$);}
 
 Prog_init:      /*epsilon*/                                        { $$ = new InitProgNode(FIRST_PROGRAM_POINT());}
 

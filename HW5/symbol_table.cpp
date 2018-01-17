@@ -32,6 +32,13 @@ void SymbolTable::set_func_label(const std::string &func_id, const std::string &
 #endif
     (all_scopes[0].varSymbT[func_id]).func_label = label; //
 }
+void SymbolTable::set_func_start_line(const std::string &func_id, int start_line) {
+#ifdef SYMTABDEBUG
+    if(!is_func(func_id))
+        cerr << "[set_func_start_line] ERROR - asked to set label for none-existing func: " << func_id << endl;
+#endif
+    (all_scopes[0].varSymbT[func_id]).func_start_line = start_line;
+}
 
 std::string SymbolTable::get_func_label(const std::string &func_id) const
 {
@@ -43,7 +50,15 @@ std::string SymbolTable::get_func_label(const std::string &func_id) const
     #endif
     return (all_scopes[0].varSymbT.at(func_id)).func_label; //
 }
-
+int SymbolTable::get_func_start_line(const std::string &func_id) const {
+#ifdef SYMTABDEBUG
+    if(!is_func(func_id))
+    {
+        cerr << "[set_func_start_line] ERROR - asked to set label for none-existing func: " << func_id << endl;
+    }
+#endif
+    return (all_scopes[0].varSymbT.at(func_id)).func_start_line;
+}
 
 SymbolTable::SymbolTable():all_scopes() {
     // start_offset, ret_type, switch_type, is_breakable

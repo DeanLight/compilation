@@ -27,14 +27,18 @@ typedef class var_details
         v_type type; // serves as ret type for functions
         std::string id;
         std::string func_label;
+        int func_start_line;
         types_vec params;
         var_details(int os, bool isF, v_type tt,const  std::string &str_id):
-                offset(os), isFunc(isF),type(tt), id(str_id),func_label(""){};
+                offset(os), isFunc(isF),type(tt), id(str_id),
+                func_label(""),func_start_line(0){};
         //CCtor
         var_details(const var_details &otherVarDet):
                 offset(otherVarDet.offset),isFunc(otherVarDet.isFunc),
                 type(otherVarDet.type), id(otherVarDet.id),
-                func_label(otherVarDet.func_label),params(otherVarDet.params){};
+                func_label(otherVarDet.func_label),
+                func_start_line(otherVarDet.func_start_line),
+                params(otherVarDet.params){};
         var_details():offset(-1354),isFunc(false),id("EmptyID"){};
 
         var_details& operator=(var_details &other)
@@ -135,8 +139,14 @@ class SymbolTable
 
         std::string get_var_sp(const std::string &var_id) const;
 
-        void set_func_label(const std::string &func_id, const std::string &labal);
+        void set_func_label(const std::string &func_id, const std::string &label);
         std::string get_func_label(const std::string& func_id) const;
+        int get_func_start_line(const std::string& func_id) const;
+        void set_func_start_line(const std::string& func_id, int start_line);
+
+        // TODO - get parameter offset(fp) -- without checking if its var or param
+        // TODO sp to fp
+    //
 
         bool exit_scope();
 
