@@ -65,8 +65,18 @@ public:
   // free kwords from stack
 	void free_words_on_stack(int kwords);
 
+  // gets the source string and the sp offset and perform "sw offset($sp), source"
   void save_to_stack(int sp_offset, string source);
 
+  // gets the reg string and the sp offset and perform "lw offset($sp), reg"
+  void gets_from_stack(int sp_offset, string reg);
+
+  // allocates a single word on stack and saves source to it be it an immediate or a register or an indirect
+  void push_to_stack( string source);
+
+
+  // pops the last value in sp to reg
+  void pops_from_stack( string reg);
 
 
 };
