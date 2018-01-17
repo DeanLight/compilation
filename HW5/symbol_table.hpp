@@ -51,6 +51,8 @@ typedef class var_details
             type = other.type;
             id = other.id;
             params = other.params;
+            func_label = other.func_label;
+            func_start_line = other.func_start_line;
         }
 } var_data;
 typedef std::map<std::string, var_data> var_map;

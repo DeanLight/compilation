@@ -101,8 +101,12 @@ Statement:		LBRACE Scope_init Statements RBRACE                                 
 				| Type ID ASSIGN Exp SC                                                     { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$4  ) ;$$->addSon($1,$2,$3,$4,$5); }
 				| ID ASSIGN Exp SC                                                          { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Id*)$1,(Assign*)$2,(ExpNode*)$3  ) ;$$->addSon($1,$2,$3,$4); }
 				| Call SC                                                                   { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(CallNode*)$1) ; $$->addSon($1,$2);}
-				| RETURN SC                                                                 { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1); $$->addSon($1,$2); }
-				| RETURN Exp SC                                                             { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1,(ExpNode*)$2  ) ; $$->addSon($1,$2,$3);}
+				| RETURN SC                                                                 { $$=new StatementNode() ;
+																							  Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1); $$->addSon($1,$2);
+																							  Statement_IR(yylineno,(StatementNode*)$$,(Return*)$1);}
+				| RETURN Exp SC                                                             { $$=new StatementNode() ; 
+																							  Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1,(ExpNode*)$2  ) ; $$->addSon($1,$2,$3);
+																							  Statement_IR(yylineno,(StatementNode*)$$,(Return*)$1,(ExpNode*)$2  );}
 				| IF LPAREN BoolExp RPAREN Scope_init Statement Scope_end PossibleElse      { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(If*)$1,(ExpNode*)$3,(StatementNode*)$6  ) ; $$->addSon($1,$2,$3,$4,$6,$8);}
 				| WHILE LPAREN BoolExp RPAREN While_Scope_init Statement                    { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(While*)$1,(ExpNode*)$3,(StatementNode*)$6  ) ;$$->addSon($1,$2,$3,$4,$6); }
 				| BREAK SC                                                                  { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Break*)$1  ) ;$$->addSon($1,$2); }

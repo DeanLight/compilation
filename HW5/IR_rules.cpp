@@ -70,7 +70,7 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
     std::string main_label = symtabref.get_func_label("main");
 #ifdef COMPILE_DBG
     cerr << main_label << endl;
-    cerr << "ignore me" << endl;
+    cerr << "ignore me (" << symtabref.get_func_start_line("main") << ")" << endl;
 #endif
     codebuff.bpatch(codebuff.makelist(initProg->jump_to_main_address),main_label);
 #ifdef COMPILE_DBG
@@ -185,7 +185,11 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
 // Exp -> Num
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num){
 #ifdef COMPILE_DBG
-    cerr << "END_OF [Exp_IR] Exp -> Num:" << num->str_content << endl;
+    cerr << "[Exp_IR] Exp -> Num:" << num->str_content << endl;
+    if (symtabref.is_func("main"))
+    {
+        cerr << "{{{{ NOT RELEVANT:" << symtabref.get_func_label("main") << "}}}}" << endl;
+    }
 #endif
   string reg =RegMngr::getRegMngr().get_next_free_reg();
   emitter.num_toreg(reg,num->str_content);
@@ -234,9 +238,36 @@ void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype
     symtabref.set_func_start_line(func_name,line_num);
     symtabref.set_func_label(func_name, func_label);
 #ifdef COMPILE_DBG
+    cerr << "written label: " << symtabref.get_func_label(func_name) << endl;
     cerr << "END_OF [FuncHead_IR] " << endl;
 #endif
 }
+
+void Statement_IR(int lineno,class StatementNode* Self, class Return* ret) // void return
+{
+#ifdef COMPILE_DBG
+    cerr << "[Statement_IR] Return void" << endl;
+    if (symtabref.is_func("main"))
+    {
+        cerr << "{{{{ NOT RELEVANT:" << symtabref.get_func_label("main") << "}}}}" << endl;
+    }
+#endif
+    emitter.comment("return");
+    emitter.ret();
+}
+
+void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp) // none void return
+{
+#ifdef COMPILE_DBG
+    cerr << "[Statement_IR] Return noneVoid" << endl;
+#endif
+    emitter.comment("return noneVoid in v0");
+    // assumption - exp is holding last reg
+    emitter.assign(RegMngr::getRegMngr().getV0(),RegMngr::getRegMngr().last_reg());
+    RegMngr::getRegMngr().free_last_reg();
+    emitter.ret();
+}
+
 
 
 void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* id){
