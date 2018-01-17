@@ -1,6 +1,7 @@
 #include "emitter.hpp"
 #include "bp.hpp"
 #include "RegMngr.hpp"
+#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #define MIPS_COMMENT_DBG
@@ -10,6 +11,14 @@ using namespace std;
 CodeBuffer& codebuffer=CodeBuffer::instance();
 
 RegMngr& regmn=RegMngr::getRegMngr();
+
+std::string glob_int_to_str(int num)
+{
+    std::stringstream numStr;
+    numStr << num;
+    return numStr.str();
+}
+
 
 
 void Emitter::add_print_func() const {
@@ -274,7 +283,7 @@ void free_words_on_stack(int kwords){
 }
 
 
-void push_to_stack( string source){
+void Emitter::push_to_stack( const string &source){
   string expand_stack = "\taddiu $sp, $sp, -4";
   string store_source = "\tsw "+source+", ($sp)";
   codebuffer.emit(expand_stack);
@@ -282,7 +291,7 @@ void push_to_stack( string source){
 
 }
 
-void pops_from_stack( string reg){
+void Emitter::pops_from_stack(const  string &reg){
   string restore_source = "\tlw "+reg+", ($sp)";
   string collapse_stack = "\taddiu $sp, $sp, 4";
   codebuffer.emit(collapse_stack);

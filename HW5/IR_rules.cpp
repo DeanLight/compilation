@@ -2,6 +2,7 @@
 #include "RegMngr.hpp"
 #include "symbol_table.hpp"
 #include "emitter.hpp"
+#include "bp.hpp"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -14,7 +15,7 @@ using namespace std;
 
 Emitter emitter;
 
-
+CodeBuffer &codebuff = CodeBuffer::instance();
 SymbolTable &symtabref=SymbolTable::getSymbolTable();
 
 
@@ -46,14 +47,20 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
     emitter.add_label("printi");
     emitter.add_printi_func();
     symtabref.set_func_label("printi","printi");
-    emitter.comment("printi func:");
     emitter.comment("div by 0 handler:");
-    emitter.add_label("ZERO_DIV_LABEL");
+    emitter.add_label(ZERO_DIV_LABEL);
     emitter.msg_print("Error division by zero\n");
     emitter.halt();
     return line_addr_jumpToMain;
 }
 
+void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class FuncsNode* funcs)
+{
+#ifdef COMPILE_DBG
+    cerr << "[Program_IR] backpatching line number " << initProg->jump_to_main_address << " with " << glob_int_to_str(symtabref.get_func_start_line("main")) << endl;
+#endif
+    codebuff.bpatch(codebuff.makelist(initProg->jump_to_main_address),glob_int_to_str(symtabref.get_func_start_line("main")));
+}
 
 
 //Exp -> Exp1 And Exp2
@@ -171,6 +178,22 @@ void Exp_IR(int lineno,class ExpNode* Self,class False* false_val);
 void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1);
 
 
+void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp)
+{
+    const std::string & func_name = id->str_content;
+#ifdef COMPILE_DBG
+    cerr << "FuncHead_IR for func: " << func_name << endl;
+#endif
+    std::string func_label = codebuff.next();
+    emitter.comment("Func " + func_name + ":");
+    int line_num = emitter.add_label(func_label);
+#ifdef COMPILE_DBG
+    cerr << "got label " << func_label << " in line: " << line_num << endl;
+#endif
+    symtabref.set_func_start_line(func_name,line_num);
+    symtabref.set_func_label(func_name, func_label);
+}
+
 
 void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* id){
   // get label to jump to function
@@ -199,6 +222,7 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
 
 
 void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id, class ExpListNode* expList){
+
 }
 
 

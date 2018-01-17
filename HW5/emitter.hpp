@@ -12,6 +12,7 @@ using namespace std;
 //extern CodeBuffer& codebuffer;
 
 
+std::string glob_int_to_str(int num);
 
 
 class Emitter{
