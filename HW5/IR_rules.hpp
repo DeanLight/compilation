@@ -3,11 +3,8 @@
 #include "source.hpp"
 #include "symbol_table.hpp"
 #include "emitter.hpp"
-
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
-
-std::string int_to_str(int num);
 
 int FIRST_PROGRAM_POINT(void);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);
@@ -38,7 +35,7 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
 void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id, class ExpListNode* expList);
 void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id);
 
-void CallHeader_IR(int lineno) ;
+void CallHeader_IR(int lineno, CallHeaderNode* Self) ;
 
 
 #endif

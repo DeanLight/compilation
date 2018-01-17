@@ -33,7 +33,10 @@ public:
 
 	void jump(const string& target) const;
 	void register_jump(const string& jreg) const;
-
+  // jump to label
+  void jal(const string& label)const;
+  // return from jal
+  void ret()const;
 	// returns label to patch to
 	int patchy_jump() const;
 
@@ -43,7 +46,7 @@ public:
 	void msg_print(const string &msg) const;
 
 	void get_var_value(const string& dreg, const string& fp_offset) const;
-  void set_var_value(const string& dreg, const string& fp_offset) const;
+  void set_var_value(const string& sreg, const string& fp_offset) const;
 
 	void add_print_func(void) const;
 	void add_printi_func(void)const;
@@ -65,18 +68,13 @@ public:
   // free kwords from stack
 	void free_words_on_stack(int kwords);
 
-  // gets the source string and the sp offset and perform "sw offset($sp), source"
-  void save_to_stack(int sp_offset, string source);
-
-  // gets the reg string and the sp offset and perform "lw offset($sp), reg"
-  void gets_from_stack(int sp_offset, string reg);
 
   // allocates a single word on stack and saves source to it be it an immediate or a register or an indirect
-  void push_to_stack( string source);
+  void push_to_stack( const string& source);
 
 
   // pops the last value in sp to reg
-  void pops_from_stack( string reg);
+  void pops_from_stack( const string& reg);
 
 
 };

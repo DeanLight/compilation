@@ -2,7 +2,6 @@
 #include "RegMngr.hpp"
 #include "symbol_table.hpp"
 #include "emitter.hpp"
-#include "bp.hpp"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -11,15 +10,13 @@
 #include <map>
 using namespace std;
 
-#define WORD 4
-
 #define COMPILE_DBG
 
 Emitter emitter;
 
 
 SymbolTable &symtabref=SymbolTable::getSymbolTable();
-CodeBuffer &codeBuff = CodeBuffer::instance();
+
 
 enum binop_enum{
   ADD,
@@ -32,12 +29,6 @@ enum binop_enum{
   DIVB
 } ;
 
-std::string int_to_str(int num)
-{
-    std::stringstream numStr;
-    numStr << num;
-    return numStr.str();
-}
 
 // special - creating the first point of the program to jump into main
 // returns the adress that backpatches the jump to the main function of the C program
@@ -63,19 +54,6 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
     return line_addr_jumpToMain;
 }
 
-void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg class FuncsNode* funcs)
-{
-#ifdef COMPILE_DBG
-    cerr << "[Program_IR] backpatching main address for FIRST_PROGRAM_POINT" << endl;
-#endif
-    std::vector<int> toBp;
-    toBp.push_back(initProg->jump_to_main_address);
-    int main_line = symtabref.get_func_start_line("main"); // TODO - make sure the function's label is "main" - cause there's already a label with this name for FIRST POINT
-    codeBuff.bpatch(toBp,main_line);
-#ifdef COMPILE_DBG
-    cerr << "[Program_IR] FINISHED backpatching main address for FIRST_PROGRAM_POINT" << endl;
-#endif
-}
 
 
 //Exp -> Exp1 And Exp2
@@ -166,7 +144,6 @@ void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
 
 // Exp -> Call
 void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
-
 }
 
 // Exp -> Num
@@ -195,60 +172,41 @@ void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* e
 
 
 
-void Call_IR(int lineno,class CallNode* Self, class Id* id){
-    // get label to jump to function
+void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* id){
+  // get label to jump to function
+  string funclabel = symtabref.get_func_label(id->str_content);
+  // registers where stored in CallHeader_IR
+  int regnum = header->regnum;
 
-    int place_for_RA_FP = 2 * WORD;
-    string expand_stack = "\taddiu $sp, $sp, -"+intToString(place_for_RA_FP); //
-    // saving old fp:
-    std::string lineFP = std::string("\tsw ") + RegMngr::getRegMngr().getFP() +","+intToString(2*WORD)+"($sp)" ; // TODO maybe add relevant func in emitter?
-    codeBuff.emit(lineFP);
-    // saving old ra:
-    std::string lineRA = std::string("\tsw ") + RegMngr::getRegMngr().getRA() +","+intToString(WORD)+"($sp)" ;
-    codeBuff.emit(lineRA);
-    int regnum = emitter.store_registers(); // stored regs -- Notice- it includes the params! which is a problem for us
-    // one way to fix it - to save the old FP and RA before than (currently applied)
-    emitter.func_call(); // TODO TODO TODO
-    emitter.restore_registers(regnum);
-    // freeing all the regs which held the params:
-    RegMngr::getRegMngr().free_last_k_regs(Self->get_numOf_params());
-    //resotring RA and FP:
+  // save fp (old fp)
+  emitter.push_to_stack("$fp");
+  //save ra (old ra)
+  emitter.push_to_stack("$ra");
+  //save arguments no arguments in this case
+  // move fp to sp
+  emitter.assign("$fp","$sp");
 
-   /* save fp (old fp)
-   * save ra (old ra)
-   * save arguments
-   * update sp accordingly
-   * TODO tocheck - check if JAL updates fp
-   */
-  // jal
-  /* restore above
-   *
-   */
+  //jal
+  emitter.jal(funclabel);
+  //restore above
+  emitter.pops_from_stack("$ra");
+  emitter.pops_from_stack("$fp");
 
+  emitter.restore_registers(regnum);
 
 }
 
 
-void Statement_IR(int lineno,class StatementNode* Self, class Return* ret)
-{
-#ifdef COMPILE_DBG
-    cerr << "[Statement_IR](return void)" << endl;
-#endif
-    // TODO - how do we return from a function?
-}
-void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp)
-{
-#ifdef COMPILE_DBG
-    cerr << "[Statement_IR](return noneVoid) " << exp->str_content << endl;
-#endif
-    // last content - of the exp - should be in the last register
-    // TODO - not relevant to hear - dealing with bool. should it be 1 and 0 ?
-    emitter.assign(RegMngr::getRegMngr().getV0(),RegMngr::getRegMngr().last_reg());
-    // TODO - how do we return from a function?
+
+void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id, class ExpListNode* expList){
 }
 
 
+void CallHeader_IR(int lineno, CallHeaderNode* Self){
 
+  Self->regnum=emitter.store_registers();
+
+}
 
 
 

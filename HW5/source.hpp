@@ -159,7 +159,8 @@ public:
 
 class CallHeaderNode : public Node{
 public:
-  CallHeaderNode(){};
+  int regnum;
+  CallHeaderNode():regnum(0){};
 };
 
 class ExpListNode : public Node{

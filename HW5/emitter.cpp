@@ -129,6 +129,17 @@ void Emitter::register_jump(const string& jreg) const{
 	codebuffer.emit(command);
 }
 
+void Emitter::jal(const string& label)const{
+
+  const string command = "\tjal\t"+ label;
+  codebuffer.emit(command);
+}
+
+void Emitter::ret()const{
+
+  const string command = "\tjr\t$ra";
+  codebuffer.emit(command);
+}
 
 // returns label to patch t
 int Emitter::patchy_jump() const{
@@ -140,7 +151,7 @@ int Emitter::patchy_jump() const{
 
 
 void Emitter::assign(const string &dreg,const string & sreg) const{
-    const string command ("move " + dreg + "," + sreg);
+    const string command = "\tmove\t"+ dreg+","+sreg;
     codebuffer.emit(command);
 }
 
@@ -186,6 +197,12 @@ void Emitter::get_var_value(const string& dreg, const string& fp_offset) const{
 }
 
 
+void Emitter::set_var_value(const string& sreg, const string& fp_offset) const{
+  const string command = "\tlw"+sreg+", " +fp_offset;
+  codebuffer.emit(command);
+
+}
+
 int Emitter::add_label(const string& label){
 
   const string command = label+":";
@@ -206,8 +223,7 @@ void Emitter::halt(){
 
 
 
-void func_call(const string& func_line){
-    //TODO
+void func_call(const string& func_label){
 }
 
 // does not store params
@@ -258,8 +274,20 @@ void free_words_on_stack(int kwords){
 }
 
 
+void push_to_stack( string source){
+  string expand_stack = "\taddiu $sp, $sp, -4";
+  string store_source = "\tsw "+source+", ($sp)";
+  codebuffer.emit(expand_stack);
+  codebuffer.emit(store_source);
 
+}
 
+void pops_from_stack( string reg){
+  string restore_source = "\tlw "+reg+", ($sp)";
+  string collapse_stack = "\taddiu $sp, $sp, 4";
+  codebuffer.emit(collapse_stack);
+  codebuffer.emit(restore_source);
+}
 
 
 
