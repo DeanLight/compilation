@@ -46,7 +46,8 @@ public:
 	void add_print_func(void) const;
 	void add_printi_func(void)const;
 
-  void add_label(const string& label);
+  int add_label(const string& label);
+  int add_generated_label();
   void halt();
 
   void func_call(const string& func_label);

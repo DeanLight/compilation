@@ -185,10 +185,16 @@ void Emitter::get_var_value(const string& dreg, const string& sp_offset) const{
 }
 
 
-void Emitter::add_label(const string& label){
+int Emitter::add_label(const string& label){
 
   const string command = label+":";
-  codebuffer.emit(command);
+  return codebuffer.emit(command);
+}
+
+int Emitter::add_generated_label(){
+
+  const string command = codebuffer.next();
+  return codebuffer.emit(command);
 }
 
 void Emitter::halt(){
