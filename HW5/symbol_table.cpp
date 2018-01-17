@@ -54,7 +54,7 @@ int SymbolTable::get_func_start_line(const std::string &func_id) const {
 #ifdef SYMTABDEBUG
     if(!is_func(func_id))
     {
-        cerr << "[set_func_start_line] ERROR - asked to set label for none-existing func: " << func_id << endl;
+        cerr << "[get_func_start_line] ERROR - asked to get label for none-existing func: " << func_id << endl;
     }
 #endif
     return (all_scopes[0].varSymbT.at(func_id)).func_start_line;

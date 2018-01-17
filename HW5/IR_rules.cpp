@@ -35,6 +35,9 @@ enum binop_enum{
 // returns the adress that backpatches the jump to the main function of the C program
 int FIRST_PROGRAM_POINT(void) // CHANGE add marker
 {
+#ifdef COMPILE_DBG
+    cerr << "[FIRST_PROGRAM_POINT]" << endl;
+#endif
     emitter.comment("first program point");
     emitter.add_label("main"); // no backpatching needed
     int line_addr_jumpToMain= emitter.func_call_patchy(); // TODO CHANGE
@@ -51,15 +54,28 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
     emitter.add_label(ZERO_DIV_LABEL);
     emitter.msg_print("Error division by zero\n");
     emitter.halt();
+#ifdef COMPILE_DBG
+    cerr << "(END_OF)  [FIRST_PROGRAM_POINT]" << endl;
+#endif
     return line_addr_jumpToMain;
 }
 
 void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class FuncsNode* funcs)
 {
+
 #ifdef COMPILE_DBG
-    cerr << "[Program_IR] backpatching line number " << initProg->jump_to_main_address << " with " << glob_int_to_str(symtabref.get_func_start_line("main")) << endl;
+    cerr << "[Program_IR] backpatching line number " << initProg->jump_to_main_address << " with ";
 #endif
-    codebuff.bpatch(codebuff.makelist(initProg->jump_to_main_address),glob_int_to_str(symtabref.get_func_start_line("main")));
+    //std::string main_start_line = glob_int_to_str(symtabref.get_func_start_line("main"));
+    std::string main_label = symtabref.get_func_label("main");
+#ifdef COMPILE_DBG
+    cerr << main_label << endl;
+    cerr << "ignore me" << endl;
+#endif
+    codebuff.bpatch(codebuff.makelist(initProg->jump_to_main_address),main_label);
+#ifdef COMPILE_DBG
+    cerr << "[END_OF Program_IR]" << endl;
+#endif
 }
 
 
@@ -84,6 +100,9 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* rel
 // Exp -> Exp1 Binop Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* binop, class ExpNode* exp2){
 
+#ifdef COMPILE_DBG
+    cerr << "[Exp_IR] Exp -> Exp1 Binop Exp2" << endl;
+#endif
   // prepare map for switch case;
   map<string,binop_enum> int_binop_map;
   map<string,binop_enum> byte_binop_map;
@@ -132,6 +151,9 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
       emitter.div_byte( reg1,  reg1 , reg2); break;
   }
     RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Exp_IR] Exp -> Exp1 Binop Exp2" << endl;
+#endif
 }
 
 // Exp -> ( Exp1 )
@@ -143,26 +165,44 @@ void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1
 
 // Exp -> id
 void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
+#ifdef COMPILE_DBG
+    cerr << "[Exp_IR] Exp -> id: " << id->str_content << endl;
+#endif
   // get sp offset of id from symbolTable currently returns something like 4($sp)
   const string& fp_offset=symtabref.get_var_fp(id->str_content);
   const string& reg1= RegMngr::getRegMngr().get_next_free_reg(); // get next free reg
   emitter.get_var_value(reg1,fp_offset); // emit assign //
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Exp_IR] Exp -> id" << endl;
+#endif
 }
 
 // Exp -> Call
 void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
+    // TODO
 }
 
 // Exp -> Num
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num){
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Exp_IR] Exp -> Num:" << num->str_content << endl;
+#endif
   string reg =RegMngr::getRegMngr().get_next_free_reg();
   emitter.num_toreg(reg,num->str_content);
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Exp_IR] Exp -> Num" << endl;
+#endif
 }
 
 // Exp -> Num B
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
-  Exp_IR(lineno,Self,num);
-
+#ifdef COMPILE_DBG
+    cerr << "[Exp_IR] Exp -> Num B" << b->str_content << endl;
+#endif
+  Exp_IR(lineno,Self,num); // TODO FIX TO TRUNCATE RANGE
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Exp_IR] Exp -> Num B" << endl;
+#endif
 }
 
 // Exp -> String
@@ -184,18 +224,25 @@ void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype
 #ifdef COMPILE_DBG
     cerr << "FuncHead_IR for func: " << func_name << endl;
 #endif
-    std::string func_label = codebuff.next();
     emitter.comment("Func " + func_name + ":");
-    int line_num = emitter.add_label(func_label);
+    std::string func_label = codebuff.next();
+//    int line_num = emitter.add_label(func_label); // TODO - bp.next already emits...
+    int line_num = -1; // TODO
 #ifdef COMPILE_DBG
     cerr << "got label " << func_label << " in line: " << line_num << endl;
 #endif
     symtabref.set_func_start_line(func_name,line_num);
     symtabref.set_func_label(func_name, func_label);
+#ifdef COMPILE_DBG
+    cerr << "END_OF [FuncHead_IR] " << endl;
+#endif
 }
 
 
 void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* id){
+#ifdef COMPILE_DBG
+    cerr << "[Call_IR] : " << id->str_content << endl;
+#endif
   // get label to jump to function
   string funclabel = symtabref.get_func_label(id->str_content);
   // registers where stored in CallHeader_IR
@@ -216,19 +263,26 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
   emitter.pops_from_stack("$fp");
 
   emitter.restore_registers(regnum);
-
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Call_IR]" << endl;
+#endif
 }
 
 
 
 void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id, class ExpListNode* expList){
-
+    //TODO why are there two Call_IR ?
 }
 
 
 void CallHeader_IR(int lineno, CallHeaderNode* Self){
-
+#ifdef COMPILE_DBG
+    cerr << "CallHeader_IR" << endl;
+#endif
   Self->regnum=emitter.store_registers();
+#ifdef COMPILE_DBG
+    cerr << "END_OF CallHeader_IR" << endl;
+#endif
 
 }
 

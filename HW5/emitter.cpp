@@ -189,7 +189,12 @@ void Emitter::debug_print(const string &debug_print) const{
 
 
 void Emitter::msg_print(const string &msg) const{
-    string label = codebuffer.next();
+    // TODO - check this fix works
+    std::string random_prefix = "pvufne"; // written by a random monkey
+    static int msg_print_index = 1;
+//    string label = codebuffer.next(); // TODO FIX - already writes the label - make a double
+    string label = random_prefix + glob_int_to_str(msg_print_index);
+    msg_print_index++;
     codebuffer.emitData(label+":\t.asciiz \""+msg+ "\"");
     const string command1 = "\tli\t$v0, 4";
     const string command2 = "\tla\t$a0, "+label;
