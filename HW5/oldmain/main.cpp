@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "RegMngr.h"
+#include "RegMngr.hpp"
 
 int main() {
 
@@ -16,7 +16,7 @@ int main() {
     std::cout << "SAVING all regs" << std::endl;
     std::cout << RM.save_all_regs_to_stack() << std::endl;
     std::cout << "RESTORING all regs" << std::endl;
-    std::cout << RM.restore_all_regs_from_stack() << std::endl;
+    std::cout << RM.restore_all_regs_from_stack(5) << std::endl;
 
     return 0;
 }

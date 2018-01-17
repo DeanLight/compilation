@@ -1,6 +1,7 @@
 #include "IR_rules.hpp"
 #include "RegMngr.hpp"
 #include "symbol_table.hpp"
+#include "emitter.hpp"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -14,7 +15,7 @@ using namespace std;
 Emitter emitter;
 
 
-SymbolTable &symtab=SymbolTable::getSymbolTable();
+SymbolTable &symtabref=SymbolTable::getSymbolTable();
 
 
 enum binop_enum{
@@ -35,16 +36,16 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
 {
     emitter.comment("first program point");
     emitter.add_label("main"); // no backpatching needed
-    int line_addr_jumpToMain=emitter.func_call_patchy(); // TODO CHANGE
+    int line_addr_jumpToMain= emitter.func_call_patchy(); // TODO CHANGE
     emitter.halt();
     emitter.comment("print_func:");
     emitter.add_label("print");
-    symtab.set_func_label("print","print");
+    symtabref.set_func_label("print","print");
     emitter.add_print_func();
     emitter.comment("printi func:");
     emitter.add_label("printi");
     emitter.add_printi_func();
-    symtab.set_func_label("printi","printi");
+    symtabref.set_func_label("printi","printi");
     emitter.comment("printi func:");
     emitter.comment("div by 0 handler:");
     emitter.add_label("ZERO_DIV_LABEL");
@@ -136,13 +137,14 @@ void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1
 // Exp -> id
 void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   // get sp offset of id from symbolTable currently returns something like 4($sp)
-  const string& sp_offset=symtab.get_var_sp(id->str_content);
+  const string& sp_offset=symtabref.get_var_sp(id->str_content);
   const string& reg1= RegMngr::getRegMngr().get_next_free_reg(); // get next free reg
   emitter.get_var_value(reg1,sp_offset); // emit assign
 }
 
 // Exp -> Call
-void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call);
+void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
+}
 
 // Exp -> Num
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num){

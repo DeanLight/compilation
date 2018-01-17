@@ -24,6 +24,7 @@ function do_test {
 	for i in $infile_arr ; do
     echo checking ${i}.in
 		./${executable} < ${i}.in >! ${i}_mips.s  2>! ${i}.Cerr
+    touch ${i}.myout ${i}.Serr
     ./spim -file ${i}_mips.s | tee >( grep -E "^@@@" >! ${i}.Serr ) | grep -v -E "^@@@" >! ${i}.myout
 
 		if cmp ${i}.out ${i}.myout
@@ -34,7 +35,7 @@ function do_test {
 		else
 			echo ${i} failed tests
 			echo
-      subl -n ${i}.myout ${i}.Cerr ${i}.Serr ${i}_mips.s
+      #subl -n ${i}.myout ${i}.Cerr ${i}.Serr ${i}_mips.s
       break
 		fi ;
 	done

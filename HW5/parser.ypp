@@ -4,11 +4,13 @@
     #include "semantic_rules.hpp"
     #include "output.hpp" //
     #include "IR_rules.hpp"
+    #include "bp.hpp"
     #define YYSTYPE Node*
     int yylex();
     void yyerror(const char*);
     extern int yylineno;
 
+    CodeBuffer& codebufferref=CodeBuffer::instance();
     int yydebug=1; //TODO remove this
 %}
 
@@ -172,6 +174,8 @@ void yyerror (const char*) { output::errorSyn(yylineno);}
 int main(){
 	int res = yyparse();
 	//bp.printBuffer // TODO
+  codebufferref.printDataBuffer();
+  codebufferref.printCodeBuffer();
 	return res;
 }
 
