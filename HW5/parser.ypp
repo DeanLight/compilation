@@ -131,7 +131,8 @@ CaseDec:		CASE NUM COLON              { $$=new CaseDecNode() ; CaseDec_Semantic(
 				| DEFAULT COLON             { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Default*)$1 ) ; $$->addSon($1,$2);}
 
 Call:			ID LPAREN CallHeader ExpList RPAREN    { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1,(ExpListNode*)$3 ) ;$$->addSon($1,$2,$3,$4,$5);}
-				|  ID LPAREN CallHeader RPAREN          { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1 ) ; $$->addSon($1,$2,$3,$4);}
+				|  ID LPAREN CallHeader RPAREN          { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1 ) ; $$->addSon($1,$2,$3,$4);
+                                                  Call_IR(yylineno,(CallNode*)$$,(CallHeaderNode*) $3, (Id*)$1 ) ;}
 
 CallHeader:   /*epsilon*/           { $$=new CallHeaderNode() ; CallHeader_IR(yylineno,(CallHeaderNode*)$$) ; }
 
