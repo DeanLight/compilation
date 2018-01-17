@@ -54,14 +54,6 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
     return line_addr_jumpToMain;
 }
 
-void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp)
-{
-    // get address from bp
-    // write label
-    // update symbolTable with label and address
-
-}
-
 
 
 //Exp -> Exp1 And Exp2
@@ -84,9 +76,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* rel
 
 // Exp -> Exp1 Binop Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* binop, class ExpNode* exp2){
-#ifdef COMPILE_DBG
-    cerr << "Exp_IR binop on  " << exp1->str_content << " and " << exp2->str_content << endl;
-#endif
+
   // prepare map for switch case;
   map<string,binop_enum> int_binop_map;
   map<string,binop_enum> byte_binop_map;
@@ -147,33 +137,23 @@ void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1
 // Exp -> id
 void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   // get sp offset of id from symbolTable currently returns something like 4($sp)
-#ifdef COMPILE_DBG
-    cerr << "Exp_IR (Exp->id) on id: "  << id->str_content << endl;
-#endif
-  const string& sp_offset=symtabref.get_var_sp(id->str_content);
+  const string& fp_offset=symtabref.get_var_fp(id->str_content);
   const string& reg1= RegMngr::getRegMngr().get_next_free_reg(); // get next free reg
-  emitter.get_var_value(reg1,sp_offset); // emit assign // TODO sp to fp
+  emitter.get_var_value(reg1,fp_offset); // emit assign //
 }
 
 // Exp -> Call
 void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
-    // TODO
 }
 
 // Exp -> Num
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num){
-#ifdef  COMPILE_DBG
-    cerr << "Exp_IR (Exp->Num) with num " << num->str_content << endl;
-#endif
   string reg =RegMngr::getRegMngr().get_next_free_reg();
   emitter.num_toreg(reg,num->str_content);
 }
 
 // Exp -> Num B
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
-#ifdef  COMPILE_DBG
-    cerr << "Exp_IR (Exp->Num B) with numB " << num->str_content << endl;
-#endif
   Exp_IR(lineno,Self,num);
 
 }
@@ -192,6 +172,25 @@ void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* e
 
 
 
+void Call_IR(int lineno,class CallNode* Self, class Id* id){
+  // get label to jump to function
+
+  int regnum = emitter.store_registers();
+
+
+   /* save fp (old fp)
+   * save ra (old ra)
+   * save arguments
+   * update sp accordingly
+   * tocheck - check if JAL updates fp
+   */
+  // jal
+  /* restore above
+   *
+   */
+
+
+}
 
 
 

@@ -10,6 +10,10 @@
 using namespace std;
 #define MAX_TMP_REG 19
 
+
+string intToString ( int Number );
+
+
 class RegMngr
 {
     public:

@@ -178,8 +178,8 @@ void Emitter::msg_print(const string &msg) const{
     codebuffer.emit(command3);
 }
 
-void Emitter::get_var_value(const string& dreg, const string& sp_offset) const{
-  const string command = "\tlw"+dreg+", " +sp_offset;
+void Emitter::get_var_value(const string& dreg, const string& fp_offset) const{
+  const string command = "\tlw"+dreg+", " +fp_offset;
   codebuffer.emit(command);
 
 }
@@ -243,8 +243,17 @@ void Emitter::restore_registers(int regnum){
 }
 
 
+void allocate_words_on_stack(int kwords){
+  int sp_change = 4*(kwords);
+  string expand_stack = "\taddiu $sp, $sp, -"+intToString(sp_change);
+  codebuffer.emit(expand_stack);
+}
 
-
+void free_words_on_stack(int kwords){
+  int sp_change = 4*(kwords);
+  string collapse_stack = "\taddiu $sp, $sp, "+intToString(sp_change);
+  codebuffer.emit(collapse_stack);
+}
 
 
 

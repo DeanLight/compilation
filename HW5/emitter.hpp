@@ -42,7 +42,9 @@ public:
 	void debug_print(const string &debug_print) const;
 	void msg_print(const string &msg) const;
 
-	void get_var_value(const string& dreg, const string& sp_offset) const;
+	void get_var_value(const string& dreg, const string& fp_offset) const;
+  void set_var_value(const string& dreg, const string& fp_offset) const;
+
 	void add_print_func(void) const;
 	void add_printi_func(void)const;
 
@@ -58,10 +60,12 @@ public:
   // restore regnum registers from the stack
   void restore_registers(int regnum);
 
+  // allocate kwords extra words on sp
 	void allocate_words_on_stack(int kwords);
+  // free kwords from stack
 	void free_words_on_stack(int kwords);
 
-
+  void save_to_stack(int sp_offset, string source);
 
 
 
