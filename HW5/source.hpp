@@ -154,7 +154,13 @@ public:
 class CallNode : public Node{
 public:
 	enum type_enum Type;
-	CallNode():Type(Uninit){}; 
+	CallNode():Type(Uninit){};
+	int get_numOf_params(){
+		if (sons.size() < 4) // no params
+			return 0;
+		return ((ExpListNode*)sons[2])->typesvec.size();
+	}
+
 };
 
 class ExpListNode : public Node{

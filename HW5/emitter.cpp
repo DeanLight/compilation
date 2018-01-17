@@ -140,7 +140,8 @@ int Emitter::patchy_jump() const{
 
 
 void Emitter::assign(const string &dreg,const string & sreg) const{
-    // TODO - this is empty!!!!
+    const string command ("move " + dreg + "," + sreg);
+    codebuffer.emit(command);
 }
 
 
@@ -205,7 +206,8 @@ void Emitter::halt(){
 
 
 
-void func_call(const string& func_label){
+void func_call(const string& func_line){
+    //TODO
 }
 
 // does not store params

@@ -3,8 +3,11 @@
 #include "source.hpp"
 #include "symbol_table.hpp"
 #include "emitter.hpp"
+
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
+
+std::string int_to_str(int num);
 
 int FIRST_PROGRAM_POINT(void);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);

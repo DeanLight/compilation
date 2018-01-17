@@ -116,7 +116,6 @@ class SymbolTable
 
         const var_data& get_var_data(const std::string &var_id) const; // throw error if not found
         const var_data& get_func_data(const std::string &var_id) const; //
-        //std::unordered_set<var_data> get_func_data(std::string func_id); // TODO REMOVE?
         v_type get_type(const std::string &id) const;
 
         v_type change_retType_for_current_scope(v_type tt);
@@ -137,16 +136,12 @@ class SymbolTable
         v_type get_curr_scope_switch_type() const;
         int get_curr_scope_defaults() const;
 
-        std::string get_var_sp(const std::string &var_id) const;
+        std::string get_var_fp(const std::string &var_id) const;
 
         void set_func_label(const std::string &func_id, const std::string &label);
         std::string get_func_label(const std::string& func_id) const;
         int get_func_start_line(const std::string& func_id) const;
         void set_func_start_line(const std::string& func_id, int start_line);
-
-        // TODO - get parameter offset(fp) -- without checking if its var or param
-        // TODO sp to fp
-    //
 
         bool exit_scope();
 

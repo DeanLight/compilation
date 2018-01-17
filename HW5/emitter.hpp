@@ -52,10 +52,10 @@ public:
   int add_generated_label();
   void halt();
 
-  void func_call(const string& func_label);
+  void func_call(const string& func_line);
   // does not store params
   int func_call_patchy();
-  // returns the number of registers that where stored in stack
+  // returns the number of registers that were stored in stack
   int store_registers();
   // restore regnum registers from the stack
   void restore_registers(int regnum);
