@@ -70,7 +70,7 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
     std::string main_label = symtabref.get_func_label("main");
 #ifdef COMPILE_DBG
     cerr << main_label << endl;
-    cerr << "ignore me (" << symtabref.get_func_start_line("main") << ")" << endl;
+    cerr << "ignore me1 (" << symtabref.get_func_label("main") << ")" << endl;
 #endif
     codebuff.bpatch(codebuff.makelist(initProg->jump_to_main_address),main_label);
 #ifdef COMPILE_DBG
@@ -249,7 +249,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret) // vo
     cerr << "[Statement_IR] Return void" << endl;
     if (symtabref.is_func("main"))
     {
-        cerr << "{{{{ NOT RELEVANT:" << symtabref.get_func_label("main") << "}}}}" << endl;
+        cerr << "{{{{ NOT RELEVANT2:" << symtabref.get_func_label("main") << "}}}}" << endl;
     }
 #endif
     emitter.comment("return");

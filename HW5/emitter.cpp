@@ -231,8 +231,12 @@ int Emitter::add_generated_label(){
 
 void Emitter::halt(){
 
-  const string command = "\tdone";
-  codebuffer.emit(command);
+//    const string command = "\tdone"; // TODO revert back?
+//    codebuffer.emit(command);
+    //
+    comment("exiting...");
+    codebuffer.emit("li $v0, 10");
+    codebuffer.emit("syscall");
 }
 
 
