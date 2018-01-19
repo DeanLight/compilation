@@ -1,0 +1,38 @@
+[[[ added func: print with 1 params]]]
+[[[ added func: printi with 1 params]]]
+print param:2(1)
+printi param:3(1)
+[FIRST_PROGRAM_POINT]
+[set_func_label] label print for function print
+[set_func_label] label printi for function printi
+(END_OF)  [FIRST_PROGRAM_POINT]
+Lex Ate token void__
+Lex Ate token  id__main__
+Lex Ate token  (__
+Lex Ate token )__
+<<FuncHead_semantic, id:[main]>>
+[[[ added func: main with 0 params]]]
+FuncHead_IR for func: main
+got label label_27 in line: -1
+[set_func_label] label label_27 for function main
+[get_func_label] main's label is: label_27
+written label: label_27
+END_OF [FuncHead_IR] 
+Lex Ate token  {__
+Lex Ate token  id__printi__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  num__1__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:1
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 0
+tmptmp: 1
+func params:
+3,actual params:
+
