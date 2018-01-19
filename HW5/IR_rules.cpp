@@ -3,6 +3,7 @@
 #include "symbol_table.hpp"
 #include "emitter.hpp"
 #include "bp.hpp"
+#include "source.hpp"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -17,7 +18,7 @@ Emitter emitter;
 
 CodeBuffer &codebuff = CodeBuffer::instance();
 SymbolTable &symtabref=SymbolTable::getSymbolTable();
-
+RegMngr& regmnref=RegMngr::getRegMngr();
 
 enum binop_enum{
   ADD,
@@ -101,7 +102,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* rel
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* binop, class ExpNode* exp2){
 
 #ifdef COMPILE_DBG
-    cerr << "[Exp_IR] Exp -> Exp1 Binop Exp2" << endl;
+    cerr << "[Exp_IR]:Binop Exp -> Exp1 "+binop->str_content + " Exp2" << endl;
 #endif
   // prepare map for switch case;
   map<string,binop_enum> int_binop_map;
@@ -149,10 +150,14 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
       emitter.multiply_byte( reg1,  reg1 , reg2); break;
     case DIVB:
       emitter.div_byte( reg1,  reg1 , reg2); break;
+    default:
+      cout<<"shoulntd get here BINOP IR SWITCH FAIL"<<endl;
+      exit(5);
+      break;
   }
     RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
 #ifdef COMPILE_DBG
-    cerr << "END_OF [Exp_IR] Exp -> Exp1 Binop Exp2" << endl;
+    cerr << "[Exp_IR]:Binop Exp -> Exp1 "+binop->str_content + " Exp2" << endl;
 #endif
 }
 
@@ -210,7 +215,18 @@ void Exp_IR(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
 }
 
 // Exp -> String
-void Exp_IR(int lineno,class ExpNode* Self,class String_Node* string_ptr);
+void Exp_IR(int lineno,class ExpNode* Self,class String_Node* string_ptr){
+
+  #ifdef COMPILE_DBG
+   cerr << "[Exp_IR] Exp -> string" << string_ptr->str_content << endl;
+  #endif
+  emitter.comment("caught a string");
+  emitter.add_string(string_ptr->str_content);
+
+  #ifdef COMPILE_DBG
+    cerr << "END_OF [Exp_IR] Exp -> string" << endl;
+  #endif
+}
 
 // Exp -> True
 void Exp_IR(int lineno,class ExpNode* Self,class True* true_val);
@@ -293,7 +309,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
 
 void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* id){
 #ifdef COMPILE_DBG
-    cerr << "[Call_IR] : " << id->str_content << endl;
+    cerr << "[Call_IR] : no arguments " << id->str_content << endl;
 #endif
   // get label to jump to function
   string funclabel = symtabref.get_func_label(id->str_content);
@@ -323,7 +339,63 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
 
 
 void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id, class ExpListNode* expList){
-    //TODO why are there two Call_IR ?
+#ifdef COMPILE_DBG
+    cerr << "[Call_IR] : with arguments " << id->str_content << endl;
+#endif
+  // get label to jump to function
+  emitter.comment("preparing to call "+id->str_content);
+  string funclabel = symtabref.get_func_label(id->str_content);
+  // registers where stored in CallHeader_IR now all registers contains the expressions of expList
+  int regnum = header->regnum;
+
+  // save fp (old fp)
+  emitter.push_to_stack("$fp");
+  //save ra (old ra)
+  emitter.push_to_stack("$ra");
+  //save arguments no arguments in this case
+
+  // now we have to store parameters
+
+  int param_number=expList->typesvec.size();
+
+  for( int i=0 ; i<param_number ; i++ ){
+    if(expList->typesvec[i]==String){
+      // we get the relevant exp from expvec, then we know its first son is a StringNode so we take the str content
+#ifdef COMPILE_DBG
+      cerr << "found a string typed parameter " << id->str_content << endl;
+      cerr << "found a string typed parameter " << id->str_content << endl;
+#endif
+      string str_exp=expList->expvec[i]->sons[0]->str_content;
+      string strLabel =emitter.add_string(str_exp);
+      emitter.load_address_to_stack(strLabel);
+
+    }
+    else{
+      string reg_to_save=regmnref.last_reg();
+      emitter.push_to_stack(reg_to_save);
+      regmnref.free_last_reg();
+    }
+  }
+
+  // move fp to sp
+  emitter.assign("$fp","$sp");
+  //jal
+  emitter.jal(funclabel);
+  //restore above
+
+
+  for( int i=0 ; i<param_number ; i++ ){
+    emitter.pops_from_stack(regmnref.get_next_free_reg());
+  }
+
+  emitter.pops_from_stack("$ra");
+  emitter.pops_from_stack("$fp");
+
+  emitter.restore_registers(regnum);
+  emitter.comment("finished calling "+id->str_content);
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Call_IR]" << endl;
+#endif
 }
 
 
@@ -331,6 +403,7 @@ void CallHeader_IR(int lineno, CallHeaderNode* Self){
 #ifdef COMPILE_DBG
     cerr << "CallHeader_IR" << endl;
 #endif
+  emitter.comment("func header store regs before call");
   Self->regnum=emitter.store_registers();
 #ifdef COMPILE_DBG
     cerr << "END_OF CallHeader_IR" << endl;

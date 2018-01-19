@@ -630,6 +630,7 @@ void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp){
   cerr << "<<ExpList_Semantic>> explist -> exp" << endl;
 #endif
 	Self->typesvec.push_back(exp->Type);
+  Self->expvec.push_back(exp);
 #ifdef PARSEDEBUG
   cerr << "exp is of type " << str_of_type(exp->Type) << endl;
 #endif
@@ -643,6 +644,8 @@ void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp, cla
 	Self->typesvec.push_back(exp->Type);
 	Self->typesvec.insert(Self->typesvec.end(),rest_of_list->typesvec.begin(),rest_of_list->typesvec.end());
 
+  Self->expvec.push_back(exp);
+  Self->expvec.insert(Self->expvec.end(),rest_of_list->expvec.begin(),rest_of_list->expvec.end());
 }
 
 //Type:			INT

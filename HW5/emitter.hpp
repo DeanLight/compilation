@@ -17,7 +17,10 @@ std::string glob_int_to_str(int num);
 
 class Emitter{
 public:
-	Emitter(){};
+  int string_num;
+  Emitter():string_num(0){};
+  string get_local_string_label();
+
 
 	void add(const string& dreg,const  string& sreg1 ,const string& sreg2) const;
 	void subtruct(const string& dreg, const string& sreg1 ,const string& sreg2) const;
@@ -46,6 +49,8 @@ public:
 	void debug_print(const string &debug_print) const;
 	void msg_print(const string &msg) const;
 
+  string add_string(const string& strin) ;
+
 	void get_var_value(const string& dreg, const string& fp_offset) const;
   void set_var_value(const string& sreg, const string& fp_offset) const;
 
@@ -69,6 +74,7 @@ public:
   // free kwords from stack
 	void free_words_on_stack(int kwords);
 
+  void load_address_to_stack(string address);
 
   // allocates a single word on stack and saves source to it be it an immediate or a register or an indirect
   void push_to_stack( const string& source);

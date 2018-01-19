@@ -98,32 +98,26 @@ int RegMngr::regs_currently_used() const {
 vector<string> RegMngr::save_all_regs_to_stack() const {
     vector<string> cmds;
     // the +1 is to save the $ra
-    int sp_change = 4*(next_free_reg+1);
+    int sp_change = 4*(next_free_reg);
     string expand_stack = "\taddiu $sp, $sp, -"+intToString(sp_change);
     cmds.push_back(expand_stack);
-    for (int i=0,offset=sp_change; i<next_free_reg; i++,sp_change-=4)
+    for (int i=0,offset=sp_change; i<next_free_reg; i++,offset-=4)
     { // TODO
         std::string line = std::string("\tsw ") + tmpRegI(i) +","+intToString(offset)+"($sp)" ;
         cmds.push_back(line);
     }
-    string store_ra=std::string("\tsw ") + "$ra" +","+"($sp)" ;
-    cmds.push_back(store_ra);
     return cmds;
 }
 
 vector<string> RegMngr::restore_all_regs_from_stack(int num_of_reg_to_restore) const {
   vector<string> cmds;
   // the +1 is to save the $ra
-  int sp_change = 4*(num_of_reg_to_restore+1);
-  for (int i=0,offset=sp_change; i<num_of_reg_to_restore; i++,sp_change-=4)
+  int sp_change = 4*(num_of_reg_to_restore);
+  for (int i=0,offset=sp_change; i<num_of_reg_to_restore; i++,offset-=4)
   { // TODO
       std::string line = std::string("\tlw ") + tmpRegI(i) +","+intToString(offset)+"($sp)" ;
       cmds.push_back(line);
   }
-  string restore_ra=std::string("\tlw ") + "$ra" +","+"($sp)" ;
-  string collapse_stack = "\taddiu $sp, $sp, "+intToString(sp_change);
-  cmds.push_back(restore_ra);
-  cmds.push_back(collapse_stack);
   return cmds;
 
 }

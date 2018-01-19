@@ -163,11 +163,19 @@ public:
   CallHeaderNode():regnum(0){};
 };
 
+class ExpNode : public Node{
+public:
+  enum type_enum Type;
+  ExpNode():Type(Uninit){};
+};
+
 class ExpListNode : public Node{
 public:
 	std::vector<enum type_enum> typesvec;
+  std::vector<ExpNode*> expvec;
   ExpListNode(){
     typesvec=vector<type_enum>();
+    expvec=vector<ExpNode*>();
   }
   int get_numOf_params(){
     if (sons.size() < 4) // no params
@@ -182,11 +190,6 @@ public:
 	TypeNode():Type(Uninit){};
 };
 
-class ExpNode : public Node{
-public:
-	enum type_enum Type;
-	ExpNode():Type(Uninit){};
-};
 
 class Void_Node : public Node{};
 class Int_Node : public Node{

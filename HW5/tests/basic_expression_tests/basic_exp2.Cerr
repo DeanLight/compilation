@@ -1,0 +1,271 @@
+[[[ added func: print with 1 params]]]
+[[[ added func: printi with 1 params]]]
+print param:2(1)
+printi param:3(1)
+[FIRST_PROGRAM_POINT]
+[set_func_label] label print for function print
+[set_func_label] label printi for function printi
+(END_OF)  [FIRST_PROGRAM_POINT]
+Lex Ate token void__
+Lex Ate token  id__main__
+Lex Ate token  (__
+Lex Ate token )__
+<<FuncHead_semantic, id:[main]>>
+[[[ added func: main with 0 params]]]
+FuncHead_IR for func: main
+got label label_27 in line: -1
+[set_func_label] label label_27 for function main
+[get_func_label] main's label is: label_27
+written label: label_27
+END_OF [FuncHead_IR] 
+Lex Ate token  {__
+Lex Ate token  id__printi__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  num__1__
+Lex Ate token  BinOp__+__
+[Exp_IR] Exp -> Num:1
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+Lex Ate token  num__1__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:1
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+<<ExpList_Semantic>> explist -> exp
+exp is of type INT
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  str__"\t"__
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp
+exp is of type STRING
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+found a string typed parameter print
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  id__printi__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  num__30__
+Lex Ate token  BinOp__-__
+[Exp_IR] Exp -> Num:30
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+Lex Ate token  num__20__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:20
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+<<ExpList_Semantic>> explist -> exp
+exp is of type INT
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+ERROR: Reg not given yet. req:1 while max used is 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  str__"\t"__
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp
+exp is of type STRING
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+found a string typed parameter print
+ERROR: Reg not given yet. req:1 while max used is 1
+ERROR: Reg not given yet. req:2 while max used is 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  id__printi__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  num__3__
+Lex Ate token  BinOp__*__
+[Exp_IR] Exp -> Num:3
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+<<ExpList_Semantic>> explist -> exp
+exp is of type INT
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+ERROR: Reg not given yet. req:1 while max used is 1
+ERROR: Reg not given yet. req:2 while max used is 1
+ERROR: Reg not given yet. req:3 while max used is 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  str__"\t"__
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp
+exp is of type STRING
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+found a string typed parameter print
+ERROR: Reg not given yet. req:1 while max used is 1
+ERROR: Reg not given yet. req:2 while max used is 1
+ERROR: Reg not given yet. req:3 while max used is 1
+ERROR: Reg not given yet. req:4 while max used is 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  id__printi__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  num__50__
+Lex Ate token  BinOp__/__
+[Exp_IR] Exp -> Num:50
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+Lex Ate token  num__2__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:2
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+<<ExpList_Semantic>> explist -> exp
+exp is of type INT
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+ERROR: Reg not given yet. req:1 while max used is 1
+ERROR: Reg not given yet. req:2 while max used is 1
+ERROR: Reg not given yet. req:3 while max used is 1
+ERROR: Reg not given yet. req:4 while max used is 1
+ERROR: Reg not given yet. req:5 while max used is 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  str__"\t"__
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp
+exp is of type STRING
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+found a string typed parameter print
+ERROR: Reg not given yet. req:1 while max used is 1
+ERROR: Reg not given yet. req:2 while max used is 1
+ERROR: Reg not given yet. req:3 while max used is 1
+ERROR: Reg not given yet. req:4 while max used is 1
+ERROR: Reg not given yet. req:5 while max used is 1
+ERROR: Reg not given yet. req:6 while max used is 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  id__printi__
+Lex Ate token  (__
+CallHeader_IR
+END_OF CallHeader_IR
+Lex Ate token  num__49__
+Lex Ate token  BinOp__/__
+[Exp_IR] Exp -> Num:49
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+Lex Ate token  num__2__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:2
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT:label_27}}}}
+END_OF [Exp_IR] Exp -> Num
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+[Exp_IR]:Binop Exp -> Exp1  Exp2
+<<ExpList_Semantic>> explist -> exp
+exp is of type INT
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+ERROR: Reg not given yet. req:1 while max used is 1
+ERROR: Reg not given yet. req:2 while max used is 1
+ERROR: Reg not given yet. req:3 while max used is 1
+ERROR: Reg not given yet. req:4 while max used is 1
+ERROR: Reg not given yet. req:5 while max used is 1
+ERROR: Reg not given yet. req:6 while max used is 1
+ERROR: Reg not given yet. req:7 while max used is 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+Lex Ate token  }__
+[FuncDeclNode_IR]: 
+checking retType of func: main
+If void, an extra ret will be added
+Ret type: 1
+[Program_IR] backpatching line number 2 with [get_func_label] main's label is: label_27
+label_27
+[get_func_label] main's label is: label_27
+ignore me1 (label_27)
+[END_OF Program_IR]

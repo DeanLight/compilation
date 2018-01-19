@@ -20,16 +20,25 @@ std::string glob_int_to_str(int num)
 }
 
 
+string Emitter::get_local_string_label(){
+  std::stringstream label;
+  label << "string_label_";
+  label << string_num;
+  std::string ret(label.str());
+  string_num++;
+  return ret;
+
+}
 
 void Emitter::add_print_func() const {
     codebuffer.emit("lw $a0,0($sp)");
-    codebuffer.emit("li $v0,1");
+    codebuffer.emit("li $v0,4");
     codebuffer.emit("syscall");
     codebuffer.emit("jr $ra");
 }
 void Emitter::add_printi_func() const {
     codebuffer.emit("lw $a0,0($sp)");
-    codebuffer.emit("li $v0,4");
+    codebuffer.emit("li $v0,1");
     codebuffer.emit("syscall");
     codebuffer.emit("jr $ra");
 }
@@ -167,7 +176,7 @@ void Emitter::assign(const string &dreg,const string & sreg) const{
 
 void Emitter::comment(const string &comment) const{
 #ifdef MIPS_COMMENT_DBG
-  const string command = "\t\t#"+comment;
+  const string command = "\t#"+comment;
   codebuffer.emit(command);
 #endif
 }
@@ -210,9 +219,28 @@ void Emitter::get_var_value(const string& dreg, const string& fp_offset) const{
 
 }
 
+void Emitter::load_address_to_stack(string address){
+  comment("loading str address to stack");
+  string expand_stack = "\taddiu $sp, $sp, -4";
+  string store_source1 = "\tla $v0, "+address; // TODO affirm use of v0 to avoid extra regular registers, since it is not used anyway
+  string store_source2= "\tsw $v0, ($sp)";
+  codebuffer.emit(expand_stack);
+  codebuffer.emit(store_source1);
+  codebuffer.emit(store_source2);
+
+
+}
+
+string Emitter::add_string(const string& strin) {
+
+  string label = get_local_string_label();
+  codebuffer.emitData(label+":\t.asciiz "+strin  );
+  return label;
+
+}
 
 void Emitter::set_var_value(const string& sreg, const string& fp_offset) const{
-  const string command = "\tlw"+sreg+", " +fp_offset;
+  const string command = "\tsw"+sreg+", " +fp_offset;
   codebuffer.emit(command);
 
 }
@@ -303,8 +331,8 @@ void Emitter::push_to_stack( const string &source){
 void Emitter::pops_from_stack(const  string &reg){
   string restore_source = "\tlw "+reg+", ($sp)";
   string collapse_stack = "\taddiu $sp, $sp, 4";
-  codebuffer.emit(collapse_stack);
   codebuffer.emit(restore_source);
+  codebuffer.emit(collapse_stack);
 }
 
 

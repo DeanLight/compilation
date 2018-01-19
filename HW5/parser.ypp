@@ -70,7 +70,9 @@ Prog_init:      /*epsilon*/                                        { $$ = new In
 Funcs:          FuncDecl Funcs                                    { $$=new FuncsNode() ; Funcs_Semantic(yylineno,(FuncsNode*)$$,(FuncDeclNode*)$1,(FuncsNode*)$2 );$$->addSon($1,$2); }
                 | /*epsilon*/                                     { $$=new FuncsNode() ; Funcs_Semantic(yylineno,(FuncsNode*)$$) ; }
 
-FuncDecl:       FuncHead FuncState                                { $$=new FuncDeclNode() ; FuncDecl_Semantic(yylineno,(FuncDeclNode*)$$,(FuncHeadNode*)$1,(FuncStateNode*)$2 ) ;$$->addSon($1,$2); }
+FuncDecl:       FuncHead FuncState                                { $$=new FuncDeclNode() ; FuncDecl_Semantic(yylineno,(FuncDeclNode*)$$,(FuncHeadNode*)$1,(FuncStateNode*)$2 ) ;$$->addSon($1,$2);
+                                                                    FuncDecl_IR( yylineno, (FuncDeclNode*)$$ , (FuncHeadNode*)$1 ,(FuncStateNode*)$2 );
+                }
 
 FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN  { $$=new FuncHeadNode() ;
 																	FuncHead_Semantic(yylineno,(FuncHeadNode*)$$,(RetTypeNode*)$1,(Id*)$2,(Lparen*)$3,(FormalsNode*)$5,(Rparen*)$6);
@@ -137,7 +139,8 @@ CaseDec:		CASE NUM COLON              { $$=new CaseDecNode() ; CaseDec_Semantic(
 				| CASE NUM B COLON          { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Num*)$2,(B_Node*)$3 ) ;$$->addSon($1,$2,$3,$4);}
 				| DEFAULT COLON             { $$=new CaseDecNode() ; CaseDec_Semantic(yylineno,(CaseDecNode*)$$ ,(Default*)$1 ) ; $$->addSon($1,$2);}
 
-Call:			ID LPAREN CallHeader ExpList RPAREN    { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1,(ExpListNode*)$4 ) ;$$->addSon($1,$2,$3,$4,$5);}
+Call:			ID LPAREN CallHeader ExpList RPAREN    { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1,(ExpListNode*)$4 ) ;$$->addSon($1,$2,$3,$4,$5);
+                                                   Call_IR(yylineno,(CallNode*)$$,(CallHeaderNode*) $3, (Id*)$1 , (ExpListNode*)$4 ) ; }
 				|  ID LPAREN CallHeader RPAREN          { $$=new CallNode() ; Call_Semantic(yylineno,(CallNode*)$$ ,(Id*)$1 ) ; $$->addSon($1,$2,$3,$4);
                                                   Call_IR(yylineno,(CallNode*)$$,(CallHeaderNode*) $3, (Id*)$1 ) ;}
 
