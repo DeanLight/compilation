@@ -19,23 +19,24 @@ got label label_27 in line: -1
 written label: label_27
 END_OF [FuncHead_IR] 
 Lex Ate token  {__
-Lex Ate token  id__printi__
-Lex Ate token  (__
-CallHeader_IR
-END_OF CallHeader_IR
+Lex Ate token int__
+Lex Ate token  id__x__
+Lex Ate token  =__
 Lex Ate token  num__1__
-Lex Ate token )__
+Lex Ate token  ;__
 [Exp_IR] Exp -> Num:1
 [get_func_label] main's label is: label_27
 {{{{ NOT RELEVANT:label_27}}}}
 END_OF [Exp_IR] Exp -> Num
-<<ExpList_Semantic>> explist -> exp
-exp is of type INT
-<<CallSemantics [ID(Exp)] >>
-tmpParams: 1
-tmpActP: 1
-tmptmp: 1
+<<[Statement_Semantic][TypeID_SC] id:[x]type:[]>>
+<<adding var: [x] of type [3]>><<Statement_Semantic with id[x]=exp>>
+Lex Ate token return__
 Lex Ate token  ;__
+[Statement_IR] Return void
+[get_func_label] main's label is: label_27
+{{{{ NOT RELEVANT2:label_27}}}}
+Lex Ate comment:// TODO - we need to deal with function without return
+
 Lex Ate token  }__
 [Program_IR] backpatching line number 2 with [get_func_label] main's label is: label_27
 label_27

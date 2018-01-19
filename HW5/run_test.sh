@@ -33,7 +33,7 @@ function do_test {
 		if cmp ${i}.out ${i}.myout
 		then
 			echo ${i} passed tests
-			rm -f ${i}.myout ${i}.Cerr ${i}.Serr ${i}.s
+			#rm -f ${i}.myout ${i}.Cerr ${i}.Serr ${i}.s
       echo
 		else
 			echo ${i} failed tests

@@ -30,6 +30,6 @@ li $v0, 10
 syscall
 		#Func main:
 label_27:
-	addiu $sp, $sp, -4
-	sw $ra,($sp)
 	li	$t0,1
+		#return
+	jr	$ra

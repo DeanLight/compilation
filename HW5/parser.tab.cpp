@@ -1487,7 +1487,7 @@ yyreduce:
 
   case 25:
 #line 107 "parser.ypp" /* yacc.c:1646  */
-    { (yyval)=new StatementNode() ; 
+    { (yyval)=new StatementNode() ;
 																							  Statement_Semantic(yylineno,(StatementNode*)(yyval),(Return*)(yyvsp[-2]),(ExpNode*)(yyvsp[-1])  ) ; (yyval)->addSon((yyvsp[-2]),(yyvsp[-1]),(yyvsp[0]));
 																							  Statement_IR(yylineno,(StatementNode*)(yyval),(Return*)(yyvsp[-2]),(ExpNode*)(yyvsp[-1])  );}
 #line 1494 "parser.tab.cpp" /* yacc.c:1646  */
@@ -1609,7 +1609,7 @@ yyreduce:
 
   case 45:
 #line 140 "parser.ypp" /* yacc.c:1646  */
-    { (yyval)=new CallNode() ; Call_Semantic(yylineno,(CallNode*)(yyval) ,(Id*)(yyvsp[-4]),(ExpListNode*)(yyvsp[-2]) ) ;(yyval)->addSon((yyvsp[-4]),(yyvsp[-3]),(yyvsp[-2]),(yyvsp[-1]),(yyvsp[0]));}
+    { (yyval)=new CallNode() ; Call_Semantic(yylineno,(CallNode*)(yyval) ,(Id*)(yyvsp[-4]),(ExpListNode*)(yyvsp[-1]) ) ;(yyval)->addSon((yyvsp[-4]),(yyvsp[-3]),(yyvsp[-2]),(yyvsp[-1]),(yyvsp[0]));}
 #line 1614 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
