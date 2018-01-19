@@ -242,6 +242,27 @@ void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype
     cerr << "END_OF [FuncHead_IR] " << endl;
 #endif
 }
+void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode* state)
+{
+#ifdef COMPILE_DBG
+    cerr << "[FuncDeclNode_IR]: " << head->str_content << endl;
+#endif
+    std::string func_name = ((Id*)(head->sons[1]))->str_content;
+#ifdef COMPILE_DBG
+    cerr << "checking retType of func: " << func_name << endl;
+    cerr << "If void, an extra ret will be added" << endl;
+#endif
+    v_type retType = symtabref.get_type(func_name);
+#ifdef COMPILE_DBG
+    cerr << "Ret type: " << retType << endl;
+#endif
+    if (retType == Void)
+    {
+        emitter.comment("Func is Void retType");
+        emitter.comment("Adding an extre return just in case");
+        emitter.ret();
+    }
+}
 
 void Statement_IR(int lineno,class StatementNode* Self, class Return* ret) // void return
 {

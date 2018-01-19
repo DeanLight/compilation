@@ -25,8 +25,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* e
 void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp);
 void Statement_IR(int lineno,class StatementNode* Self, class Return* ret); // void return
 void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp); // none void return
-// both of those - doing the "return
-// the second one - saves iv v0 the relevent data
+void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode* state);
 
 void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class FuncsNode* funcs);
 
