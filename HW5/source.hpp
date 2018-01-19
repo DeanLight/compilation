@@ -166,7 +166,9 @@ public:
 class ExpListNode : public Node{
 public:
 	std::vector<enum type_enum> typesvec;
-	//TODO initialize empty vector
+  ExpListNode(){
+    typesvec=vector<type_enum>();
+  }
   int get_numOf_params(){
     if (sons.size() < 4) // no params
       return 0;

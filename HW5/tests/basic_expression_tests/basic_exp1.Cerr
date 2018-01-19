@@ -29,6 +29,8 @@ Lex Ate token )__
 [get_func_label] main's label is: label_27
 {{{{ NOT RELEVANT:label_27}}}}
 END_OF [Exp_IR] Exp -> Num
+<<ExpList_Semantic>> explist -> exp
+exp is of type3
 <<CallSemantics [ID(Exp)] >>
 tmpParams: 1
 tmpActP: 0

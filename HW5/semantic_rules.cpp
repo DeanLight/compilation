@@ -34,18 +34,18 @@ For derivations of exp of for ID, we need a value and a type
 For exp or ID we need a flag of wether they can be a lVal
 
 Statements need a type whos values is their return type function
- declares need to check that the type 
+ declares need to check that the type
 of the statement is the same type as the RetType
 
-Statement need a flag that checks if they contain a break, throw 
-an Error if htye are scope enders that 
+Statement need a flag that checks if they contain a break, throw
+an Error if htye are scope enders that
 are not a while or a case of a switch
 
-IDs need to be searched  in a symbol table, but they do not need 
+IDs need to be searched  in a symbol table, but they do not need
 to have a pointer since its a global var
 IDs need a flag that say wether they are a variable or a function
 
-Program and Funcs need to have a counter for number of mains. 
+Program and Funcs need to have a counter for number of mains.
 
 Funclis and funcdecl needs to have an is_main flag
 FuncDecl need to check if its a main with void if yes tell its father, else its an error
@@ -108,7 +108,7 @@ vector<string> stringify_type_vec(const types_vec& vec){
 
 // Program: Funcs
 void Program_Semantic(int lineno,class ProgramNode* Self, class FuncsNode* funcs){
-    
+
 	//if program doesnt have main
 	if( glob_containsMain==false ){
 		//erorMainMissing()
@@ -118,18 +118,18 @@ void Program_Semantic(int lineno,class ProgramNode* Self, class FuncsNode* funcs
 	}
     // print end of scope
     symtab.exit_scope();
-	
+
 }
 
 // Funcs: FuncDecl Funcs
 void Funcs_Semantic(int lineno,class FuncsNode* Self, class FuncDeclNode* func_decl , class FuncsNode* funcs){
-    
+
 
 }
 
 // Funcs: epsilon
 void Funcs_Semantic(int lineno,class FuncsNode* Self){
-    
+
 
 }
 
@@ -141,7 +141,7 @@ void FuncDecl_Semantic(int lineno,class FuncDeclNode* Self, class FuncHeadNode* 
 
 }
 
-//FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN 
+//FuncHead:		RetType ID LPAREN Func_Scope_init Formals RPAREN
 void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp){
 
 #ifdef PARSEDEBUG
@@ -177,7 +177,7 @@ void FuncHead_Semantic(int lineno,class FuncHeadNode* Self, class RetTypeNode* r
 void Func_scope_init_Semantic(int lineno){
 	//open function scope
 	symtab.enter_new_func_scope(Uninit);
-    
+
 }
 
 //FuncState:		LBRACE Statement RBRACE
@@ -197,7 +197,7 @@ void RetType_Semantic(int lineno,class RetTypeNode* Self, class TypeNode* type){
 //RetType:        Void
 void RetType_Semantic(int lineno,class RetTypeNode* Self){
     // Self.Type=Void
-	Self->Type=Void;    
+	Self->Type=Void;
 
 }
 
@@ -214,7 +214,7 @@ void Formals_Semantic(int lineno,class FormalsNode* Self, class FormalsListNode*
 
 //Formals:        epsilon
 void Formals_Semantic(int lineno,class FormalsNode* Self){
-    
+
 
 }
 
@@ -414,12 +414,12 @@ void SwitchHead_Semantic(int lineno, class SwitchHeadNode* Self,class ExpNode* e
 
 //PossibleElse:   /*epsilon*/
 void PossibleElseSemantic(int lineno, class PossibleElseNode* Self ){
-	
+
 }
 
 //PossibleElse:   ELSE Scope_init Statement Scope_end
 void PossibleElseSemantic(int lineno, class PossibleElseNode* Self , class StatementNode* state  ){
-	
+
 }
 
 
@@ -462,7 +462,7 @@ void While_Scope_init_Semantic(int lineno){
 void Scope_init_Semantic(int lineno){
 	//open regular scope
 	symtab.enter_new_other_scope();
-    
+
 }
 
 //Scope_end:	/*epsilon*/
@@ -477,7 +477,7 @@ void Scope_end_Semantic(int lineno){
 
 //CaseList:		CaseList CaseStatement
 void CaseList_Semantic(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, class CaseStatementNode* case_ptr){
-    
+
 
 
 
@@ -496,7 +496,7 @@ void CaseStatement_Semantic(int lineno,class CaseStatementNode* Self, class Case
 }
 
 
-//CaseStatement:	CaseDec 
+//CaseStatement:	CaseDec
 void CaseStatement_Semantic(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec){
 
 }
@@ -563,7 +563,7 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id, class ExpListN
 #endif
 
 
-	// Look up Id in id table as a fucntion. 
+	// Look up Id in id table as a fucntion.
 		//  if not ufnction or doesnt exist
 			//errorUndefFunc(lineno,id)
 	if(symtab.is_func(id->str_content)==0){ // why not '!' ?
@@ -626,7 +626,13 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id){
 //ExpList:		Exp
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp){
 	// add Exp Type to Self. TypeList
+#ifdef PARSEDEBUG
+  cerr << "<<ExpList_Semantic>> explist -> exp" << endl;
+#endif
 	Self->typesvec.push_back(exp->Type);
+#ifdef PARSEDEBUG
+  cerr << "exp is of type " << str_of_type(exp->Type) << endl;
+#endif
 
 }
 
@@ -658,7 +664,7 @@ void Type_Semantic(int lineno,class TypeNode* Self, class Bool_Node* bool_node){
 }
 
 
-//Exp:			Exp AND Exp 
+//Exp:			Exp AND Exp
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2){
 	// if exp1 or exp 2 are not bools
 		// errorMismatch(lineno);
@@ -671,7 +677,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class And*
 	Self->Type=Bool;
 }
 
-//Exp:			Exp OR Exp 
+//Exp:			Exp OR Exp
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2){
 	// if exp1 or exp 2 are not bools
 	// errorMismatch(lineno);
@@ -684,7 +690,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* 
 	Self->Type=Bool;
 }
 
-//Exp:			Exp RELOP Exp 
+//Exp:			Exp RELOP Exp
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2){
 	// if exp1 or exp 2 are not numeric
 	// errorMismatch(lineno);
@@ -697,7 +703,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relo
 	Self->Type=Bool;
 }
 
-//Exp:			Exp BINOP Exp 
+//Exp:			Exp BINOP Exp
 void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* binop, class ExpNode* exp2){
 
 	// if exp1 or exp 2 are not numeric
@@ -715,13 +721,13 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Bino
 	}
 }
 
-//Exp:			LPAREN Exp RPAREN  
+//Exp:			LPAREN Exp RPAREN
 void Exp_Semantic(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp){
 	//Self->Type=exp1->Type;
 	Self->Type=exp1->Type;
 }
 
-//Exp:			ID 
+//Exp:			ID
 void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id){
 #ifdef PARSEDEBUG
     cerr<<"<<[Exp_Semantic_Id] id:[" << id->str_content << "]>>"<< endl; // TODO REMVOVE
@@ -738,13 +744,13 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Id* id){
 
 }
 
-//Exp:			Call 
+//Exp:			Call
 void Exp_Semantic(int lineno,class ExpNode* Self,class CallNode* call){
 	//Self->Type=call->Type;
 	Self->Type=call->Type;
 }
 
-//Exp:			NUM 
+//Exp:			NUM
 void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num){
 	//Self->Type=int;
 	Self->Type=Int;
@@ -756,7 +762,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b
 #ifdef PARSEDEBUG
     cerr<<"<<[Exp_Semantic] B:[" << num->str_content << "]>>"<< endl; // TODO REMVOVE
 #endif
-	// if Num >255 
+	// if Num >255
 		//errorByteTooLarge(lineno,int(Num->str_content)
 	if(std::atoi(num->str_content.c_str())>255){
 		errorByteTooLarge(lineno,num->str_content);
@@ -767,25 +773,25 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Num* num, class B_Node* b
 
 }
 
-//Exp:			STRING 
+//Exp:			STRING
 void Exp_Semantic(int lineno,class ExpNode* Self,class String_Node* stringptr){
 	//Self->Type=string;
 	Self->Type=String;
 }
 
-//Exp:			TRUE 
+//Exp:			TRUE
 void Exp_Semantic(int lineno,class ExpNode* Self,class True* true_val){
 	//Self->Type=Bool;
 	Self->Type=Bool;
 }
 
-//Exp:			FALSE 
+//Exp:			FALSE
 void Exp_Semantic(int lineno,class ExpNode* Self,class False* false_val){
 	//Self->Type=Bool;
 	Self->Type=Bool;
 }
 
-//Exp:			NOT Exp 
+//Exp:			NOT Exp
 void Exp_Semantic(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1){
 	// if exp1  not bool
 		// errorMismatch(lineno);
@@ -803,83 +809,83 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpN
 
 
 void Void_Semantic(){
-    
+
 }
 
 void Int_Semantic(){
-    
+
 }
 
 void Byte_Semantic(){
-    
+
 }
 
 void B_Node_Semantic(){
-    
+
 }
 
 void Bool_Semantic(){
-    
+
 }
 
 void And_Semantic(){
-    
+
 }
 
 void Or_Semantic(){
-    
+
 }
 
 void Not_Semantic(){
-    
+
 }
 
 void True_Semantic(){
-    
+
 }
 
 void False_Semantic(){
-    
+
 }
 
 void Return_Semantic(){
-    
+
 }
 
 void If_Semantic(){
-    
+
 }
 
 void Else_Semantic(){
-    
+
 }
 
 void While_Semantic(){
-    
+
 }
 
 void Switch_Semantic(){
-    
+
 }
 
 void Case_Semantic(){
-    
+
 }
 
 void Break_Semantic(){
-    
+
 }
 
 void Default_Semantic(){
-    
+
 }
 
 void Colon_Semantic(){
-    
+
 }
 
 void SC_Node_Semantic(){
-    
+
 }
 //
 //void Comma_Semantic(){
@@ -887,43 +893,43 @@ void SC_Node_Semantic(){
 //}
 
 void Lparen_Semantic(){
-    
+
 }
 
 void Rparen_Semantic(){
-    
+
 }
 
 void Lbrace_Semantic(){
-    
+
 }
 
 void Rbrace_Semantic(){
-    
+
 }
 
 void Assign_Semantic(){
-    
+
 }
 
 void Relop_Semantic(){
-    
+
 }
 
 void Binop_Semantic(){
-    
+
 }
 
 void Comma_Semantic(){
-    
+
 }
 
 void Id_Semantic(){
-    
+
 }
 
 void Num_Semantic(){
-    
+
 }
 
 void String_Semantic(){
