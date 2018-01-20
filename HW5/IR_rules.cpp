@@ -79,23 +79,45 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
 #endif
 }
 
+//TODO add a label marker that saves said label
+//TODO truelist and falseList to boolean nodes
 
-//Exp -> Exp1 And Exp2
+//Exp -> Exp1 And add marker M Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2)
 {
     // TODO - bool
+    // patch E1 trulist to start of E2
+    // bp.backpath(E1.truelist, M.label)
+    //
+    // Self.trulist.add(E2.truelist)
+    // Self.falselist.add(E2.falselist,E1.falseList)
 }
 
-//Exp -> Exp1 OR Exp2
+//Exp -> Exp1 OR M Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2)
 {
     // TODO - bool
+    // patch E1 falselist to start of E2
+    // bp.backpath(E1.falselist, M.label)
+    //
+    // Self.trulist.add(E2.truelist,E1.trulist)
+    // Self.falselist.add(E2.falselist)
 }
 
 // Exp -> Exp1 Relop Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2)
 {
     // TODO - bool
+    // get last 2 regs, r1,r2
+    //
+    // get trueLabel
+    // depending on relop type do a different conditional jump to true label
+    // for example emit(bgr r1,r2 , trueLabel)
+    //
+    // emit(jump) add thios adress to falselist
+    // emit(trueLabel:)
+    //
+    // emit(jump) add this to truelist
 }
 
 // Exp -> Exp1 Binop Exp2
@@ -229,13 +251,22 @@ void Exp_IR(int lineno,class ExpNode* Self,class String_Node* string_ptr){
 }
 
 // Exp -> True
-void Exp_IR(int lineno,class ExpNode* Self,class True* true_val);
+void Exp_IR(int lineno,class ExpNode* Self,class True* true_val){
+  // emit an empty jump and link it to truelist
+  // create an empty list for falselist
+}
 
 // Exp -> False
-void Exp_IR(int lineno,class ExpNode* Self,class False* false_val);
+void Exp_IR(int lineno,class ExpNode* Self,class False* false_val){
+  // emit an empty jump and link it to falselist
+  // create an empty list for turelist
+}
 
-// Exp -> Not Exp
-void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1);
+// Exp -> Not Exp1
+void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1){
+  //Self.truelist =e1.falselist
+  //self.falselist=e1.truelist
+}
 
 
 void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp)
@@ -415,6 +446,137 @@ void CallHeader_IR(int lineno, CallHeaderNode* Self){
 
 
 
+void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id){
+  //NADA
+}
+
+//statement -> id = exp
+void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp){
+  // get type of id from symbolTable
+  // if notBool
+  // get varSp
+  // get last register (exp1)
+  // emitter.move(varSp, exp1)
+  // free last reg
+  //
+  //
+  //if bool
+  //trueAss: move 1 into varSp
+  //fallseAss: move 0 into varSp
+  //bp relavant lists
+}
 
 
 
+void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id, class Assign* assign, class ExpNode* exp){
+  // call ->id=exp IR
+}
+
+
+// add markerL statement -> if exp M_if statment M_else possibleElse
+void Statement_IR(int lineno,class StatementNode* Self, class If* if_ptr, class ExpNode* exp, class StatementNode* statement, PossibleElseNode* elsei){
+  // TODO add nextlist to statemsent node, and add a jump at the end of each statement to its nextlist
+  // TODO add a break list to each statement
+  //
+  // bp boolexp truelist into M_if
+  // bp boolexp falselist into M_else
+  // keepline = emit("j")
+  // bp statment.nextlist into keepline
+  // bp possiblelese,nextlist intoo keepline
+  // self.nextlist = keepline
+  //
+  //
+  //
+  // note - possibleElse needs to have a nextlist, even an empty one
+
+}
+
+
+//Statements -> statement
+void Statements_IR(int lineno,class StatementsNode* Self, class StatementNode* statement){
+  // self.nextlist=staement.nextlist
+
+  //TODO statements must have breaklist also and inheret from their sons
+
+}
+//statements -> staements M statement
+void Statements_IR(int lineno,class StatementsNode* Self,class StatementsNode* rest_of_statements, class StatementNode* statement){
+  // bp staements. nextlist into M
+  // self.nextlist=staement.nextlist
+  //
+
+
+}
+
+
+// staements ->  Mwhile while boolexp Mloop statement
+void Statement_IR(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementNode* statement){
+
+  // keepline=emptyjump (nextlist here)
+  // self.nextlist=keepline
+  //
+  // bp.boolexp.truelist into Mloop
+  // bp.boolexp.falselist into keepline
+  // bp.statement.nextlist into Mwhile
+  //
+  // bp.staements.breaklist into keepline
+
+}
+
+// statement -> switch_head caseList
+void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* switch_ptr ,  class CaseListNode* caselist ){
+  // TODO add markers in between case statments when deriving caseList. make caseList save a vector of caseStaements nodes and vector of marker nodes
+  // get a list a caseDec statements from caseList, caseDevVec and a list of the statements block statementsvec
+  //
+  //
+  // r0 = get last register (register of the exp)
+  // for i in [n-1]
+  // bp(Si.nextlist into M[i+1]
+  //
+  // add Sn.nextList to self.nextlist
+  //
+  //
+  // emit(init:)
+  //bp.switchhead.initlabel = init
+  //
+  // default_marker="";
+  //
+  // for each caseDec{
+  //    if caseDec.son.size==2 // means its default
+  //      defaultmarker=casedec.M
+  //    else
+  //      emit(beq r0, (immediate of caseDec), caseDec.M
+  // }
+  //
+  // if default marker>=0
+  //  jump default.M
+  //
+  //  keepline=emit(patchyjump)
+  //
+  //  giant_breakList=emptyList)
+  //  for s in statementsvec
+  //    giant_breaklist.mergewith(s.breaklist)
+  //
+  //  bp(giant_breaklist) into keepline
+  //
+  //  self.nextlist=keepline
+  //
+  //
+  //
+  //
+  //
+  //
+
+}
+
+//TODO add a startlabel semantic attribute to each node
+// TODO add an initLabel semantic attribute to switchheadnode
+
+// swtchhead -> expNode
+void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
+  //keepline= emit(emptyjump) __ goto init
+  // self.label=keepline
+
+
+
+}
