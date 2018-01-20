@@ -203,7 +203,7 @@ default {yylval = new Default();
 	#endif
 	return RELOP;};
 	
-{binop_t} {yylval = new Binop();
+{binop_t} {yylval = new Binop(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  BinOp__%s__\n" ,yytext); // TODO REMOVE
 	#endif
