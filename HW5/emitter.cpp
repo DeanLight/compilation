@@ -261,7 +261,7 @@ string Emitter::add_string(const string& strin) {
 }
 
 void Emitter::set_var_value(const string& sreg, const string& fp_offset) const{
-  const string command = "\tsw"+sreg+", " +fp_offset;
+  const string command = "\tsw "+sreg+", " +fp_offset;
   codebuffer.emit(command);
 
 }

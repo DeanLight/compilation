@@ -489,6 +489,57 @@ void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, cl
 //statement -> id = exp
 void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp)
 {
+    static int boolAssCount = 0;
+    v_type tt = symtabref.get_type(id->str_content);
+    std::string fpVarReg = symtabref.get_var_fp(id->str_content);
+    if (tt != Bool)
+    {
+        std::string expReg = regmnref.last_reg();
+        //emitter.assign(fpVarReg ,expReg); // TODO
+        emitter.set_var_value(expReg,fpVarReg);
+        regmnref.free_last_reg();
+
+        //TODO double code - use the regular function
+        int j_f = emitter.patchy_jump();
+        // TODO FIX - use the normal function
+        std::string endAssJump = "timeToSkip_fgf";
+        std::string endLabel = endAssJump + IR_numToString(boolAssCount);
+        boolAssCount++;
+        emitter.add_label(endLabel);
+        int jump_line = emitter.patchy_jump();
+        Self->nextlist = codebuff.makelist(jump_line);
+    }
+    else // it's a bool
+    {
+
+        std::string boolExpPrefLabel = "bExpAss_nfjdn";
+        std::string newTL = boolExpPrefLabel + IR_numToString(boolAssCount);
+        boolAssCount++;
+        emitter.add_label(newTL);
+        emitter.comment("assigning True to " + id->str_content);
+        emitter.num_toreg(fpVarReg ,"1");
+        int j_t = emitter.patchy_jump();
+        std::string newFL = boolExpPrefLabel + IR_numToString(boolAssCount);
+        boolAssCount++;
+        emitter.add_label(newFL);
+        emitter.comment("assigning False to " + id->str_content);
+        emitter.num_toreg(fpVarReg ,"0");
+        int j_f = emitter.patchy_jump();
+        // TODO FIX - use the normal function
+        std::string endAssJump = "timeToSkip_fgf";
+        std::string endLabel = endAssJump + IR_numToString(boolAssCount);
+        boolAssCount++;
+        emitter.add_label(endLabel);
+        int jump_line = emitter.patchy_jump();
+        Self->nextlist = codebuff.makelist(jump_line);
+        codebuff.bpatch(codebuff.makelist(j_t),endLabel);
+        codebuff.bpatch(codebuff.makelist(j_f),endLabel);
+        codebuff.bpatch(exp->truelist,newTL);
+        codebuff.bpatch(exp->falselist,newFL);
+
+    }
+
+
   // TODO TODO TODO TODO TODO TODO TODO TODO
   // get type of id from symbolTable
   // if notBool
@@ -509,6 +560,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
 //statement -> Type id = exp
 void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id, class Assign* assign, class ExpNode* exp){
   // call ->id=exp IR
+    Statement_IR(lineno,Self,id,assign,exp);
 }
 
 

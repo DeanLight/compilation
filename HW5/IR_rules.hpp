@@ -31,6 +31,9 @@ void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,
 
 void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class FuncsNode* funcs);
 
+void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id, class Assign* assign, class ExpNode* exp);
+void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp);
+
 // backpatch first point to main
 
 

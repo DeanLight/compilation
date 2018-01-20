@@ -100,8 +100,12 @@ Statements:		Statement                                         { $$=new Statemen
 
 Statement:		LBRACE Scope_init Statements RBRACE                                         { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Lbrace*)$1,(StatementsNode*)$3,(Rbrace*)$4 ) ; $$->addSon($1,$3,$4);}
 				| Type ID SC                                                                { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2 ) ; $$->addSon($1,$2,$3);}
-				| Type ID ASSIGN Exp SC                                                     { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$4  ) ;$$->addSon($1,$2,$3,$4,$5); }
-				| ID ASSIGN Exp SC                                                          { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(Id*)$1,(Assign*)$2,(ExpNode*)$3  ) ;$$->addSon($1,$2,$3,$4); }
+				| Type ID ASSIGN Exp SC                                                     { $$=new StatementNode() ;
+				                                                                              Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$4  ) ;$$->addSon($1,$2,$3,$4,$5);
+				                                                                              Statement_IR(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$4);}
+				| ID ASSIGN Exp SC                                                          { $$=new StatementNode() ;
+				                                                                              Statement_Semantic(yylineno,(StatementNode*)$$,(Id*)$1,(Assign*)$2,(ExpNode*)$3);$$->addSon($1,$2,$3,$4);
+				                                                                              Statement_IR(yylineno,(StatementNode*)$$,(Id*)$1,(Assign*)$2,(ExpNode*)$3);}
 				| Call SC                                                                   { $$=new StatementNode() ; Statement_Semantic(yylineno,(StatementNode*)$$,(CallNode*)$1) ; $$->addSon($1,$2);}
 				| RETURN SC                                                                 { $$=new StatementNode() ;
 																							  Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1); $$->addSon($1,$2);
