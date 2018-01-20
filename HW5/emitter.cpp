@@ -4,6 +4,7 @@
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 #define MIPS_COMMENT_DBG
 #define MIPS_DBG
 using namespace std;
@@ -215,7 +216,7 @@ void Emitter::msg_print(const string &msg) const{
 }
 
 void Emitter::get_var_value(const string& dreg, const string& fp_offset) const{
-  const string command = "\tlw"+dreg+", " +fp_offset;
+  const string command = "\tlw "+dreg+", " +fp_offset;
   codebuffer.emit(command);
 
 }
@@ -284,6 +285,9 @@ int Emitter::func_call_patchy(){
 
 // returns the number of registers that where stored in stack
 int Emitter::store_registers(){
+  #ifdef MIPS_DBG
+    std::cerr << "[Emitter] store_registers" << std::endl;
+  #endif
   int reg_num=regmn.regs_currently_used();
   vector<string> cmds=regmn.save_all_regs_to_stack();
   regmn.free_last_k_regs(reg_num);
@@ -295,6 +299,9 @@ int Emitter::store_registers(){
 
 // restore regnum registers from the stack
 void Emitter::restore_registers(int regnum){
+    #ifdef MIPS_DBG
+    std::cerr << "[Emitter] REstore_registers: " << regnum << std::endl;
+  #endif
   vector<string> cmds=regmn.restore_all_regs_from_stack(regnum);
   // reallocate the registers
   for(int i=0 ; i<regnum ; i++ ){
@@ -308,13 +315,13 @@ void Emitter::restore_registers(int regnum){
 }
 
 
-void allocate_words_on_stack(int kwords){
+void Emitter::allocate_words_on_stack(int kwords){
   int sp_change = 4*(kwords);
   string expand_stack = "\taddiu $sp, $sp, -"+intToString(sp_change);
   codebuffer.emit(expand_stack);
 }
 
-void free_words_on_stack(int kwords){
+void Emitter::free_words_on_stack(int kwords){
   int sp_change = 4*(kwords);
   string collapse_stack = "\taddiu $sp, $sp, "+intToString(sp_change);
   codebuffer.emit(collapse_stack);
