@@ -45,7 +45,7 @@ void Emitter::add_printi_func() const {
 
 void Emitter::add(const string& dreg,const string& sreg1 ,const string& sreg2) const{
 	const string command = string( "\tadd\t" + dreg +","+ sreg1 +","+ sreg2 );
-  codebuffer.comment("add");
+  comment("add");
 	codebuffer.emit(command);
 
 }
@@ -53,13 +53,13 @@ void Emitter::add(const string& dreg,const string& sreg1 ,const string& sreg2) c
 
 void Emitter::subtruct(const string& dreg, const string& sreg1 ,const string& sreg2) const{
 	const string command = "\tsub\t" + dreg +","+ sreg1 +","+ sreg2 ;
-  codebuffer.comment("subtruct");
+  comment("subtruct");
 	codebuffer.emit(command);
 }
 
 
 void Emitter::multiply(const string& dreg, const string& sreg1 ,const string& sreg2) const{
-  codebuffer.comment("multiply");
+  comment("multiply");
 	const string command1 = "\tmult\t" +  sreg1 +","+ sreg2 ;
 	codebuffer.emit(command1);
 	const string command2 = "\tmflo\t"+ dreg;
@@ -70,7 +70,7 @@ void Emitter::multiply(const string& dreg, const string& sreg1 ,const string& sr
 
 void Emitter::div(const string& dreg, const string& sreg1 ,const string& sreg2) const{
 	//emit check for div by 0 code
-  codebuffer.comment("div");
+  comment("div");
 	const string command1 = "\tbeq\t" +  sreg1 +","+ "$zero"+","+ZERO_DIV_LABEL;
 	codebuffer.emit(command1);
 	const string command2 = "\tdiv\t" +  sreg1 +","+ sreg2 ;
@@ -83,7 +83,7 @@ void Emitter::div(const string& dreg, const string& sreg1 ,const string& sreg2) 
 }
 
 void Emitter::add_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const{
-  codebuffer.comment("add_byte");
+  comment("add_byte");
   const string command = string( "\tadd\t" + dreg +","+ sreg1 +","+ sreg2 );
 
   codebuffer.emit(command);
@@ -91,7 +91,7 @@ void Emitter::add_byte(const string& dreg, const string& sreg1 ,const string& sr
 }
 
 void Emitter::subtruct_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const{
-  codebuffer.comment("subtruct_byte");
+  comment("subtruct_byte");
   const string command = "\tsub\t" + dreg +","+ sreg1 +","+ sreg2 ;
 
   codebuffer.emit(command);
@@ -100,7 +100,7 @@ void Emitter::subtruct_byte(const string& dreg, const string& sreg1 ,const strin
 
 
 void Emitter::multiply_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const{
-  codebuffer.comment("multiply_byte");
+  comment("multiply_byte");
   const string command1 = "\tmult\t" +  sreg1 +","+ sreg2 ;
   codebuffer.emit(command1);
   const string command2 = "\tmflow\t"+ dreg;
@@ -111,8 +111,8 @@ void Emitter::multiply_byte(const string& dreg, const string& sreg1 ,const strin
 
 
 void Emitter::div_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const{
-  codebuffer.comment("div_byte");
-  const string command1 = "\tbeq\t" +  sreg1 +","+ "zero"+","+"" ; //TODO add jump to div by zero handler
+  comment("div_byte");
+  const string command1 = "\tbeq\t" +  sreg1 +","+ "$zero"+","+ZERO_DIV_LABEL;
   codebuffer.emit(command1);
   const string command2 = "\tdiv\t" +  sreg1 +","+ sreg2 ;
   codebuffer.emit(command2);
