@@ -31,6 +31,12 @@ enum binop_enum{
   DIVB
 } ;
 
+std::string IR_numToString(int num)
+{
+     ostringstream ss;
+     ss << num;
+     return ss.str();
+}
 
 void Mark_IR(int lineno, MarkNode* Self){
   // emit label and save it to startLabel
@@ -217,7 +223,9 @@ void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
 
 // Exp -> Call
 void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
-    // TODO
+    #ifdef COMPILE_DBG
+      cerr << "[Exp_IR] Exp->call" << call->str_content << endl;
+    #endif
 }
 
 // Exp -> Num
@@ -411,7 +419,6 @@ void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* 
       // we get the relevant exp from expvec, then we know its first son is a StringNode so we take the str content
 #ifdef COMPILE_DBG
       cerr << "found a string typed parameter " << id->str_content << endl;
-      cerr << "found a string typed parameter " << id->str_content << endl;
 #endif
       string str_exp=expList->expvec[i]->sons[0]->str_content;
       string strLabel =emitter.add_string(str_exp);
@@ -428,18 +435,28 @@ void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* 
   // move fp to sp
   emitter.assign("$fp","$sp");
   //jal
+  emitter.comment("jumping to func: " + id->str_content);
   emitter.jal(funclabel);
+  emitter.comment("returned from func: " + id->str_content);
   //restore above
 
-
-  for( int i=0 ; i<param_number ; i++ ){
-    emitter.pops_from_stack(regmnref.get_next_free_reg());
-  }
-
+emitter.comment("poping " + IR_numToString(param_number) +" params from stack ");
+  // for( int i=0 ; i<param_number ; i++ ){
+  //   emitter.pops_from_stack(regmnref.get_next_free_reg());
+  // }
+// NOTE - we already freed the registers which held those values
+  emitter.free_words_on_stack(param_number);
+  emitter.comment("restoring ra and fp");
   emitter.pops_from_stack("$ra");
   emitter.pops_from_stack("$fp");
-
-  emitter.restore_registers(regnum);
+  emitter.comment("restoring " + IR_numToString(header->regnum) + " previously used registers");
+  emitter.restore_registers(header->regnum);
+  emitter.comment("Moving funcRes (if exists) to next free register");
+  if (symtabref.get_type(id->str_content) != Void)
+  {
+    emitter.comment("NoneVoid function, moving its result value");
+    emitter.assign(regmnref.get_next_free_reg(),regmnref.getV0());
+  }
   emitter.comment("finished calling "+id->str_content);
 #ifdef COMPILE_DBG
     cerr << "END_OF [Call_IR]" << endl;
@@ -453,6 +470,8 @@ void CallHeader_IR(int lineno, CallHeaderNode* Self){
 #endif
   emitter.comment("func header store regs before call");
   Self->regnum=emitter.store_registers();
+  emitter.comment("stored " + IR_numToString(Self->regnum) + " registers");
+
 #ifdef COMPILE_DBG
     cerr << "END_OF CallHeader_IR" << endl;
 #endif
@@ -468,7 +487,9 @@ void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, cl
 }
 
 //statement -> id = exp
-void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp){
+void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp)
+{
+  // TODO TODO TODO TODO TODO TODO TODO TODO
   // get type of id from symbolTable
   // if notBool
   // get varSp
@@ -477,7 +498,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
   // free last reg
   //
   //
-  //if bool
+  //if bool // TODO
   //trueAss: move 1 into varSp
   //fallseAss: move 0 into varSp
   //bp relavant lists
