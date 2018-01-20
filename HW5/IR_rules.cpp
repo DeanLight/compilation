@@ -32,6 +32,15 @@ enum binop_enum{
 } ;
 
 
+void Mark_IR(int lineno, MarkNode* Self){
+  // emit label and save it to startLabel
+#ifdef COMPILE_DBG
+  cerr << "[MARKER IR]" << endl;
+#endif
+  emitter.comment("marker Label");
+  Self->labelstr=emitter.get_bp_label();
+}
+
 // special - creating the first point of the program to jump into main
 // returns the adress that backpatches the jump to the main function of the C program
 int FIRST_PROGRAM_POINT(void) // CHANGE add marker
@@ -79,29 +88,31 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
 #endif
 }
 
-//TODO add a label marker that saves said label
-//TODO truelist and falseList to boolean nodes
 
-//Exp -> Exp1 And add marker M Exp2
-void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2)
+//Exp -> Exp1 And  M Exp2
+void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr,MarkNode* M, class ExpNode* exp2)
 {
-    // TODO - bool
     // patch E1 trulist to start of E2
     // bp.backpath(E1.truelist, M.label)
-    //
+    codebuff.bpatch(exp1->truelist,M->labelstr);
     // Self.trulist.add(E2.truelist)
+    Self->truelist=exp2->truelist;
     // Self.falselist.add(E2.falselist,E1.falseList)
+    Self->falselist=codebuff.merge(exp1->falselist,exp2->falselist);
+
 }
 
 //Exp -> Exp1 OR M Exp2
-void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2)
+void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, MarkNode* M ,class ExpNode* exp2)
 {
-    // TODO - bool
     // patch E1 falselist to start of E2
     // bp.backpath(E1.falselist, M.label)
+    codebuff.bpatch(exp1->falselist,M->labelstr);
     //
     // Self.trulist.add(E2.truelist,E1.trulist)
+    Self->truelist=codebuff.merge(exp1->truelist,exp2->truelist);
     // Self.falselist.add(E2.falselist)
+    Self->falselist=exp2->falselist;
 }
 
 // Exp -> Exp1 Relop Exp2
@@ -253,19 +264,25 @@ void Exp_IR(int lineno,class ExpNode* Self,class String_Node* string_ptr){
 // Exp -> True
 void Exp_IR(int lineno,class ExpNode* Self,class True* true_val){
   // emit an empty jump and link it to truelist
-  // create an empty list for falselist
+  // create an empty list for falselist -- already created by default
+  Self->truelist=codebuff.makelist(emitter.patchy_jump());
+
+
 }
 
 // Exp -> False
 void Exp_IR(int lineno,class ExpNode* Self,class False* false_val){
   // emit an empty jump and link it to falselist
   // create an empty list for turelist
+  Self->falselist=codebuff.makelist(emitter.patchy_jump());
 }
 
 // Exp -> Not Exp1
 void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1){
   //Self.truelist =e1.falselist
   //self.falselist=e1.truelist
+  Self->truelist= exp1->falselist;
+  Self->falselist= exp1->truelist;
 }
 
 
@@ -445,7 +462,7 @@ void CallHeader_IR(int lineno, CallHeaderNode* Self){
 
 
 
-
+// statement -> Type id
 void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id){
   //NADA
 }
@@ -468,115 +485,216 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
 
 
 
+//statement -> Type id = exp
 void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id, class Assign* assign, class ExpNode* exp){
   // call ->id=exp IR
 }
 
 
 // add markerL statement -> if exp M_if statment M_else possibleElse
-void Statement_IR(int lineno,class StatementNode* Self, class If* if_ptr, class ExpNode* exp, class StatementNode* statement, PossibleElseNode* elsei){
-  // TODO add nextlist to statemsent node, and add a jump at the end of each statement to its nextlist
-  // TODO add a break list to each statement
+void Statement_IR(int lineno,class StatementNode* Self, class If* if_ptr, class ExpNode* exp,MarkNode* M_if, class StatementNode* statement, MarkNode* M_else, PossibleElseNode* elsei){
   //
   // bp boolexp truelist into M_if
+  codebuff.bpatch(exp->truelist,M_if->labelstr);
   // bp boolexp falselist into M_else
-  // keepline = emit("j")
+  codebuff.bpatch(exp->falselist,M_else->labelstr);
+  // keepline = label to end of if block
+  string keepline=emitter.get_bp_label();
+  emitter.add_label(keepline);
   // bp statment.nextlist into keepline
+  codebuff.bpatch(statement->nextlist,keepline);
   // bp possiblelese,nextlist intoo keepline
-  // self.nextlist = keepline
-  //
-  //
-  //
-  // note - possibleElse needs to have a nextlist, even an empty one
+  codebuff.bpatch(elsei->nextlist,M_else->labelstr);
+  // update breaklists
+  Self->breaklist=codebuff.merge(statement->breaklist,elsei->breaklist);
+  //update next adress
+  Statement_next_patcher_IR(Self);
 
+}
+
+void PossibleElse_IR(int lineno, class PossibleElseNode* Self ){
+  // void
+}
+
+
+void PossibleElse_IR(int lineno, class PossibleElseNode* Self , class StatementNode* state  ){
+  Self->nextlist=state->nextlist;
+  Self->breaklist=state->breaklist;
+}
+
+
+
+
+void Statement_next_patcher_IR(Node* Self){
+  emitter.comment("end of statement jump");
+  Self->startAddress=emitter.patchy_jump();
 }
 
 
 //Statements -> statement
 void Statements_IR(int lineno,class StatementsNode* Self, class StatementNode* statement){
-  // self.nextlist=staement.nextlist
-
-  //TODO statements must have breaklist also and inheret from their sons
+  Self->nextlist=statement->nextlist;
+  Self->breaklist=statement->breaklist;
 
 }
-//statements -> staements M statement
-void Statements_IR(int lineno,class StatementsNode* Self,class StatementsNode* rest_of_statements, class StatementNode* statement){
-  // bp staements. nextlist into M
+//statements -> staements1 M statement
+void Statements_IR(int lineno,class StatementsNode* Self,class StatementsNode* rest_of_statements, MarkNode* M, class StatementNode* statement){
+  // bp staements1.nextlist into M
   // self.nextlist=staement.nextlist
-  //
+  // self.breaklist= merge of both statements1 breakliost and statement breaklist
 
+  codebuff.bpatch(rest_of_statements->nextlist,M->labelstr);
+  Self->nextlist= statement->nextlist;
+  Self->breaklist=codebuff.merge(rest_of_statements->nextlist, statement->nextlist);
 
 }
 
 
 // staements ->  Mwhile while boolexp Mloop statement
-void Statement_IR(int lineno,class StatementNode* Self, class While* while_ptr, class ExpNode* exp,class StatementNode* statement){
+void Statement_IR(int lineno,class StatementNode* Self,MarkNode* Mwhile, class While* while_ptr, class ExpNode* exp,MarkNode* Mloop,class StatementNode* statement){
 
   // keepline=emptyjump (nextlist here)
   // self.nextlist=keepline
+  string keepline=emitter.get_bp_label();
+  emitter.add_label(keepline);
   //
   // bp.boolexp.truelist into Mloop
+  codebuff.bpatch(exp->truelist,Mloop->labelstr);
   // bp.boolexp.falselist into keepline
+  codebuff.bpatch(exp->falselist,keepline);
   // bp.statement.nextlist into Mwhile
-  //
+  codebuff.bpatch(statement->nextlist,Mwhile->labelstr);
   // bp.staements.breaklist into keepline
+  codebuff.bpatch(statement->breaklist,keepline);
 
+  Statement_next_patcher_IR(Self);
 }
 
 // statement -> switch_head caseList
 void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* switch_ptr ,  class CaseListNode* caselist ){
-  // TODO add markers in between case statments when deriving caseList. make caseList save a vector of caseStaements nodes and vector of marker nodes
-  // get a list a caseDec statements from caseList, caseDevVec and a list of the statements block statementsvec
-  //
+
   //
   // r0 = get last register (register of the exp)
-  // for i in [n-1]
-  // bp(Si.nextlist into M[i+1]
-  //
-  // add Sn.nextList to self.nextlist
-  //
+  string expreg=regmnref.last_reg();
+
+  vector<CaseDecNode*>& CDvec=caselist->caseDecvec;
+  vector<StatementsNode*>& STvec=caselist->statevec;
+  vector<MarkNode*>& Mvec=caselist->markvec;
+
+  int n=Mvec.size();
+
   //
   // emit(init:)
+  emitter.comment("switch init label");
+  string initlabel=emitter.get_bp_label();
   //bp.switchhead.initlabel = init
+  codebuff.bpatch(  codebuff.makelist(switch_ptr->init_jump_addr)  , initlabel);
+
   //
-  // default_marker="";
-  //
+  // default_marker=-1;
+  int default_index=-1;
+
   // for each caseDec{
   //    if caseDec.son.size==2 // means its default
   //      defaultmarker=casedec.M
   //    else
   //      emit(beq r0, (immediate of caseDec), caseDec.M
   // }
-  //
+  for(int i=0;i<n;i++){
+    if( CDvec[i]->sons.size()==2 ) {//default
+      default_index=i;
+    }
+    else{//in this case son2 is the number
+      string caseVal=CDvec[i]->sons[2]->str_content;
+      emitter.beq_to_immediate(expreg,caseVal,Mvec[i]->labelstr);
+
+    }
+  }
+
+
+
   // if default marker>=0
   //  jump default.M
+  if(default_index>=0){
+    emitter.jump(Mvec[default_index]->labelstr);
+  }
   //
-  //  keepline=emit(patchyjump)
+  // for i in [n-1]
+  // bp(Si.nextlist into M[i+1]
+  //
+  //
+  for(int i =0 ; i<n-1; i++){
+    codebuff.bpatch(STvec[i]->nextlist,Mvec[i+1]->labelstr);
+  }
+
+  // get end of switch label
+  // save adress as nextlist
+  // add Sn.nextList to self.nextlist
+  string end_of_switch=emitter.get_bp_label();
+  emitter.add_label(end_of_switch);
+  codebuff.bpatch(STvec[n]->nextlist,end_of_switch);
+
   //
   //  giant_breakList=emptyList)
   //  for s in statementsvec
   //    giant_breaklist.mergewith(s.breaklist)
   //
   //  bp(giant_breaklist) into keepline
+  vector<int> break_list=vector<int>();
+    for(int i=0; i<n; i++){
+      break_list=codebuff.merge(break_list,STvec[i]->breaklist);
+    }
+    codebuff.bpatch(STvec[n]->nextlist,end_of_switch);
   //
-  //  self.nextlist=keepline
   //
   //
-  //
-  //
-  //
-  //
+  Statement_next_patcher_IR(Self);
 
 }
 
-//TODO add a startlabel semantic attribute to each node
-// TODO add an initLabel semantic attribute to switchheadnode
 
 // swtchhead -> expNode
 void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
-  //keepline= emit(emptyjump) __ goto init
-  // self.label=keepline
+  //addr= emit(emptyjump) __ goto init
+  // self.init_jump_addr
+  int addr=emitter.patchy_jump();
+  Self->init_jump_addr=addr;
 
 
+}
+
+
+
+//CaseList:		CaseList M CaseStatement
+void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, MarkNode* M, class CaseStatementNode* case_ptr){
+  Self->caseDecvec=rest_of_list->caseDecvec;
+  Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[1]);
+
+  Self->statevec=rest_of_list->statevec;
+  Self->statevec.push_back((StatementsNode*)case_ptr->sons[2]);
+
+  Self->markvec=rest_of_list->markvec;
+  Self->markvec.push_back(M);
+
+
+}
+
+//CaseList:	 M CaseStatement
+void CaseList_IR(int lineno,class CaseListNode* Self, MarkNode* M, class CaseStatementNode* case_ptr){
+  Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[1]);
+  Self->statevec.push_back((StatementsNode*)case_ptr->sons[2]);
+  Self->markvec.push_back(M);
+
+}
+
+
+//CaseStatement:	CaseDec Statements
+void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec, class StatementsNode* statements){
+
+}
+
+
+//CaseStatement:	CaseDec
+void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec){
 
 }

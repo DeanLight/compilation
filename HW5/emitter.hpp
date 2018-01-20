@@ -18,8 +18,10 @@ std::string glob_int_to_str(int num);
 class Emitter{
 public:
   int string_num;
-  Emitter():string_num(0){};
+  int backpatch_num;
+  Emitter():string_num(0),backpatch_num(0){};
   string get_local_string_label();
+  string get_bp_label();
   //TODO add a nextLabel generator
 
 	void add(const string& dreg,const  string& sreg1 ,const string& sreg2) const;
@@ -34,6 +36,7 @@ public:
 	void multiply_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const;
 	void div_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const;
 
+  void beq_to_immediate(string reg,string imm,string label)const;
 
 	void jump(const string& target) const;
 	void register_jump(const string& jreg) const;
@@ -41,7 +44,7 @@ public:
   void jal(const string& label)const;
   // return from jal
   void ret()const;
-	// returns label to patch to
+	// returns address to patch to
 	int patchy_jump() const;
 
 	void assign(const string& dreg,const string &sreg) const;

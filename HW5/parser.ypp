@@ -182,7 +182,7 @@ Exp:			Exp AND Exp 		{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Ex
 				| FALSE							{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(False*)$1   ) ; $$->addSon($1);}
 				| NOT Exp						{ $$=new ExpNode() ; Exp_Semantic(yylineno,(ExpNode*)$$,(Not*)$1 , (ExpNode*)$2   ) ; $$->addSon($1,$2);}
 
-
+Mark:   /*epsilon*/         { $$=new MarkNode(); Mark_IR(yylineno,(MarkNode*)$$) ;}
 
 %%
 /* void yyerror (const char*) { std::cout << "syntax error" << std::endl; }  */

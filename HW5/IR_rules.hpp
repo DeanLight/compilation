@@ -8,6 +8,8 @@ typedef std::vector<v_type> types_vec;
 
 
 int FIRST_PROGRAM_POINT(void);
+void Mark_IR(int lineno, MarkNode* Self);
+void Statement_next_patcher_IR(Node* self);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2);
@@ -37,5 +39,7 @@ void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* 
 
 void CallHeader_IR(int lineno, CallHeaderNode* Self) ;
 
+void PossibleElse_IR(int lineno, class PossibleElseNode* Self );
+void PossibleElse_IR(int lineno, class PossibleElseNode* Self , class StatementNode* state  );
 
 #endif

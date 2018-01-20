@@ -19,6 +19,11 @@ std::string glob_int_to_str(int num)
     return numStr.str();
 }
 
+int glob_str_to_int(std::string st)
+{
+  //TODO build this shit
+  return 0;
+}
 
 string Emitter::get_local_string_label(){
   std::stringstream label;
@@ -26,6 +31,16 @@ string Emitter::get_local_string_label(){
   label << string_num;
   std::string ret(label.str());
   string_num++;
+  return ret;
+
+}
+
+string Emitter::get_bp_label(){
+  std::stringstream label;
+  label << "string_label_";
+  label << string_num;
+  std::string ret(label.str());
+  backpatch_num++;
   return ret;
 
 }
@@ -121,7 +136,11 @@ void Emitter::div_byte(const string& dreg, const string& sreg1 ,const string& sr
 
 }
 
+void Emitter::beq_to_immediate(string reg,string imm , string label)const{
 
+  const string command1 = "\tbeq "+reg+","+imm+","+label ;
+  codebuffer.emit(command1);
+}
 
 
 void Emitter::num_toreg(const string& reg, const string& num) const{

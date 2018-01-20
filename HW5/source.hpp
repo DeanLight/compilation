@@ -30,10 +30,11 @@ enum id_type{
 class Node{
 	public:
 	Node* father;
-    vector<Node*> sons;
-
+  vector<Node*> sons;
+  string str_content;
+  int startAddress;
 	Node(){};
-    Node(std::string txt):str_content(txt){;}; //
+    Node(std::string txt):str_content(txt),startAddress(0){;}; //
     virtual ~Node()
     {
         for (int i=0; i<sons.size();i++)
@@ -42,7 +43,6 @@ class Node{
         }
     }
 
-	string str_content;
     int eval(void);
 	void addSon(Node* son)   	{sons.push_back(son);}
     // stupid, but will be shorter in parser.ypp:
@@ -52,6 +52,12 @@ class Node{
     void addSon(Node *son1, Node *son2, Node *son3, Node *son4, Node *son5){sons.push_back(son1);addSon(son2,son3,son4,son5);}
     void addSon(Node *son1, Node *son2, Node *son3, Node *son4, Node *son5, Node *son6){sons.push_back(son1); addSon(son2,son3,son4,son5,son6);}
     void addSon(Node *son1, Node *son2, Node *son3, Node *son4, Node *son5, Node *son6, Node *son7){sons.push_back(son1),addSon(son2,son3,son4,son5,son6,son7);}
+};
+
+class MarkNode: public Node{
+public:
+  string labelstr;
+  MarkNode():labelstr(""){};
 };
 
 class ProgramNode: public Node{
@@ -115,30 +121,50 @@ public:
 
 class StatementsNode : public Node{
 public:
-//	StatementsNode(){}; // default
+  //	StatementsNode(){}; // default
+  vector<int> nextlist;
+  vector<int> breaklist;
+  StatementsNode(){
+    nextlist=vector<int>();
+    breaklist=vector<int>();
+  }
+
 };
 
 class StatementNode : public Node{
 public:
 	//StatementNode(){}; // default
+  vector<int> nextlist;
+  vector<int> breaklist;
+  StatementNode(){
+    nextlist=vector<int>();
+    breaklist=vector<int>();
+  }
 };
 
 class SwitchHeadNode : public Node{
 public:
+  int init_jump_addr;
+  SwitchHeadNode():init_jump_addr(0){};
 	//SwitchHead_Node(){}; // default
 };
 
 
 class PossibleElseNode : public Node{
 public:
+  vector<int> nextlist;
+  vector<int> breaklist;
+  PossibleElseNode(){
+    nextlist=vector<int>();
+    breaklist=vector<int>();
+  }
 	//SwitchHead_Node(){}; // default
 };
 
 
-class CaseListNode : public Node{
+class CaseDecNode : public Node{
 public:
-
-	//CaseListNode(){};// default
+  // default CaseStatementNode(){}; // default
 };
 
 class CaseStatementNode : public Node{
@@ -146,10 +172,19 @@ public:
 	// CaseStatementNode(){};// default
 };
 
-class CaseDecNode : public Node{
+class CaseListNode : public Node{
 public:
-	// default CaseStatementNode(){}; // default
+  vector<CaseDecNode*> caseDecvec;
+  vector<StatementsNode*> statevec;
+  vector<MarkNode*> markvec;
+  CaseListNode(){
+  caseDecvec=vector<CaseDecNode*>();
+  statevec=vector<StatementsNode*>();
+  markvec=vector<MarkNode*>();
+  }
+  //CaseListNode(){};// default
 };
+
 
 class CallNode : public Node{
 public:
@@ -165,8 +200,13 @@ public:
 
 class ExpNode : public Node{
 public:
+  vector<int> truelist;
+  vector<int> falselist;
+  ExpNode():Type(Uninit){
+    truelist=vector<int>();
+    falselist=vector<int>();
+  };
   enum type_enum Type;
-  ExpNode():Type(Uninit){};
 };
 
 class ExpListNode : public Node{
