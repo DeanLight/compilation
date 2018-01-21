@@ -1113,7 +1113,7 @@ YY_RULE_SETUP
 case 29:
 YY_RULE_SETUP
 #line 206 "scanner.lex"
-{yylval = new Binop();
+{yylval = new Binop(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  BinOp__%s__\n" ,yytext); // TODO REMOVE
 	#endif

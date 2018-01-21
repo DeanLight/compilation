@@ -52,6 +52,7 @@ class Node{
     void addSon(Node *son1, Node *son2, Node *son3, Node *son4, Node *son5){sons.push_back(son1);addSon(son2,son3,son4,son5);}
     void addSon(Node *son1, Node *son2, Node *son3, Node *son4, Node *son5, Node *son6){sons.push_back(son1); addSon(son2,son3,son4,son5,son6);}
     void addSon(Node *son1, Node *son2, Node *son3, Node *son4, Node *son5, Node *son6, Node *son7){sons.push_back(son1),addSon(son2,son3,son4,son5,son6,son7);}
+    void addSon(Node *son1, Node *son2, Node *son3, Node *son4, Node *son5, Node *son6, Node *son7,Node *son8){sons.push_back(son1),addSon(son2,son3,son4,son5,son6,son7,son8);}
 };
 
 class MarkNode: public Node{

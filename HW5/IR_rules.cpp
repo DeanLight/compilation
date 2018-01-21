@@ -336,6 +336,7 @@ void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,
     }
 }
 
+//statement -> return
 void Statement_IR(int lineno,class StatementNode* Self, class Return* ret) // void return
 {
 #ifdef COMPILE_DBG
@@ -349,6 +350,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret) // vo
     emitter.ret();
 }
 
+//statement -> return exp
 void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class ExpNode* exp) // none void return
 {
 #ifdef COMPILE_DBG
@@ -362,7 +364,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
 }
 
 
-
+// call -> id ()
 void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* id){
 #ifdef COMPILE_DBG
     cerr << "[Call_IR] : no arguments " << id->str_content << endl;
@@ -394,6 +396,7 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
 
 
 
+// call -> id (explist)
 void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* id, class ExpListNode* expList){
 #ifdef COMPILE_DBG
     cerr << "[Call_IR] : with arguments " << id->str_content << endl;
@@ -718,4 +721,21 @@ void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNod
 //CaseStatement:	CaseDec
 void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec){
 
+}
+
+//Statement -> {Statements}
+void Statement_IR(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
+
+}
+
+
+void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr ){
+  //TODO
+  // emit break and add the adress to self.breaklist
+
+}
+
+
+void Statement_IR(int lineno,class StatementNode* Self, class CallNode* call){
+  //NADA
 }
