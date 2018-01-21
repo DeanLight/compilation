@@ -18,12 +18,20 @@ std::string SymbolTable::get_var_fp(const std::string &var_id) const {
     }
 #endif
     int offset = get_var_data(var_id).offset;
-    std::stringstream numStr;
-    numStr << offset;
-    return numStr.str() + "($fp)";
+    // TODO change?
+    if (offset)
+    {
+        std::stringstream numStr;
+        numStr << offset;
+        return numStr.str() + "($fp)";
+    }
+    // else - offset == 0
+    return "($fp)";
+
+
 }
 
-void SymbolTable::set_func_label(const std::string &func_id, const std::string &label) {
+void SymbolTable::set_func_label(const std::string &func_id, std::string label) {
 #ifdef SYMTABDEBUG
     cerr << "[set_func_label] label " << label << " for function " << func_id << endl;
     if(!is_func(func_id))
@@ -31,7 +39,7 @@ void SymbolTable::set_func_label(const std::string &func_id, const std::string &
         cerr << "[set_func_label] ERROR - asked to set label for none-existing func: " << func_id << endl;
     }
 #endif
-    (all_scopes[0].varSymbT[func_id]).func_label = label; //
+    (all_scopes[0].varSymbT[func_id])._set_func_label(label); //
 }
 void SymbolTable::set_func_start_line(const std::string &func_id, int start_line) {
 #ifdef SYMTABDEBUG
@@ -49,9 +57,9 @@ std::string SymbolTable::get_func_label(const std::string &func_id) const
     {
         cerr << "[get_func_label] ERROR - asked to set label for none-existing func: " << func_id << endl;
     }
-    cerr << "[get_func_label] " << func_id << "'s label is: "  << (all_scopes[0].varSymbT.at(func_id)).func_label << endl;
+    cerr << "[get_func_label] " << func_id << "'s label is: "  << (all_scopes[0].varSymbT.at(func_id))._get_func_label()<< endl;
     #endif
-    return (all_scopes[0].varSymbT.at(func_id)).func_label; //
+    return (all_scopes[0].varSymbT.at(func_id))._get_func_label(); //
 }
 int SymbolTable::get_func_start_line(const std::string &func_id) const {
 #ifdef SYMTABDEBUG
@@ -220,7 +228,7 @@ bool SymbolTable::add_func_into_global_scope(const std::string &func_name, v_typ
     all_scopes[0].varSymbT[func_name] = func_data;
     all_scopes[0].variables.push_back(make_pair(func_name,0));
 #ifdef SYMTABDEBUG
-    std::cerr << "[[[ added func: " << func_name << " with " << paramsTypes.size() << " params]]]" << endl; // TODO REMOVE
+    std::cerr << "[[[ added func: " << func_name << " with " << paramsTypes.size() << " params and label: " << func_data._get_func_label() <<"]]]" << endl; // TODO REMOVE
 #endif
     return true;
 }

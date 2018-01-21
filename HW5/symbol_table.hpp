@@ -21,12 +21,13 @@ typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
 typedef class var_details
 {
+    private:
+        std::string func_label;
     public:
         int offset;
         bool isFunc;
         v_type type; // serves as ret type for functions
         std::string id;
-        std::string func_label;
         int func_start_line;
         types_vec params;
         var_details(int os, bool isF, v_type tt,const  std::string &str_id):
@@ -54,6 +55,12 @@ typedef class var_details
             func_label = other.func_label;
             func_start_line = other.func_start_line;
         }
+        std::string _get_func_label() const {return func_label;}
+        void _set_func_label(std::string new_label)
+        {
+            func_label = new_label;
+        }
+
 } var_data;
 typedef std::map<std::string, var_data> var_map;
 // start of scope's offset, and the hash_table for the scope
@@ -140,7 +147,7 @@ class SymbolTable
 
         std::string get_var_fp(const std::string &var_id) const;
 
-        void set_func_label(const std::string &func_id, const std::string &label);
+        void set_func_label(const std::string &func_id, std::string label);
         std::string get_func_label(const std::string& func_id) const;
         int get_func_start_line(const std::string& func_id) const;
         void set_func_start_line(const std::string& func_id, int start_line);
