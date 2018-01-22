@@ -1,0 +1,102 @@
+int foo_0(int a, int b)
+{
+        return 0;
+}
+
+int foo_1(int a, int b)
+{
+        return 1;
+}
+
+int foo_2(int a, int b)
+{
+        return 2;
+}
+
+int foo_3(int a, int b)
+{
+        return 3;
+}
+
+int foo_4(int a, int b)
+{
+        return 4;
+}
+
+int foo_5(int a, int b)
+{
+        return 5;
+}
+
+int foo_6(int a, int b)
+{
+        return 6;
+}
+
+int foo_7(int a, int b)
+{
+        return 7;
+}
+
+int foo_8(int a, int b)
+{
+        return 8;
+}
+
+int foo_9(int a, int b)
+{
+        return 9;
+}
+
+int foo_10(int a, int b)
+{
+        return 10;
+}
+
+int foo_11(int a, int b)
+{
+        return 11;
+}
+
+int foo_12(int a, int b)
+{
+        return 12;
+}
+
+int foo_13(int a, int b)
+{
+        return 13;
+}
+
+int foo_14(int a, int b)
+{
+        return 14;
+}
+
+int foo_15(int a, int b)
+{
+        return 15;
+}
+
+int foo_16(int a, int b)
+{
+        return 16;
+}
+
+int foo_17(int a, int b)
+{
+        return 17;
+}
+int foo_18(int a, int b)
+{
+        return 17;
+}
+void main()
+{
+	int a = 1;
+	int b = 2;
+	print("left");
+	int res = foo_0(foo_1(foo_2(foo_3(foo_4(foo_5(foo_6(foo_7(foo_8(foo_9(foo_10(foo_11(foo_12(foo_13(foo_14(foo_15(foo_16(foo_17(foo_18(4,4),4),4),4),4),4),4),4),4),4),4),4),4),4),4),4),4),4),foo_1(foo_2(foo_3(foo_4(foo_5(foo_6(foo_7(foo_8(foo_9(foo_10(foo_11(foo_12(foo_13(foo_14(foo_15(foo_16(foo_17(foo_18(18,18),17),16),15),14),13),12),11),10),9),8),7),6),5),4),3),2),1));
+	print("both");
+	
+}
