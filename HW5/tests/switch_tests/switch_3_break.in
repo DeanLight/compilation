@@ -1,0 +1,16 @@
+void main(){
+	int x = 12;
+	switch(x){
+		case 11:
+		printi(1);
+		case 12:
+		printi(2);
+		case 13:
+		printi(3);
+		break;
+		printi(0); 
+		x = x+2;
+		case 14:
+		printi(4);
+	}
+}

@@ -1,0 +1,12 @@
+
+int power3(int x){
+	return x*x*x;
+}
+
+
+void main(){
+	printi(power3(3));
+	print("\n");
+	printi(power3(-3));
+	print("\n");
+}

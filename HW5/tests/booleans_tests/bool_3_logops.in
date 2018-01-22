@@ -1,0 +1,61 @@
+void main(){
+
+	print("not: \t");
+	if(not true){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(not false){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+	
+	print("and: \t");
+	if(true and true){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(true and false){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(false and true){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(false and false){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+	
+	print("or: \t");
+	if(true or true){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(true or false){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(false or true){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(false or false){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+}

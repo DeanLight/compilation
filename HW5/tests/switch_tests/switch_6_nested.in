@@ -1,0 +1,32 @@
+void main(){
+	int x = 300;
+	switch(x){
+		case 1111:
+		break;
+		case 11:
+		print("out\n");
+		break;
+		case 300:
+		x = 11;
+		case 45:
+		x = x;
+		default:
+		switch(x){
+			case 1111:
+			break;
+			case 11:
+			print("in\n");
+			break;
+			case 300:
+			x = 11;
+			case 45:
+			x = x;
+			default:
+			
+			case 777:
+			print("777");
+		}
+		case 777:
+		print("777");
+	}
+}

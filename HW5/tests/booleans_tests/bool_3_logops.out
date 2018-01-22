@@ -1,0 +1,4 @@
+Loaded: ./exceptions.s
+not:	false	true	
+and:	true	false	false	false	
+and:	true	true	true	false	

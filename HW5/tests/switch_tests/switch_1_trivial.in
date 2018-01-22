@@ -1,0 +1,19 @@
+void main(){
+	switch(1){
+		case 1:
+		print("one\n");
+	}
+	print("two\n");
+	switch(3){
+		case 1:
+		print("one\n");
+	}
+	switch(3){
+		case 3 b:
+		print("three\n");
+	}
+	switch(4 b){
+		case 4 :
+		print("four");
+	}
+}

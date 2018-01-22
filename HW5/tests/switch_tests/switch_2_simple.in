@@ -1,0 +1,22 @@
+void main(){
+	int x = 1;
+	switch(0 + x + 0){
+		case 1:
+		printi(1);
+		x = x+1 -1+1 -1+1 -1+1 -1+1 -1+1 -1+1 -1+1 -1+1;
+		case 2:
+		printi(2);
+		x = x+1;
+	}
+	switch(1 * x * 1){
+		case 0:
+		printi(0);
+		case 5:
+		printi(5);
+		case 3:
+		printi(3);
+		printi(4);
+		case 5:
+		printi(5);
+	}
+}

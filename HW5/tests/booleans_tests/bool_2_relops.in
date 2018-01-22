@@ -1,0 +1,145 @@
+void main(){
+	int big = 100;
+	int big2 = 100 b;
+	byte small = 6 b;
+	byte small2 = small;
+
+	// ==: true true false false
+	if(big == big2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small == small2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(big == small){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small == big){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+	
+	
+	// !=: false false true true 
+	if(big != big2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small != small2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(big != small){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small != big){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+	
+	// <: false false false true
+	if(big < big2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small < small2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(big < small){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small < big){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+	
+	// <=: true true false true
+	if(big <= big2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small <= small2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(big <= small){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small <= big){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+	
+	// >: false false true false
+	if(big > big2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small > small2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(big > small){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small > big){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+	
+	// >=: true true true false
+	if(big >= big2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small >= small2){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(big >= small){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	if(small >= big){
+		print("true"\t);
+	} else {
+		print("false"\t);
+	}
+	print("\n");
+}
