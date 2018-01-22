@@ -38,6 +38,7 @@ Lex Ate token )__
 <<[Exp_Semantic_Id] id:[x]>>
 [Exp_IR] Exp -> id: x
 END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: x
 [MARKER IR]: label: bp_label_1
 Lex Ate token  {__
 Lex Ate token  id__print__
@@ -51,6 +52,7 @@ END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
 exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
 <<CallSemantics [ID(Exp)] >>
 tmpParams: 1
 tmpActP: 1
@@ -82,6 +84,7 @@ END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
 exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
 <<CallSemantics [ID(Exp)] >>
 tmpParams: 1
 tmpActP: 1
@@ -114,6 +117,7 @@ Lex Ate token and__
 <<[Exp_Semantic_Id] id:[x]>>
 [Exp_IR] Exp -> id: x
 END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: x
 [MARKER IR]: label: bp_label_5
 Lex Ate token  num__3__
 Lex Ate token  RelOp__>__
@@ -121,14 +125,17 @@ Lex Ate token  RelOp__>__
 [get_func_label] main's label is: label_29
 {{{{ NOT RELEVANT:label_29}}}}
 END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
 Lex Ate token  num__5__
 Lex Ate token  ;__
 [Exp_IR] Exp -> Num:5
 [get_func_label] main's label is: label_29
 {{{{ NOT RELEVANT:label_29}}}}
 END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
 [Exp_IR]:Relop Exp -> Exp1 > Exp2
 END_OF [Exp_IR]:Relop Exp -> Exp1 > Exp2
+[SJ_Exp_IR]: 
 <<[Statement_Semantic][TypeID_SC] id:[y]type:[]>>
 <<adding var: [y] of type [5]>><<Statement_Semantic with id[y]=exp>>
 [Entered Statment_IR: Type id = exp]
@@ -144,6 +151,7 @@ Lex Ate token )__
 <<[Exp_Semantic_Id] id:[y]>>
 [Exp_IR] Exp -> id: y
 END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: y
 [MARKER IR]: label: bp_label_7
 Lex Ate token  {__
 Lex Ate token  id__print__
@@ -157,6 +165,7 @@ END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
 exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
 <<CallSemantics [ID(Exp)] >>
 tmpParams: 1
 tmpActP: 1
@@ -190,6 +199,7 @@ END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
 exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
 <<CallSemantics [ID(Exp)] >>
 tmpParams: 1
 tmpActP: 1
@@ -223,6 +233,7 @@ Lex Ate token and__
 <<[Exp_Semantic_Id] id:[x]>>
 [Exp_IR] Exp -> id: x
 END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: x
 [MARKER IR]: label: bp_label_11
 Lex Ate token not__
 Lex Ate token  id__y__
@@ -230,6 +241,8 @@ Lex Ate token  ;__
 <<[Exp_Semantic_Id] id:[y]>>
 [Exp_IR] Exp -> id: y
 END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: y
+[SJ_Exp_IR]: 
 <<Statement_Semantic with id[x]=exp>>
 [Statement_next_patcher_IR] previously held nextlist size:2
 [Statement_next_patcher_IR] currently held nextlist size:3
@@ -243,6 +256,7 @@ Lex Ate token )__
 <<[Exp_Semantic_Id] id:[x]>>
 [Exp_IR] Exp -> id: x
 END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: x
 [MARKER IR]: label: bp_label_13
 Lex Ate token  {__
 Lex Ate token  id__print__
@@ -256,6 +270,7 @@ END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
 exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
 <<CallSemantics [ID(Exp)] >>
 tmpParams: 1
 tmpActP: 1
@@ -292,6 +307,7 @@ END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
 exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
 <<CallSemantics [ID(Exp)] >>
 tmpParams: 1
 tmpActP: 1

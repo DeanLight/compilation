@@ -267,7 +267,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
 // Exp -> ( Exp1 )
 void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp)
 {
-    //NADA!
+  Self->str_content=exp1->str_content;
 }
 
 
@@ -340,6 +340,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class True* true_val){
   // emit an empty jump and link it to truelist
   // create an empty list for falselist -- already created by default
   emitter.comment("exp derived true");
+  Self->str_content = true_val->str_content;
   // Self->truelist=codebuff.makelist(emitter.patchy_jump()); // TODO
 
 
@@ -350,6 +351,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class False* false_val){
   // emit an empty jump and link it to falselist
   // create an empty list for turelist
   emitter.comment("exp derived false");
+  Self->str_content = false_val->str_content;
   // Self->falselist=codebuff.makelist(emitter.patchy_jump()); // TODO
 }
 
@@ -922,10 +924,23 @@ void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNod
 // SJ_Exp -> Exp
 void SJ_Exp_IR(int yylineno,ExpNode* Self)
 {
+  // lets not that 3>5 is a bool but has no str_content and therefore will do nothing
+
+
+  if(Self->Type!=Bool){
+
+    #ifdef COMPILE_DBG
+    cerr << "not a bool var so no SJ_exp after effects " << Self->str_content << endl;
+    #endif
+    return;
+  }
+
   string exp_name = Self->str_content;
   #ifdef COMPILE_DBG
   cerr << "[SJ_Exp_IR]: " << Self->str_content << endl;
   #endif
+
+
   if (exp_name == "true")
   {
     emitter.comment("a True exp in boolean operator");
@@ -985,6 +1000,9 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
    string newReg = regmnref.get_next_free_reg();
     emitter.comment("Moving False into new Param Reg");
     emitter.num_toreg(newReg,"0");
+    return;
+  }
+  if(ex->Type!=Bool){
     return;
   }
   // assumption - if reached here - its a complicated bool exp

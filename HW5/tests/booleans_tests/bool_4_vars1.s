@@ -45,7 +45,6 @@ syscall
 	#Func main:
 label_29:
 	#exp derived true
-	j	bExpAss_nfjdn0
 	# allocating word on stack for local variable x
 	addiu $sp, $sp, -4
 bExpAss_nfjdn0:
@@ -63,6 +62,9 @@ bExpAss_nfjdn1:
 	#marker Label
 bp_label_0:
 	lw $t0, ($fp)
+	#a Bool Var x in boolean operator
+	bne ($fp), $zero,bp_label_2
+	j	bp_label_1
 	#marker Label
 bp_label_1:
 	#func header store regs before call
@@ -136,6 +138,9 @@ bp_label_3:
 	#marker Label
 bp_label_4:
 	lw $t1, ($fp)
+	#a Bool Var x in boolean operator
+	bne ($fp), $zero,bExpAss_nfjdn3
+	j	bp_label_5
 	#marker Label
 bp_label_5:
 	li	$t2,3
@@ -160,6 +165,9 @@ bExpAss_nfjdn3:
 	#marker Label
 bp_label_6:
 	lw $t2, 4($fp)
+	#a Bool Var y in boolean operator
+	bne 4($fp), $zero,bp_label_8
+	j	bp_label_7
 	#marker Label
 bp_label_7:
 	#func header store regs before call
@@ -241,9 +249,15 @@ bp_label_9:
 	#marker Label
 bp_label_10:
 	lw $t3, ($fp)
+	#a Bool Var x in boolean operator
+	bne ($fp), $zero,bExpAss_nfjdn5
+	j	bp_label_11
 	#marker Label
 bp_label_11:
 	lw $t4, 4($fp)
+	#a Bool Var y in boolean operator
+	bne 4($fp), $zero,bExpAss_nfjdn4
+	j	bExpAss_nfjdn5
 	#reach And derivation
 bExpAss_nfjdn4:
 	#assigning True to x
@@ -260,6 +274,9 @@ bExpAss_nfjdn5:
 	#marker Label
 bp_label_12:
 	lw $t5, ($fp)
+	#a Bool Var x in boolean operator
+	bne ($fp), $zero,bp_label_14
+	j	bp_label_13
 	#marker Label
 bp_label_13:
 	#func header store regs before call

@@ -204,7 +204,7 @@ PossibleElse:   /*epsilon*/ %prec PRIO_REGIF
 NumExp:			    Exp
                 { $$=$1 ; is_exp_numeric(yylineno,(ExpNode*)$1  ) ; }
 
-BoolExp:		    Exp
+BoolExp:		    SJ_Exp
                 { $$=$1 ; is_exp_bool(yylineno,(ExpNode*)$1  ) ; }
 
 While_Scope_init:	/*epsilon*/
@@ -301,12 +301,12 @@ Exp:			      SJ_Exp AND Mark SJ_Exp
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (ExpNode*)$4  ) ;
                   $$->addSon($1,$2,$3,$4);
                   Exp_IR(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (MarkNode*)$3 ,(ExpNode*)$4  ) ;}
-				        | Exp RELOP Exp
+				        | SJ_Exp RELOP SJ_Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ;
                   $$->addSon($1,$2,$3);
                   Exp_IR(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ;}
-				        | Exp BINOP Exp
+				        | SJ_Exp BINOP SJ_Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Binop*)$2 , (ExpNode*)$3  ) ;
                   $$->addSon($1,$2,$3);
