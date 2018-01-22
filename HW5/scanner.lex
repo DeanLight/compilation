@@ -46,7 +46,7 @@ void {yylval = new Void_Node();
 	fprintf(stderr,"Lex Ate token void__\n"); // TODO REMOVE
 	#endif
 	return VOID;};
-	
+
 int {yylval = new Int_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token int__\n"); // TODO REMOVE
@@ -58,13 +58,13 @@ byte {yylval = new Byte_Node(yytext);
 	fprintf(stderr,"Lex Ate token byte__\n"); // TODO REMOVE
 	#endif
 	return BYTE;};
-	
+
 {bb} {yylval = new B_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token B__\n"); // TODO REMOVE
 	#endif
 	return B;};
-	
+
 bool {yylval = new Bool_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token bool__\n"); // TODO REMOVE
@@ -76,7 +76,7 @@ and {yylval = new And();
 	fprintf(stderr,"Lex Ate token and__\n"); // TODO REMOVE
 	#endif
 	return AND;};
-	
+
 or {yylval = new Or();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token or__\n"); // TODO REMOVE
@@ -106,7 +106,7 @@ return {yylval = new Return();
 	fprintf(stderr,"Lex Ate token return__\n"); // TODO REMOVE
 	#endif
 	return RETURN;};
-	
+
 if {yylval = new If();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token if__\n"); // TODO REMOVE
@@ -124,7 +124,7 @@ while {yylval = new While();
 	fprintf(stderr,"Lex Ate token while__\n"); // TODO REMOVE
 	#endif
 	return WHILE;};
-	
+
 switch {yylval = new Switch();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token switch__\n"); // TODO REMOVE
@@ -136,7 +136,7 @@ case {yylval = new Case();
 	fprintf(stderr,"Lex Ate token case__\n"); // TODO REMOVE
 	#endif
 	return CASE;};
-	
+
 break {yylval = new Break();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token break__\n"); // TODO REMOVE
@@ -165,14 +165,14 @@ default {yylval = new Default();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token  ,__\n"); // TODO REMOVE
 	#endif
-	return COMMA;};	
-	
+	return COMMA;};
+
 {lparen_t} {yylval = new Lparen();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token  \(__\n"); // TODO REMOVE
 	#endif
 	return LPAREN;};
-	
+
 {rparen_t} {yylval = new Rparen();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token )__\n"); // TODO REMOVE
@@ -190,19 +190,19 @@ default {yylval = new Default();
     fprintf(stderr,"Lex Ate token  }__\n"); // TODO REMOVE
 	#endif
 	return RBRACE;};
-	
+
 {ass_t} {yylval = new Assign();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  =__\n"); // TODO REMOVE
 	#endif
 	return ASSIGN;};
 
-{relop_t} {yylval = new Relop();
+{relop_t} {yylval = new Relop(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  RelOp__%s__\n" ,yytext); // TODO REMOVE
 	#endif
 	return RELOP;};
-	
+
 {binop_t} {yylval = new Binop(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  BinOp__%s__\n" ,yytext); // TODO REMOVE
@@ -214,19 +214,19 @@ default {yylval = new Default();
 	fprintf(stderr,"Lex Ate token  id__%s__\n",yytext); // TODO REMOVE
 	#endif
 	return ID;};
-	
+
 {num_t} { yylval = new Num(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  num__%s__\n",yytext); // TODO REMOVE
 	#endif
 	return NUM;};
-	
+
 {string_t} { yylval = new String_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  str__%s__\n",yytext); // TODO REMOVE
 	#endif
 	return STRING;};
-	
+
 {WHITESPACE}
 
 	/* if nothing else - an error__*/

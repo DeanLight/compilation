@@ -1054,7 +1054,7 @@ YY_RULE_SETUP
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token  ,__\n"); // TODO REMOVE
 	#endif
-	return COMMA;};	
+	return COMMA;};
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
@@ -1104,7 +1104,7 @@ YY_RULE_SETUP
 case 28:
 YY_RULE_SETUP
 #line 200 "scanner.lex"
-{yylval = new Relop();
+{yylval = new Relop(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  RelOp__%s__\n" ,yytext); // TODO REMOVE
 	#endif
@@ -2183,5 +2183,6 @@ void yyfree (void * ptr )
 #define YYTABLES_NAME "yytables"
 
 #line 240 "scanner.lex"
+
 
 

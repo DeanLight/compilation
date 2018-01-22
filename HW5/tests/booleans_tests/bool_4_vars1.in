@@ -1,20 +1,20 @@
 void main(){
 	bool x = true;
 	if(x){
-		print("true"\n);
+		print("true\n");
 	} else {
-		print("false"\n);
+		print("false\n");
 	}
 	bool y = x and 3>5;
 	if(y){
-		print("true"\n);
+		print("true\n");
 	} else {
-		print("false"\n);
+		print("false\n");
 	}
 	x = x and not y;
 	if(x){
-		print("true"\n);
+		print("true\n");
 	} else {
-		print("false"\n);
+		print("false\n");
 	}
 }

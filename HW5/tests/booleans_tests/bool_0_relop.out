@@ -1,5 +1,4 @@
 Loaded: ./exceptions.s
-true
-false
-true
-false
+x==z
+x==y
+e!=x

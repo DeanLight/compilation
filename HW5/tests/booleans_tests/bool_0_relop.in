@@ -1,0 +1,31 @@
+void main()
+{
+	int x = 5;
+	byte y = 5 b;
+	int z = 5;
+	int e = 6;
+	if(x!=z)
+	{
+		print("x!=z\n");
+	}
+	else
+	{
+		print("x==z\n");
+	}
+	if(x!=y)
+	{
+		print("x!=y\n");
+	}
+	else
+	{
+		print("x==y\n");
+	}
+	if (e!=x)
+	{
+		print("e!=x\n");
+	}
+	else
+	{
+		print("e==x\n");
+	}
+}

@@ -29,6 +29,13 @@ public:
 	void multiply(const string& dreg, const string& sreg1 ,const string& sreg2) const;
 	void div(const string& dreg, const string& sreg1 ,const string& sreg2) const;
 
+  int EQ_patchy(const string& reg1, const string& reg2) const;
+  int NEQ_patchy(const string& reg1, const string& reg2) const;
+  int GR_patchy(const string& reg1, const string& reg2) const;
+  int LT_patchy(const string& reg1, const string& reg2) const;
+  int GRE_patchy(const string& reg1, const string& reg2) const;
+  int LTE_patchy(const string& reg1, const string& reg2) const;
+
   void num_toreg(const string& reg, const string& num) const;
 
 	void add_byte(const string& dreg, const string& sreg1 ,const string& sreg2) const;

@@ -31,6 +31,15 @@ enum binop_enum{
   DIVB
 } ;
 
+enum relop_enum{
+  EQ,
+  NEQ,
+  GR,
+  LT,
+  GRE,
+  LTE
+} ;
+
 std::string IR_numToString(int num)
 {
      ostringstream ss;
@@ -141,6 +150,54 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* rel
     // emit(trueLabel:)
     //
     // emit(jump) add this to truelist
+
+  #ifdef COMPILE_DBG
+    cerr << "[Exp_IR]:Relop Exp -> Exp1 "+relop->str_content + " Exp2" << endl;
+#endif
+  // prepare map for switch case;
+  map<string,relop_enum> int_relop_map;
+
+  int_relop_map["=="]=EQ;
+  int_relop_map["!="]=NEQ;
+  int_relop_map["<"]=LT;
+  int_relop_map[">"]=GR;
+  int_relop_map[">="]=GRE;
+  int_relop_map["<="]=LTE;
+
+  //get last 2 used registers
+  pair<string,string> exp_regs=RegMngr::getRegMngr().last_two_regs();
+  string& reg1=exp_regs.first;
+  string& reg2=exp_regs.second;
+  //get relop map command {}
+  relop_enum b_oper = int_relop_map[relop->str_content];
+
+  int b_op_line;
+  switch(b_oper){
+    case EQ:
+      b_op_line = emitter.EQ_patchy( reg1 , reg2); break;
+    case NEQ:
+      b_op_line = emitter.NEQ_patchy( reg1, reg2); break;
+    case GR:
+      b_op_line = emitter.GR_patchy( reg1, reg2); break;
+    case LT:
+      b_op_line = emitter.LT_patchy( reg1, reg2); break;
+    case GRE:
+      b_op_line = emitter.GRE_patchy( reg1, reg2); break;
+    case LTE:
+      b_op_line = emitter.LTE_patchy( reg1, reg2); break;
+    default:
+      cout<<"shoulntd get here RELOP IR SWITCH FAIL"<<endl;
+      exit(5);
+      break;
+  }
+    RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
+    RegMngr::getRegMngr().free_last_reg(); // free reg1 for new use
+    int false_line = emitter.patchy_jump();
+    Self->truelist = codebuff.makelist(b_op_line);
+    Self->falselist = codebuff.makelist(false_line);
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Exp_IR]:Relop Exp -> Exp1 "+relop->str_content + " Exp2" << endl;
+#endif
 }
 
 // Exp -> Exp1 Binop Exp2
@@ -202,7 +259,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
   }
     RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
 #ifdef COMPILE_DBG
-    cerr << "[Exp_IR]:Binop Exp -> Exp1 "+binop->str_content + " Exp2" << endl;
+    cerr << "END_OF [Exp_IR]:Binop Exp -> Exp1 "+binop->str_content + " Exp2" << endl;
 #endif
 }
 
@@ -279,6 +336,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class String_Node* string_ptr){
 void Exp_IR(int lineno,class ExpNode* Self,class True* true_val){
   // emit an empty jump and link it to truelist
   // create an empty list for falselist -- already created by default
+  emitter.comment("exp derived true");
   Self->truelist=codebuff.makelist(emitter.patchy_jump());
 
 
@@ -288,6 +346,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class True* true_val){
 void Exp_IR(int lineno,class ExpNode* Self,class False* false_val){
   // emit an empty jump and link it to falselist
   // create an empty list for turelist
+  emitter.comment("exp derived false");
   Self->falselist=codebuff.makelist(emitter.patchy_jump());
 }
 
@@ -334,12 +393,15 @@ void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,
 #ifdef COMPILE_DBG
     cerr << "Ret type: " << retType << endl;
 #endif
-    if (retType == Void)
-    {
-        emitter.comment("Func is Void retType");
-        emitter.comment("Adding an extre return just in case");
-        emitter.ret();
-    }
+
+    string endlabel = emitter.get_bp_label();
+    emitter.add_label(endlabel);
+    vector<int>& last_jump_addr=((StatementsNode*)(state->sons[1]))->nextlist;
+    codebuff.bpatch(last_jump_addr,endlabel);
+    emitter.comment("Adding an extre return just in case");
+    emitter.ret();
+
+
 }
 
 //statement -> return
@@ -585,11 +647,16 @@ void Statement_IR(int lineno,class StatementNode* Self, class If* if_ptr, class 
   codebuff.bpatch(exp->falselist,M_else->labelstr);
   // keepline = label to end of if block
   string keepline=emitter.get_bp_label();
+  emitter.comment("end of ifelse");
   emitter.add_label(keepline);
+  #ifdef COMPILE_DBG
+  cerr << "size of next list for if is" << statement->nextlist.size() << endl;
+  cerr << "size of next list for else is" << elsei->nextlist.size() << endl;
+  #endif
   // bp statment.nextlist into keepline
   codebuff.bpatch(statement->nextlist,keepline);
   // bp possiblelese,nextlist intoo keepline
-  codebuff.bpatch(elsei->nextlist,M_else->labelstr);
+  codebuff.bpatch(elsei->nextlist,keepline);
   // update breaklists
   Self->breaklist=codebuff.merge(statement->breaklist,elsei->breaklist);
   //update next adress
@@ -633,7 +700,7 @@ void Statement_next_patcher_IR(StatementNode* Self){
 //Statements -> statement
 void Statements_IR(int lineno,class StatementsNode* Self, class StatementNode* statement){
   #ifdef COMPILE_DBG
-    cerr << "[Statement_IR: States->SignleState]  nextlistSize=" << statement->nextlist.size() << endl; 
+    cerr << "[Statement_IR: States->SignleState]  nextlistSize=" << statement->nextlist.size() << endl;
   #endif
   Self->nextlist=statement->nextlist;
   Self->breaklist=statement->breaklist;
@@ -656,7 +723,7 @@ void Statements_IR(int lineno,class StatementsNode* Self,class StatementsNode* r
 }
 
 
-// staements ->  Mwhile while boolexp Mloop statement
+// staement ->  Mwhile while boolexp Mloop statement
 void Statement_IR(int lineno,class StatementNode* Self,MarkNode* Mwhile, class While* while_ptr, class ExpNode* exp,MarkNode* Mloop,class StatementNode* statement){
 
   // keepline=emptyjump (nextlist here)
@@ -674,6 +741,35 @@ void Statement_IR(int lineno,class StatementNode* Self,MarkNode* Mwhile, class W
   codebuff.bpatch(statement->breaklist,keepline);
 
   Statement_next_patcher_IR(Self);
+}
+
+//Statement -> {Statements}
+void Statement_IR(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
+  Self->nextlist=statements->nextlist;
+  Self->breaklist=statements->breaklist;
+
+}
+
+//TODO check all statements have end_patcher and inheret nextlist and breaklist
+
+//statement -> break;
+void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr ){
+  //TODO
+  // emit break and add the adress to self.breaklist
+
+}
+
+//statement-> call
+void Statement_IR(int lineno,class StatementNode* Self, class CallNode* call){
+  //NADA
+#ifdef COMPILE_DBG
+  cerr << "[Statement_IR Call] nestlistSize: " << Self->nextlist.size() << endl;
+#endif
+  Statement_next_patcher_IR(Self);
+#ifdef COMPILE_DBG
+  cerr << "[Statement_IR Call] nestlistSize: " << Self->nextlist.size() << endl;
+#endif
+
 }
 
 // statement -> switch_head caseList
@@ -805,19 +901,3 @@ void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNod
 
 }
 
-//Statement -> {Statements}
-void Statement_IR(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br){
-
-}
-
-
-void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr ){
-  //TODO
-  // emit break and add the adress to self.breaklist
-
-}
-
-
-void Statement_IR(int lineno,class StatementNode* Self, class CallNode* call){
-  //NADA
-}

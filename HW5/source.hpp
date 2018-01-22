@@ -274,7 +274,10 @@ class Rparen : public Node{};
 class Lbrace : public Node{};
 class Rbrace : public Node{};
 class Assign : public Node{};
-class Relop : public Node{};
+class Relop : public Node{
+public:
+  Relop(const char* txt):Node(txt){};
+};
 class Binop : public Node{
 public:
 	Binop(const char* txt):Node(txt){};

@@ -59,6 +59,34 @@ void Emitter::add_printi_func() const {
     codebuffer.emit("jr $ra");
 }
 
+
+  int Emitter::EQ_patchy(const string& reg1, const string& reg2) const
+  {
+    return codebuffer.emit("\tbeq " + reg1 + ", " + reg2 + ",");
+  }
+  int Emitter::NEQ_patchy(const string& reg1, const string& reg2) const
+  {
+    return codebuffer.emit("\tbne " + reg1 + ", " + reg2 + ",");
+  }
+  int Emitter::GR_patchy(const string& reg1, const string& reg2) const
+  {
+    return codebuffer.emit("\tbgt " + reg1 + ", " + reg2 + ",");
+  }
+  int Emitter::LT_patchy(const string& reg1, const string& reg2) const
+  {
+    return codebuffer.emit("\tblt " + reg1 + ", " + reg2 + ",");
+  }
+  int Emitter::GRE_patchy(const string& reg1, const string& reg2) const
+    {
+    return codebuffer.emit("\tbge " + reg1 + ", " + reg2 + ",");
+  }
+  int Emitter::LTE_patchy(const string& reg1, const string& reg2) const
+    {
+    return codebuffer.emit("\tble " + reg1 + ", " + reg2 + ",");
+  }
+
+
+
 void Emitter::add(const string& dreg,const string& sreg1 ,const string& sreg2) const{
 	const string command = string( "\tadd\t" + dreg +","+ sreg1 +","+ sreg2 );
   comment("add");

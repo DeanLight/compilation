@@ -6,140 +6,140 @@ void main(){
 
 	// ==: true true false false
 	if(big == big2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small == small2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(big == small){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small == big){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	print("\n");
-	
-	
-	// !=: false false true true 
+
+
+	// !=: false false true true
 	if(big != big2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small != small2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(big != small){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small != big){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	print("\n");
-	
+
 	// <: false false false true
 	if(big < big2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small < small2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(big < small){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small < big){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	print("\n");
-	
+
 	// <=: true true false true
 	if(big <= big2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small <= small2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(big <= small){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small <= big){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	print("\n");
-	
+
 	// >: false false true false
 	if(big > big2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small > small2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(big > small){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small > big){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	print("\n");
-	
+
 	// >=: true true true false
 	if(big >= big2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small >= small2){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(big >= small){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	if(small >= big){
-		print("true"\t);
+		print("true\t");
 	} else {
-		print("false"\t);
+		print("false\t");
 	}
 	print("\n");
 }

@@ -288,18 +288,21 @@ Type:			      INT
                   Type_Semantic(yylineno,(TypeNode*)$$ ,(Bool_Node*)$1 ) ;
                   $$->addSon($1); }
 
-Exp:			      Exp AND Exp
+Exp:			      Exp AND Mark Exp
                 { $$=new ExpNode() ;
-                  Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (ExpNode*)$3  ) ;
-                  $$->addSon($1,$2,$3); }
-				        | Exp OR Exp
+                  Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (ExpNode*)$4  ) ;
+                  $$->addSon($1,$2,$3,$4);
+                  Exp_IR(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (MarkNode*)$3 , (ExpNode*)$4  ) ;}
+				        | Exp OR Mark Exp
                 { $$=new ExpNode() ;
-                  Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (ExpNode*)$3  ) ;
-                  $$->addSon($1,$2,$3);}
+                  Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (ExpNode*)$4  ) ;
+                  $$->addSon($1,$2,$3,$4);
+                  Exp_IR(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (MarkNode*)$3 ,(ExpNode*)$4  ) ;}
 				        | Exp RELOP Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ;
-                  $$->addSon($1,$2,$3);}
+                  $$->addSon($1,$2,$3);
+                  Exp_IR(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ;}
 				        | Exp BINOP Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Binop*)$2 , (ExpNode*)$3  ) ;
@@ -332,19 +335,23 @@ Exp:			      Exp AND Exp
 				        | STRING
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(String_Node*)$1   ) ;
-                  $$->addSon($1); }
+                  $$->addSon($1);
+                  Exp_IR(yylineno,(ExpNode*)$$,(String_Node*)$1   ) ;}
 				        | TRUE
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(True*)$1   ) ;
-                  $$->addSon($1);}
+                  $$->addSon($1);
+                  Exp_IR(yylineno, (ExpNode*)$$, (True*)$1 );}
 				        | FALSE
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(False*)$1   ) ;
-                  $$->addSon($1);}
+                  $$->addSon($1);
+                  Exp_IR(yylineno, (ExpNode*)$$, (False*)$1 );}
 				        | NOT Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(Not*)$1 , (ExpNode*)$2   ) ;
-                  $$->addSon($1,$2);}
+                  $$->addSon($1,$2);
+                  Exp_IR(yylineno,(ExpNode*)$$,(Not*)$1 , (ExpNode*)$2   ) ;}
 
 Mark:           /*epsilon*/
                 { $$=new MarkNode();
