@@ -39,7 +39,7 @@ string Emitter::get_local_string_label(){
 string Emitter::get_bp_label(){
   std::stringstream label;
   label << "string_label_";
-  label << string_num;
+  label << backpatch_num;
   std::string ret(label.str());
   backpatch_num++;
   return ret;

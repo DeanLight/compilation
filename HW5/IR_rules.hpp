@@ -9,7 +9,7 @@ typedef std::vector<v_type> types_vec;
 
 int FIRST_PROGRAM_POINT(void);
 void Mark_IR(int lineno, MarkNode* Self);
-void Statement_next_patcher_IR(Node* self);
+void Statement_next_patcher_IR(StatementNode* self);
 void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class FuncsNode* funcs);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr, class ExpNode* exp2);
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, class ExpNode* exp2);
@@ -55,9 +55,6 @@ void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNod
 void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode* state);
 
 void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class FuncsNode* funcs);
-
-void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id, class Assign* assign, class ExpNode* exp);
-void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp);
 
 // backpatch first point to main
 

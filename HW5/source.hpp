@@ -32,9 +32,9 @@ class Node{
 	Node* father;
   vector<Node*> sons;
   string str_content;
-  int startAddress;
+  int statement_last_jump;
 	Node(){};
-    Node(std::string txt):str_content(txt),startAddress(0){;}; //
+    Node(std::string txt):str_content(txt),statement_last_jump(0){;}; //
     virtual ~Node()
     {
         for (int i=0; i<sons.size();i++)

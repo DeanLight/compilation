@@ -122,10 +122,12 @@ FormalDecl:	    Type ID
 
 Statements:		  Statement
                 { $$=new StatementsNode() ;
-                  Statements_Semantic(yylineno,(StatementsNode*)$$,(StatementNode*)$1 ) ; $$->addSon($1);}
-				        |Statements Statement
+                  Statements_Semantic(yylineno,(StatementsNode*)$$,(StatementNode*)$1 ) ; $$->addSon($1);
+                  Statements_IR(yylineno,(StatementsNode*)$$,(StatementNode*)$1);}
+				        |Statements Mark Statement
                 { $$=new StatementsNode() ;
-                  Statements_Semantic(yylineno,(StatementsNode*)$$,(StatementsNode*)$1,(StatementNode*)$2 ) ; $$->addSon($1,$2);}
+                  Statements_Semantic(yylineno,(StatementsNode*)$$,(StatementsNode*)$1,(StatementNode*)$3 ) ; $$->addSon($1,$2,$3);
+                  Statements_IR(yylineno,(StatementsNode*)$$,(StatementsNode*)$1,(MarkNode*)$2,(StatementNode*)$3);}
 
 Statement:		  LBRACE Scope_init Statements RBRACE
                 { $$=new StatementNode() ;

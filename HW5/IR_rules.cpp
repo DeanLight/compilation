@@ -41,10 +41,14 @@ std::string IR_numToString(int num)
 void Mark_IR(int lineno, MarkNode* Self){
   // emit label and save it to startLabel
 #ifdef COMPILE_DBG
-  cerr << "[MARKER IR]" << endl;
+  cerr << "[MARKER IR]: label: " ;
 #endif
   emitter.comment("marker Label");
   Self->labelstr=emitter.get_bp_label();
+  emitter.add_label(Self->labelstr);
+  #ifdef COMPILE_DBG
+  cerr << Self->labelstr << endl;
+#endif
 }
 
 // special - creating the first point of the program to jump into main
@@ -368,6 +372,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
 void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* id){
 #ifdef COMPILE_DBG
     cerr << "[Call_IR] : no arguments " << id->str_content << endl;
+    cerr << "regNum=" << header->regnum << endl;
 #endif
   // get label to jump to function
   string funclabel = symtabref.get_func_label(id->str_content);
@@ -505,6 +510,56 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
   //trueAss: move 1 into varSp
   //fallseAss: move 0 into varSp
   //bp relavant lists
+    static int boolAssCount = 0;
+    v_type tt = symtabref.get_type(id->str_content);
+    std::string fpVarReg = symtabref.get_var_fp(id->str_content);
+    if (tt != Bool)
+    {
+        std::string expReg = regmnref.last_reg();
+        //emitter.assign(fpVarReg ,expReg); // TODO
+        emitter.set_var_value(expReg,fpVarReg);
+        regmnref.free_last_reg();
+
+        //TODO double code - use the regular function // TODO REMOVE
+        // int j_f = emitter.patchy_jump();
+        // // TODO FIX - use the normal function
+        // std::string endAssJump = "timeToSkip_fgf";
+        // std::string endLabel = endAssJump + IR_numToString(boolAssCount);
+        // boolAssCount++;
+        // emitter.add_label(endLabel);
+        // int jump_line = emitter.patchy_jump(); // Statement will do it
+        // Self->nextlist = codebuff.makelist(jump_line);
+    }
+    else // it's a bool
+    {
+
+        std::string boolExpPrefLabel = "bExpAss_nfjdn";
+        std::string newTL = boolExpPrefLabel + IR_numToString(boolAssCount);
+        boolAssCount++;
+        emitter.add_label(newTL);
+        emitter.comment("assigning True to " + id->str_content);
+        emitter.num_toreg(fpVarReg ,"1");
+        int j_t = emitter.patchy_jump();
+        std::string newFL = boolExpPrefLabel + IR_numToString(boolAssCount);
+        boolAssCount++;
+        emitter.add_label(newFL);
+        emitter.comment("assigning False to " + id->str_content);
+        emitter.num_toreg(fpVarReg ,"0");
+        int j_f = emitter.patchy_jump();
+        // TODO FIX - use the normal function // TODO REMOVE
+        // std::string endAssJump = "timeToSkip_fgf";
+        // std::string endLabel = endAssJump + IR_numToString(boolAssCount);
+        // boolAssCount++;
+        // emitter.add_label(endLabel);
+        // int jump_line = emitter.patchy_jump(); // statement will do it
+        // Self->nextlist = codebuff.makelist(jump_line);
+        // codebuff.bpatch(codebuff.makelist(j_t),endLabel);
+        // codebuff.bpatch(codebuff.makelist(j_f),endLabel);
+        Self->nextlist  = codebuff.merge(codebuff.merge(Self->nextlist,codebuff.makelist(j_t)),codebuff.makelist(j_f)); // TODO CHECK
+        codebuff.bpatch(exp->truelist,newTL);
+        codebuff.bpatch(exp->falselist,newFL);
+    }
+    Statement_next_patcher_IR(Self);
 }
 
 
@@ -512,6 +567,10 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
 //statement -> Type id = exp
 void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id, class Assign* assign, class ExpNode* exp){
   // call ->id=exp IR
+  #ifdef COMPILE_DBG
+  cerr << "[Entered Statment_IR: Type id = exp]" << endl;
+  #endif
+  Statement_IR(lineno,Self,id,assign,exp);
 }
 
 
@@ -546,18 +605,34 @@ void PossibleElse_IR(int lineno, class PossibleElseNode* Self , class StatementN
   Self->breaklist=state->breaklist;
 }
 
+// // TODO REMOVE DUPLICATE
+// void Statements_IR(yylineno,StatementsNode* Self,StatementsNode* manyState,MarkNode* mark, StatementNode* signelState)
+// {
+//   #ifdef COMPILE_DBG
+//   cerr << "[Statements_IR: Statments-> Statements Statement]" << endl;
+//   #endif
+//   codebuff.bpatch(manyState->nextlist,mark->labelstr);
+// }
 
-
-
-void Statement_next_patcher_IR(Node* Self){
+void Statement_next_patcher_IR(StatementNode* Self){
   //TODO remove comments that is the actual code that i tried to temporarily cancel
-  //emitter.comment("end of statement jump");
-  //Self->startAddress=emitter.patchy_jump();
+  emitter.comment("end of statement jump");
+  Self->statement_last_jump=emitter.patchy_jump();
+  #ifdef COMPILE_DBG
+    cerr << "[Statement_next_patcher_IR] previously held nextlist size:" << Self->nextlist.size() << endl;
+  #endif
+  Self->nextlist = codebuff.merge(Self->nextlist,codebuff.makelist(Self->statement_last_jump));
+  #ifdef COMPILE_DBG
+    cerr << "[Statement_next_patcher_IR] currently held nextlist size:" << Self->nextlist.size() << endl;
+  #endif
 }
 
 
 //Statements -> statement
 void Statements_IR(int lineno,class StatementsNode* Self, class StatementNode* statement){
+  #ifdef COMPILE_DBG
+    cerr << "[Statement_IR: States->SignleState]  nextlistSize=" << statement->nextlist.size() << endl; 
+  #endif
   Self->nextlist=statement->nextlist;
   Self->breaklist=statement->breaklist;
 
@@ -567,7 +642,11 @@ void Statements_IR(int lineno,class StatementsNode* Self,class StatementsNode* r
   // bp staements1.nextlist into M
   // self.nextlist=staement.nextlist
   // self.breaklist= merge of both statements1 breakliost and statement breaklist
+#ifdef COMPILE_DBG
+  cerr << "[Statement_IR: States -> states1 M singleState]" << endl;
+  cerr << "Num of nextlist to bp: " << rest_of_statements->nextlist.size() <<  " with label: " << M->labelstr << endl;
 
+  #endif
   codebuff.bpatch(rest_of_statements->nextlist,M->labelstr);
   Self->nextlist= statement->nextlist;
   Self->breaklist=codebuff.merge(rest_of_statements->nextlist, statement->nextlist);
