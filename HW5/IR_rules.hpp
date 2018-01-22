@@ -25,12 +25,15 @@ void Exp_IR(int lineno,class ExpNode* Self,class True* true_val);
 void Exp_IR(int lineno,class ExpNode* Self,class False* false_val);
 void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1);
 
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex );
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, ExpListNode* restOf) ;
+
 void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp);
 void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode* state);
 
 void Statements_IR(int lineno,class StatementsNode* Self, class StatementNode* statement);
 void Statements_IR(int lineno,class StatementsNode* Self,class StatementsNode* rest_of_statements, MarkNode* M, class StatementNode* statement);
-
+void SJ_Exp_IR(int yylineno,ExpNode* ex);
 
 
 void Statement_IR(int lineno,class StatementNode* Self, class CallNode* call);

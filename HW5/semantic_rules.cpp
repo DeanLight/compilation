@@ -728,6 +728,7 @@ void Exp_Semantic(int lineno,class ExpNode* Self,class ExpNode* exp1, class Bino
 void Exp_Semantic(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp){
 	//Self->Type=exp1->Type;
 	Self->Type=exp1->Type;
+	Self->str_content = exp1->str_content;
 }
 
 //Exp:			ID

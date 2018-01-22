@@ -236,28 +236,34 @@ class Void_Node : public Node{};
 class Int_Node : public Node{
 	public:
 		std::string value;
-		Int_Node(const char* txt):value(txt){};
+		Int_Node(const char* txt):Node(txt),value(txt){};
 };
 class Byte_Node : public Node{
 	public:
 		std::string value;
-		Byte_Node(const char* txt):value(txt){};
+		Byte_Node(const char* txt):Node(txt),value(txt){};
 };
 class B_Node: public Node{
 	public:
 		std::string value;
-		B_Node(const char* txt):value(txt){};
+		B_Node(const char* txt):Node(txt),value(txt){};
 };
 class Bool_Node : public Node{
 	public:
 		std::string value;
-		Bool_Node(const char* txt):value(txt){};
+		Bool_Node(const char* txt):Node(txt),value(txt){};
 };
 class And : public Node{};
 class Or: public Node{};
 class Not : public Node{};
-class True : public Node{};
-class False: public Node{};
+class True : public Node{
+public:
+  True(const char* txt):Node(txt){};
+};
+class False: public Node{
+  public:
+  False(const char* txt):Node(txt){};
+};
 class Return : public Node{};
 class If : public Node{};
 class Else : public Node{};

@@ -280,6 +280,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   const string& fp_offset=symtabref.get_var_fp(id->str_content);
   const string& reg1= RegMngr::getRegMngr().get_next_free_reg(); // get next free reg
   emitter.get_var_value(reg1,fp_offset); // emit assign //
+  Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
     cerr << "END_OF [Exp_IR] Exp -> id" << endl;
 #endif
@@ -290,6 +291,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
     #ifdef COMPILE_DBG
       cerr << "[Exp_IR] Exp->call" << call->str_content << endl;
     #endif
+      Self->str_content = call->str_content;
 }
 
 // Exp -> Num
@@ -338,7 +340,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class True* true_val){
   // emit an empty jump and link it to truelist
   // create an empty list for falselist -- already created by default
   emitter.comment("exp derived true");
-  Self->truelist=codebuff.makelist(emitter.patchy_jump());
+  // Self->truelist=codebuff.makelist(emitter.patchy_jump()); // TODO
 
 
 }
@@ -348,7 +350,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class False* false_val){
   // emit an empty jump and link it to falselist
   // create an empty list for turelist
   emitter.comment("exp derived false");
-  Self->falselist=codebuff.makelist(emitter.patchy_jump());
+  // Self->falselist=codebuff.makelist(emitter.patchy_jump()); // TODO
 }
 
 // Exp -> Not Exp1
@@ -459,6 +461,13 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
   emitter.pops_from_stack("$fp");
 
   emitter.restore_registers(regnum);
+  // move v0 to a new reg
+  if (symtabref.get_type(id->str_content) != Void)
+  {
+    emitter.comment("moving return value to new reg");
+    emitter.assign(regmnref.get_next_free_reg(),regmnref.getV0());
+  }
+  Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
     cerr << "END_OF [Call_IR]" << endl;
 #endif
@@ -910,3 +919,94 @@ void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNod
 
 }
 
+// SJ_Exp -> Exp
+void SJ_Exp_IR(int yylineno,ExpNode* Self)
+{
+  string exp_name = Self->str_content;
+  #ifdef COMPILE_DBG
+  cerr << "[SJ_Exp_IR]: " << Self->str_content << endl;
+  #endif
+  if (exp_name == "true")
+  {
+    emitter.comment("a True exp in boolean operator");
+    int last_jump = emitter.patchy_jump();
+    Self->truelist = codebuff.makelist(last_jump);
+    return;
+  }
+  if(exp_name == "false")
+  {
+    emitter.comment("a False exp in boolean operator");
+    int last_jump = emitter.patchy_jump();
+    Self->falselist = codebuff.makelist(last_jump);
+    return;
+  }
+  if(symtabref.is_var(exp_name))
+  {
+    emitter.comment("a Bool Var " + exp_name + " in boolean operator");
+    int line_neq = emitter.NEQ_patchy(symtabref.get_var_fp(exp_name),"$zero"); // TODO fix?
+    int line_j = emitter.patchy_jump();
+    Self->truelist = codebuff.makelist(line_j);
+    Self->falselist = codebuff.makelist(line_neq);
+    return;
+  }
+  if(symtabref.is_func(exp_name))
+  {
+    emitter.comment("a Bool Func " + exp_name + " in boolean operator");
+    int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero"); // TODO fix?
+    int line_j = emitter.patchy_jump();
+    Self->truelist = codebuff.makelist(line_j);
+    Self->falselist = codebuff.makelist(line_neq);
+    regmnref.free_last_reg();
+    return;
+  }
+
+}
+
+// ExpList -> Exp
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
+{
+  #ifdef COMPILE_DBG
+  cerr << "[ExpList_IR: ExpList->Exp]: " << ex->str_content << endl;
+  #endif
+  string exp_name = ex->str_content;
+  if(symtabref.is_var(exp_name) || symtabref.is_func(exp_name))
+  {
+    return;
+  }
+  if (exp_name == "true")
+  {
+    string newReg = regmnref.get_next_free_reg();
+    emitter.comment("Moving True into new Param Reg");
+    emitter.num_toreg(newReg,"1");
+    return;
+  }
+  if (exp_name == "false")
+  {
+   string newReg = regmnref.get_next_free_reg();
+    emitter.comment("Moving False into new Param Reg");
+    emitter.num_toreg(newReg,"0");
+    return;
+  }
+  // assumption - if reached here - its a complicated bool exp
+  string nextReg = regmnref.get_next_free_reg();
+  emitter.comment("complicated bool exp as a function parameter");
+  emitter.comment("inserting 1 to param reg if evaluates to true");
+  string true_lab = emitter.get_bp_label();
+  emitter.add_label(true_lab);
+  emitter.num_toreg(nextReg,"1");
+  string later_label = emitter.get_bp_label();
+  emitter.jump(later_label);
+  string false_lab = emitter.get_bp_label();
+  emitter.comment("inserting 0 to param reg if evaluates to false");
+  emitter.add_label(false_lab);
+  emitter.num_toreg(nextReg,"0");
+  emitter.add_label(later_label);
+  codebuff.bpatch(ex->truelist,true_lab);
+  codebuff.bpatch(ex->falselist,false_lab);
+}
+
+// ExpList -> Exp ExpList
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, ExpListNode* restOf)
+{
+  ExpList_IR(yylineno, Self, ex);
+}

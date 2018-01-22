@@ -269,11 +269,14 @@ CallHeader:     /*epsilon*/
 ExpList:		    Exp
                 { $$=new ExpListNode() ;
                   ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ;
-                  $$->addSon($1);}
+                  $$->addSon($1);
+                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ;
+                  }
 				        |Exp COMMA ExpList
                 { $$=new ExpListNode() ;
                   ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$3 ) ;
-                  $$->addSon($1,$2,$3);} //changed 2 to 3
+                  $$->addSon($1,$2,$3);
+                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$3) ;}
 
 Type:			      INT
                 { $$=new TypeNode() ;
@@ -288,12 +291,12 @@ Type:			      INT
                   Type_Semantic(yylineno,(TypeNode*)$$ ,(Bool_Node*)$1 ) ;
                   $$->addSon($1); }
 
-Exp:			      Exp AND Mark Exp
+Exp:			      SJ_Exp AND Mark SJ_Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (ExpNode*)$4  ) ;
                   $$->addSon($1,$2,$3,$4);
                   Exp_IR(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (And*)$2 , (MarkNode*)$3 , (ExpNode*)$4  ) ;}
-				        | Exp OR Mark Exp
+				        | SJ_Exp OR Mark SJ_Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Or*)$2 , (ExpNode*)$4  ) ;
                   $$->addSon($1,$2,$3,$4);
@@ -347,7 +350,7 @@ Exp:			      Exp AND Mark Exp
                   Exp_Semantic(yylineno,(ExpNode*)$$,(False*)$1   ) ;
                   $$->addSon($1);
                   Exp_IR(yylineno, (ExpNode*)$$, (False*)$1 );}
-				        | NOT Exp
+				        | NOT SJ_Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(Not*)$1 , (ExpNode*)$2   ) ;
                   $$->addSon($1,$2);
@@ -356,6 +359,9 @@ Exp:			      Exp AND Mark Exp
 Mark:           /*epsilon*/
                 { $$=new MarkNode();
                   Mark_IR(yylineno,(MarkNode*)$$) ;}
+SJ_Exp:         Exp
+                {$$=$1;
+                  SJ_Exp_IR(yylineno,(ExpNode*)$1);}
 
 %%
 /* void yyerror (const char*) { std::cout << "syntax error" << std::endl; }  */

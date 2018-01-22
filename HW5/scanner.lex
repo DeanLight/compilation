@@ -89,13 +89,13 @@ not {yylval = new Not();
 	#endif
 	return NOT;};
 
-true {yylval = new True();
+true {yylval = new True(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token true__\n"); // TODO REMOVE
 	#endif
 	return TRUE;};
 
-false {yylval = new False();
+false {yylval = new False(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token false__\n"); // TODO REMOVE
 	#endif

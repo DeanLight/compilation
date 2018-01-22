@@ -942,7 +942,7 @@ YY_RULE_SETUP
 case 10:
 YY_RULE_SETUP
 #line 92 "scanner.lex"
-{yylval = new True();
+{yylval = new True(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token true__\n"); // TODO REMOVE
 	#endif
@@ -951,7 +951,7 @@ YY_RULE_SETUP
 case 11:
 YY_RULE_SETUP
 #line 98 "scanner.lex"
-{yylval = new False();
+{yylval = new False(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token false__\n"); // TODO REMOVE
 	#endif
