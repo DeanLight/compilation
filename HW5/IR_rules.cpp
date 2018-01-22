@@ -113,6 +113,7 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
 //Exp -> Exp1 And  M Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr,MarkNode* M, class ExpNode* exp2)
 {
+    emitter.comment("reach And derivation");
     // patch E1 trulist to start of E2
     // bp.backpath(E1.truelist, M.label)
     codebuff.bpatch(exp1->truelist,M->labelstr);
@@ -555,7 +556,9 @@ void CallHeader_IR(int lineno, CallHeaderNode* Self){
 
 // statement -> Type id
 void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id){
-  //NADA
+  // allocate a word for type on stack
+  emitter.comment(" allocating word on stack for local variable "+id->str_content);
+  emitter.allocate_words_on_stack(1);
 }
 
 //statement -> id = exp
@@ -597,19 +600,24 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
     else // it's a bool
     {
 
+        std::string nextReg = regmnref.get_next_free_reg();
         std::string boolExpPrefLabel = "bExpAss_nfjdn";
         std::string newTL = boolExpPrefLabel + IR_numToString(boolAssCount);
         boolAssCount++;
         emitter.add_label(newTL);
         emitter.comment("assigning True to " + id->str_content);
-        emitter.num_toreg(fpVarReg ,"1");
+        emitter.num_toreg(nextReg ,"1");
+        emitter.set_var_value(nextReg,fpVarReg);
         int j_t = emitter.patchy_jump();
         std::string newFL = boolExpPrefLabel + IR_numToString(boolAssCount);
         boolAssCount++;
         emitter.add_label(newFL);
         emitter.comment("assigning False to " + id->str_content);
-        emitter.num_toreg(fpVarReg ,"0");
+        emitter.num_toreg(nextReg ,"0");
+        emitter.set_var_value(nextReg,fpVarReg);
         int j_f = emitter.patchy_jump();
+        regmnref.free_last_reg();
+
         // TODO FIX - use the normal function // TODO REMOVE
         // std::string endAssJump = "timeToSkip_fgf";
         // std::string endLabel = endAssJump + IR_numToString(boolAssCount);
@@ -634,6 +642,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, cl
   #ifdef COMPILE_DBG
   cerr << "[Entered Statment_IR: Type id = exp]" << endl;
   #endif
+  Statement_IR(lineno,Self,type,id);
   Statement_IR(lineno,Self,id,assign,exp);
 }
 
