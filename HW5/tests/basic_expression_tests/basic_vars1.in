@@ -3,9 +3,9 @@ void main(){
 	printi(x);
 	print("\n");
 	int y=x+5;
-	printi(x);
+	printi(y);
 	print("\n");
-	int x=x+y;
+	x=x+y;
 	printi(x);
 	print("\n");
 }

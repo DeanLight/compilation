@@ -38,7 +38,7 @@ string Emitter::get_local_string_label(){
 
 string Emitter::get_bp_label(){
   std::stringstream label;
-  label << "string_label_";
+  label << "bp_label_";
   label << backpatch_num;
   std::string ret(label.str());
   backpatch_num++;
@@ -87,7 +87,8 @@ void Emitter::multiply(const string& dreg, const string& sreg1 ,const string& sr
 void Emitter::div(const string& dreg, const string& sreg1 ,const string& sreg2) const{
 	//emit check for div by 0 code
   comment("div");
-	const string command1 = "\tbeq\t" +  sreg1 +","+ "$zero"+","+ZERO_DIV_LABEL;
+  // reg1/reg2
+	const string command1 = "\tbeq\t" +  sreg2 +","+ "$zero"+","+ZERO_DIV_LABEL;
 	codebuffer.emit(command1);
 	const string command2 = "\tdiv\t" +  sreg1 +","+ sreg2 ;
 	codebuffer.emit(command2);

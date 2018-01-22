@@ -60,6 +60,8 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
 #endif
     emitter.comment("first program point");
     emitter.add_label("main"); // no backpatching needed
+    emitter.comment("initialize fp");
+    emitter.assign("$fp","$sp");
     int line_addr_jumpToMain= emitter.func_call_patchy(); // TODO CHANGE
     emitter.halt();
     emitter.comment("print_func:");

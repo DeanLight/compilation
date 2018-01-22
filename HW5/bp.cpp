@@ -35,7 +35,7 @@ void CodeBuffer::bpatch(const vector<int>& l, const std::string &label){
 
 void CodeBuffer::printCodeBuffer(){
 	std::cout << ".text" << std::endl;
-	for (std::vector<string>::const_iterator it = buffer.begin(); it != buffer.end(); ++it) 
+	for (std::vector<string>::const_iterator it = buffer.begin(); it != buffer.end(); ++it)
 	{
 		cout << *it << endl;
     }
@@ -56,7 +56,7 @@ vector<int> CodeBuffer::merge(const vector<int> &l1,const vector<int> &l2)
 }
 
 // ******** Methods to handle the data section ********** //
-void CodeBuffer::emitData(const std::string& dataLine) 
+void CodeBuffer::emitData(const std::string& dataLine)
 {
 	dataDefs.push_back(dataLine);
 }
