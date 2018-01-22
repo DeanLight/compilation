@@ -1,0 +1,19 @@
+void main()
+{
+	bool bla = true;
+	switch(bla)
+	{
+		case false:
+					print("FALSE");
+					break;
+		case default:
+					print("DEFAULT");
+					break;
+		case true:
+					print("TRUE_1");
+		case true:
+					print("TRUE_2");
+					break;
+	}
+	print("FINITE");
+}
