@@ -47,6 +47,8 @@ label_29:
 	#exp derived true
 	# allocating word on stack for local variable x
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, ($fp)
 bExpAss_nfjdn0:
 	#assigning True to x
 	li	$t0,1
@@ -152,6 +154,8 @@ bp_label_5:
 	#reach And derivation
 	# allocating word on stack for local variable y
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 4($fp)
 bExpAss_nfjdn2:
 	#assigning True to y
 	li	$t0,1

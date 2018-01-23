@@ -47,6 +47,8 @@ label_29:
 	li	$t0,5
 	# allocating word on stack for local variable x
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, ($fp)
 	sw $t0, ($fp)
 	#end of statement jump
 	j	bp_label_0
@@ -55,6 +57,8 @@ bp_label_0:
 	li	$t0,5
 	# allocating word on stack for local variable y
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 4($fp)
 	sw $t0, 4($fp)
 	#end of statement jump
 	j	bp_label_1
@@ -63,6 +67,8 @@ bp_label_1:
 	li	$t0,5
 	# allocating word on stack for local variable z
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 8($fp)
 	sw $t0, 8($fp)
 	#end of statement jump
 	j	bp_label_2
@@ -71,6 +77,8 @@ bp_label_2:
 	li	$t0,6
 	# allocating word on stack for local variable e
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 12($fp)
 	sw $t0, 12($fp)
 	#end of statement jump
 	j	bp_label_3

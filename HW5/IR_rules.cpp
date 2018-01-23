@@ -600,6 +600,8 @@ void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, cl
   // allocate a word for type on stack
   emitter.comment(" allocating word on stack for local variable "+id->str_content);
   emitter.allocate_words_on_stack(1);
+  emitter.comment(" and initializing it to 0");
+  emitter.set_var_value("$zero",symtabref.get_var_fp(id->str_content));
 }
 
 //statement -> id = exp

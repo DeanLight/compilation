@@ -63,6 +63,8 @@ bp_label_0:
 	#reach Or derivation
 	# allocating word on stack for local variable t1
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, ($fp)
 bExpAss_nfjdn0:
 	#assigning True to t1
 	li	$t0,1
@@ -161,6 +163,8 @@ bp_label_5:
 	j	bExpAss_nfjdn3
 	# allocating word on stack for local variable t2
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 4($fp)
 bExpAss_nfjdn2:
 	#assigning True to t2
 	li	$t0,1
@@ -269,6 +273,8 @@ bp_label_11:
 	#reach Or derivation
 	# allocating word on stack for local variable t3
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 8($fp)
 bExpAss_nfjdn4:
 	#assigning True to t3
 	li	$t0,1
@@ -387,6 +393,8 @@ bp_label_18:
 	#reach And derivation
 	# allocating word on stack for local variable t4
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 12($fp)
 bExpAss_nfjdn6:
 	#assigning True to t4
 	li	$t0,1

@@ -46,6 +46,8 @@ syscall
 label_29:
 	# allocating word on stack for local variable x
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, ($fp)
 	#marker Label
 bp_label_0:
 	#Getting Var falue for [Exp->id]: x
@@ -129,6 +131,8 @@ bp_label_4:
 	j	bExpAss_nfjdn1
 	# allocating word on stack for local variable y
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 4($fp)
 bExpAss_nfjdn0:
 	#assigning True to y
 	li	$t0,1
@@ -187,6 +191,8 @@ bp_label_10:
 	#reach Or derivation
 	# allocating word on stack for local variable z
 	addiu $sp, $sp, -4
+	# and initializing it to 0
+	sw $zero, 8($fp)
 bExpAss_nfjdn2:
 	#assigning True to z
 	li	$t0,1
