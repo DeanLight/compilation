@@ -28,6 +28,7 @@ public:
 	void subtruct(const string& dreg, const string& sreg1 ,const string& sreg2) const;
 	void multiply(const string& dreg, const string& sreg1 ,const string& sreg2) const;
 	void div(const string& dreg, const string& sreg1 ,const string& sreg2) const;
+  void truncate_byte(const string& reg) const;
 
   int EQ_patchy(const string& reg1, const string& reg2) const;
   int NEQ_patchy(const string& reg1, const string& reg2) const;

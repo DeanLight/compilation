@@ -71,7 +71,7 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
     emitter.add_label("main"); // no backpatching needed
     emitter.comment("initialize fp");
     emitter.assign("$fp","$sp");
-    int line_addr_jumpToMain= emitter.func_call_patchy(); // TODO CHANGE
+    int line_addr_jumpToMain= emitter.func_call_patchy(); // 
     emitter.halt();
     emitter.comment("print_func:");
     emitter.add_label("print");
@@ -158,17 +158,6 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr
 // Exp -> Exp1 Relop Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* relop, class ExpNode* exp2)
 {
-    // TODO - bool
-    // get last 2 regs, r1,r2
-    //
-    // get trueLabel
-    // depending on relop type do a different conditional jump to true label
-    // for example emit(bgr r1,r2 , trueLabel)
-    //
-    // emit(jump) add thios adress to falselist
-    // emit(trueLabel:)
-    //
-    // emit(jump) add this to truelist
 
   #ifdef COMPILE_DBG
     cerr << "[Exp_IR]:Relop Exp -> Exp1 "+relop->str_content + " Exp2" << endl;
@@ -346,6 +335,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Num* num, class B_Node* b){
     cerr << "[Exp_IR] Exp -> Num B" << b->str_content << endl;
 #endif
   Exp_IR(lineno,Self,num); // TODO FIX TO TRUNCATE RANGE
+
 #ifdef COMPILE_DBG
     cerr << "END_OF [Exp_IR] Exp -> Num B" << endl;
 #endif
@@ -371,24 +361,21 @@ void Exp_IR(int lineno,class ExpNode* Self,class True* true_val){
   // create an empty list for falselist -- already created by default
   emitter.comment("exp derived true");
   Self->str_content = true_val->str_content;
-  // Self->truelist=codebuff.makelist(emitter.patchy_jump()); // TODO
+  // Self->truelist=codebuff.makelist(emitter.patchy_jump()); // Removed cause it could be a functiopn argument
 
 
 }
 
 // Exp -> False
 void Exp_IR(int lineno,class ExpNode* Self,class False* false_val){
-  // emit an empty jump and link it to falselist
-  // create an empty list for turelist
+
   emitter.comment("exp derived false");
   Self->str_content = false_val->str_content;
-  // Self->falselist=codebuff.makelist(emitter.patchy_jump()); // TODO
+  // Self->falselist=codebuff.makelist(emitter.patchy_jump()); // Removed cause it could be a functiopn argument
 }
 
 // Exp -> Not Exp1
 void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1){
-  //Self.truelist =e1.falselist
-  //self.falselist=e1.truelist
   Self->truelist= exp1->falselist;
   Self->falselist= exp1->truelist;
 }
@@ -402,8 +389,7 @@ void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype
 #endif
     emitter.comment("Func " + func_name + ":");
     std::string func_label = codebuff.next();
-//    int line_num = emitter.add_label(func_label); // TODO - bp.next already emits...
-    int line_num = -1; // TODO
+    int line_num = -1; // fix
 #ifdef COMPILE_DBG
     cerr << "got label " << func_label << " in line: " << line_num << endl;
 #endif
@@ -607,38 +593,16 @@ void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, cl
 //statement -> id = exp
 void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assign* assign, class ExpNode* exp)
 {
-  // TODO TODO TODO TODO TODO TODO TODO TODO
-  // get type of id from symbolTable
-  // if notBool
-  // get varSp
-  // get last register (exp1)
-  // emitter.move(varSp, exp1)
-  // free last reg
-  //
-  //
-  //if bool // TODO
-  //trueAss: move 1 into varSp
-  //fallseAss: move 0 into varSp
-  //bp relavant lists
+
     static int boolAssCount = 0;
     v_type tt = symtabref.get_type(id->str_content);
     std::string fpVarReg = symtabref.get_var_fp(id->str_content);
     if (tt != Bool)
     {
         std::string expReg = regmnref.last_reg();
-        //emitter.assign(fpVarReg ,expReg); // TODO
         emitter.set_var_value(expReg,fpVarReg);
         regmnref.free_last_reg();
 
-        //TODO double code - use the regular function // TODO REMOVE
-        // int j_f = emitter.patchy_jump();
-        // // TODO FIX - use the normal function
-        // std::string endAssJump = "timeToSkip_fgf";
-        // std::string endLabel = endAssJump + IR_numToString(boolAssCount);
-        // boolAssCount++;
-        // emitter.add_label(endLabel);
-        // int jump_line = emitter.patchy_jump(); // Statement will do it
-        // Self->nextlist = codebuff.makelist(jump_line);
     }
     else // it's a bool
     {
@@ -661,7 +625,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
         int j_f = emitter.patchy_jump();
         regmnref.free_last_reg();
 
-        Self->nextlist  = codebuff.merge(codebuff.merge(Self->nextlist,codebuff.makelist(j_t)),codebuff.makelist(j_f)); // TODO CHECK
+        Self->nextlist  = codebuff.merge(codebuff.merge(Self->nextlist,codebuff.makelist(j_t)),codebuff.makelist(j_f)); // CHECK
         // falselist
         codebuff.bpatch(exp->truelist,newTL);
         codebuff.bpatch(exp->falselist,newFL);
@@ -718,17 +682,8 @@ void PossibleElse_IR(int lineno, class PossibleElseNode* Self , class StatementN
   Self->breaklist=state->breaklist;
 }
 
-// // TODO REMOVE DUPLICATE
-// void Statements_IR(yylineno,StatementsNode* Self,StatementsNode* manyState,MarkNode* mark, StatementNode* signelState)
-// {
-//   #ifdef COMPILE_DBG
-//   cerr << "[Statements_IR: Statments-> Statements Statement]" << endl;
-//   #endif
-//   codebuff.bpatch(manyState->nextlist,mark->labelstr);
-// }
-
 void Statement_next_patcher_IR(StatementNode* Self){
-  //TODO remove comments that is the actual code that i tried to temporarily cancel
+  
   emitter.comment("end of statement jump");
   Self->statement_last_jump=emitter.patchy_jump();
   #ifdef COMPILE_DBG
@@ -798,8 +753,6 @@ void Statement_IR(int lineno,class StatementNode* Self, class Lbrace* lbr, class
 
 //statement -> break;
 void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr ){
-  //TODO
-  // emit break and add the adress to self.breaklist
   emitter.comment("break");
   int address = emitter.patchy_jump();
 #ifdef COMPILE_DBG
@@ -807,7 +760,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr )
 #endif
 
   Self->breaklist=codebuff.merge(Self->breaklist,codebuff.makelist(address));
-
+  Statement_next_patcher_IR(Self);
 }
 
 //statement-> call
@@ -913,7 +866,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
         }
     #endif
     if(STvec[i]!=NULL){
-      codebuff.bpatch(STvec[i]->nextlist,Mvec[i+1]->labelstr); // TODO caused double patchign
+      codebuff.bpatch(STvec[i]->nextlist,Mvec[i+1]->labelstr); //
     }else{
       #ifdef COMPILE_DBG
           cerr << "skipped empty case " << i << endl;
@@ -973,7 +926,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   //
   //
   //
-  //Statement_next_patcher_IR(Self);
+  Statement_next_patcher_IR(Self); //
 
 }
 
@@ -1067,11 +1020,6 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
   if(symtabref.is_var(exp_name))
   {
     emitter.comment("a Bool Var " + exp_name + " in boolean operator");
-    //int line_neq = emitter.NEQ_patchy(symtabref.get_var_fp(exp_name),"$zero"); // TODO fix?
-
-    //string varFp = symtabref.get_var_fp(exp_name); // TODO REMOVE
-    //string newReg = regmnref.get_next_free_reg();
-    //emitter.get_var_value(newReg,varFp);
     string newReg = regmnref.last_reg(); // assumption - id was derived and a line ofer get_var_fp and such was already written
     emitter.comment("If true");
     int line_neq = emitter.NEQ_patchy(newReg,"$zero"); // if NEQ that means its a none zero == True
