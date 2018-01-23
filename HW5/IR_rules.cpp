@@ -762,7 +762,7 @@ void Statements_IR(int lineno,class StatementsNode* Self,class StatementsNode* r
   #endif
   codebuff.bpatch(rest_of_statements->nextlist,M->labelstr);
   Self->nextlist= statement->nextlist;
-  Self->breaklist=codebuff.merge(rest_of_statements->nextlist, statement->nextlist);
+  Self->breaklist=codebuff.merge(rest_of_statements->breaklist, statement->breaklist);
 
 }
 
@@ -800,6 +800,9 @@ void Statement_IR(int lineno,class StatementNode* Self, class Lbrace* lbr, class
 void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr ){
   //TODO
   // emit break and add the adress to self.breaklist
+  emitter.comment("break");
+  int address = emitter.patchy_jump();
+  Self->breaklist=codebuff.merge(Self->breaklist,codebuff.makelist(address));
 
 }
 
@@ -899,12 +902,13 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
     #ifdef COMPILE_DBG
         cerr << "backpatching nextlist  " << i<< endl;
     #endif
-    codebuff.bpatch(STvec[i]->nextlist,Mvec[i+1]->labelstr);
+    codebuff.bpatch(STvec[i]->nextlist,Mvec[i+1]->labelstr); // TODO caused double patchign
   }
 
   // get end of switch label
   // save adress as nextlist
   // add Sn.nextList to self.nextlist
+  emitter.comment("end of switch:");
   string end_of_switch=emitter.get_bp_label();
   emitter.add_label(end_of_switch);
   codebuff.bpatch(STvec[n-1]->nextlist,end_of_switch);
@@ -918,15 +922,15 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   #ifdef COMPILE_DBG
       cerr << "before backpatching case breaklists" << endl;
   #endif
-  vector<int> break_list=vector<int>();
+  vector<int> all_break_list=vector<int>();
     for(int i=0; i<n; i++){
-      break_list=codebuff.merge(break_list,STvec[i]->breaklist);
+      all_break_list=codebuff.merge(all_break_list,STvec[i]->breaklist);
     }
-    codebuff.bpatch(STvec[n-1]->breaklist,end_of_switch);
+    codebuff.bpatch(all_break_list,end_of_switch);
   //
   //
   //
-  Statement_next_patcher_IR(Self);
+  //Statement_next_patcher_IR(Self);
 
 }
 
