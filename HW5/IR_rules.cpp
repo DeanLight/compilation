@@ -127,6 +127,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_p
 //Exp -> Exp1 OR M Exp2
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, MarkNode* M ,class ExpNode* exp2)
 {
+    emitter.comment("reach Or derivation");
     // patch E1 falselist to start of E2
     // bp.backpath(E1.falselist, M.label)
     codebuff.bpatch(exp1->falselist,M->labelstr);
@@ -958,10 +959,17 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
   if(symtabref.is_var(exp_name))
   {
     emitter.comment("a Bool Var " + exp_name + " in boolean operator");
-    int line_neq = emitter.NEQ_patchy(symtabref.get_var_fp(exp_name),"$zero"); // TODO fix?
+    //int line_neq = emitter.NEQ_patchy(symtabref.get_var_fp(exp_name),"$zero"); // TODO fix?
+    string varFp = symtabref.get_var_fp(exp_name);
+    string newReg = regmnref.get_next_free_reg();
+    emitter.get_var_value(newReg,varFp);
+    emitter.comment("If true");
+    int line_neq = emitter.NEQ_patchy(newReg,"$zero"); // if NEQ that means its a none zero == True
+    regmnref.free_last_reg();
+    emitter.comment("If False");
     int line_j = emitter.patchy_jump();
-    Self->truelist = codebuff.makelist(line_j);
-    Self->falselist = codebuff.makelist(line_neq);
+    Self->truelist = codebuff.makelist(line_neq);
+    Self->falselist = codebuff.makelist(line_j);
     return;
   }
   if(symtabref.is_func(exp_name))

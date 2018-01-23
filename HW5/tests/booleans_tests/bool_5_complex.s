@@ -44,27 +44,17 @@ li $v0, 10
 syscall
 	#Func main:
 label_29:
-	#exp derived true
 	# allocating word on stack for local variable x
 	addiu $sp, $sp, -4
-bExpAss_nfjdn0:
-	#assigning True to x
-	li	$t0,1
-	sw $t0, ($fp)
-	j	bp_label_0
-bExpAss_nfjdn1:
-	#assigning False to x
-	li	$t0,0
-	sw $t0, ($fp)
-	j	bp_label_0
-	#end of statement jump
-	j	bp_label_0
 	#marker Label
 bp_label_0:
 	lw $t0, ($fp)
 	#a Bool Var x in boolean operator
-	bne ($fp), $zero,bp_label_2
-	j	bp_label_1
+	lw $t1, ($fp)
+	#If true
+	bne $t1, $zero,bp_label_1
+	#If False
+	j	bp_label_2
 	#marker Label
 bp_label_1:
 	#func header store regs before call
@@ -137,45 +127,98 @@ bp_label_3:
 	j	bp_label_4
 	#marker Label
 bp_label_4:
-	lw $t1, ($fp)
-	#a Bool Var x in boolean operator
-	bne ($fp), $zero,bExpAss_nfjdn3
+	li	$t1,30
+	li	$t2,30
+	bne $t1, $t2,bExpAss_nfjdn0
+	j	bExpAss_nfjdn1
+	# allocating word on stack for local variable y
+	addiu $sp, $sp, -4
+bExpAss_nfjdn0:
+	#assigning True to y
+	li	$t1,1
+	sw $t1, 4($fp)
+	j	bp_label_5
+bExpAss_nfjdn1:
+	#assigning False to y
+	li	$t1,0
+	sw $t1, 4($fp)
+	j	bp_label_5
+	#end of statement jump
 	j	bp_label_5
 	#marker Label
 bp_label_5:
-	li	$t2,3
-	li	$t3,5
-	bgt $t2, $t3,bExpAss_nfjdn2
-	j	bExpAss_nfjdn3
-	#reach And derivation
-	# allocating word on stack for local variable y
-	addiu $sp, $sp, -4
-bExpAss_nfjdn2:
-	#assigning True to y
+	li	$t1,1
 	li	$t2,1
-	sw $t2, 4($fp)
-	j	bp_label_6
-bExpAss_nfjdn3:
-	#assigning False to y
-	li	$t2,0
-	sw $t2, 4($fp)
-	j	bp_label_6
-	#end of statement jump
-	j	bp_label_6
+	beq $t1, $t2,bp_label_6
+	j	
 	#marker Label
 bp_label_6:
-	lw $t2, 4($fp)
+	lw $t1, 4($fp)
 	#a Bool Var y in boolean operator
-	bne 4($fp), $zero,bp_label_8
-	j	bp_label_7
+	lw $t2, 4($fp)
+	#If true
+	bne $t2, $zero,
+	#If False
+	j	
+	#reach And derivation
 	#marker Label
 bp_label_7:
+	#exp derived true
+	#a True exp in boolean operator
+	j	
+	#marker Label
+bp_label_8:
+	lw $t2, ($fp)
+	#a Bool Var x in boolean operator
+	lw $t3, ($fp)
+	#If true
+	bne $t3, $zero,bp_label_10
+	#If False
+	j	bp_label_9
+	#reach And derivation
+	#marker Label
+bp_label_9:
+	#exp derived false
+	#a False exp in boolean operator
+	j	bp_label_10
+	#reach And derivation
+	#marker Label
+bp_label_10:
+	#exp derived true
+	#a True exp in boolean operator
+	j	bExpAss_nfjdn2
+	# allocating word on stack for local variable z
+	addiu $sp, $sp, -4
+bExpAss_nfjdn2:
+	#assigning True to z
+	li	$t3,1
+	sw $t3, 8($fp)
+	j	bp_label_11
+bExpAss_nfjdn3:
+	#assigning False to z
+	li	$t3,0
+	sw $t3, 8($fp)
+	j	bp_label_11
+	#end of statement jump
+	j	bp_label_11
+	#marker Label
+bp_label_11:
+	lw $t3, 8($fp)
+	#a Bool Var z in boolean operator
+	lw $t4, 8($fp)
+	#If true
+	bne $t4, $zero,bp_label_12
+	#If False
+	j	bp_label_13
+	#marker Label
+bp_label_12:
 	#func header store regs before call
-	addiu $sp, $sp, -12
-	sw $t0,12($sp)
-	sw $t1,8($sp)
-	sw $t2,4($sp)
-	#stored 3 registers
+	addiu $sp, $sp, -16
+	sw $t0,16($sp)
+	sw $t1,12($sp)
+	sw $t2,8($sp)
+	sw $t3,4($sp)
+	#stored 4 registers
 	#caught a string
 	#preparing to call print
 	addiu $sp, $sp, -4
@@ -197,22 +240,24 @@ bp_label_7:
 	addiu $sp, $sp, 4
 	lw $fp, ($sp)
 	addiu $sp, $sp, 4
-	#restoring 3 previously used registers
-	lw $t0,12($sp)
-	lw $t1,8($sp)
-	lw $t2,4($sp)
+	#restoring 4 previously used registers
+	lw $t0,16($sp)
+	lw $t1,12($sp)
+	lw $t2,8($sp)
+	lw $t3,4($sp)
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_9
+	j	bp_label_14
 	#marker Label
-bp_label_8:
+bp_label_13:
 	#func header store regs before call
-	addiu $sp, $sp, -12
-	sw $t0,12($sp)
-	sw $t1,8($sp)
-	sw $t2,4($sp)
-	#stored 3 registers
+	addiu $sp, $sp, -16
+	sw $t0,16($sp)
+	sw $t1,12($sp)
+	sw $t2,8($sp)
+	sw $t3,4($sp)
+	#stored 4 registers
 	#caught a string
 	#preparing to call print
 	addiu $sp, $sp, -4
@@ -234,60 +279,170 @@ bp_label_8:
 	addiu $sp, $sp, 4
 	lw $fp, ($sp)
 	addiu $sp, $sp, 4
-	#restoring 3 previously used registers
-	lw $t0,12($sp)
-	lw $t1,8($sp)
-	lw $t2,4($sp)
+	#restoring 4 previously used registers
+	lw $t0,16($sp)
+	lw $t1,12($sp)
+	lw $t2,8($sp)
+	lw $t3,4($sp)
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_9
+	j	bp_label_14
 	#end of ifelse
-bp_label_9:
+bp_label_14:
 	#end of statement jump
-	j	bp_label_10
+	j	bp_label_15
 	#marker Label
-bp_label_10:
-	lw $t3, ($fp)
-	#a Bool Var x in boolean operator
-	bne ($fp), $zero,bExpAss_nfjdn5
-	j	bp_label_11
+bp_label_15:
+	li	$t4,0
+	li	$t5,1
+	beq $t4, $t5,
+	j	
 	#marker Label
-bp_label_11:
-	lw $t4, 4($fp)
-	#a Bool Var y in boolean operator
-	bne 4($fp), $zero,bExpAss_nfjdn4
-	j	bExpAss_nfjdn5
-	#reach And derivation
+bp_label_16:
+	li	$t4,10
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_17:
+	li	$t4,11
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_18:
+	li	$t4,12
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_19:
+	li	$t4,13
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_20:
+	li	$t4,14
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_21:
+	li	$t4,15
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_22:
+	li	$t4,16
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_23:
+	li	$t4,17
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_24:
+	li	$t4,18
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_25:
+	li	$t4,19
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_26:
+	li	$t4,111
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_27:
+	li	$t4,1
+	li	$t5,111
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_28:
+	li	$t4,111
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_29:
+	li	$t4,1
+	li	$t5,111
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_30:
+	li	$t4,111
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_31:
+	li	$t4,1
+	li	$t5,111
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_32:
+	li	$t4,111
+	li	$t5,1
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_33:
+	li	$t4,1
+	li	$t5,111
+	beq $t4, $t5,
+	j	
+	#marker Label
+bp_label_34:
+	li	$t4,111
+	li	$t5,1
+	beq $t4, $t5,
+	j	
 bExpAss_nfjdn4:
 	#assigning True to x
-	li	$t5,1
-	sw $t5, ($fp)
-	j	bp_label_12
+	li	$t4,1
+	sw $t4, ($fp)
+	j	bp_label_35
 bExpAss_nfjdn5:
 	#assigning False to x
-	li	$t5,0
-	sw $t5, ($fp)
-	j	bp_label_12
+	li	$t4,0
+	sw $t4, ($fp)
+	j	bp_label_35
 	#end of statement jump
-	j	bp_label_12
+	j	bp_label_35
 	#marker Label
-bp_label_12:
-	lw $t5, ($fp)
+bp_label_35:
+	lw $t4, ($fp)
 	#a Bool Var x in boolean operator
-	bne ($fp), $zero,bp_label_14
-	j	bp_label_13
+	lw $t5, ($fp)
+	#If true
+	bne $t5, $zero,bp_label_36
+	#If False
+	j	bp_label_37
 	#marker Label
-bp_label_13:
+bp_label_36:
 	#func header store regs before call
-	addiu $sp, $sp, -24
-	sw $t0,24($sp)
-	sw $t1,20($sp)
-	sw $t2,16($sp)
-	sw $t3,12($sp)
-	sw $t4,8($sp)
-	sw $t5,4($sp)
-	#stored 6 registers
+	addiu $sp, $sp, -20
+	sw $t0,20($sp)
+	sw $t1,16($sp)
+	sw $t2,12($sp)
+	sw $t3,8($sp)
+	sw $t4,4($sp)
+	#stored 5 registers
 	#caught a string
 	#preparing to call print
 	addiu $sp, $sp, -4
@@ -309,28 +464,26 @@ bp_label_13:
 	addiu $sp, $sp, 4
 	lw $fp, ($sp)
 	addiu $sp, $sp, 4
-	#restoring 6 previously used registers
-	lw $t0,24($sp)
-	lw $t1,20($sp)
-	lw $t2,16($sp)
-	lw $t3,12($sp)
-	lw $t4,8($sp)
-	lw $t5,4($sp)
+	#restoring 5 previously used registers
+	lw $t0,20($sp)
+	lw $t1,16($sp)
+	lw $t2,12($sp)
+	lw $t3,8($sp)
+	lw $t4,4($sp)
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_15
+	j	bp_label_38
 	#marker Label
-bp_label_14:
+bp_label_37:
 	#func header store regs before call
-	addiu $sp, $sp, -24
-	sw $t0,24($sp)
-	sw $t1,20($sp)
-	sw $t2,16($sp)
-	sw $t3,12($sp)
-	sw $t4,8($sp)
-	sw $t5,4($sp)
-	#stored 6 registers
+	addiu $sp, $sp, -20
+	sw $t0,20($sp)
+	sw $t1,16($sp)
+	sw $t2,12($sp)
+	sw $t3,8($sp)
+	sw $t4,4($sp)
+	#stored 5 registers
 	#caught a string
 	#preparing to call print
 	addiu $sp, $sp, -4
@@ -352,21 +505,20 @@ bp_label_14:
 	addiu $sp, $sp, 4
 	lw $fp, ($sp)
 	addiu $sp, $sp, 4
-	#restoring 6 previously used registers
-	lw $t0,24($sp)
-	lw $t1,20($sp)
-	lw $t2,16($sp)
-	lw $t3,12($sp)
-	lw $t4,8($sp)
-	lw $t5,4($sp)
+	#restoring 5 previously used registers
+	lw $t0,20($sp)
+	lw $t1,16($sp)
+	lw $t2,12($sp)
+	lw $t3,8($sp)
+	lw $t4,4($sp)
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_15
+	j	bp_label_38
 	#end of ifelse
-bp_label_15:
+bp_label_38:
 	#end of statement jump
-	j	bp_label_16
-bp_label_16:
+	j	bp_label_39
+bp_label_39:
 	#Adding an extre return just in case
 	jr	$ra
