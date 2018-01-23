@@ -121,6 +121,13 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_p
     Self->truelist=exp2->truelist;
     // Self.falselist.add(E2.falselist,E1.falseList)
     Self->falselist=codebuff.merge(exp1->falselist,exp2->falselist);
+    #ifdef COMPILE_DBG
+      cerr << "[Exp_IR: Exp-> Exp1 And M Exp2 ] " << endl;
+      cerr << "exp1:" << exp1->str_content << " falselistSize: " << exp1->falselist.size() << endl;
+      cerr << "exp2:" << exp2->str_content << " falselistSize: " << exp2->falselist.size() << endl;
+      cerr << "Exp:" << Self->str_content << " falselistSize: " << Self->falselist.size() << endl;
+      cerr << "Exp:" << Self->str_content << " truelistSize: " << Self->truelist.size() << endl;
+    #endif
 
 }
 
@@ -136,6 +143,15 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr
     Self->truelist=codebuff.merge(exp1->truelist,exp2->truelist);
     // Self.falselist.add(E2.falselist)
     Self->falselist=exp2->falselist;
+
+    #ifdef COMPILE_DBG
+      cerr << "[Exp_IR: Exp-> Exp1 Or M Exp2 ] " << endl;
+      cerr << "Backpatched label: " << M->labelstr << endl;
+      cerr << "exp1:" << exp1->str_content << " truelistSize: " << exp1->truelist.size() << endl;
+      cerr << "exp2:" << exp2->str_content << " truelistSize: " << exp2->truelist.size() << endl;
+      cerr << "Exp:" << Self->str_content << " falselistSize: " << Self->falselist.size() << endl;
+      cerr << "Exp:" << Self->str_content << " truelistSize: " << Self->truelist.size() << endl;
+    #endif
 }
 
 // Exp -> Exp1 Relop Exp2

@@ -2,60 +2,60 @@ void main(){
 
 	print("not: \t");
 	if(not true){
-		print("true\t");
+		print("true1\t");
 	} else {
-		print("false\t");
+		print("false1\t");
 	}
 	if(not false){
-		print("true\t");
+		print("true2\t");
 	} else {
-		print("false\t");
+		print("false2\t");
 	}
 	print("\n");
 
 	print("and: \t");
 	if(true and true){
-		print("true\t");
+		print("true3\t");
 	} else {
-		print("false\t");
+		print("false3\t");
 	}
 	if(true and false){
-		print("true\t");
+		print("true4\t");
 	} else {
-		print("false\t");
+		print("false4\t");
 	}
 	if(false and true){
-		print("true\t");
+		print("true5\t");
 	} else {
-		print("false\t");
+		print("false5\t");
 	}
 	if(false and false){
-		print("true\t");
+		print("true6\t");
 	} else {
-		print("false\t");
+		print("false6\t");
 	}
 	print("\n");
 
 	print("or: \t");
 	if(true or true){
-		print("true\t");
+		print("true7\t");
 	} else {
-		print("false\t");
+		print("false7\t");
 	}
 	if(true or false){
-		print("true\t");
+		print("true8\t");
 	} else {
-		print("false\t");
+		print("false8\t");
 	}
 	if(false or true){
-		print("true\t");
+		print("true9\t");
 	} else {
-		print("false\t");
+		print("false9\t");
 	}
 	if(false or false){
-		print("true\t");
+		print("true10\t");
 	} else {
-		print("false\t");
+		print("false10\t");
 	}
 	print("\n");
 }

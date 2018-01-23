@@ -1,4 +1,4 @@
-void main{
+void main(){
 	while(false) print("must not be printed");
 	int x;
 	byte y = 1 b;
@@ -9,7 +9,7 @@ void main{
 		printi(y);
 		print("\n");
 		x = x + 1;
-		y = y * 2;
+		y = y * 2b;
 	}
 	while(true) {
 		print("end");
