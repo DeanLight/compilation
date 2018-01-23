@@ -913,6 +913,9 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   //
   Statement_next_patcher_IR(Self); //
 
+  // TODO:
+  regmnref.free_last_reg();
+
 }
 
 
