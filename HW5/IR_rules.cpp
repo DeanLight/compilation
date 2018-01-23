@@ -819,7 +819,9 @@ void Statement_IR(int lineno,class StatementNode* Self, class CallNode* call){
 // statement -> switch_head caseList
 void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* switch_ptr ,  class CaseListNode* caselist ){
 
-  //
+  #ifdef COMPILE_DBG
+      cerr << "[Statement_IR: state->switch_head caseList ]" << endl;
+  #endif
   // r0 = get last register (register of the exp)
   string expreg=regmnref.last_reg();
 
@@ -903,6 +905,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
 void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
   //addr= emit(emptyjump) __ goto init
   // self.init_jump_addr
+  emitter.comment("switch!");
   int addr=emitter.patchy_jump();
   Self->init_jump_addr=addr;
 
