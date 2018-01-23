@@ -757,7 +757,7 @@ void Statements_IR(int lineno,class StatementsNode* Self,class StatementsNode* r
   // self.breaklist= merge of both statements1 breakliost and statement breaklist
 #ifdef COMPILE_DBG
   cerr << "[Statement_IR: States -> states1 M singleState]" << endl;
-  cerr << "Num of nextlist to bp: " << rest_of_statements->nextlist.size() <<  " with label: " << M->labelstr << endl;
+  cerr << "Num of nextlist to bp: " << rest_of_statements->nextlist.size() <<  " with label: " << M->labelstr << " breaklist size is " << rest_of_statements->breaklist.size() << endl;
 
   #endif
   codebuff.bpatch(rest_of_statements->nextlist,M->labelstr);
@@ -802,6 +802,10 @@ void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr )
   // emit break and add the adress to self.breaklist
   emitter.comment("break");
   int address = emitter.patchy_jump();
+#ifdef COMPILE_DBG
+  cerr << " new breakcommand at " << address << " the old list had adress list of size " << Self->breaklist.size() << endl;
+#endif
+
   Self->breaklist=codebuff.merge(Self->breaklist,codebuff.makelist(address));
 
 }
@@ -842,8 +846,10 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
 
   //
   // emit(init:)
-  emitter.comment("switch init label");
   string initlabel=emitter.get_bp_label();
+  emitter.comment("catching falling cases");
+  int catch_drop=emitter.patchy_jump();
+  emitter.comment("switch init label");
   emitter.add_label(initlabel);
   //bp.switchhead.initlabel = init
   codebuff.bpatch(  codebuff.makelist(switch_ptr->init_jump_addr)  , initlabel);
@@ -900,9 +906,20 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   // bp(Si.nextlist into M[i+1]
   for(int i =0 ; i<n-1; i++){
     #ifdef COMPILE_DBG
-        cerr << "backpatching nextlist  " << i<< endl;
+        cerr << "backpatching nextlist  " << i << endl;
+        if (STvec[i] != NULL)
+        {
+          cerr << " size of STvec->nextlist is " << STvec[i]->nextlist.size()<< endl;
+        }
     #endif
-    codebuff.bpatch(STvec[i]->nextlist,Mvec[i+1]->labelstr); // TODO caused double patchign
+    if(STvec[i]!=NULL){
+      codebuff.bpatch(STvec[i]->nextlist,Mvec[i+1]->labelstr); // TODO caused double patchign
+    }else{
+      #ifdef COMPILE_DBG
+          cerr << "skipped empty case " << i << endl;
+      #endif
+
+    }
   }
 
   // get end of switch label
@@ -911,7 +928,15 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   emitter.comment("end of switch:");
   string end_of_switch=emitter.get_bp_label();
   emitter.add_label(end_of_switch);
-  codebuff.bpatch(STvec[n-1]->nextlist,end_of_switch);
+  if(STvec[n-1]!=NULL){
+    codebuff.bpatch(STvec[n-1]->nextlist,end_of_switch);
+  }else{
+    #ifdef COMPILE_DBG
+        cerr << "skipped empty last case " << n-1 << endl;
+    #endif
+
+  }
+  codebuff.bpatch(codebuff.makelist(catch_drop),end_of_switch);
 
   //
   //  giant_breakList=emptyList)
@@ -924,9 +949,27 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   #endif
   vector<int> all_break_list=vector<int>();
     for(int i=0; i<n; i++){
-      all_break_list=codebuff.merge(all_break_list,STvec[i]->breaklist);
+      if (STvec[i] != NULL)
+      {
+          all_break_list=codebuff.merge(all_break_list,STvec[i]->breaklist);
+          #ifdef COMPILE_DBG
+              cerr << "reached non empty case in breaking " << i << "outof " << n-1 << " its breaklist is of size " << STvec[i]->breaklist.size() << endl;
+          #endif
+      }
+      else
+      {
+        #ifdef COMPILE_DBG
+            cerr << "skipped empty case in breaking " << i << "outof " << n-1 << endl;
+        #endif
+
+      }
     }
     codebuff.bpatch(all_break_list,end_of_switch);
+
+    #ifdef COMPILE_DBG
+        cerr << "finished backpatching breaklists of yeah "   << endl;
+    #endif
+
   //
   //
   //
@@ -965,7 +1008,12 @@ void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_o
 //CaseList:	 M CaseStatement
 void CaseList_IR(int lineno,class CaseListNode* Self, MarkNode* M, class CaseStatementNode* case_ptr){
   Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[0]);
+  if(case_ptr->sons.size()>1){// if its a case with statements
   Self->statevec.push_back((StatementsNode*)case_ptr->sons[1]);
+
+  }else{
+    Self->statevec.push_back((StatementsNode*)NULL);
+  }
   Self->markvec.push_back(M);
 
 }

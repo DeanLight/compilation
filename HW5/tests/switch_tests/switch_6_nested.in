@@ -25,8 +25,8 @@ void main(){
 			
 			case 777:
 			print("777");
-		}
+		};
 		case 777:
 		print("777");
-	}
+	};
 }

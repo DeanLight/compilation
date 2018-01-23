@@ -14,7 +14,7 @@ void main(){
 		case 2:
 		printi(2);
 		print("\n");
-	}
+	};
 	x = x+1;
 	
 		printi(x);
@@ -29,7 +29,7 @@ void main(){
 		case 2:
 		printi(2);
 		print("\n");
-	}
+	};
 	x = x+1;
 	
 		printi(x);
@@ -44,7 +44,7 @@ void main(){
 		case 2:
 		printi(2);
 		print("\n");
-	}
+	};
 	x = x+1;
 	
 		printi(x);
@@ -59,7 +59,7 @@ void main(){
 		case 2:
 		printi(2);
 		print("\n");
-	}
+	};
 	x = x+1;
 	
 		printi(x);
@@ -74,7 +74,7 @@ void main(){
 		case 2:
 		printi(2);
 		print("\n");
-	}
+	};
 	x = x+1;
 	
 		printi(x);
@@ -89,6 +89,6 @@ void main(){
 		case 2:
 		printi(2);
 		print("\n");
-	}
+	};
 	x = x+1;
 }

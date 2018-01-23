@@ -12,5 +12,5 @@ void main(){
 		x = x+2;
 		case 14:
 		printi(4);
-	}
+	};
 }

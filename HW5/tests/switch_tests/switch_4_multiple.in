@@ -4,9 +4,9 @@ void main(){
 		print("first");
 		break;
 		case 2:
-		printi("WTF");
+		print("WTF");
 		break;
 		case 8:
 		print("second");
-	}
+	};
 }
