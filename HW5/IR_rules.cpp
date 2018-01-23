@@ -121,6 +121,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_p
     Self->truelist=exp2->truelist;
     // Self.falselist.add(E2.falselist,E1.falseList)
     Self->falselist=codebuff.merge(exp1->falselist,exp2->falselist);
+
     #ifdef COMPILE_DBG
       cerr << "[Exp_IR: Exp-> Exp1 And M Exp2 ] " << endl;
       cerr << "exp1:" << exp1->str_content << " falselistSize: " << exp1->falselist.size() << endl;
@@ -284,7 +285,18 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
 // Exp -> ( Exp1 )
 void Exp_IR(int lineno,class ExpNode* Self,class Lparen* lp, class ExpNode* exp1, class Rparen* rp)
 {
+  #ifdef COMPILE_DBG
+    cerr << "[Exp->(Exp)]" << endl;
+  #endif
   Self->str_content=exp1->str_content;
+  Self->falselist = exp1->falselist;
+  Self->truelist = exp1->truelist;
+    #ifdef COMPILE_DBG
+  cerr << "(Exp) str_content: " << Self->str_content << endl;
+  cerr << "(Exp) falselistSize: " << Self->falselist.size() << endl;
+  cerr << "(Exp) truelistSize: " << Self->truelist.size() << endl;
+    cerr << "ENDOF_[Exp->(Exp)]" << endl;
+  #endif
 }
 
 
@@ -296,6 +308,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   // get sp offset of id from symbolTable currently returns something like 4($sp)
   const string& fp_offset=symtabref.get_var_fp(id->str_content);
   const string& reg1= RegMngr::getRegMngr().get_next_free_reg(); // get next free reg
+  emitter.comment("Getting Var falue for [Exp->id]: " + id->str_content);
   emitter.get_var_value(reg1,fp_offset); // emit assign //
   Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
@@ -646,16 +659,8 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
         int j_f = emitter.patchy_jump();
         regmnref.free_last_reg();
 
-        // TODO FIX - use the normal function // TODO REMOVE
-        // std::string endAssJump = "timeToSkip_fgf";
-        // std::string endLabel = endAssJump + IR_numToString(boolAssCount);
-        // boolAssCount++;
-        // emitter.add_label(endLabel);
-        // int jump_line = emitter.patchy_jump(); // statement will do it
-        // Self->nextlist = codebuff.makelist(jump_line);
-        // codebuff.bpatch(codebuff.makelist(j_t),endLabel);
-        // codebuff.bpatch(codebuff.makelist(j_f),endLabel);
         Self->nextlist  = codebuff.merge(codebuff.merge(Self->nextlist,codebuff.makelist(j_t)),codebuff.makelist(j_f)); // TODO CHECK
+        // falselist
         codebuff.bpatch(exp->truelist,newTL);
         codebuff.bpatch(exp->falselist,newFL);
     }
@@ -976,9 +981,11 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
   {
     emitter.comment("a Bool Var " + exp_name + " in boolean operator");
     //int line_neq = emitter.NEQ_patchy(symtabref.get_var_fp(exp_name),"$zero"); // TODO fix?
-    string varFp = symtabref.get_var_fp(exp_name);
-    string newReg = regmnref.get_next_free_reg();
-    emitter.get_var_value(newReg,varFp);
+
+    //string varFp = symtabref.get_var_fp(exp_name); // TODO REMOVE
+    //string newReg = regmnref.get_next_free_reg();
+    //emitter.get_var_value(newReg,varFp);
+    string newReg = regmnref.last_reg(); // assumption - id was derived and a line ofer get_var_fp and such was already written
     emitter.comment("If true");
     int line_neq = emitter.NEQ_patchy(newReg,"$zero"); // if NEQ that means its a none zero == True
     regmnref.free_last_reg();

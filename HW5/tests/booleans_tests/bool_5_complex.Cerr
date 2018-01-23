@@ -31,6 +31,12 @@ Lex Ate token true__
 [SJ_Exp_IR]: true
 Lex Ate token  ;__
 [SJ_Exp_IR]: 
+[Exp_IR: Exp-> Exp1 Or M Exp2 ] 
+Backpatched label: bp_label_0
+exp1:true truelistSize: 1
+exp2: truelistSize: 0
+Exp: falselistSize: 1
+Exp: truelistSize: 1
 <<[Statement_Semantic][TypeID_SC] id:[t1]type:[]>>
 <<adding var: [t1] of type [5]>><<Statement_Semantic with id[t1]=exp>>
 [Entered Statment_IR: Type id = exp]
@@ -67,8 +73,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 1
-ERROR: Reg not given yet. req:0 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -99,8 +104,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 1
-ERROR: Reg not given yet. req:0 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -165,10 +169,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 3
-ERROR: Reg not given yet. req:0 while max used is 0
-ERROR: Reg not given yet. req:1 while max used is 0
-ERROR: Reg not given yet. req:2 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -199,10 +200,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 3
-ERROR: Reg not given yet. req:0 while max used is 0
-ERROR: Reg not given yet. req:1 while max used is 0
-ERROR: Reg not given yet. req:2 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -236,6 +234,12 @@ Lex Ate token  ;__
 [Exp_IR] Exp -> id: t2
 END_OF [Exp_IR] Exp -> id
 [SJ_Exp_IR]: t2
+[Exp_IR: Exp-> Exp1 Or M Exp2 ] 
+Backpatched label: bp_label_11
+exp1: truelistSize: 1
+exp2:t2 truelistSize: 1
+Exp: falselistSize: 1
+Exp: truelistSize: 2
 <<[Statement_Semantic][TypeID_SC] id:[t3]type:[]>>
 <<adding var: [t3] of type [5]>><<Statement_Semantic with id[t3]=exp>>
 [Entered Statment_IR: Type id = exp]
@@ -273,13 +277,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 6
-ERROR: Reg not given yet. req:0 while max used is 0
-ERROR: Reg not given yet. req:1 while max used is 0
-ERROR: Reg not given yet. req:2 while max used is 0
-ERROR: Reg not given yet. req:3 while max used is 0
-ERROR: Reg not given yet. req:4 while max used is 0
-ERROR: Reg not given yet. req:5 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -310,13 +308,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 6
-ERROR: Reg not given yet. req:0 while max used is 0
-ERROR: Reg not given yet. req:1 while max used is 0
-ERROR: Reg not given yet. req:2 while max used is 0
-ERROR: Reg not given yet. req:3 while max used is 0
-ERROR: Reg not given yet. req:4 while max used is 0
-ERROR: Reg not given yet. req:5 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -349,6 +341,16 @@ Lex Ate token )__
 [Exp_IR] Exp -> id: t2
 END_OF [Exp_IR] Exp -> id
 [SJ_Exp_IR]: t2
+[Exp_IR: Exp-> Exp1 And M Exp2 ] 
+exp1:t1 falselistSize: 1
+exp2:t2 falselistSize: 1
+Exp: falselistSize: 2
+Exp: truelistSize: 1
+[Exp->(Exp)]
+(Exp) str_content: 
+(Exp) falselistSize: 2
+(Exp) truelistSize: 1
+ENDOF_[Exp->(Exp)]
 Lex Ate token and__
 [SJ_Exp_IR]: 
 [MARKER IR]: label: bp_label_18
@@ -358,6 +360,11 @@ Lex Ate token  ;__
 [Exp_IR] Exp -> id: t3
 END_OF [Exp_IR] Exp -> id
 [SJ_Exp_IR]: t3
+[Exp_IR: Exp-> Exp1 And M Exp2 ] 
+exp1: falselistSize: 2
+exp2:t3 falselistSize: 1
+Exp: falselistSize: 3
+Exp: truelistSize: 1
 <<[Statement_Semantic][TypeID_SC] id:[t4]type:[]>>
 <<adding var: [t4] of type [5]>><<Statement_Semantic with id[t4]=exp>>
 [Entered Statment_IR: Type id = exp]
@@ -381,8 +388,8 @@ Lex Ate token  (__
 CallHeader_IR
 [Emitter] store_registers
 END_OF CallHeader_IR
-Lex Ate token  str__"true\n"__
-[Exp_IR] Exp -> string"true\n"
+Lex Ate token  str__"true4\n"__
+[Exp_IR] Exp -> string"true4\n"
 END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
@@ -395,17 +402,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 10
-ERROR: Reg not given yet. req:0 while max used is 0
-ERROR: Reg not given yet. req:1 while max used is 0
-ERROR: Reg not given yet. req:2 while max used is 0
-ERROR: Reg not given yet. req:3 while max used is 0
-ERROR: Reg not given yet. req:4 while max used is 0
-ERROR: Reg not given yet. req:5 while max used is 0
-ERROR: Reg not given yet. req:6 while max used is 0
-ERROR: Reg not given yet. req:7 while max used is 0
-ERROR: Reg not given yet. req:8 while max used is 0
-ERROR: Reg not given yet. req:9 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -422,8 +419,8 @@ Lex Ate token  (__
 CallHeader_IR
 [Emitter] store_registers
 END_OF CallHeader_IR
-Lex Ate token  str__"false\n"__
-[Exp_IR] Exp -> string"false\n"
+Lex Ate token  str__"false4\n"__
+[Exp_IR] Exp -> string"false4\n"
 END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
@@ -436,17 +433,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 10
-ERROR: Reg not given yet. req:0 while max used is 0
-ERROR: Reg not given yet. req:1 while max used is 0
-ERROR: Reg not given yet. req:2 while max used is 0
-ERROR: Reg not given yet. req:3 while max used is 0
-ERROR: Reg not given yet. req:4 while max used is 0
-ERROR: Reg not given yet. req:5 while max used is 0
-ERROR: Reg not given yet. req:6 while max used is 0
-ERROR: Reg not given yet. req:7 while max used is 0
-ERROR: Reg not given yet. req:8 while max used is 0
-ERROR: Reg not given yet. req:9 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -485,8 +472,23 @@ Lex Ate token )__
 [Exp_IR] Exp -> id: t3
 END_OF [Exp_IR] Exp -> id
 [SJ_Exp_IR]: t3
+[Exp_IR: Exp-> Exp1 And M Exp2 ] 
+exp1:t2 falselistSize: 1
+exp2:t3 falselistSize: 1
+Exp: falselistSize: 2
+Exp: truelistSize: 1
+[Exp->(Exp)]
+(Exp) str_content: 
+(Exp) falselistSize: 2
+(Exp) truelistSize: 1
+ENDOF_[Exp->(Exp)]
 [SJ_Exp_IR]: 
 Lex Ate token )__
+[Exp_IR: Exp-> Exp1 And M Exp2 ] 
+exp1:t1 falselistSize: 1
+exp2: falselistSize: 2
+Exp: falselistSize: 3
+Exp: truelistSize: 1
 [SJ_Exp_IR]: 
 [MARKER IR]: label: bp_label_26
 Lex Ate token  {__
@@ -495,8 +497,8 @@ Lex Ate token  (__
 CallHeader_IR
 [Emitter] store_registers
 END_OF CallHeader_IR
-Lex Ate token  str__"true\n"__
-[Exp_IR] Exp -> string"true\n"
+Lex Ate token  str__"true5\n"__
+[Exp_IR] Exp -> string"true5\n"
 END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
@@ -509,20 +511,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 13
-ERROR: Reg not given yet. req:0 while max used is 0
-ERROR: Reg not given yet. req:1 while max used is 0
-ERROR: Reg not given yet. req:2 while max used is 0
-ERROR: Reg not given yet. req:3 while max used is 0
-ERROR: Reg not given yet. req:4 while max used is 0
-ERROR: Reg not given yet. req:5 while max used is 0
-ERROR: Reg not given yet. req:6 while max used is 0
-ERROR: Reg not given yet. req:7 while max used is 0
-ERROR: Reg not given yet. req:8 while max used is 0
-ERROR: Reg not given yet. req:9 while max used is 0
-ERROR: Reg not given yet. req:10 while max used is 0
-ERROR: Reg not given yet. req:11 while max used is 0
-ERROR: Reg not given yet. req:12 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0
@@ -539,8 +528,8 @@ Lex Ate token  (__
 CallHeader_IR
 [Emitter] store_registers
 END_OF CallHeader_IR
-Lex Ate token  str__"false\n"__
-[Exp_IR] Exp -> string"false\n"
+Lex Ate token  str__"false5\n"__
+[Exp_IR] Exp -> string"false5\n"
 END_OF [Exp_IR] Exp -> string
 Lex Ate token )__
 <<ExpList_Semantic>> explist -> exp
@@ -553,20 +542,7 @@ tmptmp: 1
 [Call_IR] : with arguments print
 [get_func_label] print's label is: print
 found a string typed parameter print
-[Emitter] REstore_registers: 13
-ERROR: Reg not given yet. req:0 while max used is 0
-ERROR: Reg not given yet. req:1 while max used is 0
-ERROR: Reg not given yet. req:2 while max used is 0
-ERROR: Reg not given yet. req:3 while max used is 0
-ERROR: Reg not given yet. req:4 while max used is 0
-ERROR: Reg not given yet. req:5 while max used is 0
-ERROR: Reg not given yet. req:6 while max used is 0
-ERROR: Reg not given yet. req:7 while max used is 0
-ERROR: Reg not given yet. req:8 while max used is 0
-ERROR: Reg not given yet. req:9 while max used is 0
-ERROR: Reg not given yet. req:10 while max used is 0
-ERROR: Reg not given yet. req:11 while max used is 0
-ERROR: Reg not given yet. req:12 while max used is 0
+[Emitter] REstore_registers: 0
 END_OF [Call_IR]
 Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 0

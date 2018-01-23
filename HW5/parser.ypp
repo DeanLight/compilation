@@ -314,6 +314,7 @@ Exp:			      SJ_Exp AND Mark SJ_Exp
 				        | LPAREN Exp RPAREN
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(Lparen*)$1 , (ExpNode*)$2 , (Rparen*)$3  ) ;
+                  Exp_IR(yylineno,(ExpNode*)$$,(Lparen*)$1 , (ExpNode*)$2 , (Rparen*)$3  );
                   $$->addSon($1,$2,$3);}
 				        | ID
                 { $$=new ExpNode() ;
