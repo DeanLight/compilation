@@ -114,12 +114,8 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_ptr,MarkNode* M, class ExpNode* exp2)
 {
     emitter.comment("reach And derivation");
-    // patch E1 trulist to start of E2
-    // bp.backpath(E1.truelist, M.label)
     codebuff.bpatch(exp1->truelist,M->labelstr);
-    // Self.trulist.add(E2.truelist)
     Self->truelist=exp2->truelist;
-    // Self.falselist.add(E2.falselist,E1.falseList)
     Self->falselist=codebuff.merge(exp1->falselist,exp2->falselist);
 
     #ifdef COMPILE_DBG
@@ -136,13 +132,9 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class And* and_p
 void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Or* or_ptr, MarkNode* M ,class ExpNode* exp2)
 {
     emitter.comment("reach Or derivation");
-    // patch E1 falselist to start of E2
-    // bp.backpath(E1.falselist, M.label)
     codebuff.bpatch(exp1->falselist,M->labelstr);
     //
-    // Self.trulist.add(E2.truelist,E1.trulist)
     Self->truelist=codebuff.merge(exp1->truelist,exp2->truelist);
-    // Self.falselist.add(E2.falselist)
     Self->falselist=exp2->falselist;
 
     #ifdef COMPILE_DBG
@@ -317,10 +309,6 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
 void Exp_IR(int lineno,class ExpNode* Self,class Num* num){
 #ifdef COMPILE_DBG
     cerr << "[Exp_IR] Exp -> Num:" << num->str_content << endl;
-    if (symtabref.is_func("main"))
-    {
-        cerr << "{{{{ NOT RELEVANT:" << symtabref.get_func_label("main") << "}}}}" << endl;
-    }
 #endif
   string reg =RegMngr::getRegMngr().get_next_free_reg();
   emitter.num_toreg(reg,num->str_content);
@@ -357,13 +345,9 @@ void Exp_IR(int lineno,class ExpNode* Self,class String_Node* string_ptr){
 
 // Exp -> True
 void Exp_IR(int lineno,class ExpNode* Self,class True* true_val){
-  // emit an empty jump and link it to truelist
-  // create an empty list for falselist -- already created by default
+
   emitter.comment("exp derived true");
   Self->str_content = true_val->str_content;
-  // Self->truelist=codebuff.makelist(emitter.patchy_jump()); // Removed cause it could be a functiopn argument
-
-
 }
 
 // Exp -> False
@@ -371,7 +355,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class False* false_val){
 
   emitter.comment("exp derived false");
   Self->str_content = false_val->str_content;
-  // Self->falselist=codebuff.makelist(emitter.patchy_jump()); // Removed cause it could be a functiopn argument
+
 }
 
 // Exp -> Not Exp1
@@ -430,10 +414,6 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret) // vo
 {
 #ifdef COMPILE_DBG
     cerr << "[Statement_IR] Return void" << endl;
-    if (symtabref.is_func("main"))
-    {
-        cerr << "{{{{ NOT RELEVANT2:" << symtabref.get_func_label("main") << "}}}}" << endl;
-    }
 #endif
     emitter.comment("return");
     emitter.ret();
@@ -550,7 +530,7 @@ emitter.comment("poping " + IR_numToString(param_number) +" params from stack ")
   emitter.pops_from_stack("$ra");
   emitter.pops_from_stack("$fp");
   emitter.comment("restoring " + IR_numToString(header->regnum) + " previously used registers");
-  emitter.restore_registers(header->regnum);
+  emitter.restore_registers(header->regnum); //
   emitter.comment("Moving funcRes (if exists) to next free register");
   if (symtabref.get_type(id->str_content) != Void)
   {
@@ -580,14 +560,19 @@ void CallHeader_IR(int lineno, CallHeaderNode* Self){
 
 
 
-
-// statement -> Type id
-void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id){
-  // allocate a word for type on stack
+void _initialize_var(Id* id)
+{
+    // allocate a word for type on stack
   emitter.comment(" allocating word on stack for local variable "+id->str_content);
   emitter.allocate_words_on_stack(1);
   emitter.comment(" and initializing it to 0");
   emitter.set_var_value("$zero",symtabref.get_var_fp(id->str_content));
+}
+
+// statement -> Type id
+void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id){
+  _initialize_var(id);
+  Statement_next_patcher_IR(Self); // TODO
 }
 
 //statement -> id = exp
@@ -641,7 +626,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, cl
   #ifdef COMPILE_DBG
   cerr << "[Entered Statment_IR: Type id = exp]" << endl;
   #endif
-  Statement_IR(lineno,Self,type,id);
+  _initialize_var(id);
   Statement_IR(lineno,Self,id,assign,exp);
 }
 
@@ -759,7 +744,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr )
   cerr << " new breakcommand at " << address << " the old list had adress list of size " << Self->breaklist.size() << endl;
 #endif
 
-  Self->breaklist=codebuff.merge(Self->breaklist,codebuff.makelist(address));
+  Self->breaklist=codebuff.makelist(address);
   Statement_next_patcher_IR(Self);
 }
 
@@ -938,8 +923,6 @@ void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
   emitter.comment("switch!");
   int addr=emitter.patchy_jump();
   Self->init_jump_addr=addr;
-
-
 }
 
 
@@ -950,7 +933,12 @@ void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_o
   Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[0]);
 
   Self->statevec=rest_of_list->statevec;
-  Self->statevec.push_back((StatementsNode*)case_ptr->sons[1]);
+  if(case_ptr->sons.size()>1)
+  {
+    Self->statevec.push_back((StatementsNode*)case_ptr->sons[1]);
+  }else{
+    Self->statevec.push_back((StatementsNode*)NULL);
+  }
 
   Self->markvec=rest_of_list->markvec;
   Self->markvec.push_back(M);
@@ -962,8 +950,7 @@ void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_o
 void CaseList_IR(int lineno,class CaseListNode* Self, MarkNode* M, class CaseStatementNode* case_ptr){
   Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[0]);
   if(case_ptr->sons.size()>1){// if its a case with statements
-  Self->statevec.push_back((StatementsNode*)case_ptr->sons[1]);
-
+    Self->statevec.push_back((StatementsNode*)case_ptr->sons[1]);
   }else{
     Self->statevec.push_back((StatementsNode*)NULL);
   }
