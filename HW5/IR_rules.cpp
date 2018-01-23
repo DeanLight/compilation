@@ -824,17 +824,24 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   #endif
   // r0 = get last register (register of the exp)
   string expreg=regmnref.last_reg();
-
   vector<CaseDecNode*>& CDvec=caselist->caseDecvec;
   vector<StatementsNode*>& STvec=caselist->statevec;
   vector<MarkNode*>& Mvec=caselist->markvec;
 
+  #ifdef COMPILE_DBG
+      cerr << "CDvec size is  " << CDvec.size() << endl;
+  #endif
+
+  #ifdef COMPILE_DBG
+      cerr << "[Seggfault test] expreg is "<< expreg << endl;
+  #endif
   int n=Mvec.size();
 
   //
   // emit(init:)
   emitter.comment("switch init label");
   string initlabel=emitter.get_bp_label();
+  emitter.add_label(initlabel);
   //bp.switchhead.initlabel = init
   codebuff.bpatch(  codebuff.makelist(switch_ptr->init_jump_addr)  , initlabel);
 
@@ -848,13 +855,30 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   //    else
   //      emit(beq r0, (immediate of caseDec), caseDec.M
   // }
+  #ifdef COMPILE_DBG
+      cerr << "[Seggfault test 2] " << endl;
+  #endif
   for(int i=0;i<n;i++){
+
     if( CDvec[i]->sons.size()==2 ) {//default
+      #ifdef COMPILE_DBG
+          cerr << "foudn default in i =" << i << endl;
+      #endif
       default_index=i;
     }
     else{//in this case son2 is the number
-      string caseVal=CDvec[i]->sons[2]->str_content;
+      #ifdef COMPILE_DBG
+          cerr << "in normal case number" << i << endl;
+      #endif
+
+      string caseVal=CDvec[i]->sons[1]->str_content;
+      #ifdef COMPILE_DBG
+          cerr << "after else state 1" << i << endl;
+      #endif
       emitter.beq_to_immediate(expreg,caseVal,Mvec[i]->labelstr);
+      #ifdef COMPILE_DBG
+          cerr << "after else state 2" << i << endl;
+      #endif
 
     }
   }
@@ -866,12 +890,15 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   if(default_index>=0){
     emitter.jump(Mvec[default_index]->labelstr);
   }
-  //
+  #ifdef COMPILE_DBG
+      cerr << "before backpatching case nextlists" << endl;
+  #endif
   // for i in [n-1]
   // bp(Si.nextlist into M[i+1]
-  //
-  //
   for(int i =0 ; i<n-1; i++){
+    #ifdef COMPILE_DBG
+        cerr << "backpatching nextlist  " << i<< endl;
+    #endif
     codebuff.bpatch(STvec[i]->nextlist,Mvec[i+1]->labelstr);
   }
 
@@ -880,7 +907,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   // add Sn.nextList to self.nextlist
   string end_of_switch=emitter.get_bp_label();
   emitter.add_label(end_of_switch);
-  codebuff.bpatch(STvec[n]->nextlist,end_of_switch);
+  codebuff.bpatch(STvec[n-1]->nextlist,end_of_switch);
 
   //
   //  giant_breakList=emptyList)
@@ -888,11 +915,14 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   //    giant_breaklist.mergewith(s.breaklist)
   //
   //  bp(giant_breaklist) into keepline
+  #ifdef COMPILE_DBG
+      cerr << "before backpatching case breaklists" << endl;
+  #endif
   vector<int> break_list=vector<int>();
     for(int i=0; i<n; i++){
       break_list=codebuff.merge(break_list,STvec[i]->breaklist);
     }
-    codebuff.bpatch(STvec[n]->nextlist,end_of_switch);
+    codebuff.bpatch(STvec[n-1]->breaklist,end_of_switch);
   //
   //
   //
@@ -917,10 +947,10 @@ void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
 //CaseList:		CaseList M CaseStatement
 void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, MarkNode* M, class CaseStatementNode* case_ptr){
   Self->caseDecvec=rest_of_list->caseDecvec;
-  Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[1]);
+  Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[0]);
 
   Self->statevec=rest_of_list->statevec;
-  Self->statevec.push_back((StatementsNode*)case_ptr->sons[2]);
+  Self->statevec.push_back((StatementsNode*)case_ptr->sons[1]);
 
   Self->markvec=rest_of_list->markvec;
   Self->markvec.push_back(M);
@@ -930,8 +960,8 @@ void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_o
 
 //CaseList:	 M CaseStatement
 void CaseList_IR(int lineno,class CaseListNode* Self, MarkNode* M, class CaseStatementNode* case_ptr){
-  Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[1]);
-  Self->statevec.push_back((StatementsNode*)case_ptr->sons[2]);
+  Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[0]);
+  Self->statevec.push_back((StatementsNode*)case_ptr->sons[1]);
   Self->markvec.push_back(M);
 
 }

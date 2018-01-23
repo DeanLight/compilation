@@ -61,4 +61,238 @@ Lex Ate token  ;__
 [Statement_IR Call] nestlistSize: 1
 [Statement_IR: States->SignleState]  nextlistSize=1
 Lex Ate token  }__
+Lex Ate token  ;__
+[Statement_IR: state->switch_head caseList ]
+CDvec size is  1
+[Seggfault test] expreg is $t0
+[Seggfault test 2] 
+in normal case number0
+after else state 10
+after else state 20
+before backpatching case nextlists
+before backpatching case breaklists
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States->SignleState]  nextlistSize=1
 Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_3
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers
+END_OF CallHeader_IR
+Lex Ate token  str__"two\n"__
+[Exp_IR] Exp -> string"two\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 1
+ERROR: Reg not given yet. req:0 while max used is 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_3
+Lex Ate token switch__
+[MARKER IR]: label: bp_label_4
+Lex Ate token  (__
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+[get_func_label] main's label is: label_29
+{{{{ NOT RELEVANT:label_29}}}}
+END_OF [Exp_IR] Exp -> Num
+Lex Ate token  {__
+[MARKER IR]: label: bp_label_5
+Lex Ate token case__
+Lex Ate token  num__1__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers
+END_OF CallHeader_IR
+Lex Ate token  str__"one\n"__
+[Exp_IR] Exp -> string"one\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 2
+ERROR: Reg not given yet. req:0 while max used is 0
+ERROR: Reg not given yet. req:1 while max used is 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  }__
+Lex Ate token  ;__
+[Statement_IR: state->switch_head caseList ]
+CDvec size is  1
+[Seggfault test] expreg is $t1
+[Seggfault test 2] 
+in normal case number0
+after else state 10
+after else state 20
+before backpatching case nextlists
+before backpatching case breaklists
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_4
+Lex Ate token switch__
+[MARKER IR]: label: bp_label_8
+Lex Ate token  (__
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+[get_func_label] main's label is: label_29
+{{{{ NOT RELEVANT:label_29}}}}
+END_OF [Exp_IR] Exp -> Num
+Lex Ate token  {__
+[MARKER IR]: label: bp_label_9
+Lex Ate token case__
+Lex Ate token  num__3__
+Lex Ate token B__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers
+END_OF CallHeader_IR
+Lex Ate token  str__"three\n"__
+[Exp_IR] Exp -> string"three\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 3
+ERROR: Reg not given yet. req:0 while max used is 0
+ERROR: Reg not given yet. req:1 while max used is 0
+ERROR: Reg not given yet. req:2 while max used is 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  }__
+Lex Ate token  ;__
+[Statement_IR: state->switch_head caseList ]
+CDvec size is  1
+[Seggfault test] expreg is $t2
+[Seggfault test 2] 
+in normal case number0
+after else state 10
+after else state 20
+before backpatching case nextlists
+before backpatching case breaklists
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_8
+Lex Ate token switch__
+[MARKER IR]: label: bp_label_12
+Lex Ate token  (__
+Lex Ate token  num__4__
+Lex Ate token B__
+<<[Exp_Semantic] B:[4]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:4
+[get_func_label] main's label is: label_29
+{{{{ NOT RELEVANT:label_29}}}}
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token )__
+Lex Ate token  {__
+[MARKER IR]: label: bp_label_13
+Lex Ate token case__
+Lex Ate token  num__4__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers
+END_OF CallHeader_IR
+Lex Ate token  str__"four"__
+[Exp_IR] Exp -> string"four"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 4
+ERROR: Reg not given yet. req:0 while max used is 0
+ERROR: Reg not given yet. req:1 while max used is 0
+ERROR: Reg not given yet. req:2 while max used is 0
+ERROR: Reg not given yet. req:3 while max used is 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  }__
+Lex Ate token  ;__
+[Statement_IR: state->switch_head caseList ]
+CDvec size is  1
+[Seggfault test] expreg is $t3
+[Seggfault test 2] 
+in normal case number0
+after else state 10
+after else state 20
+before backpatching case nextlists
+before backpatching case breaklists
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_12
+Lex Ate token  }__
+[FuncDeclNode_IR]: 
+checking retType of func: main
+If void, an extra ret will be added
+Ret type: 1
+[Program_IR] backpatching line number 4 with [get_func_label] main's label is: label_29
+label_29
+[get_func_label] main's label is: label_29
+ignore me1 (label_29)
+[END_OF Program_IR]

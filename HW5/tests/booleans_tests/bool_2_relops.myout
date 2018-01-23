@@ -1,7 +1,0 @@
-Loaded: ./exceptions.s
-true	true	false	false	
-false	false	true	true	
-false	false	false	true	
-true	true	false	true	
-false	false	true	false	
-true	true	true	false	
