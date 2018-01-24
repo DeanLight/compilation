@@ -1,0 +1,192 @@
+[[[ added func: print with 1 params and label: ]]]
+[[[ added func: printi with 1 params and label: ]]]
+print param:2(1)
+printi param:3(1)
+[FIRST_PROGRAM_POINT]
+[set_func_label] label print for function print
+[set_func_label] label printi for function printi
+(END_OF)  [FIRST_PROGRAM_POINT]
+Lex Ate token void__
+Lex Ate token  id__printByValue__
+Lex Ate token  (__
+Lex Ate token bool__
+Lex Ate token  id__val__
+<<FormalDecl_Semantic: id[val]>>
+<<adding param: [val] of type [5]>>Lex Ate token )__
+<<FormalsSem>><<FuncHead_semantic, id:[printByValue]>>
+[[[ added func: printByValue with 1 params and label: ]]]
+FuncHead_IR for func: printByValue
+got label label_29 in line: -1
+[set_func_label] label label_29 for function printByValue
+[get_func_label] printByValue's label is: label_29
+written label: label_29
+END_OF [FuncHead_IR] 
+Lex Ate token  {__
+Lex Ate token if__
+Lex Ate token  (__
+Lex Ate token  id__val__
+Lex Ate token )__
+<<[Exp_Semantic_Id] id:[val]>>
+[Exp_IR] Exp -> id: val
+END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: val
+[MARKER IR]: label: bp_label_0
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"val is true\n"__
+[Exp_IR] Exp -> string"val is true\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR Call] nestlistSize: 0
+[MARKER IR]: label: bp_label_1
+Lex Ate token else__
+Lex Ate token  {__
+Lex Ate token  id__printi__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__42__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:42
+END_OF [Exp_IR] Exp -> Num
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR: States->SignleState]  nextlistSize=0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_2
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 0 with label: bp_label_2 breaklist size is 0
+Lex Ate token  }__
+size of next list for if is0
+size of next list for else is0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  }__
+[FuncDeclNode_IR]: 
+checking retType of func: printByValue
+If void, an extra ret will be added
+Ret type: 1
+Lex Ate token void__
+Lex Ate token  id__main__
+Lex Ate token  (__
+Lex Ate token )__
+<<FuncHead_semantic, id:[main]>>
+[[[ added func: main with 0 params and label: ]]]
+FuncHead_IR for func: main
+got label label_133 in line: -1
+[set_func_label] label label_133 for function main
+Saving main label: label_133
+[get_func_label] main's label is: label_133
+written label: label_133
+END_OF [FuncHead_IR] 
+Lex Ate token  {__
+Lex Ate token  id__printByValue__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token true__
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : true
+exp is of type BOOL
+[ExpList_IR: ExpList->Exp]: true
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printByValue
+[get_func_label] printByValue's label is: label_29
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR: States->SignleState]  nextlistSize=0
+Lex Ate token  id__printByValue__
+[MARKER IR]: label: bp_label_5
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token false__
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : false
+exp is of type BOOL
+[ExpList_IR: ExpList->Exp]: false
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printByValue
+[get_func_label] printByValue's label is: label_29
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR Call] nestlistSize: 0
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 0 with label: bp_label_5 breaklist size is 0
+Lex Ate token  }__
+[FuncDeclNode_IR]: 
+checking retType of func: main
+If void, an extra ret will be added
+Ret type: 1
+[Program_IR] backpatching line number 4 with [get_func_label] main's label is: label_133
+label_133
+[get_func_label] main's label is: label_133
+ignore me1 (label_133)
+[END_OF Program_IR]

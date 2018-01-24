@@ -818,7 +818,13 @@ void Statement_IR(int lineno,class StatementNode* Self, class CallNode* call){
 #ifdef COMPILE_DBG
   cerr << "[Statement_IR Call] nestlistSize: " << Self->nextlist.size() << endl;
 #endif
-  Statement_next_patcher_IR(Self);
+  string funcid= (call->sons[0])->str_content;
+  if(symtabref.get_type(funcid)!=Void){
+
+    emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
+    regmnref.free_last_reg();
+    Statement_next_patcher_IR(Self);
+  }
 #ifdef COMPILE_DBG
   cerr << "[Statement_IR Call] nestlistSize: " << Self->nextlist.size() << endl;
 #endif
