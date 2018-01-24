@@ -39,7 +39,9 @@
 %left AND
 %left NOT
 %left RELOP
-%left BINOP
+%left BINOP_ADD_SUB
+%left BINOP_MUL_DIV
+
 
 %token ID
 %nonassoc NUM
@@ -309,7 +311,12 @@ Exp:			      SJ_Exp AND Mark SJ_Exp
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ;
                   $$->addSon($1,$2,$3);
                   Exp_IR(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Relop*)$2 , (ExpNode*)$3  ) ;}
-				        | SJ_Exp BINOP SJ_Exp
+				        | SJ_Exp BINOP_MUL_DIV SJ_Exp
+                { $$=new ExpNode() ;
+                  Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Binop*)$2 , (ExpNode*)$3  ) ;
+                  $$->addSon($1,$2,$3);
+                  Exp_IR(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Binop*)$2 , (ExpNode*)$3);}
+                | SJ_Exp BINOP_ADD_SUB SJ_Exp
                 { $$=new ExpNode() ;
                   Exp_Semantic(yylineno,(ExpNode*)$$,(ExpNode*)$1 , (Binop*)$2 , (ExpNode*)$3  ) ;
                   $$->addSon($1,$2,$3);

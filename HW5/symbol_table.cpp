@@ -61,7 +61,7 @@ std::string SymbolTable::get_func_label(const std::string &func_id) const
 
     if(!is_func(func_id))
     {
-        cerr << "[get_func_label] ERROR - asked to set label for none-existing func: " << func_id << endl;
+        cerr << "[get_func_label] ERROR - asked to get label for none-existing func: " << func_id << endl;
     }
     cerr << "[get_func_label] " << func_id << "'s label is: "  << (all_scopes[0].varSymbT.at(func_id))._get_func_label()<< endl;
     #endif

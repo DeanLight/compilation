@@ -1,0 +1,15 @@
+
+void g(){
+	print("girl\n")
+}
+
+void f(){
+	print("boy\n");
+	g();
+}	
+
+
+void main(){
+	print("apple ");
+	f();
+}
