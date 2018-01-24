@@ -22,7 +22,6 @@ public:
   Emitter():string_num(0),backpatch_num(0){};
   string get_local_string_label();
   string get_bp_label();
-  //TODO add a nextLabel generator
 
 	void add(const string& dreg,const  string& sreg1 ,const string& sreg2) const;
 	void subtruct(const string& dreg, const string& sreg1 ,const string& sreg2) const;

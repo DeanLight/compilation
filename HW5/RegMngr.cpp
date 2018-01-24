@@ -95,27 +95,13 @@ int RegMngr::regs_currently_used() const {
     return next_free_reg;
 }
 
-// vector<string> RegMngr::save_all_regs_to_stack() const {
-//     vector<string> cmds;
-//     // the +1 is to save the $ra
-//     int sp_change = 4*(next_free_reg);
-//     //string expand_stack = "\taddiu $sp, $sp, -"+intToString(sp_change);
-//     //cmds.push_back(expand_stack);
-//     for (int i=0,offset=sp_change; i<next_free_reg; i++,offset-=4)
-//     { // TODO
-//         //std::string line = std::string("\tsw ") + tmpRegI(i) +","+intToString(offset)+"($sp)" ;
-//         sting line =("\tsw "
-//         cmds.push_back(line);
-//     }
-//     return cmds;
-// }
 
 vector<string> RegMngr::restore_all_regs_from_stack(int num_of_reg_to_restore) const {
   vector<string> cmds;
   // the +1 is to save the $ra
   int sp_change = 4*(num_of_reg_to_restore);
   for (int i=0,offset=sp_change; i<num_of_reg_to_restore; i++,offset-=4)
-  { // TODO
+  {
       std::string line = std::string("\tlw ") + tmpRegI(i) +","+intToString(offset)+"($sp)" ;
       cmds.push_back(line);
   }

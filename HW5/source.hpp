@@ -107,7 +107,7 @@ class FormalsNode : public Node{
 	public:
 	std::vector<type_e> types_vec;
 	std::vector<string> idvec;
-	//TODO add constructor that inits types vec to empty vec
+
 
 };
 
@@ -115,14 +115,13 @@ class FormalsListNode : public Node{
 public:
 	std::vector<type_e> typesvec;
 	std::vector<string> idvec;
-	//TODO add constructor that inits types vec to empty vec
 };
 
 class FormalDeclNode : public Node{
 public:
 	type_e Type;
 	//FormalDeclNode(std::string txt):Node(txt),Type(Uninit){};
-    FormalDeclNode():Type(Uninit){}; // for now TODO
+    FormalDeclNode():Type(Uninit){};
 
 };
 
@@ -305,7 +304,7 @@ class Id : public Node{
 class Num : public Node{
 	public:
 		std::string value;
-		Num(const char* txt):Node(txt),value(txt){}; // TODO - there a double fields
+		Num(const char* txt):Node(txt),value(txt){}; //
 };
 class String_Node : public Node{
 	public:

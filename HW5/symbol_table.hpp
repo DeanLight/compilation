@@ -65,7 +65,7 @@ typedef class var_details
 typedef std::map<std::string, var_data> var_map;
 // start of scope's offset, and the hash_table for the scope
 typedef struct scope_data{
-    unsigned start_offset;// TODO is needed?
+    unsigned start_offset;//
     unsigned curr_offset;
     var_map varSymbT;
 //    var_map funcSymbT; // REMOVED

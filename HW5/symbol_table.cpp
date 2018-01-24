@@ -1,6 +1,6 @@
 #include "symbol_table.hpp"
 #include <exception>
-#include <iostream> // TODO REMOVE
+#include <iostream>
 #include <sstream> // for num to string conversion
 
 #define SYMTABDEBUG
@@ -24,7 +24,6 @@ std::string SymbolTable::get_var_fp(const std::string &var_id) const {
     }
 #endif
     int offset = get_var_data(var_id).offset;
-    // TODO change?
     if (offset)
     {
         std::stringstream numStr;
@@ -72,12 +71,12 @@ std::string SymbolTable::get_func_label(const std::string &func_id) const
     }
     else
     {
-        cerr << "[get_func_label] " << func_id << "'s label is: "  << (all_scopes[0].varSymbT.at(func_id))._get_func_label()<< endl;    
+        cerr << "[get_func_label] " << func_id << "'s label is: "  << (all_scopes[0].varSymbT.at(func_id))._get_func_label()<< endl;
     }
     #endif
     try{
         return (all_scopes[0].varSymbT.at(func_id))._get_func_label(); //
-    } 
+    }
     catch (exception &e)
     {
         #ifdef SYMTABDEBUG
@@ -108,8 +107,8 @@ SymbolTable::SymbolTable():all_scopes() {
     add_func_into_global_scope("printi",Void,single_print_param);
 
 #ifdef SYMTABDEBUG
-    cerr << "print param:" << get_func_data("print").params[0] << "(" << get_func_data("print").params.size() << ")" << endl; // TODO REMOVE
-    cerr << "printi param:" << get_func_data("printi").params[0] << "(" << get_func_data("printi").params.size() << ")" << endl; // TODO REMOVE
+    cerr << "print param:" << get_func_data("print").params[0] << "(" << get_func_data("print").params.size() << ")" << endl;
+    cerr << "printi param:" << get_func_data("printi").params[0] << "(" << get_func_data("printi").params.size() << ")" << endl;
 #endif
 
 }
@@ -178,11 +177,11 @@ v_type SymbolTable::get_type(const std::string &id) const{
     {
         return Void;
     }
-    return Uninit; // TODO is that ok? should we throw an error?
+    return Uninit;
 }
 bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
 #ifdef SYMTABDEBUG
-    cerr << "<<adding var: [" << var_id <<"] of type [" << tt << "]>>"; // TODO REMOVE
+    cerr << "<<adding var: [" << var_id <<"] of type [" << tt << "]>>";
 #endif
     scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os = currScope.curr_offset;
@@ -197,7 +196,7 @@ bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
 bool SymbolTable::add_param(const std::string &var_id, v_type tt) {
     // this is written to the curr scope which should be the new func's scope
 #ifdef SYMTABDEBUG
-    cerr << "<<adding param: [" << var_id <<"] of type [" << tt << "]>>"; // TODO REMOVE
+    cerr << "<<adding param: [" << var_id <<"] of type [" << tt << "]>>";
 #endif
     scope_data &currScope = all_scopes[all_scopes.size()-1];
     int os;
@@ -260,7 +259,7 @@ bool SymbolTable::add_func_into_global_scope(const std::string &func_name, v_typ
     all_scopes[0].varSymbT[func_name] = func_data;
     all_scopes[0].variables.push_back(make_pair(func_name,0));
 #ifdef SYMTABDEBUG
-    std::cerr << "[[[ added func: " << func_name << " with " << paramsTypes.size() << " params and label: " << func_data._get_func_label() <<"]]]" << endl; // TODO REMOVE
+    std::cerr << "[[[ added func: " << func_name << " with " << paramsTypes.size() << " params and label: " << func_data._get_func_label() <<"]]]" << endl;
 #endif
     return true;
 }

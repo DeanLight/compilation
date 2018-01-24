@@ -310,7 +310,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
       if(Self->Type==Bool)
       {
         emitter.comment("a Bool Func " + call->str_content);
-        int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero"); // TODO fix?
+        int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero");
         int line_j = emitter.patchy_jump();
         Self->truelist = codebuff.makelist(line_neq);
         Self->falselist = codebuff.makelist(line_j);
@@ -504,7 +504,7 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
 
   emitter.restore_registers(regnum);
   // move v0 to a new reg
-  if (symtabref.get_type(id->str_content) != Void) //TODO handle case where retun value is bool
+  if (symtabref.get_type(id->str_content) != Void)
   {
     emitter.comment("moving return value to new reg");
     string reg =regmnref.get_next_free_reg();
@@ -580,7 +580,6 @@ emitter.comment("poping " + IR_numToString(param_number) +" params from stack ")
   emitter.comment("restoring " + IR_numToString(header->regnum) + " previously used registers");
   emitter.restore_registers(header->regnum); //
   emitter.comment("Moving funcRes (if exists) to next free register");
-  //TODO i changes this to also to handle the case where ret type is bool.
   if (symtabref.get_type(id->str_content) != Void)
   {
     emitter.comment("NoneVoid function, moving its result value");
@@ -616,7 +615,6 @@ void MVSP_IR(){
       cerr << "[MVSP_IR] moving sp for place for new var" << endl;
   #endif
   emitter.comment("preparing for new var");
-  //emitter.set_var_value("$zero","($sp)"); // TODO REMOVE?
   emitter.allocate_words_on_stack(1);
 }
 
@@ -632,7 +630,7 @@ void _initialize_var(Id* id)
 // statement -> Type id
 void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, class Id* id){
   _initialize_var(id);
-  Statement_next_patcher_IR(Self); // TODO
+  Statement_next_patcher_IR(Self);
 }
 
 //statement -> id = exp
@@ -798,7 +796,6 @@ void Statement_IR(int lineno,class StatementNode* Self, class Lbrace* lbr, class
 
 }
 
-//TODO check all statements have end_patcher and inheret nextlist and breaklist
 
 //statement -> break;
 void Statement_IR(int lineno,class StatementNode* Self, class Break* break_ptr ){
@@ -985,7 +982,6 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   //
   Statement_next_patcher_IR(Self); //
 
-  // TODO:
   emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
   regmnref.free_last_reg();
 
@@ -1040,7 +1036,6 @@ void CaseList_IR(int lineno,class CaseListNode* Self, CaseInitNode* initM , Mark
 }
 
 void CaseInit_IR(CaseInitNode* Self){
- // TODO
  int vars_created = symtabref.vars_created_in_last_scope();
  string Minitlabel=emitter.get_bp_label();
  emitter.comment("case init marker");
@@ -1114,16 +1109,6 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
     Self->falselist = codebuff.makelist(line_j);
     return;
   }
- // if(symtabref.is_func(exp_name))
- // {
- //   emitter.comment("a Bool Func " + exp_name + " in boolean operator");
- //   int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero"); // TODO fix?
- //   int line_j = emitter.patchy_jump();
- //   Self->truelist = codebuff.makelist(line_j);
- //   Self->falselist = codebuff.makelist(line_neq);
- //   regmnref.free_last_reg();
- //   return;
- // }
 
 }
 

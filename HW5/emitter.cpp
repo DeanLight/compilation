@@ -20,11 +20,6 @@ std::string glob_int_to_str(int num)
     return numStr.str();
 }
 
-int glob_str_to_int(std::string st)
-{
-  //TODO build this shit
-  return 0;
-}
 
 string Emitter::get_local_string_label(){
   std::stringstream label;
@@ -47,7 +42,7 @@ string Emitter::get_bp_label(){
 }
 
 void Emitter::add_print_func() const {
-    codebuffer.emit("lw $a0,4($sp)"); //TODO talk about difference between printi and print
+    codebuffer.emit("lw $a0,4($sp)");
     codebuffer.emit("li $v0,4");
     codebuffer.emit("syscall");
     codebuffer.emit("jr $ra");
@@ -252,10 +247,8 @@ void Emitter::debug_print(const string &debug_print) const{
 
 
 void Emitter::msg_print(const string &msg) const{
-    // TODO - check this fix works
     std::string random_prefix = "pvufne"; // written by a random monkey
     static int msg_print_index = 1;
-//    string label = codebuffer.next(); // TODO FIX - already writes the label - make a double
     string label = random_prefix + glob_int_to_str(msg_print_index);
     msg_print_index++;
     codebuffer.emitData(label+":\t.asciiz \""+msg+ "\"");
@@ -276,7 +269,7 @@ void Emitter::get_var_value(const string& dreg, const string& fp_offset) const{
 void Emitter::load_address_to_stack(string address){
   comment("loading str address to stack");
   string expand_stack = "\taddiu $sp, $sp, -4";
-  string store_source1 = "\tla $v0, "+address; // TODO affirm use of v0 to avoid extra regular registers, since it is not used anyway
+  string store_source1 = "\tla $v0, "+address;
   string store_source2= "\tsw $v0, ($sp)";
   codebuffer.emit(store_source1);
   codebuffer.emit(store_source2);
@@ -313,9 +306,6 @@ int Emitter::add_generated_label(){
 
 void Emitter::halt(){
 
-//    const string command = "\tdone"; // TODO revert back?
-//    codebuffer.emit(command);
-    //
     comment("exiting...");
     codebuffer.emit("li $v0, 10");
     codebuffer.emit("syscall");
