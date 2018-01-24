@@ -1,0 +1,1055 @@
+[[[ added func: print with 1 params and label: ]]]
+[[[ added func: printi with 1 params and label: ]]]
+print param:2(1)
+printi param:3(1)
+[FIRST_PROGRAM_POINT]
+[set_func_label] label print for function print
+[set_func_label] label printi for function printi
+(END_OF)  [FIRST_PROGRAM_POINT]
+Lex Ate token bool__
+Lex Ate token  id__NeverPrintMe__
+Lex Ate token  (__
+Lex Ate token int__
+Lex Ate token  id__message__
+<<FormalDecl_Semantic: id[message]>>
+<<adding param: [message] of type [3]>>Lex Ate token )__
+<<FormalsSem>><<FuncHead_semantic, id:[NeverPrintMe]>>
+[[[ added func: NeverPrintMe with 1 params and label: ]]]
+FuncHead_IR for func: NeverPrintMe
+got label label_29 in line: -1
+[set_func_label] label label_29 for function NeverPrintMe
+[get_func_label] NeverPrintMe's label is: label_29
+written label: label_29
+END_OF [FuncHead_IR] 
+Lex Ate token  {__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"YOU PRINTED THE UNPRINTABLE. error message: "__
+[Exp_IR] Exp -> string"YOU PRINTED THE UNPRINTABLE. error message: "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_0
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  id__message__
+Lex Ate token )__
+<<[Exp_Semantic_Id] id:[message]>>
+[Exp_IR] Exp -> id: message
+END_OF [Exp_IR] Exp -> id
+<<ExpList_Semantic>> explist -> exp : message
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: message
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_0 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_1
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__" I SENTENCE YOU TO AN ENDLESS DEBUGGING.\n"__
+[Exp_IR] Exp -> string" I SENTENCE YOU TO AN ENDLESS DEBUGGING.\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_1 breaklist size is 0
+Lex Ate token  }__
+[FuncDeclNode_IR]: 
+checking retType of func: NeverPrintMe
+If void, an extra ret will be added
+Ret type: 5
+Lex Ate token void__
+Lex Ate token  id__breakingBad__
+Lex Ate token  (__
+Lex Ate token )__
+<<FuncHead_semantic, id:[breakingBad]>>
+[[[ added func: breakingBad with 0 params and label: ]]]
+FuncHead_IR for func: breakingBad
+got label label_125 in line: -1
+[set_func_label] label label_125 for function breakingBad
+[get_func_label] breakingBad's label is: label_125
+written label: label_125
+END_OF [FuncHead_IR] 
+Lex Ate token  {__
+Lex Ate token int__
+Lex Ate token  id__i__
+Lex Ate token  =__
+[MVSP_IR] moving sp for place for new var
+Lex Ate token  num__1__
+Lex Ate token  ;__
+[Exp_IR] Exp -> Num:1
+END_OF [Exp_IR] Exp -> Num
+<<[Statement_Semantic][TypeID_SC] id:[i]type:[]>>
+<<adding var: [i] of type [3]>><<Statement_Semantic with id[i]=exp>>
+[Entered Statment_IR: Type id = exp]
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token int__
+[MARKER IR]: label: bp_label_3
+Lex Ate token  id__crazyKey__
+Lex Ate token  =__
+[MVSP_IR] moving sp for place for new var
+Lex Ate token  num__1__
+Lex Ate token  ;__
+[Exp_IR] Exp -> Num:1
+END_OF [Exp_IR] Exp -> Num
+<<[Statement_Semantic][TypeID_SC] id:[crazyKey]type:[]>>
+<<adding var: [crazyKey] of type [3]>><<Statement_Semantic with id[crazyKey]=exp>>
+[Entered Statment_IR: Type id = exp]
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_3 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_4
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"BREAKING GOOD: 1 TO 10. ELSE: BREAKING BAD"__
+[Exp_IR] Exp -> string"BREAKING GOOD: 1 TO 10. ELSE: BREAKING BAD"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_4 breaklist size is 0
+Lex Ate token while__
+[MARKER IR]: label: bp_label_5
+[MARKER IR]: label: bp_label_6
+Lex Ate token  (__
+Lex Ate token  (__
+Lex Ate token true__
+Lex Ate token )__
+[Exp->(Exp)]
+(Exp) str_content: true
+(Exp) falselistSize: 0
+(Exp) truelistSize: 0
+ENDOF_[Exp->(Exp)]
+[SJ_Exp_IR]: true
+Lex Ate token )__
+[MARKER IR]: label: bp_label_7
+Lex Ate token  {__
+Lex Ate comment://print("Crazy key is ");
+
+Lex Ate comment://print(crazyKey);
+
+Lex Ate comment://print("\n");
+
+Lex Ate token switch__
+Lex Ate token  (__
+Lex Ate token  id__crazyKey__
+Lex Ate token )__
+<<[Exp_Semantic_Id] id:[crazyKey]>>
+[Exp_IR] Exp -> id: crazyKey
+END_OF [Exp_IR] Exp -> id
+Lex Ate token  {__
+[MARKER IR]: label: bp_label_8
+Lex Ate token case__
+Lex Ate token  num__435__
+Lex Ate token  :__
+Lex Ate token case__
+[MARKER IR]: label: bp_label_9
+Lex Ate token  num__232__
+Lex Ate token  :__
+Lex Ate token case__
+[MARKER IR]: label: bp_label_10
+Lex Ate token  num__1__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"1 "__
+[Exp_IR] Exp -> string"1 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token case__
+[MARKER IR]: label: bp_label_11
+Lex Ate token  num__111__
+Lex Ate token  :__
+Lex Ate token bool__
+Lex Ate token  id__isThisDefined__
+Lex Ate token  ;__
+<<[Statement_Semantic][TypeID_SC] id:[isThisDefined]type:[]>>
+<<adding var: [isThisDefined] of type [5]>>[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_12
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"2 "__
+[Exp_IR] Exp -> string"2 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_12 breaklist size is 0
+Lex Ate token default__
+[MARKER IR]: label: bp_label_13
+Lex Ate token  :__
+Lex Ate token bool__
+Lex Ate token  id__noMatch__
+Lex Ate token  =__
+[MVSP_IR] moving sp for place for new var
+Lex Ate token  id__crazyKey__
+Lex Ate token  RelOp__!=__
+<<[Exp_Semantic_Id] id:[crazyKey]>>
+[Exp_IR] Exp -> id: crazyKey
+END_OF [Exp_IR] Exp -> id
+not a bool var so no SJ_exp after effects crazyKey
+Lex Ate token  num__1__
+Lex Ate token  ;__
+[Exp_IR] Exp -> Num:1
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Relop Exp -> Exp1 != Exp2
+END_OF [Exp_IR]:Relop Exp -> Exp1 != Exp2
+<<[Statement_Semantic][TypeID_SC] id:[noMatch]type:[]>>
+<<adding var: [noMatch] of type [5]>><<Statement_Semantic with id[noMatch]=exp>>
+[Entered Statment_IR: Type id = exp]
+[Statement_next_patcher_IR] previously held nextlist size:2
+[Statement_next_patcher_IR] currently held nextlist size:3
+[Statement_IR: States->SignleState]  nextlistSize=3
+Lex Ate token if__
+[MARKER IR]: label: bp_label_14
+Lex Ate token  (__
+Lex Ate token  id__noMatch__
+Lex Ate token )__
+<<[Exp_Semantic_Id] id:[noMatch]>>
+[Exp_IR] Exp -> id: noMatch
+END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: noMatch
+[MARKER IR]: label: bp_label_15
+Lex Ate token  {__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"7 "__
+[Exp_IR] Exp -> string"7 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  id__crazyKey__
+[MARKER IR]: label: bp_label_16
+Lex Ate token  =__
+Lex Ate token  num__9__
+Lex Ate token  ;__
+[Exp_IR] Exp -> Num:9
+END_OF [Exp_IR] Exp -> Num
+<<Statement_Semantic with id[crazyKey]=exp>>
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_16 breaklist size is 0
+Lex Ate token break__
+[MARKER IR]: label: bp_label_17
+Lex Ate token  ;__
+ new breakcommand at 345 the old list had adress list of size 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_17 breaklist size is 0
+Lex Ate token  }__
+[MARKER IR]: label: bp_label_18
+Lex Ate token  id__print__
+size of next list for if is1
+size of next list for else is0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 3 with label: bp_label_14 breaklist size is 0
+[MARKER IR]: label: bp_label_20
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"3 "__
+[Exp_IR] Exp -> string"3 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_20 breaklist size is 1
+Lex Ate token case__
+[MARKER IR]: label: bp_label_21
+Lex Ate token  num__666__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"4 "__
+[Exp_IR] Exp -> string"4 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  id__crazyKey__
+[MARKER IR]: label: bp_label_22
+Lex Ate token  =__
+Lex Ate token  num__45__
+Lex Ate token  ;__
+[Exp_IR] Exp -> Num:45
+END_OF [Exp_IR] Exp -> Num
+<<Statement_Semantic with id[crazyKey]=exp>>
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_22 breaklist size is 0
+Lex Ate token break__
+[MARKER IR]: label: bp_label_23
+Lex Ate token  ;__
+ new breakcommand at 425 the old list had adress list of size 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_23 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_24
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"BREAKING BAD - 666 DID NOT BREAK\n"__
+[Exp_IR] Exp -> string"BREAKING BAD - 666 DID NOT BREAK\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_24 breaklist size is 1
+Lex Ate token case__
+[MARKER IR]: label: bp_label_25
+Lex Ate token  num__1000__
+Lex Ate token  :__
+Lex Ate token  id__isThisDefined__
+Lex Ate token  =__
+Lex Ate token true__
+Lex Ate token  ;__
+<<Statement_Semantic with id[isThisDefined]=exp>>
+[Statement_next_patcher_IR] previously held nextlist size:2
+[Statement_next_patcher_IR] currently held nextlist size:3
+[Statement_IR: States->SignleState]  nextlistSize=3
+Lex Ate token if__
+[MARKER IR]: label: bp_label_26
+Lex Ate token  (__
+Lex Ate token not__
+Lex Ate token  id__isThisDefined__
+Lex Ate token )__
+<<[Exp_Semantic_Id] id:[isThisDefined]>>
+[Exp_IR] Exp -> id: isThisDefined
+END_OF [Exp_IR] Exp -> id
+[SJ_Exp_IR]: isThisDefined
+[SJ_Exp_IR]: 
+[MARKER IR]: label: bp_label_27
+Lex Ate token  {__
+Lex Ate token  id__NeverPrintMe__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__333__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:333
+END_OF [Exp_IR] Exp -> Num
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments NeverPrintMe
+[get_func_label] NeverPrintMe's label is: label_29
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token break__
+[MARKER IR]: label: bp_label_28
+Lex Ate token  ;__
+ new breakcommand at 524 the old list had adress list of size 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_28 breaklist size is 0
+Lex Ate token  }__
+[MARKER IR]: label: bp_label_29
+Lex Ate token  id__print__
+size of next list for if is1
+size of next list for else is0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 3 with label: bp_label_26 breaklist size is 0
+[MARKER IR]: label: bp_label_31
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 1
+END_OF CallHeader_IR
+Lex Ate token  str__"10"__
+[Exp_IR] Exp -> string"10"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_31 breaklist size is 1
+Lex Ate token case__
+[MARKER IR]: label: bp_label_32
+Lex Ate token  num__999__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 1
+END_OF CallHeader_IR
+Lex Ate token  str__"11 "__
+[Exp_IR] Exp -> string"11 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token break__
+[MARKER IR]: label: bp_label_33
+Lex Ate token  ;__
+ new breakcommand at 604 the old list had adress list of size 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_33 breaklist size is 0
+Lex Ate token  id__NeverPrintMe__
+[MARKER IR]: label: bp_label_34
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 1
+END_OF CallHeader_IR
+Lex Ate token  num__345__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:345
+END_OF [Exp_IR] Exp -> Num
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments NeverPrintMe
+[get_func_label] NeverPrintMe's label is: label_29
+[Emitter] REstore_registers: 1
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_34 breaklist size is 1
+Lex Ate token case__
+[MARKER IR]: label: bp_label_35
+Lex Ate token  num__9__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 2
+END_OF CallHeader_IR
+Lex Ate token  str__"8 "__
+[Exp_IR] Exp -> string"8 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 2
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  id__crazyKey__
+[MARKER IR]: label: bp_label_36
+Lex Ate token  =__
+Lex Ate token  num__1000__
+Lex Ate token  ;__
+[Exp_IR] Exp -> Num:1000
+END_OF [Exp_IR] Exp -> Num
+<<Statement_Semantic with id[crazyKey]=exp>>
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_36 breaklist size is 0
+Lex Ate token  {__
+[MARKER IR]: label: bp_label_37
+Lex Ate token  {__
+Lex Ate token  {__
+Lex Ate token break__
+Lex Ate token  ;__
+ new breakcommand at 694 the old list had adress list of size 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  }__
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  }__
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  id__NeverPrintMe__
+[MARKER IR]: label: bp_label_38
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 2
+END_OF CallHeader_IR
+Lex Ate token  num__50__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:50
+END_OF [Exp_IR] Exp -> Num
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments NeverPrintMe
+[get_func_label] NeverPrintMe's label is: label_29
+[Emitter] REstore_registers: 2
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_38 breaklist size is 1
+Lex Ate token  }__
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_37 breaklist size is 0
+Lex Ate token case__
+[MARKER IR]: label: bp_label_39
+Lex Ate token  num__45__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 3
+END_OF CallHeader_IR
+Lex Ate token  str__"5 "__
+[Exp_IR] Exp -> string"5 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 3
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token while__
+[MARKER IR]: label: bp_label_40
+[MARKER IR]: label: bp_label_41
+Lex Ate token  (__
+Lex Ate token true__
+[SJ_Exp_IR]: true
+Lex Ate token )__
+[MARKER IR]: label: bp_label_42
+Lex Ate token break__
+Lex Ate token  ;__
+ new breakcommand at 791 the old list had adress list of size 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_40 breaklist size is 0
+Lex Ate token case__
+[MARKER IR]: label: bp_label_44
+Lex Ate token  num__1__
+Lex Ate token  :__
+Lex Ate token  id__print__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 3
+END_OF CallHeader_IR
+Lex Ate token  str__"6 "__
+[Exp_IR] Exp -> string"6 "
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+[get_func_label] print's label is: print
+found a string typed parameter print
+[Emitter] REstore_registers: 3
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  id__crazyKey__
+[MARKER IR]: label: bp_label_45
+Lex Ate token  =__
+Lex Ate token  num__0__
+Lex Ate token  ;__
+[Exp_IR] Exp -> Num:0
+END_OF [Exp_IR] Exp -> Num
+<<Statement_Semantic with id[crazyKey]=exp>>
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_45 breaklist size is 0
+Lex Ate token break__
+[MARKER IR]: label: bp_label_46
+Lex Ate token  ;__
+ new breakcommand at 850 the old list had adress list of size 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_46 breaklist size is 0
+Lex Ate token  }__
+Lex Ate token  ;__
+[Statement_IR: state->switch_head caseList ]
+CDvec size is  11
+[Seggfault test] expreg is $t3
+[Seggfault test 2] 
+in normal case number0
+after else state 10
+after else state 20
+in normal case number1
+after else state 11
+after else state 21
+in normal case number2
+after else state 12
+after else state 22
+in normal case number3
+after else state 13
+after else state 23
+foudn default in i =4
+in normal case number5
+after else state 15
+after else state 25
+in normal case number6
+after else state 16
+after else state 26
+in normal case number7
+after else state 17
+after else state 27
+in normal case number8
+after else state 18
+after else state 28
+in normal case number9
+after else state 19
+after else state 29
+in normal case number10
+after else state 110
+after else state 210
+before backpatching case nextlists
+backpatching nextlist  0
+skipped empty case 0
+backpatching nextlist  1
+skipped empty case 1
+backpatching nextlist  2
+ size of STvec->nextlist is 1
+backpatching nextlist  3
+ size of STvec->nextlist is 1
+backpatching nextlist  4
+ size of STvec->nextlist is 1
+backpatching nextlist  5
+ size of STvec->nextlist is 1
+backpatching nextlist  6
+ size of STvec->nextlist is 1
+backpatching nextlist  7
+ size of STvec->nextlist is 1
+backpatching nextlist  8
+ size of STvec->nextlist is 1
+backpatching nextlist  9
+ size of STvec->nextlist is 1
+before backpatching case breaklists
+skipped empty case in breaking 0outof 10
+skipped empty case in breaking 1outof 10
+reached non empty case in breaking 2outof 10 its breaklist is of size 0
+reached non empty case in breaking 3outof 10 its breaklist is of size 0
+reached non empty case in breaking 4outof 10 its breaklist is of size 1
+reached non empty case in breaking 5outof 10 its breaklist is of size 1
+reached non empty case in breaking 6outof 10 its breaklist is of size 1
+reached non empty case in breaking 7outof 10 its breaklist is of size 1
+reached non empty case in breaking 8outof 10 its breaklist is of size 1
+reached non empty case in breaking 9outof 10 its breaklist is of size 0
+reached non empty case in breaking 10outof 10 its breaklist is of size 1
+finished backpatching breaklists of yeah 
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token if__
+[MARKER IR]: label: bp_label_49
+Lex Ate token  (__
+Lex Ate token  id__crazyKey__
+Lex Ate token  RelOp__==__
+<<[Exp_Semantic_Id] id:[crazyKey]>>
+[Exp_IR] Exp -> id: crazyKey
+END_OF [Exp_IR] Exp -> id
+not a bool var so no SJ_exp after effects crazyKey
+Lex Ate token  num__1000__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:1000
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Relop Exp -> Exp1 == Exp2
+END_OF [Exp_IR]:Relop Exp -> Exp1 == Exp2
+[SJ_Exp_IR]: 
+[MARKER IR]: label: bp_label_50
+Lex Ate token break__
+Lex Ate token  ;__
+ new breakcommand at 888 the old list had adress list of size 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[MARKER IR]: label: bp_label_51
+Lex Ate token if__
+size of next list for if is1
+size of next list for else is0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_49 breaklist size is 0
+[MARKER IR]: label: bp_label_53
+Lex Ate token  (__
+Lex Ate token  id__crazyKey__
+Lex Ate token  RelOp__==__
+<<[Exp_Semantic_Id] id:[crazyKey]>>
+[Exp_IR] Exp -> id: crazyKey
+END_OF [Exp_IR] Exp -> id
+not a bool var so no SJ_exp after effects crazyKey
+Lex Ate token  num__1000__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:1000
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Relop Exp -> Exp1 == Exp2
+END_OF [Exp_IR]:Relop Exp -> Exp1 == Exp2
+[SJ_Exp_IR]: 
+[MARKER IR]: label: bp_label_54
+Lex Ate token  id__NeverPrintMe__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 3
+END_OF CallHeader_IR
+Lex Ate token  num__51__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:51
+END_OF [Exp_IR] Exp -> Num
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments NeverPrintMe
+[get_func_label] NeverPrintMe's label is: label_29
+[Emitter] REstore_registers: 3
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[MARKER IR]: label: bp_label_55
+Lex Ate token  }__
+size of next list for if is1
+size of next list for else is0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_53 breaklist size is 1
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_5 breaklist size is 0
+Lex Ate token  }__
+[FuncDeclNode_IR]: 
+checking retType of func: breakingBad
+If void, an extra ret will be added
+Ret type: 1
+Lex Ate token void__
+Lex Ate token  id__main__
+Lex Ate token  (__
+Lex Ate token )__
+<<FuncHead_semantic, id:[main]>>
+[[[ added func: main with 0 params and label: ]]]
+FuncHead_IR for func: main
+got label label_968 in line: -1
+[set_func_label] label label_968 for function main
+Saving main label: label_968
+[get_func_label] main's label is: label_968
+written label: label_968
+END_OF [FuncHead_IR] 
+Lex Ate token  {__
+Lex Ate token  id__breakingBad__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 4
+END_OF CallHeader_IR
+Lex Ate token )__
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 0
+tmpActP: 0
+tmptmp: 1
+[Call_IR] : no arguments breakingBad
+regNum=4
+[get_func_label] breakingBad's label is: label_125
+[Emitter] REstore_registers: 4
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  }__
+[FuncDeclNode_IR]: 
+checking retType of func: main
+If void, an extra ret will be added
+Ret type: 1
+[Program_IR] backpatching line number 4 with [get_func_label] main's label is: label_968
+label_968
+[get_func_label] main's label is: label_968
+ignore me1 (label_968)
+[END_OF Program_IR]

@@ -1,0 +1,54 @@
+
+bool NeverPrintMe(int message){
+	print("YOU PRINTED THE UNPRINTABLE. error message: ");
+	printi(message);
+	print(" I SENTENCE YOU TO AN ENDLESS DEBUGGING.\n");
+}
+void breakingBad(){
+	int i=1;
+	int crazyKey=1;
+	print("BREAKING GOOD: 1 TO 10. ELSE: BREAKING BAD");
+	while((true)){
+		//print("Crazy key is ");
+		//print(crazyKey);
+		//print("\n");
+		
+		switch(crazyKey) {
+			case 435:
+			
+			case 232:
+			
+			case 1: print("1 ");
+			
+			case 111: bool isThisDefined; print("2 ");
+			
+			default: bool noMatch=crazyKey!=1;
+							if(noMatch) {
+								print("7 ");
+								crazyKey=9;
+								break;	
+							}
+							print("3 ");
+
+			
+			case 666: print("4 "); crazyKey=45; break; print("BREAKING BAD - 666 DID NOT BREAK\n");
+			
+			case 1000: isThisDefined=true; if(not isThisDefined) {NeverPrintMe(333); break;}  print("10");
+			
+			case 999: print("11 "); break; NeverPrintMe(345);
+			
+			case 9: print("8 "); crazyKey=1000; {{{break;}}NeverPrintMe(50);}
+			
+			case 45: print("5 "); while(true) break;
+			
+			case 1: print("6 "); crazyKey=0; break;
+		};
+		if(crazyKey==1000) break;
+		if(crazyKey==1000) NeverPrintMe(51);
+	}
+}
+
+void main(){
+breakingBad();
+}
+

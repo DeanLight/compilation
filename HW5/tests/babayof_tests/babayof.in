@@ -1,0 +1,261 @@
+void OneWhoKnows() {
+	int i=1;
+	while (i<=13){
+		printi(i);
+		print("mi yode'a? ");
+		printi(i);
+		print("ani yode'a!\n");
+		switch(i){
+			case 14: print("ONE WHO KNOWS - 14 NOT GOOD\n");
+			default: print("ONE WHO KNOWS - DEFAULT NOT GOOD\n");
+			case 13: printi(13); print(" midaya");
+			case 12: printi(12); print(" shivtaya");
+			case 11: printi(11); print(" kochvaya");
+			case 10: printi(10); print(" dibraya");
+			case 9 : printi(9); print(" chodshei leidah");
+			case 8 : printi(8); print(" yemei milah");
+			case 7 : printi(7); print(" yemei shabatah");
+			case 6 : printi(6); print(" sidre mishna");
+			case 5 : printi(5); print(" chumshei torah");
+			case 4 : printi(4); print(" imahot");
+			case 3 : printi(3); print(" avot");
+			case 2 : printi(2); print(" luchot habrit");
+			case 1 : printi(1);
+					 int j=5;
+					 while(j>0) {
+						print(" elokeinu");
+						j=j-1;
+					 }
+					print(" shebashamaim uva'aaaretz\n");
+			i=i+1;
+		};
+	}
+}
+
+
+int sqrtRoundDown(int x){
+
+	if (x<0) {
+		print("sqrtRoundDown - IMPOSSIBLE NEGATIVE PARAMETER!");
+	}
+	int i=0;
+	while( (i+1b)*(1b+i)<=x ) {
+		i=i+1;
+	}
+	return i;
+}
+
+int x1(int a, int B, int c){
+	int delta=sqrtRoundDown(B*B-4*a*c);
+	return (0-B+delta)/(2*a);
+}
+int x2(int a, int B, int c){
+	int delta=sqrtRoundDown(B*B-4*a*c);
+	return (0-B-delta)/(2*a);
+}
+
+int mod(int a, int n){
+	return a-a/n*n;
+}
+
+bool isPrime(int n){
+	int i=2;
+	int sqrtn=sqrtRoundDown(n);
+	//print("\nsqrt of ");
+	//printi(n);
+	//print("is ");
+	//printi(sqrtn);
+	//print("\n");
+	while(i<=sqrtn){
+		//print("\n mod n i");
+		//printi(n);
+		//print(" ");
+		//printi(i);
+		//print(" ");
+		//printi(mod(n,i));
+		if (mod(n,i)==0) return false;
+		i=i+1;
+	}
+	return true;
+}
+
+void printPrimality(int n){
+	print("\n");
+	printi(n);
+	print(" is");
+	if(not isPrime(n))
+		print(" not");
+	print(" prime.");
+	return;
+}
+
+void printPrimalsInRange(int a, int B){
+	while(a<=B){
+		printPrimality(a);
+		a=a+1;
+	}
+}
+
+int gcd(int a, int B){
+	if (a==0 and B==0) {print("GCD - GOT 00"); return 0;}
+	if (a==0) return B;
+	if (B==0) return a;
+	return gcd(B,mod(a,B));
+}
+
+int fi(int n){
+	int i=1;
+	int count;
+	count=0;
+	while (i<=n) {
+		if (gcd(n,i)==1) {
+			count=count+1;
+		}
+		i=i+1;
+	}
+	
+	print("\nfi of ");
+	printi(n);
+	print("=");
+	printi(count);
+	return count;
+}
+
+int factorial1(int n){
+	if (n==0) return 1;
+	return factorial1(n-1)*n;
+}
+int factorial2(int n){
+	int result=1;
+	while(n>0){
+		result=result*n;
+		n=n-1;
+	}
+	return result;
+}
+
+bool NeverPrintMe(int message){
+	print("YOU PRINTED THE UNPRINTABLE. error message: ");
+	printi(message);
+	print(" I SENTENCE YOU TO AN ENDLESS DEBUGGING.\n");
+}
+
+void shortCircuitEvaluation(){
+	int wannabe=0;
+	if(true or NeverPrintMe(1)) wannabe=wannabe+1;
+	else NeverPrintMe(2);
+	if(false and NeverPrintMe(3)) NeverPrintMe(4);
+	else wannabe=wannabe+2;
+	
+	if((3*3 == 3+3+3+3+3+3+3 or 3*3==3+3+3 or NeverPrintMe(5)) and ((true) or (NeverPrintMe(6) or NeverPrintMe(7))) or NeverPrintMe(8)) {
+		wannabe=wannabe+4;
+	}
+	else {
+		NeverPrintMe(9);
+	}
+	wannabe=wannabe+8;
+	
+	bool stupidVariableShouldBeTrue=mod(9,2)==0 and NeverPrintMe(10) or (mod(9,3)==0 or NeverPrintMe(11));
+	if(stupidVariableShouldBeTrue or NeverPrintMe(13)){
+		wannabe=wannabe+16;
+	}
+	else NeverPrintMe(14);
+	if (wannabe != 31) {
+		printi(wannabe);
+		print(" IS THE VALUE OF WANNABE BUT IT SHOULD BE 31. BAD SCE");
+	}
+	
+}
+
+
+void breakingBad(){
+	int i=1;
+	int crazyKey=1;
+	print("BREAKING GOOD: 1 TO 10. ELSE: BREAKING BAD");
+	while((true)){
+		//print("Crazy key is ");
+		//print(crazyKey);
+		//print("\n");
+		
+		switch(crazyKey) {
+			case 435:
+			
+			case 232:
+			
+			case 1: print("1 ");
+			
+			case 111: bool isThisDefined; print("2 ");
+			
+			default: bool noMatch=crazyKey!=1;
+							if(noMatch) {
+								print("7 ");
+								crazyKey=9;
+								break;	
+							}
+							print("3 ");
+
+			
+			case 666: print("4 "); crazyKey=45; break; print("BREAKING BAD - 666 DID NOT BREAK\n");
+			
+			case 1000: isThisDefined=true; if(not isThisDefined) {NeverPrintMe(333); break;}  print("10");
+			
+			case 999: print("11 "); break; NeverPrintMe(345);
+			
+			case 9: print("8 "); crazyKey=1000; {{{break;}}NeverPrintMe(50);}
+			
+			case 45: print("5 "); while(true) break;
+			
+			case 1: print("6 "); crazyKey=0; break;
+		};
+		if(crazyKey==1000) break;
+		if(crazyKey==1000) NeverPrintMe(51);
+	}
+}
+
+
+
+void main(){
+print("11111111:\n");
+printPrimality(12);
+
+print("one who knows:\n");
+OneWhoKnows();
+print("\n");
+
+print("breaking bad\n");
+breakingBad();
+print("\n");
+print("curcuit\n");
+shortCircuitEvaluation();
+print("\n");
+print("primals\n");
+printPrimalsInRange(1,100);
+print("\n");
+
+print("factorials of 0,1,2,3,4,5,6 respectively: ");
+int i=0;
+while (i<=6){
+	printi(factorial1(i));
+	print("\n");
+	i=i+1;
+}
+print("\nreveresed: ");
+while (i>=0){
+	printi(factorial2(i));
+	print("\n");
+	i=i-1;
+}
+while(i<40) {
+	i=i+1;
+	fi(i);
+}
+print("\nprinti trunc: \n");
+printi(250b + 10b);
+
+int init;
+printi (init);
+bool cccc;
+if(not cccc){
+	print("bool bool");
+}
+}
