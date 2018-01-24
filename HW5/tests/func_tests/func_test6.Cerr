@@ -57,6 +57,8 @@ Lex Ate token  ;__
 [Statement_next_patcher_IR] currently held nextlist size:1
 [Statement_IR Call] nestlistSize: 1
 [Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate comment://printi(x);//REMOVE
+
 Lex Ate token int__
 [MARKER IR]: label: bp_label_0
 Lex Ate token  id__a__
@@ -89,6 +91,8 @@ END_OF [Exp_IR] Exp -> Num
 [Statement_next_patcher_IR] currently held nextlist size:1
 [Statement_IR: States -> states1 M singleState]
 Num of nextlist to bp: 1 with label: bp_label_1 breaklist size is 0
+Lex Ate comment://printi(y); // TODO REMOVE
+
 Lex Ate token if__
 [MARKER IR]: label: bp_label_2
 Lex Ate token  (__
@@ -100,80 +104,36 @@ END_OF [Exp_IR] Exp -> id
 [SJ_Exp_IR]: magzim
 [MARKER IR]: label: bp_label_3
 Lex Ate token  {__
+Lex Ate comment://printi(111);// TODO REMOVE
+
 Lex Ate token return__
-Lex Ate token  (__
-Lex Ate token  id__x__
-Lex Ate token  BinOp__*__
-<<[Exp_Semantic_Id] id:[x]>>
-[Exp_IR] Exp -> id: x
-END_OF [Exp_IR] Exp -> id
-not a bool var so no SJ_exp after effects x
-Lex Ate token  id__y__
-Lex Ate token )__
-<<[Exp_Semantic_Id] id:[y]>>
-[Exp_IR] Exp -> id: y
-END_OF [Exp_IR] Exp -> id
-not a bool var so no SJ_exp after effects y
-[Exp_IR]:Binop Exp -> Exp1 * Exp2
-END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
-[Exp->(Exp)]
-(Exp) str_content: 
-(Exp) falselistSize: 0
-(Exp) truelistSize: 0
-ENDOF_[Exp->(Exp)]
-Lex Ate token  BinOp__*__
-not a bool var so no SJ_exp after effects 
-Lex Ate token  id__c__
+Lex Ate token  num__0__
 Lex Ate token  ;__
-<<[Exp_Semantic_Id] id:[c]>>
-[Exp_IR] Exp -> id: c
-END_OF [Exp_IR] Exp -> id
-not a bool var so no SJ_exp after effects c
-[Exp_IR]:Binop Exp -> Exp1 * Exp2
-END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+[Exp_IR] Exp -> Num:0
+END_OF [Exp_IR] Exp -> Num
 <<RetExp, ExpT:[3] scopeT:[3]>>
 [Statement_IR] Return noneVoid
 END_OF [Statement_IR] Return noneVoid
 [Statement_IR: States->SignleState]  nextlistSize=0
+Lex Ate comment://(x*y);//*c;//FIX
+
 Lex Ate token  }__
 [MARKER IR]: label: bp_label_4
 Lex Ate token else__
 Lex Ate token  {__
+Lex Ate comment://printi(222);// TODO REMOVE
+
 Lex Ate token return__
-Lex Ate token  (__
-Lex Ate token  id__x__
-Lex Ate token  BinOp__+__
-<<[Exp_Semantic_Id] id:[x]>>
-[Exp_IR] Exp -> id: x
-END_OF [Exp_IR] Exp -> id
-not a bool var so no SJ_exp after effects x
-Lex Ate token  id__y__
-Lex Ate token )__
-<<[Exp_Semantic_Id] id:[y]>>
-[Exp_IR] Exp -> id: y
-END_OF [Exp_IR] Exp -> id
-not a bool var so no SJ_exp after effects y
-[Exp_IR]:Binop Exp -> Exp1 + Exp2
-END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
-[Exp->(Exp)]
-(Exp) str_content: 
-(Exp) falselistSize: 0
-(Exp) truelistSize: 0
-ENDOF_[Exp->(Exp)]
-Lex Ate token  BinOp__*__
-not a bool var so no SJ_exp after effects 
-Lex Ate token  id__a__
+Lex Ate token  num__0__
 Lex Ate token  ;__
-<<[Exp_Semantic_Id] id:[a]>>
-[Exp_IR] Exp -> id: a
-END_OF [Exp_IR] Exp -> id
-not a bool var so no SJ_exp after effects a
-[Exp_IR]:Binop Exp -> Exp1 * Exp2
-END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+[Exp_IR] Exp -> Num:0
+END_OF [Exp_IR] Exp -> Num
 <<RetExp, ExpT:[3] scopeT:[3]>>
 [Statement_IR] Return noneVoid
 END_OF [Statement_IR] Return noneVoid
 [Statement_IR: States->SignleState]  nextlistSize=0
+Lex Ate comment://(x+y);//*a; // FIX
+
 Lex Ate token  }__
 size of next list for if is0
 size of next list for else is0
@@ -193,10 +153,10 @@ Lex Ate token )__
 <<FuncHead_semantic, id:[main]>>
 [[[ added func: main with 0 params and label: ]]]
 FuncHead_IR for func: main
-got label label_128 in line: -1
-[set_func_label] label label_128 for function main
-[get_func_label] main's label is: label_128
-written label: label_128
+got label label_105 in line: -1
+[set_func_label] label label_105 for function main
+[get_func_label] main's label is: label_105
+written label: label_105
 END_OF [FuncHead_IR] 
 Lex Ate token  {__
 Lex Ate token int__
@@ -246,6 +206,36 @@ Lex Ate token  (__
 CallHeader_IR
 [Emitter] store_registers: 0
 END_OF CallHeader_IR
+Lex Ate token  num__7__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:7
+END_OF [Exp_IR] Exp -> Num
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_7 breaklist size is 0
+Lex Ate comment:// TODO REMOVE
+
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_8
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
 Lex Ate token  id__x__
 Lex Ate token )__
 <<[Exp_Semantic_Id] id:[x]>>
@@ -268,9 +258,9 @@ Lex Ate token  ;__
 [Statement_next_patcher_IR] currently held nextlist size:1
 [Statement_IR Call] nestlistSize: 1
 [Statement_IR: States -> states1 M singleState]
-Num of nextlist to bp: 1 with label: bp_label_7 breaklist size is 0
+Num of nextlist to bp: 1 with label: bp_label_8 breaklist size is 0
 Lex Ate token  id__print__
-[MARKER IR]: label: bp_label_8
+[MARKER IR]: label: bp_label_9
 Lex Ate token  (__
 CallHeader_IR
 [Emitter] store_registers: 0
@@ -297,9 +287,9 @@ Lex Ate token  ;__
 [Statement_next_patcher_IR] currently held nextlist size:1
 [Statement_IR Call] nestlistSize: 1
 [Statement_IR: States -> states1 M singleState]
-Num of nextlist to bp: 1 with label: bp_label_8 breaklist size is 0
+Num of nextlist to bp: 1 with label: bp_label_9 breaklist size is 0
 Lex Ate token int__
-[MARKER IR]: label: bp_label_9
+[MARKER IR]: label: bp_label_10
 Lex Ate token  id__y__
 Lex Ate token  =__
 [MVSP_IR] moving sp for place for new var
@@ -340,9 +330,39 @@ Lex Ate token  ;__
 [Statement_next_patcher_IR] previously held nextlist size:0
 [Statement_next_patcher_IR] currently held nextlist size:1
 [Statement_IR: States -> states1 M singleState]
-Num of nextlist to bp: 1 with label: bp_label_9 breaklist size is 0
+Num of nextlist to bp: 1 with label: bp_label_10 breaklist size is 0
 Lex Ate token  id__printi__
-[MARKER IR]: label: bp_label_10
+[MARKER IR]: label: bp_label_11
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__9__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:9
+END_OF [Exp_IR] Exp -> Num
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[get_func_label] printi's label is: printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_11 breaklist size is 0
+Lex Ate comment:// TODO REMOVE
+
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_12
 Lex Ate token  (__
 CallHeader_IR
 [Emitter] store_registers: 0
@@ -369,9 +389,9 @@ Lex Ate token  ;__
 [Statement_next_patcher_IR] currently held nextlist size:1
 [Statement_IR Call] nestlistSize: 1
 [Statement_IR: States -> states1 M singleState]
-Num of nextlist to bp: 1 with label: bp_label_10 breaklist size is 0
+Num of nextlist to bp: 1 with label: bp_label_12 breaklist size is 0
 Lex Ate token  id__print__
-[MARKER IR]: label: bp_label_11
+[MARKER IR]: label: bp_label_13
 Lex Ate token  (__
 CallHeader_IR
 [Emitter] store_registers: 0
@@ -398,14 +418,14 @@ Lex Ate token  ;__
 [Statement_next_patcher_IR] currently held nextlist size:1
 [Statement_IR Call] nestlistSize: 1
 [Statement_IR: States -> states1 M singleState]
-Num of nextlist to bp: 1 with label: bp_label_11 breaklist size is 0
+Num of nextlist to bp: 1 with label: bp_label_13 breaklist size is 0
 Lex Ate token  }__
 [FuncDeclNode_IR]: 
 checking retType of func: main
 If void, an extra ret will be added
 Ret type: 1
-[Program_IR] backpatching line number 4 with [get_func_label] main's label is: label_128
-label_128
-[get_func_label] main's label is: label_128
-ignore me1 (label_128)
+[Program_IR] backpatching line number 4 with [get_func_label] main's label is: label_105
+label_105
+[get_func_label] main's label is: label_105
+ignore me1 (label_105)
 [END_OF Program_IR]

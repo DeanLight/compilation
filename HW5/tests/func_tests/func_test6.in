@@ -1,22 +1,29 @@
 
 int foo(int x,int y, bool magzim){
 	print("dont be magzim\n");
+	//printi(x);//REMOVE
 	int a=10;
 	int c=100;
-	if(magzim){
-		return (x*y)*c;
+	//printi(y); // TODO REMOVE
+	if(magzim)
+	{
+		//printi(111);// TODO REMOVE
+		return 0;//(x*y);//*c;//FIX
 		}
 	else{
-		return (x+y)*a;
+		//printi(222);// TODO REMOVE
+		return 0;//(x+y);//*a; // FIX
 		}
 }
 
 
 void main(){
 	int x = foo(5,3,false);
+	printi(7);// TODO REMOVE
 	printi(x);
 	print("\n");
 	int y = foo(50,30,true);
+	printi(9);// TODO REMOVE
 	printi(y);
 	print("\n");
 }

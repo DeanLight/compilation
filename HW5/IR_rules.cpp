@@ -418,6 +418,7 @@ void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,
     vector<int>& last_jump_addr=((StatementsNode*)(state->sons[1]))->nextlist;
     codebuff.bpatch(last_jump_addr,endlabel);
     emitter.comment("Adding an extre return just in case");
+    emitter.assign(regmnref.getSP(),regmnref.getFP());
     emitter.ret();
 
 
@@ -430,6 +431,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret) // vo
     cerr << "[Statement_IR] Return void" << endl;
 #endif
     emitter.comment("return");
+    emitter.assign(regmnref.getSP(),regmnref.getFP());
     emitter.ret();
 }
 
@@ -459,6 +461,8 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
         RegMngr::getRegMngr().free_last_reg();
     }
 
+    // collapsing stack
+    emitter.assign(regmnref.getSP(),regmnref.getFP());
     emitter.ret();
 #ifdef COMPILE_DBG
     cerr << "END_OF [Statement_IR] Return noneVoid" << endl;
@@ -600,7 +604,7 @@ void MVSP_IR(){
       cerr << "[MVSP_IR] moving sp for place for new var" << endl;
   #endif
   emitter.comment("preparing for new var");
-  emitter.set_var_value("$zero","($sp)"); // TODO REMOVE?
+  //emitter.set_var_value("$zero","($sp)"); // TODO REMOVE?
   emitter.allocate_words_on_stack(1);
 }
 

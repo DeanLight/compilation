@@ -10,6 +10,12 @@ using std::cerr;
 using std::endl;
 
 
+int SymbolTable::vars_created_in_last_scope() const
+{
+    return all_scopes[all_scopes.size()-1].variables.size();
+}
+
+
 std::string SymbolTable::get_var_fp(const std::string &var_id) const {
 #ifdef SYMTABDEBUG
     if(!is_var(var_id))

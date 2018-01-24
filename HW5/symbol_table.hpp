@@ -154,6 +154,9 @@ class SymbolTable
 
         bool exit_scope();
 
+
+        int vars_created_in_last_scope() const;
+
 	private:
         SymbolTable();
         SymbolTable(const SymbolTable&); // NOT IMPLEMENTED

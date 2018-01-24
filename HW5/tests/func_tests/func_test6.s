@@ -12,7 +12,7 @@ string_label_5:	.asciiz "\n"
 main:
 	#initialize fp
 	move	$fp,$sp
-	jal	label_128
+	jal	label_105
 	#exiting...
 li $v0, 10
 syscall
@@ -69,7 +69,6 @@ label_29:
 	#marker Label
 bp_label_0:
 	#preparing for new var
-	sw $zero, ($sp)
 	#allocationg words on stack 
 	addiu $sp, $sp, -4
 	li	$t0,10
@@ -79,7 +78,6 @@ bp_label_0:
 	#marker Label
 bp_label_1:
 	#preparing for new var
-	sw $zero, ($sp)
 	#allocationg words on stack 
 	addiu $sp, $sp, -4
 	li	$t0,100
@@ -97,34 +95,13 @@ bp_label_2:
 	j	bp_label_4
 	#marker Label
 bp_label_3:
-	#Getting Var falue for [Exp->id]: x offset is 4($fp)
-	lw $t0, 4($fp)
-	#Getting Var falue for [Exp->id]: y offset is 8($fp)
-	lw $t1, 8($fp)
-	#multiply
-	mult	$t0,$t1
-	mflo	$t0
-	#Getting Var falue for [Exp->id]: c offset is -4($fp)
-	lw $t1, -4($fp)
-	#multiply
-	mult	$t0,$t1
-	mflo	$t0
+	li	$t0,0
 	#return noneVoid in v0
 	move	$v0,$t0
 	jr	$ra
 	#marker Label
 bp_label_4:
-	#Getting Var falue for [Exp->id]: x offset is 4($fp)
-	lw $t0, 4($fp)
-	#Getting Var falue for [Exp->id]: y offset is 8($fp)
-	lw $t1, 8($fp)
-	#add
-	addu	$t0,$t0,$t1
-	#Getting Var falue for [Exp->id]: a offset is ($fp)
-	lw $t1, ($fp)
-	#multiply
-	mult	$t0,$t1
-	mflo	$t0
+	li	$t0,0
 	#return noneVoid in v0
 	move	$v0,$t0
 	jr	$ra
@@ -136,9 +113,8 @@ bp_label_6:
 	#Adding an extre return just in case
 	jr	$ra
 	#Func main:
-label_128:
+label_105:
 	#preparing for new var
-	sw $zero, ($sp)
 	#allocationg words on stack 
 	addiu $sp, $sp, -4
 	#func header store regs before call
@@ -185,8 +161,7 @@ label_128:
 bp_label_7:
 	#func header store regs before call
 	#stored 0 registers
-	#Getting Var falue for [Exp->id]: x offset is ($fp)
-	lw $t0, ($fp)
+	li	$t0,7
 	#preparing to call printi
 	sw $fp, ($sp)
 	addiu $sp, $sp, -4
@@ -215,6 +190,36 @@ bp_label_7:
 bp_label_8:
 	#func header store regs before call
 	#stored 0 registers
+	#Getting Var falue for [Exp->id]: x offset is ($fp)
+	lw $t0, ($fp)
+	#preparing to call printi
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#pushing reg $t0 to stack
+	sw $t0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: printi
+	jal	printi
+	#returned from func: printi
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling printi
+	#end of statement jump
+	j	bp_label_9
+	#marker Label
+bp_label_9:
+	#func header store regs before call
+	#stored 0 registers
 	#caught a string
 	#preparing to call print
 	sw $fp, ($sp)
@@ -240,11 +245,10 @@ bp_label_8:
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_9
+	j	bp_label_10
 	#marker Label
-bp_label_9:
+bp_label_10:
 	#preparing for new var
-	sw $zero, ($sp)
 	#allocationg words on stack 
 	addiu $sp, $sp, -4
 	#func header store regs before call
@@ -286,9 +290,38 @@ bp_label_9:
 	#finished calling foo
 	sw $t0, -4($fp)
 	#end of statement jump
-	j	bp_label_10
+	j	bp_label_11
 	#marker Label
-bp_label_10:
+bp_label_11:
+	#func header store regs before call
+	#stored 0 registers
+	li	$t0,9
+	#preparing to call printi
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#pushing reg $t0 to stack
+	sw $t0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: printi
+	jal	printi
+	#returned from func: printi
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling printi
+	#end of statement jump
+	j	bp_label_12
+	#marker Label
+bp_label_12:
 	#func header store regs before call
 	#stored 0 registers
 	#Getting Var falue for [Exp->id]: y offset is -4($fp)
@@ -316,9 +349,9 @@ bp_label_10:
 	#Moving funcRes (if exists) to next free register
 	#finished calling printi
 	#end of statement jump
-	j	bp_label_11
+	j	bp_label_13
 	#marker Label
-bp_label_11:
+bp_label_13:
 	#func header store regs before call
 	#stored 0 registers
 	#caught a string
@@ -346,7 +379,7 @@ bp_label_11:
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_12
-bp_label_12:
+	j	bp_label_14
+bp_label_14:
 	#Adding an extre return just in case
 	jr	$ra
