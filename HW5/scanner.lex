@@ -25,7 +25,9 @@ lbrace_t \{
 rbrace_t \}
 ass_t =
 relop_t (==)|(!=)|(<)|(>)|(<=)|(>=)
-binop_t [\+\-\*/]
+
+binop_sub_add \+|-
+binop_mul_div \*|\/
 bb b
 id_t [a-zA-Z]([a-zA-Z0-9])*
 num_t (0)|([1-9]([0-9])*)
@@ -203,11 +205,17 @@ default {yylval = new Default();
 	#endif
 	return RELOP;};
 
-{binop_t} {yylval = new Binop(yytext);
+{binop_sub_add} {yylval = new Binop(yytext);
     #ifdef LEXDEBUG
-	fprintf(stderr,"Lex Ate token  BinOp__%s__\n" ,yytext); // TODO REMOVE
+	fprintf(stderr,"Lex Ate token  BinOp__ADD_SUB%s__\n" ,yytext); // TODO REMOVE
 	#endif
-	return BINOP;};
+	return BINOP_ADD_SUB;};
+
+{binop_mul_div} {yylval = new Binop(yytext);
+    #ifdef LEXDEBUG
+	fprintf(stderr,"Lex Ate token  BinOp__MUL_DIV%s__\n" ,yytext); // TODO REMOVE
+	#endif
+	return BINOP_MUL_DIV;};
 
 {id_t} {yylval = new Id(yytext);
     #ifdef LEXDEBUG

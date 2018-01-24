@@ -66,19 +66,20 @@ extern int yydebug;
     AND = 276,
     NOT = 277,
     RELOP = 278,
-    BINOP = 279,
-    ID = 280,
-    NUM = 281,
-    STRING = 282,
-    B = 283,
-    LPAREN = 284,
-    RPAREN = 285,
-    LBRACE = 286,
-    RBRACE = 287,
-    L_ASSOC = 288,
-    PRIO_REGIF = 289,
-    ELSE = 290,
-    PRIO_IFELSE = 291
+    BINOP_ADD_SUB = 279,
+    BINOP_MUL_DIV = 280,
+    ID = 281,
+    NUM = 282,
+    STRING = 283,
+    B = 284,
+    LPAREN = 285,
+    RPAREN = 286,
+    LBRACE = 287,
+    RBRACE = 288,
+    L_ASSOC = 289,
+    PRIO_REGIF = 290,
+    ELSE = 291,
+    PRIO_IFELSE = 292
   };
 #endif
 

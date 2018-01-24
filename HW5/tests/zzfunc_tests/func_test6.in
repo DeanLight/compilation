@@ -1,16 +1,12 @@
 
 int foo(int x,int y, bool magzim){
 	print("dont be magzim\n");
-
 	int a=10;
-	int c=100;
+	int b=100;
 	if(magzim)
-	{
-		return (x*y)*c;//FIX
-		}
-	else{
-		return (x+y)*a; // FIX
-		}
+		return (x*y)*b;
+	else
+		return (x+y)*a;
 }
 
 
@@ -18,7 +14,7 @@ void main(){
 	int x = foo(5,3,false);
 	printi(x);
 	print("\n");
-	int y = foo(50,30,true);
+	int y = foo(50,30,false);
 	printi(y);
 	print("\n");
 }
