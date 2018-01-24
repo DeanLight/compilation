@@ -70,4 +70,6 @@ void CallHeader_IR(int lineno, CallHeaderNode* Self) ;
 void PossibleElse_IR(int lineno, class PossibleElseNode* Self );
 void PossibleElse_IR(int lineno, class PossibleElseNode* Self , class StatementNode* state  );
 
+void MVSP_IR();
+
 #endif

@@ -302,7 +302,21 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
     #ifdef COMPILE_DBG
       cerr << "[Exp_IR] Exp->call" << call->str_content << endl;
     #endif
+      Self->Type=symtabref.get_type(call->str_content);
+      if(Self->Type==Bool)
+      {
+        emitter.comment("a Bool Func " + call->str_content);
+        int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero"); // TODO fix?
+        int line_j = emitter.patchy_jump();
+        Self->truelist = codebuff.makelist(line_neq);
+        Self->falselist = codebuff.makelist(line_j);
+        regmnref.free_last_reg();
+      }
       Self->str_content = call->str_content;
+      #ifdef COMPILE_DBG
+        cerr << "[Exp_IR] endof Exp->call" << call->str_content << endl;
+      #endif
+
 }
 
 // Exp -> Num
@@ -559,6 +573,7 @@ emitter.comment("poping " + IR_numToString(param_number) +" params from stack ")
     emitter.assign(regmnref.get_next_free_reg(),regmnref.getV0());
   }
   emitter.comment("finished calling "+id->str_content);
+  Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
     cerr << "END_OF [Call_IR]" << endl;
 #endif
@@ -580,6 +595,14 @@ void CallHeader_IR(int lineno, CallHeaderNode* Self){
 }
 
 
+void MVSP_IR(){
+  #ifdef COMPILE_DBG
+      cerr << "[MVSP_IR] moving sp for place for new var" << endl;
+  #endif
+  emitter.comment("preparing for new var");
+  emitter.set_var_value("$zero","($sp)"); // TODO REMOVE?
+  emitter.allocate_words_on_stack(1);
+}
 
 void _initialize_var(Id* id)
 {
@@ -647,7 +670,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class TypeNode* type, cl
   #ifdef COMPILE_DBG
   cerr << "[Entered Statment_IR: Type id = exp]" << endl;
   #endif
-  _initialize_var(id);
+  //_initialize_var(id); // not needed because of MVSP + no initialization needed because it gets a value already
   Statement_IR(lineno,Self,id,assign,exp);
 }
 
@@ -1041,16 +1064,16 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
     Self->falselist = codebuff.makelist(line_j);
     return;
   }
-  if(symtabref.is_func(exp_name))
-  {
-    emitter.comment("a Bool Func " + exp_name + " in boolean operator");
-    int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero"); // TODO fix?
-    int line_j = emitter.patchy_jump();
-    Self->truelist = codebuff.makelist(line_j);
-    Self->falselist = codebuff.makelist(line_neq);
-    regmnref.free_last_reg();
-    return;
-  }
+ // if(symtabref.is_func(exp_name))
+ // {
+ //   emitter.comment("a Bool Func " + exp_name + " in boolean operator");
+ //   int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero"); // TODO fix?
+ //   int line_j = emitter.patchy_jump();
+ //   Self->truelist = codebuff.makelist(line_j);
+ //   Self->falselist = codebuff.makelist(line_neq);
+ //   regmnref.free_last_reg();
+ //   return;
+ // }
 
 }
 
@@ -1061,7 +1084,7 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   cerr << "[ExpList_IR: ExpList->Exp]: " << ex->str_content << endl;
   #endif
   string exp_name = ex->str_content;
-  if(symtabref.is_var(exp_name) || symtabref.is_func(exp_name))
+  if(symtabref.is_var(exp_name) )
   {
     return;
   }
@@ -1082,6 +1105,7 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   if(ex->Type!=Bool){
     return;
   }
+
   // assumption - if reached here - its a complicated bool exp
   string nextReg = regmnref.get_next_free_reg();
   emitter.comment("complicated bool exp as a function parameter");

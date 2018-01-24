@@ -47,7 +47,7 @@ string Emitter::get_bp_label(){
 }
 
 void Emitter::add_print_func() const {
-    codebuffer.emit("lw $a0,0($sp)"); //TODO talk about difference between printi and print
+    codebuffer.emit("lw $a0,4($sp)"); //TODO talk about difference between printi and print
     codebuffer.emit("li $v0,4");
     codebuffer.emit("syscall");
     codebuffer.emit("jr $ra");
@@ -278,9 +278,9 @@ void Emitter::load_address_to_stack(string address){
   string expand_stack = "\taddiu $sp, $sp, -4";
   string store_source1 = "\tla $v0, "+address; // TODO affirm use of v0 to avoid extra regular registers, since it is not used anyway
   string store_source2= "\tsw $v0, ($sp)";
-  codebuffer.emit(expand_stack);
   codebuffer.emit(store_source1);
   codebuffer.emit(store_source2);
+  codebuffer.emit(expand_stack);
 
 
 }
@@ -366,6 +366,7 @@ void Emitter::restore_registers(int regnum){
 
 void Emitter::allocate_words_on_stack(int kwords){
   int sp_change = 4*(kwords);
+  comment("allocationg words on stack ");
   string expand_stack = "\taddiu $sp, $sp, -"+intToString(sp_change);
   codebuffer.emit(expand_stack);
 }

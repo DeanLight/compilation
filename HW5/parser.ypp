@@ -129,6 +129,9 @@ Statements:		  Statement
                   Statements_Semantic(yylineno,(StatementsNode*)$$,(StatementsNode*)$1,(StatementNode*)$3 ) ; $$->addSon($1,$2,$3);
                   Statements_IR(yylineno,(StatementsNode*)$$,(StatementsNode*)$1,(MarkNode*)$2,(StatementNode*)$3);}
 
+MVSP:            /*epsilon*/{
+                MVSP_IR(); }
+
 Statement:		  LBRACE Scope_init Statements RBRACE
                 { $$=new StatementNode() ;
                   Statement_Semantic(yylineno,(StatementNode*)$$,(Lbrace*)$1,(StatementsNode*)$3,(Rbrace*)$4 ) ;
@@ -139,11 +142,11 @@ Statement:		  LBRACE Scope_init Statements RBRACE
                   Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2 ) ;
                   $$->addSon($1,$2,$3);
                   Statement_IR(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2 ) ; }
-				        | Type ID ASSIGN Exp SC
+				        | Type ID ASSIGN MVSP Exp SC
                 { $$=new StatementNode() ;
-                  Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$4  ) ;
-                  $$->addSon($1,$2,$3,$4,$5);
-                  Statement_IR(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$4  ) ; }
+                  Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$5  ) ;
+                  $$->addSon($1,$2,$3,$5,$6);
+                  Statement_IR(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$5  ) ; }
 				        | ID ASSIGN Exp SC
                 { $$=new StatementNode() ;
                   Statement_Semantic(yylineno,(StatementNode*)$$,(Id*)$1,(Assign*)$2,(ExpNode*)$3  ) ;

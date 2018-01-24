@@ -627,7 +627,7 @@ void Call_Semantic(int lineno,class CallNode* Self, class Id* id){
 void ExpList_Semantic(int lineno,class ExpListNode* Self,class ExpNode* exp){
 	// add Exp Type to Self. TypeList
 #ifdef PARSEDEBUG
-  cerr << "<<ExpList_Semantic>> explist -> exp" << endl;
+  cerr << "<<ExpList_Semantic>> explist -> exp : "<< exp->str_content << endl;
 #endif
 	Self->typesvec.push_back(exp->Type);
   Self->expvec.push_back(exp);
