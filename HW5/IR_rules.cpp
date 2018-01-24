@@ -426,10 +426,29 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
     cerr << "[Statement_IR] Return noneVoid" << endl;
 #endif
     emitter.comment("return noneVoid in v0");
-    // assumption - exp is holding last reg
-    emitter.assign(RegMngr::getRegMngr().getV0(),RegMngr::getRegMngr().last_reg());
-    RegMngr::getRegMngr().free_last_reg();
+    string expStr = exp->str_content;
+    if(expStr == "true" || expStr == "false")
+    {
+        if (expStr == "true")
+        {
+          emitter.num_toreg(regmnref.getV0(),"1");
+        }
+        else // expStr == "false"
+        {
+          emitter.num_toreg(regmnref.getV0(),"0");
+        }
+    }
+    else
+    {
+        // assumption - exp is holding last reg
+        emitter.assign(RegMngr::getRegMngr().getV0(),RegMngr::getRegMngr().last_reg());
+        RegMngr::getRegMngr().free_last_reg();
+    }
+
     emitter.ret();
+#ifdef COMPILE_DBG
+    cerr << "END_OF [Statement_IR] Return noneVoid" << endl;
+#endif
 }
 
 
