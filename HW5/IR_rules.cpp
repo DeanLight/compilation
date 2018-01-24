@@ -190,7 +190,9 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* rel
       exit(5);
       break;
   }
+    emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
     RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
+    emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
     RegMngr::getRegMngr().free_last_reg(); // free reg1 for new use
     int false_line = emitter.patchy_jump();
     Self->truelist = codebuff.makelist(b_op_line);
@@ -257,6 +259,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
       exit(5);
       break;
   }
+    emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
     RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
 #ifdef COMPILE_DBG
     cerr << "END_OF [Exp_IR]:Binop Exp -> Exp1 "+binop->str_content + " Exp2" << endl;
@@ -290,6 +293,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   const string& fp_offset=symtabref.get_var_fp(id->str_content);
   const string& reg1= RegMngr::getRegMngr().get_next_free_reg(); // get next free reg
   emitter.comment("Getting Var falue for [Exp->id]: " + id->str_content + " offset is "+ fp_offset);
+  emitter.comment("\t\t\t __allocating reg " +reg1);
   emitter.get_var_value(reg1,fp_offset); // emit assign //
   Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
@@ -310,6 +314,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
         int line_j = emitter.patchy_jump();
         Self->truelist = codebuff.makelist(line_neq);
         Self->falselist = codebuff.makelist(line_j);
+        emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
         regmnref.free_last_reg();
       }
       Self->str_content = call->str_content;
@@ -325,6 +330,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Num* num){
     cerr << "[Exp_IR] Exp -> Num:" << num->str_content << endl;
 #endif
   string reg =RegMngr::getRegMngr().get_next_free_reg();
+  emitter.comment("\t\t\t __allocating reg " +reg);
   emitter.num_toreg(reg,num->str_content);
 #ifdef COMPILE_DBG
     cerr << "END_OF [Exp_IR] Exp -> Num" << endl;
@@ -458,6 +464,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
     {
         // assumption - exp is holding last reg
         emitter.assign(RegMngr::getRegMngr().getV0(),RegMngr::getRegMngr().last_reg());
+        emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
         RegMngr::getRegMngr().free_last_reg();
     }
 
@@ -500,7 +507,9 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
   if (symtabref.get_type(id->str_content) != Void) //TODO handle case where retun value is bool
   {
     emitter.comment("moving return value to new reg");
-    emitter.assign(regmnref.get_next_free_reg(),regmnref.getV0());
+    string reg =regmnref.get_next_free_reg();
+    emitter.comment("\t\t\t __allocating reg " +reg);
+    emitter.assign(reg,regmnref.getV0());
   }
   Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
@@ -546,6 +555,7 @@ void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* 
       string reg_to_save=regmnref.last_reg();
       emitter.comment("pushing reg " +reg_to_save + " to stack" );
       emitter.push_to_stack(reg_to_save);
+      emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
       regmnref.free_last_reg();
     }
   }
@@ -574,7 +584,9 @@ emitter.comment("poping " + IR_numToString(param_number) +" params from stack ")
   if (symtabref.get_type(id->str_content) != Void)
   {
     emitter.comment("NoneVoid function, moving its result value");
-    emitter.assign(regmnref.get_next_free_reg(),regmnref.getV0());
+    string reg =regmnref.get_next_free_reg();
+    emitter.comment("\t\t\t __allocating reg " +reg);
+    emitter.assign(reg,regmnref.getV0());
   }
   emitter.comment("finished calling "+id->str_content);
   Self->str_content = id->str_content;
@@ -634,6 +646,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
     {
         std::string expReg = regmnref.last_reg();
         emitter.set_var_value(expReg,fpVarReg);
+        emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
         regmnref.free_last_reg();
 
     }
@@ -646,6 +659,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
         boolAssCount++;
         emitter.add_label(newTL);
         emitter.comment("assigning True to " + id->str_content);
+        emitter.comment("\t\t\t __allocating reg " +nextReg);
         emitter.num_toreg(nextReg ,"1");
         emitter.set_var_value(nextReg,fpVarReg);
         int j_t = emitter.patchy_jump();
@@ -653,9 +667,11 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
         boolAssCount++;
         emitter.add_label(newFL);
         emitter.comment("assigning False to " + id->str_content);
+        emitter.comment("\t\t\t __allocating reg " +nextReg);
         emitter.num_toreg(nextReg ,"0");
         emitter.set_var_value(nextReg,fpVarReg);
         int j_f = emitter.patchy_jump();
+        emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
         regmnref.free_last_reg();
 
         Self->nextlist  = codebuff.merge(codebuff.merge(Self->nextlist,codebuff.makelist(j_t)),codebuff.makelist(j_f)); // CHECK
@@ -816,7 +832,8 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
       cerr << "[Statement_IR: state->switch_head caseList ]" << endl;
   #endif
   // r0 = get last register (register of the exp)
-  string expreg=regmnref.last_reg();
+  string expreg=regmnref.get_next_free_reg(); //got the reg that we freed in switch head , should be t0
+  emitter.comment("\t\t\t __allocating reg " +expreg);
   vector<CaseDecNode*>& CDvec=caselist->caseDecvec;
   vector<StatementsNode*>& STvec=caselist->statevec;
   vector<MarkNode*>& Mvec=caselist->markvec;
@@ -962,6 +979,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   Statement_next_patcher_IR(Self); //
 
   // TODO:
+  emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
   regmnref.free_last_reg();
 
 }
@@ -974,6 +992,8 @@ void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
   emitter.comment("switch!");
   int addr=emitter.patchy_jump();
   Self->init_jump_addr=addr;
+  emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+  regmnref.free_last_reg(); // this is the reg that expNode is in , we will get it again in the init phase
 }
 
 
@@ -1061,6 +1081,7 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
     string newReg = regmnref.last_reg(); // assumption - i/d was derived and a line ofer get_var_fp and such was already written
     emitter.comment("If true");
     int line_neq = emitter.NEQ_patchy(newReg,"$zero"); // if NEQ that means its a none zero == True
+    emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
     regmnref.free_last_reg();
     emitter.comment("If False");
     int line_j = emitter.patchy_jump();
@@ -1096,6 +1117,7 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   {
     string newReg = regmnref.get_next_free_reg();
     emitter.comment("Moving True into new Param Reg");
+    emitter.comment("\t\t\t __allocating reg " +newReg);
     emitter.num_toreg(newReg,"1");
     return;
   }
@@ -1103,6 +1125,7 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   {
    string newReg = regmnref.get_next_free_reg();
     emitter.comment("Moving False into new Param Reg");
+    emitter.comment("\t\t\t __allocating reg " +newReg);
     emitter.num_toreg(newReg,"0");
     return;
   }
@@ -1116,12 +1139,14 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   emitter.comment("inserting 1 to param reg if evaluates to true");
   string true_lab = emitter.get_bp_label();
   emitter.add_label(true_lab);
+  emitter.comment("\t\t\t __allocating reg " +nextReg);
   emitter.num_toreg(nextReg,"1");
   string later_label = emitter.get_bp_label();
   emitter.jump(later_label);
   string false_lab = emitter.get_bp_label();
   emitter.comment("inserting 0 to param reg if evaluates to false");
   emitter.add_label(false_lab);
+  emitter.comment("\t\t\t __allocating reg " +nextReg);
   emitter.num_toreg(nextReg,"0");
   emitter.add_label(later_label);
   codebuff.bpatch(ex->truelist,true_lab);
