@@ -39,7 +39,7 @@ function do_test {
 			echo ${i} failed tests
 			echo
       #subl -n ${i}.myout ${i}.Cerr ${i}.Serr ${i}_mips.s
-      break
+      #break
 		fi ;
 	done
 

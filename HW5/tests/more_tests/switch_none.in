@@ -1,0 +1,12 @@
+void main()
+{
+	int sad = 0;
+	switch(sad)
+	{
+		case 5:
+		case 4:
+		case 3:
+			print("happy");
+	};
+	print("bye");
+}

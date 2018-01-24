@@ -1,0 +1,17 @@
+void main()
+{
+	int x = 4;
+	switch(x)
+	{
+		case 3:
+		case 3:
+		case 5:
+		case 6:
+		default:
+			print("BASA");
+			break;
+		case 4:
+			print("YA"); //check out it should behave
+	};
+	print("aldante");
+}
