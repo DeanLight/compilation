@@ -11,7 +11,7 @@ void main()
 			print("BASA");
 			break;
 		case 4:
-			print("YA"); //check out it should behave
+			print("YA\n"); //check out it should behave
 	};
 	print("aldante");
 }

@@ -9,9 +9,14 @@ int foo(int n){
 void main()
 {
 	printi(foo(5));
+	print("\n");
 	printi(foo(4));
+	print("\n");
 	printi(foo(3));
+	print("\n");
 	printi(foo(2));
+	print("\n");
 	printi(foo(1));
+	print("\n");
 	printi(foo(0));
 }

@@ -25,7 +25,7 @@ function do_test {
 	for i in $infile_arr ; do
     echo checking ${i}.in
 
-    touch ${i}.myout ${i}.Serr ${i}.s ${i}.Cerr
+    touch ${i}.myout  ${i}.s ${i}.Cerr
 
     ./${executable} < ${i}.in > ${i}.s  2> ${i}.Cerr
     ./spim -file ${i}.s > ${i}.myout
