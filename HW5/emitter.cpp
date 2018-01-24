@@ -153,7 +153,7 @@ void Emitter::multiply_byte(const string& dreg, const string& sreg1 ,const strin
   comment("multiply_byte");
   const string command1 = "\tmult\t" +  sreg1 +","+ sreg2 ;
   codebuffer.emit(command1);
-  const string command2 = "\tmflow\t"+ dreg;
+  const string command2 = "\tmflo\t"+ dreg;
   codebuffer.emit(command2);
   truncate_byte(dreg);
 }
