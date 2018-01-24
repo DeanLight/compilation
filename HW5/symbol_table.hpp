@@ -165,6 +165,8 @@ class SymbolTable
         unsigned var_size(v_type tt) { return 4;}; // return size of type
         std::vector<scope_data> all_scopes;
         bool enter_new_scope(v_type ret_tt, v_type switch_type, bool is_break);
+
+        std::string mainLabel;
 };
 
 #endif //COMPILATION_TMP_SYMBOLTABLE_H

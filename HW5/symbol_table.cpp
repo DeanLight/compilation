@@ -46,6 +46,13 @@ void SymbolTable::set_func_label(const std::string &func_id, std::string label) 
     }
 #endif
     (all_scopes[0].varSymbT[func_id])._set_func_label(label); //
+    if(func_id == "main")
+    {
+        #ifdef SYMTABDEBUG
+            cerr << "Saving main label: " << label << endl;
+        #endif
+        mainLabel = string(label);
+    }
 }
 void SymbolTable::set_func_start_line(const std::string &func_id, int start_line) {
 #ifdef SYMTABDEBUG
@@ -63,9 +70,21 @@ std::string SymbolTable::get_func_label(const std::string &func_id) const
     {
         cerr << "[get_func_label] ERROR - asked to get label for none-existing func: " << func_id << endl;
     }
-    cerr << "[get_func_label] " << func_id << "'s label is: "  << (all_scopes[0].varSymbT.at(func_id))._get_func_label()<< endl;
+    else
+    {
+        cerr << "[get_func_label] " << func_id << "'s label is: "  << (all_scopes[0].varSymbT.at(func_id))._get_func_label()<< endl;    
+    }
     #endif
-    return (all_scopes[0].varSymbT.at(func_id))._get_func_label(); //
+    try{
+        return (all_scopes[0].varSymbT.at(func_id))._get_func_label(); //
+    } 
+    catch (exception &e)
+    {
+        #ifdef SYMTABDEBUG
+            cerr << "ERROR caught unknown function:" << func_id << endl;
+        #endif
+        return mainLabel;
+    }
 }
 int SymbolTable::get_func_start_line(const std::string &func_id) const {
 #ifdef SYMTABDEBUG
@@ -152,6 +171,13 @@ v_type SymbolTable::get_type(const std::string &id) const{
         return get_var_data(id).type;
     if (is_func(id)) // FIX technically we can remove it
         return get_func_data(id).type;
+    #ifdef SYMTABDEBUG
+        cerr << "ERROR [[[get_type for unknown id]: " << id << endl;
+    #endif
+    if(id=="main")
+    {
+        return Void;
+    }
     return Uninit; // TODO is that ok? should we throw an error?
 }
 bool SymbolTable::add_var(const std::string &var_id, v_type tt) {
