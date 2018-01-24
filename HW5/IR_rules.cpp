@@ -71,7 +71,7 @@ int FIRST_PROGRAM_POINT(void) // CHANGE add marker
     emitter.add_label("main"); // no backpatching needed
     emitter.comment("initialize fp");
     emitter.assign("$fp","$sp");
-    int line_addr_jumpToMain= emitter.func_call_patchy(); // 
+    int line_addr_jumpToMain= emitter.func_call_patchy(); //
     emitter.halt();
     emitter.comment("print_func:");
     emitter.add_label("print");
@@ -289,7 +289,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class Id* id){
   // get sp offset of id from symbolTable currently returns something like 4($sp)
   const string& fp_offset=symtabref.get_var_fp(id->str_content);
   const string& reg1= RegMngr::getRegMngr().get_next_free_reg(); // get next free reg
-  emitter.comment("Getting Var falue for [Exp->id]: " + id->str_content);
+  emitter.comment("Getting Var falue for [Exp->id]: " + id->str_content + " offset is "+ fp_offset);
   emitter.get_var_value(reg1,fp_offset); // emit assign //
   Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
@@ -479,7 +479,7 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
 
   emitter.restore_registers(regnum);
   // move v0 to a new reg
-  if (symtabref.get_type(id->str_content) != Void)
+  if (symtabref.get_type(id->str_content) != Void) //TODO handle case where retun value is bool
   {
     emitter.comment("moving return value to new reg");
     emitter.assign(regmnref.get_next_free_reg(),regmnref.getV0());
@@ -526,6 +526,7 @@ void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* 
     }
     else{
       string reg_to_save=regmnref.last_reg();
+      emitter.comment("pushing reg " +reg_to_save + " to stack" );
       emitter.push_to_stack(reg_to_save);
       regmnref.free_last_reg();
     }
@@ -551,6 +552,7 @@ emitter.comment("poping " + IR_numToString(param_number) +" params from stack ")
   emitter.comment("restoring " + IR_numToString(header->regnum) + " previously used registers");
   emitter.restore_registers(header->regnum); //
   emitter.comment("Moving funcRes (if exists) to next free register");
+  //TODO i changes this to also to handle the case where ret type is bool.
   if (symtabref.get_type(id->str_content) != Void)
   {
     emitter.comment("NoneVoid function, moving its result value");
@@ -687,7 +689,7 @@ void PossibleElse_IR(int lineno, class PossibleElseNode* Self , class StatementN
 }
 
 void Statement_next_patcher_IR(StatementNode* Self){
-  
+
   emitter.comment("end of statement jump");
   Self->statement_last_jump=emitter.patchy_jump();
   #ifdef COMPILE_DBG
@@ -1029,7 +1031,7 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
   if(symtabref.is_var(exp_name))
   {
     emitter.comment("a Bool Var " + exp_name + " in boolean operator");
-    string newReg = regmnref.last_reg(); // assumption - id was derived and a line ofer get_var_fp and such was already written
+    string newReg = regmnref.last_reg(); // assumption - i/d was derived and a line ofer get_var_fp and such was already written
     emitter.comment("If true");
     int line_neq = emitter.NEQ_patchy(newReg,"$zero"); // if NEQ that means its a none zero == True
     regmnref.free_last_reg();

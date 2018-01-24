@@ -1,32 +1,17 @@
 void main(){
 	bool t1 = true or not true;
-	if(t1){
-		print("true1\n");
-	} else {
-		print("false1\n");
-	}
 	bool t2 = not not t1;
-	if(t2){
-		print("true2\n");
-	} else {
-		print("false2\n");
-	}
 	bool t3 = not t1 or t2;
-	if(t3){
-		print("true3\n");
-	} else {
-		print("false3\n");
-	}
 	bool t4 = (t1 and t2) and t3;
 	if(t4){
-		print("true4\n");
+		print("true\n");
 	} else {
-		print("false4\n");
+		print("false\n");
 	}
 	if(t1 and (t2 and t3)){
-		print("true5\n");
+		print("true\n");
 	} else {
-		print("false5\n");
+		print("false\n");
 	}
 	
 }

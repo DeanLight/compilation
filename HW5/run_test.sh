@@ -28,12 +28,12 @@ function do_test {
     touch ${i}.myout ${i}.Serr ${i}.s ${i}.Cerr
 
     ./${executable} < ${i}.in > ${i}.s  2> ${i}.Cerr
-    ./spim -file ${i}.s | tee >( grep -E "^@@@" > ${i}.Serr ) | grep -v -E "^@@@" > ${i}.myout
+    ./spim -file ${i}.s > ${i}.myout
 
 		if cmp ${i}.out ${i}.myout
 		then
 			echo ${i} passed tests
-			rm -f ${i}.myout ${i}.Cerr ${i}.Serr ${i}.s
+			rm -f ${i}.myout ${i}.Cerr  ${i}.s
       echo
 		else
 			echo ${i} failed tests
@@ -43,7 +43,7 @@ function do_test {
 		fi ;
 	done
 
-	rm hw3
+	rm ${executable}
 
 }
 

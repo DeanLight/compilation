@@ -1,4 +1,4 @@
 Loaded: ./exceptions.s
-TRUE_1
-TRUE_2
-FINITE
+true
+false
+false

@@ -9,6 +9,6 @@ int goo(int x){
 }
 
 void main(){
-	int x = (goo(4)+2)+10*goo(10)
+	int x = (goo(4)+2)+10*foo(10);
 	printi(x);
 }

@@ -22,7 +22,7 @@ std::string SymbolTable::get_var_fp(const std::string &var_id) const {
     if (offset)
     {
         std::stringstream numStr;
-        numStr << offset;
+        numStr << (-offset);
         return numStr.str() + "($fp)";
     }
     // else - offset == 0

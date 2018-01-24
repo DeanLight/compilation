@@ -1,6 +1,6 @@
 
 void g(){
-	print("girl\n")
+	print("girl\n");
 }
 
 void f(){

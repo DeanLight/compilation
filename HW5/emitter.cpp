@@ -47,13 +47,13 @@ string Emitter::get_bp_label(){
 }
 
 void Emitter::add_print_func() const {
-    codebuffer.emit("lw $a0,0($sp)");
+    codebuffer.emit("lw $a0,0($sp)"); //TODO talk about difference between printi and print
     codebuffer.emit("li $v0,4");
     codebuffer.emit("syscall");
     codebuffer.emit("jr $ra");
 }
 void Emitter::add_printi_func() const {
-    codebuffer.emit("lw $a0,0($sp)");
+    codebuffer.emit("lw $a0,4($sp)");
     codebuffer.emit("li $v0,1");
     codebuffer.emit("syscall");
     codebuffer.emit("jr $ra");
@@ -337,15 +337,16 @@ int Emitter::func_call_patchy(){
 
 // returns the number of registers that where stored in stack
 int Emitter::store_registers(){
+   int reg_num=regmn.regs_currently_used();
   #ifdef MIPS_DBG
-    std::cerr << "[Emitter] store_registers" << std::endl;
+    std::cerr << "[Emitter] store_registers: " << reg_num << std::endl;
   #endif
-  int reg_num=regmn.regs_currently_used();
-  vector<string> cmds=regmn.save_all_regs_to_stack();
-  regmn.free_last_k_regs(reg_num);
-  for(vector<string>::iterator it=cmds.begin(); it!=cmds.end(); it++){
-    codebuffer.emit(*it);
+  //vector<string> cmds=regmn.save_all_regs_to_stack();
+  for (int i=reg_num-1; i>=0; i--)
+  {
+    push_to_stack(regmn.tmpRegI(i));
   }
+  regmn.free_last_k_regs(reg_num);
   return reg_num;
 }
 
@@ -354,14 +355,10 @@ void Emitter::restore_registers(int regnum){
     #ifdef MIPS_DBG
     std::cerr << "[Emitter] REstore_registers: " << regnum << std::endl;
   #endif
-  vector<string> cmds=regmn.restore_all_regs_from_stack(regnum);
   // reallocate the registers
   for(int i=0 ; i<regnum ; i++ ){
-    regmn.get_next_free_reg();
+    pops_from_stack(regmn.get_next_free_reg());
 
-  }
-  for(vector<string>::iterator it=cmds.begin(); it!=cmds.end(); it++){
-    codebuffer.emit(*it);
   }
 
 }
@@ -381,18 +378,19 @@ void Emitter::free_words_on_stack(int kwords){
 
 
 void Emitter::push_to_stack( const string &source){
-  string expand_stack = "\taddiu $sp, $sp, -4";
+
   string store_source = "\tsw "+source+", ($sp)";
-  codebuffer.emit(expand_stack);
+  string expand_stack = "\taddiu $sp, $sp, -4";
   codebuffer.emit(store_source);
+  codebuffer.emit(expand_stack);
 
 }
 
 void Emitter::pops_from_stack(const  string &reg){
-  string restore_source = "\tlw "+reg+", ($sp)";
   string collapse_stack = "\taddiu $sp, $sp, 4";
-  codebuffer.emit(restore_source);
+  string restore_source = "\tlw "+reg+", ($sp)";
   codebuffer.emit(collapse_stack);
+  codebuffer.emit(restore_source);
 }
 
 

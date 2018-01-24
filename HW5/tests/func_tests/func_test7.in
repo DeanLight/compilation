@@ -1,19 +1,19 @@
 
-int foo(byte b){
-  int x=b;
-  return x+1
+int foo(byte c){
+  int x=c;
+  return x+1b;
 }
 
 
-int goo(byte b){
-  int x=b;
-  return b+1
+int goo(byte c){
+  int x=c;
+  return c+1b;
 }
 
 
 void main(){
-	printi(foo(255));
+	printi(foo(255b));
 	print("\n");
-	printi(foo(255));
+	printi(goo(255b));
 	print("\n");
 }

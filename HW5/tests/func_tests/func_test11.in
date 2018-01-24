@@ -5,7 +5,7 @@ int a(int x){
   return x;
 }
 
-int b(int x){
+int k(int x){
   print("b\t");
   return x;
 }
@@ -53,6 +53,7 @@ int j(int x){
 
 
 void main(){
-	int x = (goo(4)+2)+10*goo(10)
+	int x = 10;
+	int y = (a(x)+ k(x) + c(x) + d(x) + e(x) + f(x) + g(x) + h(x) + (i(x)) + j(x))/j(x);
 	printi(x);
 }
