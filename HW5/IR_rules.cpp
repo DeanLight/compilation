@@ -843,6 +843,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   vector<CaseDecNode*>& CDvec=caselist->caseDecvec;
   vector<StatementsNode*>& STvec=caselist->statevec;
   vector<MarkNode*>& Mvec=caselist->markvec;
+  vector<CaseInitNode*>& Ivec=caselist->cInitvec;
 
   #ifdef COMPILE_DBG
       cerr << "CDvec size is  " << CDvec.size() << endl;
@@ -893,7 +894,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
       #ifdef COMPILE_DBG
           cerr << "after else state 1" << i << endl;
       #endif
-      emitter.beq_to_immediate(expreg,caseVal,Mvec[i]->labelstr);
+      emitter.beq_to_immediate(expreg,caseVal,Ivec[i]->labelstr);
       #ifdef COMPILE_DBG
           cerr << "after else state 2" << i << endl;
       #endif
@@ -906,7 +907,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   // if default marker>=0
   //  jump default.M
   if(default_index>=0){
-    emitter.jump(Mvec[default_index]->labelstr);
+    emitter.jump(Ivec[default_index]->labelstr);
   }
   #ifdef COMPILE_DBG
       cerr << "before backpatching case nextlists" << endl;
@@ -1005,7 +1006,7 @@ void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
 
 
 //CaseList:		CaseList M CaseStatement
-void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, MarkNode* M, class CaseStatementNode* case_ptr){
+void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, CaseInitNode* initM, MarkNode* M, class CaseStatementNode* case_ptr){
   Self->caseDecvec=rest_of_list->caseDecvec;
   Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[0]);
 
@@ -1020,11 +1021,13 @@ void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_o
   Self->markvec=rest_of_list->markvec;
   Self->markvec.push_back(M);
 
+  Self->cInitvec=rest_of_list->cInitvec;
+  Self->cInitvec.push_back(initM);
 
 }
 
 //CaseList:	 M CaseStatement
-void CaseList_IR(int lineno,class CaseListNode* Self, MarkNode* M, class CaseStatementNode* case_ptr){
+void CaseList_IR(int lineno,class CaseListNode* Self, CaseInitNode* initM , MarkNode* M, class CaseStatementNode* case_ptr){
   Self->caseDecvec.push_back((CaseDecNode*)case_ptr->sons[0]);
   if(case_ptr->sons.size()>1){// if its a case with statements
     Self->statevec.push_back((StatementsNode*)case_ptr->sons[1]);
@@ -1032,9 +1035,25 @@ void CaseList_IR(int lineno,class CaseListNode* Self, MarkNode* M, class CaseSta
     Self->statevec.push_back((StatementsNode*)NULL);
   }
   Self->markvec.push_back(M);
+  Self->cInitvec.push_back(initM);
 
 }
 
+void CaseInit_IR(CaseInitNode* Self){
+ // TODO
+ int vars_created = symtabref.vars_created_in_last_scope();
+ string Minitlabel=emitter.get_bp_label();
+ emitter.comment("case init marker");
+ emitter.add_label(Minitlabel);
+ Self->labelstr=Minitlabel;
+ emitter.comment("updating sp by " + glob_int_to_str(vars_created) + " and zeroing them");
+
+ for (int i=0 ; i<vars_created ; i++ ){
+    emitter.push_to_stack("$zero");
+ }
+ emitter.comment("finished sp update");
+
+}
 
 //CaseStatement:	CaseDec Statements
 void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec, class StatementsNode* statements){

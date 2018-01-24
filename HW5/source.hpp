@@ -61,6 +61,12 @@ public:
   MarkNode():labelstr(""){};
 };
 
+class CaseInitNode: public Node{
+public:
+  string labelstr;
+  CaseInitNode():labelstr(""){};
+};
+
 class ProgramNode: public Node{
 public:
 	int jump_to_main_address;
@@ -178,10 +184,12 @@ public:
   vector<CaseDecNode*> caseDecvec;
   vector<StatementsNode*> statevec;
   vector<MarkNode*> markvec;
+  vector<CaseInitNode*> cInitvec;
   CaseListNode(){
   caseDecvec=vector<CaseDecNode*>();
   statevec=vector<StatementsNode*>();
   markvec=vector<MarkNode*>();
+  cInitvec= vector<CaseInitNode*>();
   }
   //CaseListNode(){};// default
 };

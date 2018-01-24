@@ -221,16 +221,21 @@ Scope_init:	    /*epsilon*/
 Scope_end:	    /*epsilon*/
                 {  Scope_end_Semantic(yylineno) ; }
 
-CaseList:		    CaseList Mark CaseStatement
+CaseList:		    CaseList Mark_case_init Mark CaseStatement
                 { $$=new CaseListNode() ;
-                  CaseList_Semantic(yylineno,(CaseListNode*)$$,(CaseListNode*)$1,(CaseStatementNode*)$3  ) ;
-                  $$->addSon($1,$2);
-                  CaseList_IR(yylineno, (CaseListNode*)$$ , (CaseListNode*)$1 , (MarkNode*)$2 , (CaseStatementNode*)$3 );}
-				        | Mark CaseStatement
+                  CaseList_Semantic(yylineno,(CaseListNode*)$$,(CaseListNode*)$1,(CaseStatementNode*)$4  ) ;
+                  $$->addSon($1,$2,$3,$4);
+                  CaseList_IR(yylineno, (CaseListNode*)$$ , (CaseListNode*)$1 ,(CaseInitNode*)$2,  (MarkNode*)$3 , (CaseStatementNode*)$4 );}
+				        | Mark_case_init Mark CaseStatement
                 { $$=new CaseListNode() ;
-                  CaseList_Semantic(yylineno,(CaseListNode*)$$,(CaseStatementNode*)$2  ) ;
-                  $$->addSon($1);
-                  CaseList_IR(yylineno, (CaseListNode*)$$ , (MarkNode*)$1 , (CaseStatementNode*)$2);}
+                  CaseList_Semantic(yylineno,(CaseListNode*)$$,(CaseStatementNode*)$3  ) ;
+                  $$->addSon($1,$2,$3);
+                  CaseList_IR(yylineno, (CaseListNode*)$$ , (CaseInitNode*)$1 , (MarkNode*)$2 , (CaseStatementNode*)$3);}
+
+Mark_case_init: /*epsilon*/
+                {
+                  $$=new CaseInitNode;
+                  CaseInit_IR((CaseInitNode*)$$); }
 
 CaseStatement:	CaseDec Statements
                 { $$=new CaseStatementNode() ;

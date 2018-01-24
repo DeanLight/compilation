@@ -50,8 +50,11 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
 void Statement_IR(int lineno,class StatementNode* Self, class Lbrace* lbr, class StatementsNode* statements, class Rbrace* br);
 
 void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp );
-void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list, MarkNode* M, class CaseStatementNode* case_ptr);
-void CaseList_IR(int lineno,class CaseListNode* Self, MarkNode* M, class CaseStatementNode* case_ptr);
+void CaseList_IR(int lineno,class CaseListNode* Self, class CaseListNode* rest_of_list,  CaseInitNode* initM ,MarkNode* M, class CaseStatementNode* case_ptr);
+void CaseList_IR(int lineno,class CaseListNode* Self, CaseInitNode* initM , MarkNode* M, class CaseStatementNode* case_ptr);
+
+void CaseInit_IR(CaseInitNode* Self);
+
 void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec, class StatementsNode* statements);
 void CaseStatement_IR(int lineno,class CaseStatementNode* Self, class CaseDecNode* casedec);
 
