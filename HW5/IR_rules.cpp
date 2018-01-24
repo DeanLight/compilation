@@ -190,9 +190,9 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Relop* rel
       exit(5);
       break;
   }
-    emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+    emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
     RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
-    emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+    emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
     RegMngr::getRegMngr().free_last_reg(); // free reg1 for new use
     int false_line = emitter.patchy_jump();
     Self->truelist = codebuff.makelist(b_op_line);
@@ -259,7 +259,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class ExpNode* exp1, class Binop* bin
       exit(5);
       break;
   }
-    emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+    emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
     RegMngr::getRegMngr().free_last_reg(); // free reg2 for new use
 #ifdef COMPILE_DBG
     cerr << "END_OF [Exp_IR]:Binop Exp -> Exp1 "+binop->str_content + " Exp2" << endl;
@@ -314,7 +314,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
         int line_j = emitter.patchy_jump();
         Self->truelist = codebuff.makelist(line_neq);
         Self->falselist = codebuff.makelist(line_j);
-        emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+        emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
         regmnref.free_last_reg();
       }
       Self->str_content = call->str_content;
@@ -464,7 +464,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
     {
         // assumption - exp is holding last reg
         emitter.assign(RegMngr::getRegMngr().getV0(),RegMngr::getRegMngr().last_reg());
-        emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+        emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
         RegMngr::getRegMngr().free_last_reg();
     }
 
@@ -555,7 +555,7 @@ void Call_IR(int lineno,class CallNode* Self, CallHeaderNode* header, class Id* 
       string reg_to_save=regmnref.last_reg();
       emitter.comment("pushing reg " +reg_to_save + " to stack" );
       emitter.push_to_stack(reg_to_save);
-      emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+      emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
       regmnref.free_last_reg();
     }
   }
@@ -646,7 +646,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
     {
         std::string expReg = regmnref.last_reg();
         emitter.set_var_value(expReg,fpVarReg);
-        emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+        emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
         regmnref.free_last_reg();
 
     }
@@ -671,7 +671,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Id* id, class Assi
         emitter.num_toreg(nextReg ,"0");
         emitter.set_var_value(nextReg,fpVarReg);
         int j_f = emitter.patchy_jump();
-        emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+        emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
         regmnref.free_last_reg();
 
         Self->nextlist  = codebuff.merge(codebuff.merge(Self->nextlist,codebuff.makelist(j_t)),codebuff.makelist(j_f)); // CHECK
@@ -979,7 +979,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class SwitchHeadNode* sw
   Statement_next_patcher_IR(Self); //
 
   // TODO:
-  emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+  emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
   regmnref.free_last_reg();
 
 }
@@ -992,7 +992,7 @@ void SwitchHead_IR(int lineno, class SwitchHeadNode* Self,class ExpNode* exp ){
   emitter.comment("switch!");
   int addr=emitter.patchy_jump();
   Self->init_jump_addr=addr;
-  emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+  emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
   regmnref.free_last_reg(); // this is the reg that expNode is in , we will get it again in the init phase
 }
 
@@ -1081,7 +1081,7 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
     string newReg = regmnref.last_reg(); // assumption - i/d was derived and a line ofer get_var_fp and such was already written
     emitter.comment("If true");
     int line_neq = emitter.NEQ_patchy(newReg,"$zero"); // if NEQ that means its a none zero == True
-    emitter.comment("\t\t\t __allocating reg " + regmnref.last_reg());
+    emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
     regmnref.free_last_reg();
     emitter.comment("If False");
     int line_j = emitter.patchy_jump();
