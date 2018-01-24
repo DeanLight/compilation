@@ -1,4 +1,0 @@
-Loaded: ./exceptions.s
-not: 	false	true	false	
-and: 	true	false	false	false	false	
-or: 	true	false	true	false	true	false	false	
