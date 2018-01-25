@@ -412,7 +412,7 @@ void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,
     std::string func_name = ((Id*)(head->sons[1]))->str_content;
 #ifdef COMPILE_DBG
     cerr << "checking retType of func: " << func_name << endl;
-    cerr << "If void, an extra ret will be added" << endl;
+    cerr << "for an extra ret will be added" << endl;
 #endif
     v_type retType = symtabref.get_type(func_name);
 #ifdef COMPILE_DBG
@@ -424,7 +424,10 @@ void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,
     vector<int>& last_jump_addr=((StatementsNode*)(state->sons[1]))->nextlist;
     codebuff.bpatch(last_jump_addr,endlabel);
     emitter.comment("Adding an extre return just in case");
+    emitter.comment("restting sp");
     emitter.assign(regmnref.getSP(),regmnref.getFP());
+    emitter.comment("for this extra return, we zero v0");
+    emitter.assign(regmnref.getV0(),"$zero");
     emitter.ret();
 
 
