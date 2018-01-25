@@ -1,0 +1,77 @@
+void main(){
+	byte byte1;
+	byte byte2;
+
+
+	printi(byte1 - 1);
+	print("\n");
+
+	byte2=byte1
+	printi(byte2);
+	print("\n");
+
+	printi(16*16);
+	print("\n");
+
+	printi(byte2+1);
+	print("\n");
+
+	printi(byte2+3);
+	print("\n");
+
+	printi(255 b + 255 b);
+	print("\n");
+
+	int maxint=2147483647
+	int minint=0-2147483648
+	int another_minint=2147483648
+	int another_maxint=0-2147483649
+	int num1;
+	int num2;
+
+
+
+	printi(255 + 255 );
+	print("\n");
+
+	printi(maxint);
+	print("\n");
+
+	printi(another_maxint );
+	print("\n");
+
+	printi(minint );
+	print("\n");
+
+	printi(another_minint );
+	print("\n");
+
+	num1=maxint+1
+
+	printi(num1);
+	print("\n");
+
+	num2=maxint+maxint+2
+
+	printi(num2);
+	print("\n");
+
+	num2=maxint+1+num1
+	printi(num2);
+	print("\n");
+
+	printi(100000*100000);
+	print("\n");
+
+	byte1=200;
+	byte2=100;
+
+	int1=byte1+byte2;
+	printi(int1);
+	print("\n");
+
+	int1=byte1+byte2;
+	printi(int1);
+	print("\n");
+
+}
