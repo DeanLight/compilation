@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
-#define bpDBG
+//#define bpDBG
 
 CodeBuffer::CodeBuffer() : buffer(), dataDefs() {
 }

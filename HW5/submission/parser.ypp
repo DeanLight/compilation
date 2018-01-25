@@ -144,12 +144,12 @@ Statement:		  LBRACE Scope_init Statements RBRACE
                   Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2 ) ;
                   $$->addSon($1,$2,$3);
                   Statement_IR(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2 ) ; }
-				        | Type ID ASSIGN MVSP Exp SC
+				        | Type ID ASSIGN MVSP SJ_Exp SC
                 { $$=new StatementNode() ;
                   Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$5  ) ;
                   $$->addSon($1,$2,$3,$5,$6);
                   Statement_IR(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$5  ) ; }
-				        | ID ASSIGN Exp SC
+				        | ID ASSIGN SJ_Exp SC
                 { $$=new StatementNode() ;
                   Statement_Semantic(yylineno,(StatementNode*)$$,(Id*)$1,(Assign*)$2,(ExpNode*)$3  ) ;
                   $$->addSon($1,$2,$3,$4);
@@ -164,7 +164,7 @@ Statement:		  LBRACE Scope_init Statements RBRACE
                   Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1);
                   $$->addSon($1,$2);
                   Statement_IR(yylineno,(StatementNode*)$$,(Return*)$1);}
-				        | RETURN Exp SC
+				        | RETURN SJ_Exp SC
                 { $$=new StatementNode() ;
                   Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1,(ExpNode*)$2  ) ;
                   $$->addSon($1,$2,$3);
@@ -276,17 +276,24 @@ CallHeader:     /*epsilon*/
                 { $$=new CallHeaderNode() ;
                   CallHeader_IR(yylineno,(CallHeaderNode*)$$) ;}
 
-ExpList:		    Exp
+ExpList:		    ExpParam
                 { $$=new ExpListNode() ;
                   ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ;
                   $$->addSon($1);
-                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ;
+                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1  );
                   }
-				        |Exp COMMA ExpList
+				        |ExpParam COMMA  ExpList
                 { $$=new ExpListNode() ;
                   ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$3 ) ;
                   $$->addSon($1,$2,$3);
-                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$3) ;}
+                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1, (ExpListNode*)$3) ;}
+
+ExpParam:       Exp Mark
+                { $$=$1 ;
+                  ExpParam_IR( (ExpNode*)$$, (MarkNode*)$2 ) ;}
+
+
+
 
 Type:			      INT
                 { $$=new TypeNode() ;

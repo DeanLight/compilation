@@ -101,7 +101,7 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
     std::string main_label = symtabref.get_func_label("main");
 #ifdef COMPILE_DBG
     cerr << main_label << endl;
-    cerr << "ignore me1 (" << symtabref.get_func_label("main") << ")" << endl;
+    //cerr << "ignore me1 (" << symtabref.get_func_label("main") << ")" << endl;
 #endif
     codebuff.bpatch(codebuff.makelist(initProg->jump_to_main_address),main_label);
 #ifdef COMPILE_DBG
@@ -313,6 +313,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
         int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero");
         int line_j = emitter.patchy_jump();
         Self->truelist = codebuff.makelist(line_neq);
+        emitter.comment("returning from a boolean function");
         Self->falselist = codebuff.makelist(line_j);
         emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
         regmnref.free_last_reg();
@@ -452,16 +453,32 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
 #endif
     emitter.comment("return noneVoid in v0");
     string expStr = exp->str_content;
-    if(expStr == "true" || expStr == "false")
-    {
-        if (expStr == "true")
-        {
-          emitter.num_toreg(regmnref.getV0(),"1");
-        }
-        else // expStr == "false"
-        {
-          emitter.num_toreg(regmnref.getV0(),"0");
-        }
+    //if(expStr == "true" || expStr == "false")
+    //{
+    //    if (expStr == "true")
+    //    {
+    //      emitter.num_toreg(regmnref.getV0(),"1");
+    //   }
+    //    else // expStr == "false"
+    //    {
+    //      emitter.num_toreg(regmnref.getV0(),"0");
+    //    }
+    //}
+    if(exp->Type==Bool){
+      emitter.comment("returning from a boolean function");
+      string templable=emitter.get_bp_label();
+      string retTrue=emitter.get_bp_label();
+      string retFalse=emitter.get_bp_label();
+      emitter.add_label(retTrue);
+
+      emitter.num_toreg(regmnref.getV0(),"1");
+      emitter.jump(templable);
+      codebuff.bpatch(exp->truelist,retTrue);
+
+      emitter.add_label(retFalse);
+      emitter.num_toreg(regmnref.getV0(),"0");
+      codebuff.bpatch(exp->falselist,retFalse);
+      emitter.add_label(templable);
     }
     else
     {
@@ -514,6 +531,7 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
     emitter.comment("\t\t\t __allocating reg " +reg);
     emitter.assign(reg,regmnref.getV0());
   }
+  emitter.comment("finished calling "+id->str_content);
   Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
     cerr << "END_OF [Call_IR]" << endl;
@@ -1115,7 +1133,7 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
 
 }
 
-// ExpList -> Exp
+// ExpList -> Exp mark
 void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
 {
   #ifdef COMPILE_DBG
@@ -1145,7 +1163,13 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   if(ex->Type!=Bool){
     return;
   }
+  if(symtabref.is_func(ex->str_content)){
+    // A bool function  - it's value is currently in t_i
+    // we just want it to go to the code of the next param
+    return;
+  }
 
+  //return
   // assumption - if reached here - its a complicated bool exp
   string nextReg = regmnref.get_next_free_reg();
   emitter.comment("complicated bool exp as a function parameter");
@@ -1166,8 +1190,21 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   codebuff.bpatch(ex->falselist,false_lab);
 }
 
-// ExpList -> Exp ExpList
+// ExpList -> Exp Mark ExpList
 void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, ExpListNode* restOf)
 {
   ExpList_IR(yylineno, Self, ex);
 }
+
+void ExpParam_IR( ExpNode* Self,MarkNode* M ){
+  if(Self->Type==Bool && symtabref.is_func(Self->str_content) ){
+    regmnref.get_next_free_reg();
+    codebuff.bpatch(Self->truelist,M->labelstr);
+    codebuff.bpatch(Self->falselist,M->labelstr);
+  }
+  delete(M);
+
+}
+
+
+

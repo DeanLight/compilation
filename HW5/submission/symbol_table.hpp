@@ -147,8 +147,8 @@ class SymbolTable
 
         std::string get_var_fp(const std::string &var_id) const;
 
-        void set_func_label(const std::string &func_id, std::string label);
-        std::string get_func_label(const std::string& func_id) const;
+        void set_func_label(const std::string func_id, std::string label);
+        std::string get_func_label(const std::string func_id) const;
         int get_func_start_line(const std::string& func_id) const;
         void set_func_start_line(const std::string& func_id, int start_line);
 

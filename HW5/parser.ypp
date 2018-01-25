@@ -144,12 +144,12 @@ Statement:		  LBRACE Scope_init Statements RBRACE
                   Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2 ) ;
                   $$->addSon($1,$2,$3);
                   Statement_IR(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2 ) ; }
-				        | Type ID ASSIGN MVSP Exp SC
+				        | Type ID ASSIGN MVSP SJ_Exp SC
                 { $$=new StatementNode() ;
                   Statement_Semantic(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$5  ) ;
                   $$->addSon($1,$2,$3,$5,$6);
                   Statement_IR(yylineno,(StatementNode*)$$,(TypeNode*)$1,(Id*)$2,(Assign*)$3,(ExpNode*)$5  ) ; }
-				        | ID ASSIGN Exp SC
+				        | ID ASSIGN SJ_Exp SC
                 { $$=new StatementNode() ;
                   Statement_Semantic(yylineno,(StatementNode*)$$,(Id*)$1,(Assign*)$2,(ExpNode*)$3  ) ;
                   $$->addSon($1,$2,$3,$4);
