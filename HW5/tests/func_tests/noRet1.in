@@ -1,0 +1,20 @@
+int foo(int a)
+{
+	a = a+1;
+}
+
+int goo(int a)
+{
+	print("\nbla\n");
+	return a;
+}
+
+void main()
+{
+	int a = 2;
+	foo(a);
+	printi(a);
+	print("\n");
+	printi(foo(5));
+	printi(goo(9));
+}

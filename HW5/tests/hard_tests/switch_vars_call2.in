@@ -1,0 +1,26 @@
+int foo6()
+{
+	print("\nHello\n");
+}
+
+void main ()
+{
+	int y=1;
+	int x =4;
+	switch(x)
+	{
+		default: int vv0;
+		case 0: break;
+		case 1:
+		case 2: int vv1;
+		case 3: int vv2;
+				printi(vv2);
+		case 4: int vv3=3;
+				printi(vv3);
+		case 5: int vv4=4;
+				printi(vv4);
+				printi(y);
+		case 6: foo6();
+		case 7: break;
+	};
+}
