@@ -26,8 +26,9 @@ rbrace_t \}
 ass_t =
 relop_t (==)|(!=)|(<)|(>)|(<=)|(>=)
 
-binop_sub_add \+|-
 binop_mul_div \*|\/
+binop_sub_add \+|-
+
 bb b
 id_t [a-zA-Z]([a-zA-Z0-9])*
 num_t (0)|([1-9]([0-9])*)
