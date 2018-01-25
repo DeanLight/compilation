@@ -161,7 +161,7 @@ void Emitter::div_byte(const string& dreg, const string& sreg1 ,const string& sr
   const string command2 = "\tdiv\t" +  sreg1 +","+ sreg2 ;
   codebuffer.emit(command2);
 
-  const string command3 = "\tmflow\t"+ dreg;
+  const string command3 = "\tmflo\t"+ dreg;
   codebuffer.emit(command3);
   truncate_byte(dreg);
 }

@@ -164,7 +164,7 @@ Statement:		  LBRACE Scope_init Statements RBRACE
                   Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1);
                   $$->addSon($1,$2);
                   Statement_IR(yylineno,(StatementNode*)$$,(Return*)$1);}
-				        | RETURN Exp SC
+				        | RETURN SJ_Exp SC
                 { $$=new StatementNode() ;
                   Statement_Semantic(yylineno,(StatementNode*)$$,(Return*)$1,(ExpNode*)$2  ) ;
                   $$->addSon($1,$2,$3);

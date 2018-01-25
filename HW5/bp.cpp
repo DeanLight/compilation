@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
+#define bpDBG
 
 CodeBuffer::CodeBuffer() : buffer(), dataDefs() {
 }
@@ -34,10 +35,16 @@ void CodeBuffer::bpatch(const vector<int>& l, const std::string &label){
 }
 
 void CodeBuffer::printCodeBuffer(){
+#ifdef bpDBG
+  cerr << "\n\n\n == printing code === \n\n\n"  << endl;
+#endif
 	std::cout << ".text" << std::endl;
 	for (std::vector<string>::const_iterator it = buffer.begin(); it != buffer.end(); ++it)
 	{
 		cout << *it << endl;
+#ifdef bpDBG
+    cerr << *it << endl;
+#endif
     }
 }
 
@@ -63,10 +70,16 @@ void CodeBuffer::emitData(const std::string& dataLine)
 
 void CodeBuffer::printDataBuffer()
 {
+#ifdef bpDBG
+  cerr << "\n\n\n == printing data === \n\n\n"  << endl;
+#endif
 	std::cout << ".data" << std::endl;
 	for (std::vector<string>::const_iterator it = dataDefs.begin(); it != dataDefs.end(); ++it)
 	{
 		cout << *it << endl;
+#ifdef bpDBG
+    cerr << *it << endl;
+#endif
 	}
 }
 

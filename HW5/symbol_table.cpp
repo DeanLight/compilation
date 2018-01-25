@@ -36,7 +36,7 @@ std::string SymbolTable::get_var_fp(const std::string &var_id) const {
 
 }
 
-void SymbolTable::set_func_label(const std::string &func_id, std::string label) {
+void SymbolTable::set_func_label(const std::string func_id, std::string label) {
 #ifdef SYMTABDEBUG
     cerr << "[set_func_label] label " << label << " for function " << func_id << endl;
     if(!is_func(func_id))
@@ -61,7 +61,7 @@ void SymbolTable::set_func_start_line(const std::string &func_id, int start_line
     (all_scopes[0].varSymbT[func_id]).func_start_line = start_line;
 }
 
-std::string SymbolTable::get_func_label(const std::string &func_id) const
+std::string SymbolTable::get_func_label(const std::string func_id) const
 {
     #ifdef SYMTABDEBUG
 

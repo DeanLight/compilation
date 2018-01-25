@@ -101,7 +101,7 @@ void Program_IR(int lineno,class ProgramNode* Self,InitProgNode* initProg, class
     std::string main_label = symtabref.get_func_label("main");
 #ifdef COMPILE_DBG
     cerr << main_label << endl;
-    cerr << "ignore me1 (" << symtabref.get_func_label("main") << ")" << endl;
+    //cerr << "ignore me1 (" << symtabref.get_func_label("main") << ")" << endl;
 #endif
     codebuff.bpatch(codebuff.makelist(initProg->jump_to_main_address),main_label);
 #ifdef COMPILE_DBG
@@ -452,16 +452,31 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
 #endif
     emitter.comment("return noneVoid in v0");
     string expStr = exp->str_content;
-    if(expStr == "true" || expStr == "false")
-    {
-        if (expStr == "true")
-        {
-          emitter.num_toreg(regmnref.getV0(),"1");
-        }
-        else // expStr == "false"
-        {
-          emitter.num_toreg(regmnref.getV0(),"0");
-        }
+    //if(expStr == "true" || expStr == "false")
+    //{
+    //    if (expStr == "true")
+    //    {
+    //      emitter.num_toreg(regmnref.getV0(),"1");
+    //   }
+    //    else // expStr == "false"
+    //    {
+    //      emitter.num_toreg(regmnref.getV0(),"0");
+    //    }
+    //}
+    if(exp->Type==Bool){
+      string templable=emitter.get_bp_label();
+      string retTrue=emitter.get_bp_label();
+      string retFalse=emitter.get_bp_label();
+      emitter.add_label(retTrue);
+
+      emitter.num_toreg(regmnref.getV0(),"1");
+      emitter.jump(templable);
+      codebuff.bpatch(exp->truelist,retTrue);
+
+      emitter.add_label(retFalse);
+      emitter.num_toreg(regmnref.getV0(),"0");
+      codebuff.bpatch(exp->falselist,retFalse);
+      emitter.add_label(templable);
     }
     else
     {
