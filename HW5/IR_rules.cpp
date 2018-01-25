@@ -12,7 +12,7 @@
 #include <map>
 using namespace std;
 
-//#define COMPILE_DBG
+#define COMPILE_DBG
 
 Emitter emitter;
 

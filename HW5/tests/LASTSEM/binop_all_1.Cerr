@@ -1,0 +1,2923 @@
+[FIRST_PROGRAM_POINT]
+(END_OF)  [FIRST_PROGRAM_POINT]
+Lex Ate token void__
+Lex Ate token  id__main__
+Lex Ate token  (__
+Lex Ate token )__
+<<FuncHead_semantic, id:[main]>>
+FuncHead_IR for func: main
+got label label_29 in line: -1
+written label: label_29
+END_OF [FuncHead_IR] 
+Lex Ate token  {__
+Lex Ate comment://binop of int:
+
+Lex Ate token  id__printi__
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token  BinOp__ADD_SUB+__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States->SignleState]  nextlistSize=1
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_0
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_0 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_1
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__10__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:10
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__8__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:8
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_1 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_2
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_2 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_3
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_3 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_4
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_4 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_5
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__4__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:4
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_5 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_6
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_6 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_7
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token  BinOp__ADD_SUB+__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_7 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_8
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_8 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_9
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token  BinOp__ADD_SUB+__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_9 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_10
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_10 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_11
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__6__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:6
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token  BinOp__ADD_SUB+__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_11 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_12
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_12 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_13
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__5__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_13 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_14
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_14 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_15
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__300__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:300
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_15 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_16
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_16 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_17
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__5__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_17 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_18
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_18 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_19
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__300__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:300
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_19 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_20
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_20 breaklist size is 0
+Lex Ate comment://binop of byte:
+
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_21
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__ADD_SUB+__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_21 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_22
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_22 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_23
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__10__
+Lex Ate token B__
+<<[Exp_Semantic] B:[10]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:10
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__ADD_SUB-__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__8__
+Lex Ate token B__
+<<[Exp_Semantic] B:[8]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:8
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_23 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_24
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_24 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_25
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV*__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_25 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_26
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_26 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_27
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__4__
+Lex Ate token B__
+<<[Exp_Semantic] B:[4]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:4
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV/__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_27 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_28
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_28 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_29
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__ADD_SUB+__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV*__
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV/__
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_29 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_30
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_30 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_31
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV*__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+Lex Ate token  BinOp__ADD_SUB+__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV*__
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_31 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_32
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_32 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_33
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__6__
+Lex Ate token B__
+<<[Exp_Semantic] B:[6]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:6
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV/__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+Lex Ate token  BinOp__ADD_SUB+__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token B__
+<<[Exp_Semantic] B:[200]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV/__
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_33 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_34
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_34 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_35
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV*__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+Lex Ate token  BinOp__ADD_SUB-__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV*__
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_35 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_36
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_36 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_37
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__100__
+Lex Ate token B__
+<<[Exp_Semantic] B:[100]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:100
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV/__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+Lex Ate token  BinOp__ADD_SUB-__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token B__
+<<[Exp_Semantic] B:[200]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV/__
+Lex Ate token  num__10__
+Lex Ate token B__
+<<[Exp_Semantic] B:[10]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:10
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_37 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_38
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_38 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_39
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV*__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+Lex Ate token  BinOp__ADD_SUB-__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV*__
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_39 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_40
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_40 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_41
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__100__
+Lex Ate token B__
+<<[Exp_Semantic] B:[100]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:100
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV/__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+Lex Ate token  BinOp__ADD_SUB-__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token B__
+<<[Exp_Semantic] B:[200]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV/__
+Lex Ate token  num__20__
+Lex Ate token B__
+<<[Exp_Semantic] B:[20]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:20
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type BYTE
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_41 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_42
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_42 breaklist size is 0
+Lex Ate comment://binop of byte with int
+
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_43
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__ADD_SUB+__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_43 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_44
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_44 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_45
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__10__
+Lex Ate token B__
+<<[Exp_Semantic] B:[10]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:10
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__ADD_SUB-__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__8__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:8
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_45 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_46
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_46 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_47
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV*__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_47 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_48
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_48 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_49
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__4__
+Lex Ate token B__
+<<[Exp_Semantic] B:[4]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:4
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV/__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_49 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_50
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_50 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_51
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token  BinOp__ADD_SUB+__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_51 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_52
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_52 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_53
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__10__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:10
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__8__
+Lex Ate token B__
+<<[Exp_Semantic] B:[8]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:8
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token )__
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_53 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_54
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_54 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_55
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token B__
+<<[Exp_Semantic] B:[3]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_55 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_56
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_56 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_57
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__4__
+Lex Ate token  BinOp__MUL_DIV/__
+[Exp_IR] Exp -> Num:4
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_57 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_58
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_58 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_59
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__ADD_SUB+__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token  BinOp__MUL_DIV*__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV/__
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_59 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_60
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_60 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_61
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV*__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token  BinOp__ADD_SUB+__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV*__
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_61 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_62
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_62 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_63
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__6__
+Lex Ate token B__
+<<[Exp_Semantic] B:[6]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:6
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV/__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__3__
+Lex Ate token  BinOp__ADD_SUB+__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token B__
+<<[Exp_Semantic] B:[200]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV/__
+Lex Ate token  num__5__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 + Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 + Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_63 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_64
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_64 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_65
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV*__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV*__
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_65 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_66
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_66 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_67
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__100__
+Lex Ate token B__
+<<[Exp_Semantic] B:[100]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:100
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV/__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token B__
+<<[Exp_Semantic] B:[200]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV/__
+Lex Ate token  num__10__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:10
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_67 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_68
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_68 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_69
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__5__
+Lex Ate token B__
+<<[Exp_Semantic] B:[5]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV*__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__5__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:5
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token B__
+<<[Exp_Semantic] B:[2]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV*__
+Lex Ate token  num__3__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:3
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 * Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 * Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_69 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_70
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_70 breaklist size is 0
+Lex Ate token  id__printi__
+[MARKER IR]: label: bp_label_71
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  num__100__
+Lex Ate token B__
+<<[Exp_Semantic] B:[100]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:100
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+Lex Ate token  BinOp__MUL_DIV/__
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__2__
+Lex Ate token  BinOp__ADD_SUB-__
+[Exp_IR] Exp -> Num:2
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+Lex Ate token  num__200__
+Lex Ate token B__
+<<[Exp_Semantic] B:[200]>>
+[Exp_IR] Exp -> Num Bb
+[Exp_IR] Exp -> Num:200
+END_OF [Exp_IR] Exp -> Num
+END_OF [Exp_IR] Exp -> Num B
+not a bool var so no SJ_exp after effects 
+Lex Ate token  BinOp__MUL_DIV/__
+Lex Ate token  num__20__
+Lex Ate token )__
+[Exp_IR] Exp -> Num:20
+END_OF [Exp_IR] Exp -> Num
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 / Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 / Exp2
+not a bool var so no SJ_exp after effects 
+[Exp_IR]:Binop Exp -> Exp1 - Exp2
+END_OF [Exp_IR]:Binop Exp -> Exp1 - Exp2
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type INT
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments printi
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_71 breaklist size is 0
+Lex Ate token  id__print__
+[MARKER IR]: label: bp_label_72
+Lex Ate token  (__
+CallHeader_IR
+[Emitter] store_registers: 0
+END_OF CallHeader_IR
+Lex Ate token  str__"\n"__
+[Exp_IR] Exp -> string"\n"
+END_OF [Exp_IR] Exp -> string
+Lex Ate token )__
+<<ExpList_Semantic>> explist -> exp : 
+exp is of type STRING
+[ExpList_IR: ExpList->Exp]: 
+<<CallSemantics [ID(Exp)] >>
+tmpParams: 1
+tmpActP: 1
+tmptmp: 1
+[Call_IR] : with arguments print
+found a string typed parameter print
+[Emitter] REstore_registers: 0
+END_OF [Call_IR]
+Lex Ate token  ;__
+[Statement_IR Call] nestlistSize: 0
+[Statement_next_patcher_IR] previously held nextlist size:0
+[Statement_next_patcher_IR] currently held nextlist size:1
+[Statement_IR Call] nestlistSize: 1
+[Statement_IR: States -> states1 M singleState]
+Num of nextlist to bp: 1 with label: bp_label_72 breaklist size is 0
+Lex Ate token  }__
+[FuncDeclNode_IR]: 
+checking retType of func: main
+for an extra ret will be added
+Ret type: 1
+[Program_IR] backpatching line number 4 with label_29
+ignore me1 (label_29)
+[END_OF Program_IR]

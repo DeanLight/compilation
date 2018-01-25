@@ -569,7 +569,7 @@ char *yytext;
 #include <iostream>
 #include <stdio.h>
 
-//#define LEXDEBUG
+#define LEXDEBUG
 
 /* TODO CHECK: */
 #line 576 "lex.yy.c"

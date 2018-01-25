@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-//#define MIPS_COMMENT_DBG
-//#define MIPS_DBG
+#define MIPS_COMMENT_DBG
+#define MIPS_DBG
 using namespace std;
 
 CodeBuffer& codebuffer=CodeBuffer::instance();

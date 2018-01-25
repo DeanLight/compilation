@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <sstream>
-//#define PARSEDEBUG
+#define PARSEDEBUG
 
 //std::string intToStr(int i)
 //{

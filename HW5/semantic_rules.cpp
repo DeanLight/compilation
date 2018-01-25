@@ -16,7 +16,7 @@ Here we have all the semantic rules that supplement the bison AST generation
 using std::vector;
 using std::string;
 using namespace output;
-//#define PARSEDEBUG
+#define PARSEDEBUG
 
 typedef enum type_enum v_type;
 typedef std::vector<v_type> types_vec;
