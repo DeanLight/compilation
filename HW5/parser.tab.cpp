@@ -76,7 +76,7 @@
     extern int yylineno;
 
     CodeBuffer& codebufferref=CodeBuffer::instance();
-    int yydebug=1; //TODO remove this
+    //int yydebug=1;
 
 #line 82 "parser.tab.cpp" /* yacc.c:339  */
 
@@ -2143,7 +2143,7 @@ void yyerror (const char*) { output::errorSyn(yylineno);}
 
 int main(){
 	int res = yyparse();
-	//bp.printBuffer // TODO
+	//bp.printBuffer
   codebufferref.printDataBuffer();
   codebufferref.printCodeBuffer();
 	return res;

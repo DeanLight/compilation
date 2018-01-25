@@ -569,7 +569,7 @@ char *yytext;
 #include <iostream>
 #include <stdio.h>
 
-#define LEXDEBUG
+//#define LEXDEBUG
 
 /* TODO CHECK: */
 #line 576 "lex.yy.c"
@@ -790,7 +790,7 @@ YY_DECL
 		}
 
 	{
-#line 39 "scanner.lex"
+#line 40 "scanner.lex"
 
 #line 796 "lex.yy.c"
 
@@ -862,7 +862,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 40 "scanner.lex"
+#line 41 "scanner.lex"
 {;
             #ifdef LEXDEBUG
            	fprintf(stderr,"Lex Ate comment:%s\n",yytext); // TODO REMOVE
@@ -871,7 +871,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 46 "scanner.lex"
+#line 47 "scanner.lex"
 {yylval = new Void_Node();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token void__\n"); // TODO REMOVE
@@ -880,7 +880,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 52 "scanner.lex"
+#line 53 "scanner.lex"
 {yylval = new Int_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token int__\n"); // TODO REMOVE
@@ -889,7 +889,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 58 "scanner.lex"
+#line 59 "scanner.lex"
 {yylval = new Byte_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token byte__\n"); // TODO REMOVE
@@ -898,7 +898,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 64 "scanner.lex"
+#line 65 "scanner.lex"
 {yylval = new B_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token B__\n"); // TODO REMOVE
@@ -907,7 +907,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 70 "scanner.lex"
+#line 71 "scanner.lex"
 {yylval = new Bool_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token bool__\n"); // TODO REMOVE
@@ -916,7 +916,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 76 "scanner.lex"
+#line 77 "scanner.lex"
 {yylval = new And();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token and__\n"); // TODO REMOVE
@@ -925,7 +925,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 82 "scanner.lex"
+#line 83 "scanner.lex"
 {yylval = new Or();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token or__\n"); // TODO REMOVE
@@ -934,7 +934,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 88 "scanner.lex"
+#line 89 "scanner.lex"
 {yylval = new Not();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token not__\n"); // TODO REMOVE
@@ -943,7 +943,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 94 "scanner.lex"
+#line 95 "scanner.lex"
 {yylval = new True(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token true__\n"); // TODO REMOVE
@@ -952,7 +952,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 100 "scanner.lex"
+#line 101 "scanner.lex"
 {yylval = new False(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token false__\n"); // TODO REMOVE
@@ -961,7 +961,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 106 "scanner.lex"
+#line 107 "scanner.lex"
 {yylval = new Return();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token return__\n"); // TODO REMOVE
@@ -970,7 +970,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 112 "scanner.lex"
+#line 113 "scanner.lex"
 {yylval = new If();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token if__\n"); // TODO REMOVE
@@ -979,7 +979,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 118 "scanner.lex"
+#line 119 "scanner.lex"
 {yylval = new Else();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token else__\n"); // TODO REMOVE
@@ -988,7 +988,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 124 "scanner.lex"
+#line 125 "scanner.lex"
 {yylval = new While();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token while__\n"); // TODO REMOVE
@@ -997,7 +997,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 130 "scanner.lex"
+#line 131 "scanner.lex"
 {yylval = new Switch();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token switch__\n"); // TODO REMOVE
@@ -1006,7 +1006,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 136 "scanner.lex"
+#line 137 "scanner.lex"
 {yylval = new Case();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token case__\n"); // TODO REMOVE
@@ -1015,7 +1015,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 142 "scanner.lex"
+#line 143 "scanner.lex"
 {yylval = new Break();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token break__\n"); // TODO REMOVE
@@ -1024,7 +1024,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 148 "scanner.lex"
+#line 149 "scanner.lex"
 {yylval = new Default();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token default__\n"); // TODO REMOVE
@@ -1033,7 +1033,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 154 "scanner.lex"
+#line 155 "scanner.lex"
 {yylval = new Colon();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  :__\n"); // TODO REMOVE
@@ -1042,7 +1042,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 160 "scanner.lex"
+#line 161 "scanner.lex"
 {yylval = new SC_Node();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token  ;__\n"); // TODO REMOVE
@@ -1051,7 +1051,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 166 "scanner.lex"
+#line 167 "scanner.lex"
 {yylval = new Comma();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token  ,__\n"); // TODO REMOVE
@@ -1060,7 +1060,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 172 "scanner.lex"
+#line 173 "scanner.lex"
 {yylval = new Lparen();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token  \(__\n"); // TODO REMOVE
@@ -1069,7 +1069,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 178 "scanner.lex"
+#line 179 "scanner.lex"
 {yylval = new Rparen();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token )__\n"); // TODO REMOVE
@@ -1078,7 +1078,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 184 "scanner.lex"
+#line 185 "scanner.lex"
 {yylval = new Lbrace();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token  \{__\n"); // TODO REMOVE
@@ -1087,7 +1087,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 190 "scanner.lex"
+#line 191 "scanner.lex"
 {yylval = new Rbrace();
     #ifdef LEXDEBUG
     fprintf(stderr,"Lex Ate token  }__\n"); // TODO REMOVE
@@ -1096,7 +1096,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 196 "scanner.lex"
+#line 197 "scanner.lex"
 {yylval = new Assign();
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  =__\n"); // TODO REMOVE
@@ -1105,7 +1105,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 202 "scanner.lex"
+#line 203 "scanner.lex"
 {yylval = new Relop(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  RelOp__%s__\n" ,yytext); // TODO REMOVE
@@ -1114,7 +1114,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 208 "scanner.lex"
+#line 209 "scanner.lex"
 {yylval = new Binop(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  BinOp__ADD_SUB%s__\n" ,yytext); // TODO REMOVE
@@ -1123,7 +1123,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 214 "scanner.lex"
+#line 215 "scanner.lex"
 {yylval = new Binop(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  BinOp__MUL_DIV%s__\n" ,yytext); // TODO REMOVE
@@ -1132,7 +1132,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 220 "scanner.lex"
+#line 221 "scanner.lex"
 {yylval = new Id(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  id__%s__\n",yytext); // TODO REMOVE
@@ -1141,7 +1141,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 226 "scanner.lex"
+#line 227 "scanner.lex"
 { yylval = new Num(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  num__%s__\n",yytext); // TODO REMOVE
@@ -1150,7 +1150,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 232 "scanner.lex"
+#line 233 "scanner.lex"
 { yylval = new String_Node(yytext);
     #ifdef LEXDEBUG
 	fprintf(stderr,"Lex Ate token  str__%s__\n",yytext); // TODO REMOVE
@@ -1160,13 +1160,13 @@ YY_RULE_SETUP
 case 34:
 /* rule 34 can match eol */
 YY_RULE_SETUP
-#line 238 "scanner.lex"
+#line 239 "scanner.lex"
 
 	YY_BREAK
 /* if nothing else - an error__*/
 case 35:
 YY_RULE_SETUP
-#line 241 "scanner.lex"
+#line 242 "scanner.lex"
 {
 
     fprintf(stderr,"Lex Error \nerror problem:[%s]\n",yytext); // TODO REMOVE
@@ -1177,7 +1177,7 @@ YY_RULE_SETUP
 /* TODO _ EOF? */
 case 36:
 YY_RULE_SETUP
-#line 248 "scanner.lex"
+#line 249 "scanner.lex"
 ECHO;
 	YY_BREAK
 #line 1184 "lex.yy.c"
@@ -2193,7 +2193,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 248 "scanner.lex"
+#line 249 "scanner.lex"
 
 
 
