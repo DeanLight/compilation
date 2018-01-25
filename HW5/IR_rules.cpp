@@ -1134,7 +1134,7 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
 }
 
 // ExpList -> Exp mark
-void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex , MarkNode* M)
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
 {
   #ifdef COMPILE_DBG
   cerr << "[ExpList_IR: ExpList->Exp]: " << ex->str_content << endl;
@@ -1166,8 +1166,6 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex , MarkNode* M)
   if(symtabref.is_func(ex->str_content)){
     // A bool function  - it's value is currently in t_i
     // we just want it to go to the code of the next param
-    codebuff.bpatch(ex->truelist,M->labelstr);
-    codebuff.bpatch(ex->falselist,M->labelstr);
     return;
   }
 
@@ -1193,13 +1191,19 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex , MarkNode* M)
 }
 
 // ExpList -> Exp Mark ExpList
-void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, MarkNode* M, ExpListNode* restOf)
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, ExpListNode* restOf)
 {
-  ExpList_IR(yylineno, Self, ex,M);
+  ExpList_IR(yylineno, Self, ex);
 }
 
-void RegMark_IR(){
-  regmnref.get_next_free_reg();
+void ExpParam_IR( ExpNode* Self,MarkNode* M ){
+  if(Self->Type==Bool && symtabref.is_func(Self->str_content) ){
+    regmnref.get_next_free_reg();
+    codebuff.bpatch(Self->truelist,M->labelstr);
+    codebuff.bpatch(Self->falselist,M->labelstr);
+  }
+  delete(M);
+
 }
 
 

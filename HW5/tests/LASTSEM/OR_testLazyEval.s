@@ -8,7 +8,7 @@ string_label_1:	.asciiz "Success!\n"
 main:
 	#initialize fp
 	move	$fp,$sp
-	jal	label_110
+	jal	label_113
 	#exiting...
 li $v0, 10
 syscall
@@ -56,6 +56,7 @@ bp_label_0:
 	#a True exp in boolean operator
 	j	bp_label_2
 	#return noneVoid in v0
+	#returning from a boolean function
 bp_label_2:
 	li	$v0,1
 	j	bp_label_1
@@ -72,11 +73,12 @@ bp_label_4:
 	move	$v0,$zero
 	jr	$ra
 	#Func True:
-label_68:
+label_69:
 	#exp derived true
 	#a True exp in boolean operator
 	j	bp_label_6
 	#return noneVoid in v0
+	#returning from a boolean function
 bp_label_6:
 	li	$v0,1
 	j	bp_label_5
@@ -93,11 +95,12 @@ bp_label_8:
 	move	$v0,$zero
 	jr	$ra
 	#Func False:
-label_89:
+label_91:
 	#exp derived false
 	#a False exp in boolean operator
 	j	bp_label_11
 	#return noneVoid in v0
+	#returning from a boolean function
 bp_label_10:
 	li	$v0,1
 	j	bp_label_9
@@ -114,7 +117,7 @@ bp_label_12:
 	move	$v0,$zero
 	jr	$ra
 	#Func main:
-label_110:
+label_113:
 	#preparing for new var
 	#allocationg words on stack 
 	addiu $sp, $sp, -4
@@ -186,9 +189,11 @@ bp_label_16:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn4
 	j	bExpAss_nfjdn5
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn4:
@@ -228,9 +233,11 @@ bp_label_18:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn6
 	j	bExpAss_nfjdn7
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn6:
@@ -275,9 +282,11 @@ bp_label_20:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn8
 	j	bExpAss_nfjdn9
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn8:
@@ -322,9 +331,11 @@ bp_label_22:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn10
 	j	bExpAss_nfjdn11
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn10:
@@ -369,9 +380,11 @@ bp_label_24:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn12
 	j	bExpAss_nfjdn13
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn12:
@@ -416,9 +429,11 @@ bp_label_26:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn14
 	j	bExpAss_nfjdn15
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn14:
@@ -445,7 +460,7 @@ bp_label_27:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -453,9 +468,11 @@ bp_label_27:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bExpAss_nfjdn16
 	j	bp_label_28
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_28:
@@ -474,9 +491,11 @@ bp_label_28:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn16
 	j	bExpAss_nfjdn17
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn16:
@@ -503,7 +522,7 @@ bp_label_29:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -511,9 +530,11 @@ bp_label_29:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_30
 	j	bExpAss_nfjdn19
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_30:
@@ -532,9 +553,11 @@ bp_label_30:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn18
 	j	bExpAss_nfjdn19
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn18:
@@ -580,9 +603,11 @@ bp_label_32:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn20
 	j	bExpAss_nfjdn21
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn20:
@@ -628,9 +653,11 @@ bp_label_34:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn22
 	j	bExpAss_nfjdn23
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn22:
@@ -676,9 +703,11 @@ bp_label_37:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn24
 	j	bExpAss_nfjdn25
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn24:
@@ -729,9 +758,11 @@ bp_label_40:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn26
 	j	bExpAss_nfjdn27
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn26:
@@ -782,9 +813,11 @@ bp_label_43:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn28
 	j	bExpAss_nfjdn29
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn28:
@@ -811,7 +844,7 @@ bp_label_44:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -819,9 +852,11 @@ bp_label_44:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bp_label_45
 	j	bp_label_46
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_45:
@@ -846,9 +881,11 @@ bp_label_46:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn30
 	j	bExpAss_nfjdn31
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn30:
@@ -900,9 +937,11 @@ bp_label_49:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn32
 	j	bExpAss_nfjdn33
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn32:
@@ -953,9 +992,11 @@ bp_label_52:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn34
 	j	bExpAss_nfjdn35
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn34:
@@ -1011,9 +1052,11 @@ bp_label_55:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn36
 	j	bExpAss_nfjdn37
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn36:
@@ -1069,9 +1112,11 @@ bp_label_58:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn38
 	j	bExpAss_nfjdn39
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn38:
@@ -1098,7 +1143,7 @@ bp_label_59:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -1106,9 +1151,11 @@ bp_label_59:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bp_label_60
 	j	bp_label_61
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_60:
@@ -1138,9 +1185,11 @@ bp_label_61:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn40
 	j	bExpAss_nfjdn41
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn40:
@@ -1197,9 +1246,11 @@ bp_label_64:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn42
 	j	bExpAss_nfjdn43
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn42:
@@ -1250,9 +1301,11 @@ bp_label_67:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn44
 	j	bExpAss_nfjdn45
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn44:
@@ -1308,9 +1361,11 @@ bp_label_70:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn46
 	j	bExpAss_nfjdn47
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn46:
@@ -1366,9 +1421,11 @@ bp_label_73:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn48
 	j	bExpAss_nfjdn49
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn48:
@@ -1395,7 +1452,7 @@ bp_label_74:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -1403,9 +1460,11 @@ bp_label_74:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bp_label_75
 	j	bp_label_76
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_75:
@@ -1435,9 +1494,11 @@ bp_label_76:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn50
 	j	bExpAss_nfjdn51
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn50:
@@ -1494,9 +1555,11 @@ bp_label_79:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn52
 	j	bExpAss_nfjdn53
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn52:
@@ -1528,7 +1591,7 @@ bp_label_81:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -1536,9 +1599,11 @@ bp_label_81:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bExpAss_nfjdn54
 	j	bp_label_82
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 	#marker Label
@@ -1558,9 +1623,11 @@ bp_label_82:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn54
 	j	bExpAss_nfjdn55
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn54:
@@ -1597,7 +1664,7 @@ bp_label_84:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -1605,9 +1672,11 @@ bp_label_84:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bExpAss_nfjdn56
 	j	bp_label_85
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 	#marker Label
@@ -1627,9 +1696,11 @@ bp_label_85:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn56
 	j	bExpAss_nfjdn57
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn56:
@@ -1666,7 +1737,7 @@ bp_label_87:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -1674,9 +1745,11 @@ bp_label_87:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bExpAss_nfjdn58
 	j	bp_label_88
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 	#marker Label
@@ -1696,9 +1769,11 @@ bp_label_88:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn58
 	j	bExpAss_nfjdn59
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn58:
@@ -1725,7 +1800,7 @@ bp_label_89:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -1733,9 +1808,11 @@ bp_label_89:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bp_label_90
 	j	bp_label_91
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_90:
@@ -1746,7 +1823,7 @@ bp_label_90:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -1754,9 +1831,11 @@ bp_label_90:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bExpAss_nfjdn60
 	j	bp_label_91
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 	#marker Label
@@ -1776,9 +1855,11 @@ bp_label_91:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn60
 	j	bExpAss_nfjdn61
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn60:
@@ -1816,7 +1897,7 @@ bp_label_93:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -1824,9 +1905,11 @@ bp_label_93:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bExpAss_nfjdn62
 	j	bp_label_94
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 	#marker Label
@@ -1846,9 +1929,11 @@ bp_label_94:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn62
 	j	bExpAss_nfjdn63
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn62:
@@ -1900,9 +1985,11 @@ bp_label_97:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn64
 	j	bExpAss_nfjdn65
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn64:
@@ -1959,9 +2046,11 @@ bp_label_100:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn66
 	j	bExpAss_nfjdn67
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn66:
@@ -2018,9 +2107,11 @@ bp_label_103:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn68
 	j	bExpAss_nfjdn69
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn68:
@@ -2047,7 +2138,7 @@ bp_label_104:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_68
+	jal	label_69
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -2055,9 +2146,11 @@ bp_label_104:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling True
 	#a Bool Func True
 	bne $t0, $zero,bp_label_105
 	j	bp_label_106
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_105:
@@ -2088,9 +2181,11 @@ bp_label_106:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn70
 	j	bExpAss_nfjdn71
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn70:
@@ -2148,9 +2243,11 @@ bp_label_109:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn72
 	j	bExpAss_nfjdn73
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 bExpAss_nfjdn72:
@@ -2196,9 +2293,11 @@ bp_label_112:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn74
 	j	bExpAss_nfjdn75
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn74:
@@ -2249,9 +2348,11 @@ bp_label_115:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn76
 	j	bExpAss_nfjdn77
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn76:
@@ -2302,9 +2403,11 @@ bp_label_118:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn78
 	j	bExpAss_nfjdn79
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn78:
@@ -2331,7 +2434,7 @@ bp_label_119:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -2339,9 +2442,11 @@ bp_label_119:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_121
 	j	bp_label_120
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_120:
@@ -2366,9 +2471,11 @@ bp_label_121:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn80
 	j	bExpAss_nfjdn81
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn80:
@@ -2420,9 +2527,11 @@ bp_label_124:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn82
 	j	bExpAss_nfjdn83
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn82:
@@ -2473,9 +2582,11 @@ bp_label_127:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn84
 	j	bExpAss_nfjdn85
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn84:
@@ -2531,9 +2642,11 @@ bp_label_130:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn86
 	j	bExpAss_nfjdn87
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn86:
@@ -2589,9 +2702,11 @@ bp_label_133:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn88
 	j	bExpAss_nfjdn89
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn88:
@@ -2618,7 +2733,7 @@ bp_label_134:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -2626,9 +2741,11 @@ bp_label_134:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_136
 	j	bp_label_135
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_135:
@@ -2658,9 +2775,11 @@ bp_label_136:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn90
 	j	bExpAss_nfjdn91
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn90:
@@ -2717,9 +2836,11 @@ bp_label_139:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn92
 	j	bExpAss_nfjdn93
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn92:
@@ -2770,9 +2891,11 @@ bp_label_142:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn94
 	j	bExpAss_nfjdn95
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn94:
@@ -2828,9 +2951,11 @@ bp_label_145:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn96
 	j	bExpAss_nfjdn97
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn96:
@@ -2886,9 +3011,11 @@ bp_label_148:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn98
 	j	bExpAss_nfjdn99
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn98:
@@ -2915,7 +3042,7 @@ bp_label_149:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -2923,9 +3050,11 @@ bp_label_149:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_151
 	j	bp_label_150
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_150:
@@ -2955,9 +3084,11 @@ bp_label_151:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn100
 	j	bExpAss_nfjdn101
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn100:
@@ -3014,9 +3145,11 @@ bp_label_154:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn102
 	j	bExpAss_nfjdn103
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn102:
@@ -3048,7 +3181,7 @@ bp_label_156:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -3056,9 +3189,11 @@ bp_label_156:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_157
 	j	bExpAss_nfjdn105
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 	#marker Label
@@ -3078,9 +3213,11 @@ bp_label_157:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn104
 	j	bExpAss_nfjdn105
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn104:
@@ -3117,7 +3254,7 @@ bp_label_159:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -3125,9 +3262,11 @@ bp_label_159:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_160
 	j	bExpAss_nfjdn107
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 	#marker Label
@@ -3147,9 +3286,11 @@ bp_label_160:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn106
 	j	bExpAss_nfjdn107
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn106:
@@ -3186,7 +3327,7 @@ bp_label_162:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -3194,9 +3335,11 @@ bp_label_162:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_163
 	j	bExpAss_nfjdn109
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 	#marker Label
@@ -3216,9 +3359,11 @@ bp_label_163:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn108
 	j	bExpAss_nfjdn109
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn108:
@@ -3245,7 +3390,7 @@ bp_label_164:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -3253,9 +3398,11 @@ bp_label_164:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_166
 	j	bp_label_165
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_165:
@@ -3266,7 +3413,7 @@ bp_label_165:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -3274,9 +3421,11 @@ bp_label_165:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_166
 	j	bExpAss_nfjdn111
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 	#marker Label
@@ -3296,9 +3445,11 @@ bp_label_166:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn110
 	j	bExpAss_nfjdn111
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn110:
@@ -3336,7 +3487,7 @@ bp_label_168:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -3344,9 +3495,11 @@ bp_label_168:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_169
 	j	bExpAss_nfjdn113
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach Or derivation
 	#marker Label
@@ -3366,9 +3519,11 @@ bp_label_169:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn112
 	j	bExpAss_nfjdn113
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn112:
@@ -3420,9 +3575,11 @@ bp_label_172:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn114
 	j	bExpAss_nfjdn115
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn114:
@@ -3479,9 +3636,11 @@ bp_label_175:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn116
 	j	bExpAss_nfjdn117
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn116:
@@ -3538,9 +3697,11 @@ bp_label_178:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn118
 	j	bExpAss_nfjdn119
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn118:
@@ -3567,7 +3728,7 @@ bp_label_179:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_89
+	jal	label_91
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -3575,9 +3736,11 @@ bp_label_179:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling False
 	#a Bool Func False
 	bne $t0, $zero,bp_label_181
 	j	bp_label_180
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_180:
@@ -3608,9 +3771,11 @@ bp_label_181:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn120
 	j	bExpAss_nfjdn121
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn120:
@@ -3668,9 +3833,11 @@ bp_label_184:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
+	#finished calling divideBy0
 	#a Bool Func divideBy0
 	bne $t0, $zero,bExpAss_nfjdn122
 	j	bExpAss_nfjdn123
+	#returning from a boolean function
 	#			 __freeing reg $t0
 	#reach And derivation
 bExpAss_nfjdn122:
@@ -3693,6 +3860,8 @@ bp_label_185:
 	#func header store regs before call
 	#stored 0 registers
 	#caught a string
+	#marker Label
+bp_label_186:
 	#preparing to call print
 	sw $fp, ($sp)
 	addiu $sp, $sp, -4
@@ -3717,8 +3886,8 @@ bp_label_185:
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_186
-bp_label_186:
+	j	bp_label_187
+bp_label_187:
 	#Adding an extre return just in case
 	#restting sp
 	move	$sp,$fp
