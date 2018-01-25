@@ -25,8 +25,9 @@ void Exp_IR(int lineno,class ExpNode* Self,class True* true_val);
 void Exp_IR(int lineno,class ExpNode* Self,class False* false_val);
 void Exp_IR(int lineno,class ExpNode* Self,class Not* not_ptr , class ExpNode* exp1);
 
-void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex );
-void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, ExpListNode* restOf) ;
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, MarkNode* M );
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, MarkNode* M ,ExpListNode* restOf) ;
+void RegMark_IR();
 
 void FuncHead_IR(int lineno,class FuncHeadNode* Self, class RetTypeNode* rettype, class Id* id, class Lparen* lp ,class FormalsNode* formals , class Rparen* rp);
 void FuncDecl_IR(int lineno,class FuncDeclNode* Self, class FuncHeadNode* head ,class FuncStateNode* state);

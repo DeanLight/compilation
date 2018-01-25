@@ -313,6 +313,7 @@ void Exp_IR(int lineno,class ExpNode* Self,class CallNode* call){
         int line_neq = emitter.NEQ_patchy(regmnref.last_reg(),"$zero");
         int line_j = emitter.patchy_jump();
         Self->truelist = codebuff.makelist(line_neq);
+        emitter.comment("returning from a boolean function");
         Self->falselist = codebuff.makelist(line_j);
         emitter.comment("\t\t\t __freeing reg " + regmnref.last_reg());
         regmnref.free_last_reg();
@@ -464,6 +465,7 @@ void Statement_IR(int lineno,class StatementNode* Self, class Return* ret, class
     //    }
     //}
     if(exp->Type==Bool){
+      emitter.comment("returning from a boolean function");
       string templable=emitter.get_bp_label();
       string retTrue=emitter.get_bp_label();
       string retFalse=emitter.get_bp_label();
@@ -529,6 +531,7 @@ void Call_IR(int lineno,class CallNode* Self,CallHeaderNode* header, class Id* i
     emitter.comment("\t\t\t __allocating reg " +reg);
     emitter.assign(reg,regmnref.getV0());
   }
+  emitter.comment("finished calling "+id->str_content);
   Self->str_content = id->str_content;
 #ifdef COMPILE_DBG
     cerr << "END_OF [Call_IR]" << endl;
@@ -1130,8 +1133,8 @@ void SJ_Exp_IR(int yylineno,ExpNode* Self)
 
 }
 
-// ExpList -> Exp
-void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
+// ExpList -> Exp mark
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex , MarkNode* M)
 {
   #ifdef COMPILE_DBG
   cerr << "[ExpList_IR: ExpList->Exp]: " << ex->str_content << endl;
@@ -1160,7 +1163,15 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   if(ex->Type!=Bool){
     return;
   }
+  if(symtabref.is_func(ex->str_content)){
+    // A bool function  - it's value is currently in t_i
+    // we just want it to go to the code of the next param
+    codebuff.bpatch(ex->truelist,M->labelstr);
+    codebuff.bpatch(ex->falselist,M->labelstr);
+    return;
+  }
 
+  //return
   // assumption - if reached here - its a complicated bool exp
   string nextReg = regmnref.get_next_free_reg();
   emitter.comment("complicated bool exp as a function parameter");
@@ -1181,8 +1192,15 @@ void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex )
   codebuff.bpatch(ex->falselist,false_lab);
 }
 
-// ExpList -> Exp ExpList
-void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, ExpListNode* restOf)
+// ExpList -> Exp Mark ExpList
+void ExpList_IR(int yylineno,ExpListNode* Self ,ExpNode* ex, MarkNode* M, ExpListNode* restOf)
 {
-  ExpList_IR(yylineno, Self, ex);
+  ExpList_IR(yylineno, Self, ex,M);
 }
+
+void RegMark_IR(){
+  regmnref.get_next_free_reg();
+}
+
+
+

@@ -4362,29 +4362,18 @@ bp_label_250:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteTrue
-	bne $t0, $zero,bp_label_251
-	j	bp_label_253
+	bne $t0, $zero,
+	j	
 	#			 __freeing reg $t0
-	#complicated bool exp as a function parameter
-	#inserting 1 to param reg if evaluates to true
-bp_label_251:
-	#			 __allocating reg $t0
-	li	$t0,1
-	j	bp_label_252
-	#inserting 0 to param reg if evaluates to false
-bp_label_253:
-	#			 __allocating reg $t0
-	li	$t0,0
-bp_label_252:
 	#preparing to call funcHelper1
 	sw $fp, ($sp)
 	addiu $sp, $sp, -4
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
-	#pushing reg $t0 to stack
-	sw $t0, ($sp)
+	#pushing reg $t/ to stack
+	sw $t/, ($sp)
 	addiu $sp, $sp, -4
-	#			 __freeing reg $t0
+	#			 __freeing reg $t/
 	move	$fp,$sp
 	#jumping to func: funcHelper1
 	jal	label_279
@@ -4399,260 +4388,205 @@ bp_label_252:
 	#restoring 0 previously used registers
 	#Moving funcRes (if exists) to next free register
 	#finished calling funcHelper1
+	#end of statement jump
+	j	bp_label_251
+	#marker Label
+bp_label_251:
+	#func header store regs before call
+	#stored -1 registers
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,
+	j	
+	#			 __freeing reg $t0
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,
+	j	
+	#			 __freeing reg $t0
+	#preparing to call funcHelper2
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#pushing reg $t/ to stack
+	sw $t/, ($sp)
+	addiu $sp, $sp, -4
+	#			 __freeing reg $t/
+	#pushing reg $t. to stack
+	sw $t., ($sp)
+	addiu $sp, $sp, -4
+	#			 __freeing reg $t.
+	move	$fp,$sp
+	#jumping to func: funcHelper2
+	jal	label_361
+	#returned from func: funcHelper2
+	#poping 2 params from stack 
+	addiu $sp, $sp, 8
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring -1 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling funcHelper2
+	#end of statement jump
+	j	bp_label_252
+	#marker Label
+bp_label_252:
+	#func header store regs before call
+	#stored -2 registers
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_80
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,
+	j	
+	#			 __freeing reg $t0
+	#preparing to call funcHelper1
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#pushing reg $t/ to stack
+	sw $t/, ($sp)
+	addiu $sp, $sp, -4
+	#			 __freeing reg $t/
+	move	$fp,$sp
+	#jumping to func: funcHelper1
+	jal	label_279
+	#returned from func: funcHelper1
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring -2 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling funcHelper1
+	#end of statement jump
+	j	bp_label_253
+	#marker Label
+bp_label_253:
+	#func header store regs before call
+	#stored -1 registers
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_80
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,
+	j	
+	#			 __freeing reg $t0
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_80
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,
+	j	
+	#			 __freeing reg $t0
+	#preparing to call funcHelper2
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#pushing reg $t/ to stack
+	sw $t/, ($sp)
+	addiu $sp, $sp, -4
+	#			 __freeing reg $t/
+	#pushing reg $t. to stack
+	sw $t., ($sp)
+	addiu $sp, $sp, -4
+	#			 __freeing reg $t.
+	move	$fp,$sp
+	#jumping to func: funcHelper2
+	jal	label_361
+	#returned from func: funcHelper2
+	#poping 2 params from stack 
+	addiu $sp, $sp, 8
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring -1 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling funcHelper2
 	#end of statement jump
 	j	bp_label_254
 	#marker Label
 bp_label_254:
-	#func header store regs before call
-	#stored 0 registers
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bp_label_258
-	j	bp_label_260
-	#			 __freeing reg $t0
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bp_label_255
-	j	bp_label_257
-	#			 __freeing reg $t0
-	#complicated bool exp as a function parameter
-	#inserting 1 to param reg if evaluates to true
-bp_label_255:
-	#			 __allocating reg $t0
-	li	$t0,1
-	j	bp_label_256
-	#inserting 0 to param reg if evaluates to false
-bp_label_257:
-	#			 __allocating reg $t0
-	li	$t0,0
-bp_label_256:
-	#complicated bool exp as a function parameter
-	#inserting 1 to param reg if evaluates to true
-bp_label_258:
-	#			 __allocating reg $t1
-	li	$t1,1
-	j	bp_label_259
-	#inserting 0 to param reg if evaluates to false
-bp_label_260:
-	#			 __allocating reg $t1
-	li	$t1,0
-bp_label_259:
-	#preparing to call funcHelper2
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#pushing reg $t1 to stack
-	sw $t1, ($sp)
-	addiu $sp, $sp, -4
-	#			 __freeing reg $t1
-	#pushing reg $t0 to stack
-	sw $t0, ($sp)
-	addiu $sp, $sp, -4
-	#			 __freeing reg $t0
-	move	$fp,$sp
-	#jumping to func: funcHelper2
-	jal	label_361
-	#returned from func: funcHelper2
-	#poping 2 params from stack 
-	addiu $sp, $sp, 8
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling funcHelper2
-	#end of statement jump
-	j	bp_label_261
-	#marker Label
-bp_label_261:
-	#func header store regs before call
-	#stored 0 registers
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_80
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bp_label_262
-	j	bp_label_264
-	#			 __freeing reg $t0
-	#complicated bool exp as a function parameter
-	#inserting 1 to param reg if evaluates to true
-bp_label_262:
-	#			 __allocating reg $t0
-	li	$t0,1
-	j	bp_label_263
-	#inserting 0 to param reg if evaluates to false
-bp_label_264:
-	#			 __allocating reg $t0
-	li	$t0,0
-bp_label_263:
-	#preparing to call funcHelper1
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#pushing reg $t0 to stack
-	sw $t0, ($sp)
-	addiu $sp, $sp, -4
-	#			 __freeing reg $t0
-	move	$fp,$sp
-	#jumping to func: funcHelper1
-	jal	label_279
-	#returned from func: funcHelper1
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling funcHelper1
-	#end of statement jump
-	j	bp_label_265
-	#marker Label
-bp_label_265:
-	#func header store regs before call
-	#stored 0 registers
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_80
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bp_label_269
-	j	bp_label_271
-	#			 __freeing reg $t0
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_80
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bp_label_266
-	j	bp_label_268
-	#			 __freeing reg $t0
-	#complicated bool exp as a function parameter
-	#inserting 1 to param reg if evaluates to true
-bp_label_266:
-	#			 __allocating reg $t0
-	li	$t0,1
-	j	bp_label_267
-	#inserting 0 to param reg if evaluates to false
-bp_label_268:
-	#			 __allocating reg $t0
-	li	$t0,0
-bp_label_267:
-	#complicated bool exp as a function parameter
-	#inserting 1 to param reg if evaluates to true
-bp_label_269:
-	#			 __allocating reg $t1
-	li	$t1,1
-	j	bp_label_270
-	#inserting 0 to param reg if evaluates to false
-bp_label_271:
-	#			 __allocating reg $t1
-	li	$t1,0
-bp_label_270:
-	#preparing to call funcHelper2
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#pushing reg $t1 to stack
-	sw $t1, ($sp)
-	addiu $sp, $sp, -4
-	#			 __freeing reg $t1
-	#pushing reg $t0 to stack
-	sw $t0, ($sp)
-	addiu $sp, $sp, -4
-	#			 __freeing reg $t0
-	move	$fp,$sp
-	#jumping to func: funcHelper2
-	jal	label_361
-	#returned from func: funcHelper2
-	#poping 2 params from stack 
-	addiu $sp, $sp, 8
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling funcHelper2
-	#end of statement jump
-	j	bp_label_272
-	#marker Label
-bp_label_272:
 	#preparing for new var
 	#allocationg words on stack 
 	addiu $sp, $sp, -4
 	#func header store regs before call
-	#stored 0 registers
+	#stored -2 registers
 	sw $fp, ($sp)
 	addiu $sp, $sp, -4
 	sw $ra, ($sp)
@@ -4675,29 +4609,29 @@ bExpAss_nfjdn24:
 	#			 __allocating reg $t0
 	li	$t0,1
 	sw $t0, -44($fp)
-	j	bp_label_273
+	j	bp_label_255
 bExpAss_nfjdn25:
 	#assigning False to bb5
 	#			 __allocating reg $t0
 	li	$t0,0
 	sw $t0, -44($fp)
-	j	bp_label_273
+	j	bp_label_255
 	#			 __freeing reg $t0
 	#end of statement jump
-	j	bp_label_273
+	j	bp_label_255
 	#marker Label
-bp_label_273:
+bp_label_255:
 	#Getting Var falue for [Exp->id]: bb5 offset is -44($fp)
 	#			 __allocating reg $t0
 	lw $t0, -44($fp)
 	#a Bool Var bb5 in boolean operator
 	#If true
-	bne $t0, $zero,bp_label_274
+	bne $t0, $zero,bp_label_256
 	#			 __freeing reg $t0
 	#If False
-	j	bp_label_275
+	j	bp_label_257
 	#marker Label
-bp_label_274:
+bp_label_256:
 	#func header store regs before call
 	#stored 0 registers
 	#caught a string
@@ -4725,9 +4659,9 @@ bp_label_274:
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_276
+	j	bp_label_258
 	#marker Label
-bp_label_275:
+bp_label_257:
 	#func header store regs before call
 	#stored 0 registers
 	#caught a string
@@ -4755,13 +4689,13 @@ bp_label_275:
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_276
+	j	bp_label_258
 	#end of ifelse
-bp_label_276:
+bp_label_258:
 	#end of statement jump
-	j	bp_label_277
+	j	bp_label_259
 	#marker Label
-bp_label_277:
+bp_label_259:
 	#preparing for new var
 	#allocationg words on stack 
 	addiu $sp, $sp, -4
@@ -4789,22 +4723,430 @@ bExpAss_nfjdn26:
 	#			 __allocating reg $t0
 	li	$t0,1
 	sw $t0, -48($fp)
-	j	bp_label_278
+	j	bp_label_260
 bExpAss_nfjdn27:
 	#assigning False to aa5
 	#			 __allocating reg $t0
 	li	$t0,0
 	sw $t0, -48($fp)
+	j	bp_label_260
+	#			 __freeing reg $t0
+	#end of statement jump
+	j	bp_label_260
+	#marker Label
+bp_label_260:
+	#Getting Var falue for [Exp->id]: aa5 offset is -48($fp)
+	#			 __allocating reg $t0
+	lw $t0, -48($fp)
+	#a Bool Var aa5 in boolean operator
+	#If true
+	bne $t0, $zero,bp_label_261
+	#			 __freeing reg $t0
+	#If False
+	j	bp_label_262
+	#marker Label
+bp_label_261:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_153
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_263
+	#marker Label
+bp_label_262:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_155
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_263
+	#end of ifelse
+bp_label_263:
+	#end of statement jump
+	j	bp_label_264
+	#marker Label
+bp_label_264:
+	#preparing for new var
+	#allocationg words on stack 
+	addiu $sp, $sp, -4
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bp_label_265
+	j	bExpAss_nfjdn29
+	#			 __freeing reg $t0
+	#marker Label
+bp_label_265:
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn28
+	j	bExpAss_nfjdn29
+	#			 __freeing reg $t0
+	#reach And derivation
+bExpAss_nfjdn28:
+	#assigning True to bb6
+	#			 __allocating reg $t0
+	li	$t0,1
+	sw $t0, -52($fp)
+	j	bp_label_266
+bExpAss_nfjdn29:
+	#assigning False to bb6
+	#			 __allocating reg $t0
+	li	$t0,0
+	sw $t0, -52($fp)
+	j	bp_label_266
+	#			 __freeing reg $t0
+	#end of statement jump
+	j	bp_label_266
+	#marker Label
+bp_label_266:
+	#Getting Var falue for [Exp->id]: bb6 offset is -52($fp)
+	#			 __allocating reg $t0
+	lw $t0, -52($fp)
+	#a Bool Var bb6 in boolean operator
+	#If true
+	bne $t0, $zero,bp_label_267
+	#			 __freeing reg $t0
+	#If False
+	j	bp_label_268
+	#marker Label
+bp_label_267:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_157
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_269
+	#marker Label
+bp_label_268:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_159
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_269
+	#end of ifelse
+bp_label_269:
+	#end of statement jump
+	j	bp_label_270
+	#marker Label
+bp_label_270:
+	#preparing for new var
+	#allocationg words on stack 
+	addiu $sp, $sp, -4
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bp_label_271
+	j	bExpAss_nfjdn30
+	#			 __freeing reg $t0
+	#marker Label
+bp_label_271:
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn31
+	j	bExpAss_nfjdn30
+	#			 __freeing reg $t0
+	#reach And derivation
+bExpAss_nfjdn30:
+	#assigning True to aa6
+	#			 __allocating reg $t0
+	li	$t0,1
+	sw $t0, -56($fp)
+	j	bp_label_272
+bExpAss_nfjdn31:
+	#assigning False to aa6
+	#			 __allocating reg $t0
+	li	$t0,0
+	sw $t0, -56($fp)
+	j	bp_label_272
+	#			 __freeing reg $t0
+	#end of statement jump
+	j	bp_label_272
+	#marker Label
+bp_label_272:
+	#Getting Var falue for [Exp->id]: aa6 offset is -56($fp)
+	#			 __allocating reg $t0
+	lw $t0, -56($fp)
+	#a Bool Var aa6 in boolean operator
+	#If true
+	bne $t0, $zero,bp_label_273
+	#			 __freeing reg $t0
+	#If False
+	j	bp_label_274
+	#marker Label
+bp_label_273:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_161
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_275
+	#marker Label
+bp_label_274:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_163
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_275
+	#end of ifelse
+bp_label_275:
+	#end of statement jump
+	j	bp_label_276
+	#marker Label
+bp_label_276:
+	#preparing for new var
+	#allocationg words on stack 
+	addiu $sp, $sp, -4
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn32
+	j	bp_label_277
+	#			 __freeing reg $t0
+	#marker Label
+bp_label_277:
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn32
+	j	bExpAss_nfjdn33
+	#			 __freeing reg $t0
+	#reach Or derivation
+bExpAss_nfjdn32:
+	#assigning True to bb7
+	#			 __allocating reg $t0
+	li	$t0,1
+	sw $t0, -60($fp)
+	j	bp_label_278
+bExpAss_nfjdn33:
+	#assigning False to bb7
+	#			 __allocating reg $t0
+	li	$t0,0
+	sw $t0, -60($fp)
 	j	bp_label_278
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_278
 	#marker Label
 bp_label_278:
-	#Getting Var falue for [Exp->id]: aa5 offset is -48($fp)
+	#Getting Var falue for [Exp->id]: bb7 offset is -60($fp)
 	#			 __allocating reg $t0
-	lw $t0, -48($fp)
-	#a Bool Var aa5 in boolean operator
+	lw $t0, -60($fp)
+	#a Bool Var bb7 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_279
 	#			 __freeing reg $t0
@@ -4821,7 +5163,7 @@ bp_label_279:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_153
+	la $v0, string_label_165
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -4851,7 +5193,7 @@ bp_label_280:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_155
+	la $v0, string_label_167
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -4895,8 +5237,8 @@ bp_label_282:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteTrue
-	bne $t0, $zero,bp_label_283
-	j	bExpAss_nfjdn29
+	bne $t0, $zero,bExpAss_nfjdn35
+	j	bp_label_283
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_283:
@@ -4916,31 +5258,31 @@ bp_label_283:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn28
-	j	bExpAss_nfjdn29
+	bne $t0, $zero,bExpAss_nfjdn35
+	j	bExpAss_nfjdn34
 	#			 __freeing reg $t0
-	#reach And derivation
-bExpAss_nfjdn28:
-	#assigning True to bb6
+	#reach Or derivation
+bExpAss_nfjdn34:
+	#assigning True to aa7
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -52($fp)
+	sw $t0, -64($fp)
 	j	bp_label_284
-bExpAss_nfjdn29:
-	#assigning False to bb6
+bExpAss_nfjdn35:
+	#assigning False to aa7
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -52($fp)
+	sw $t0, -64($fp)
 	j	bp_label_284
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_284
 	#marker Label
 bp_label_284:
-	#Getting Var falue for [Exp->id]: bb6 offset is -52($fp)
+	#Getting Var falue for [Exp->id]: aa7 offset is -64($fp)
 	#			 __allocating reg $t0
-	lw $t0, -52($fp)
-	#a Bool Var bb6 in boolean operator
+	lw $t0, -64($fp)
+	#a Bool Var aa7 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_285
 	#			 __freeing reg $t0
@@ -4957,7 +5299,7 @@ bp_label_285:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_157
+	la $v0, string_label_169
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -4987,7 +5329,7 @@ bp_label_286:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_159
+	la $v0, string_label_171
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -5022,414 +5364,6 @@ bp_label_288:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bp_label_289
-	j	bExpAss_nfjdn30
-	#			 __freeing reg $t0
-	#marker Label
-bp_label_289:
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn31
-	j	bExpAss_nfjdn30
-	#			 __freeing reg $t0
-	#reach And derivation
-bExpAss_nfjdn30:
-	#assigning True to aa6
-	#			 __allocating reg $t0
-	li	$t0,1
-	sw $t0, -56($fp)
-	j	bp_label_290
-bExpAss_nfjdn31:
-	#assigning False to aa6
-	#			 __allocating reg $t0
-	li	$t0,0
-	sw $t0, -56($fp)
-	j	bp_label_290
-	#			 __freeing reg $t0
-	#end of statement jump
-	j	bp_label_290
-	#marker Label
-bp_label_290:
-	#Getting Var falue for [Exp->id]: aa6 offset is -56($fp)
-	#			 __allocating reg $t0
-	lw $t0, -56($fp)
-	#a Bool Var aa6 in boolean operator
-	#If true
-	bne $t0, $zero,bp_label_291
-	#			 __freeing reg $t0
-	#If False
-	j	bp_label_292
-	#marker Label
-bp_label_291:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_161
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_293
-	#marker Label
-bp_label_292:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_163
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_293
-	#end of ifelse
-bp_label_293:
-	#end of statement jump
-	j	bp_label_294
-	#marker Label
-bp_label_294:
-	#preparing for new var
-	#allocationg words on stack 
-	addiu $sp, $sp, -4
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn32
-	j	bp_label_295
-	#			 __freeing reg $t0
-	#marker Label
-bp_label_295:
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn32
-	j	bExpAss_nfjdn33
-	#			 __freeing reg $t0
-	#reach Or derivation
-bExpAss_nfjdn32:
-	#assigning True to bb7
-	#			 __allocating reg $t0
-	li	$t0,1
-	sw $t0, -60($fp)
-	j	bp_label_296
-bExpAss_nfjdn33:
-	#assigning False to bb7
-	#			 __allocating reg $t0
-	li	$t0,0
-	sw $t0, -60($fp)
-	j	bp_label_296
-	#			 __freeing reg $t0
-	#end of statement jump
-	j	bp_label_296
-	#marker Label
-bp_label_296:
-	#Getting Var falue for [Exp->id]: bb7 offset is -60($fp)
-	#			 __allocating reg $t0
-	lw $t0, -60($fp)
-	#a Bool Var bb7 in boolean operator
-	#If true
-	bne $t0, $zero,bp_label_297
-	#			 __freeing reg $t0
-	#If False
-	j	bp_label_298
-	#marker Label
-bp_label_297:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_165
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_299
-	#marker Label
-bp_label_298:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_167
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_299
-	#end of ifelse
-bp_label_299:
-	#end of statement jump
-	j	bp_label_300
-	#marker Label
-bp_label_300:
-	#preparing for new var
-	#allocationg words on stack 
-	addiu $sp, $sp, -4
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn35
-	j	bp_label_301
-	#			 __freeing reg $t0
-	#marker Label
-bp_label_301:
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn35
-	j	bExpAss_nfjdn34
-	#			 __freeing reg $t0
-	#reach Or derivation
-bExpAss_nfjdn34:
-	#assigning True to aa7
-	#			 __allocating reg $t0
-	li	$t0,1
-	sw $t0, -64($fp)
-	j	bp_label_302
-bExpAss_nfjdn35:
-	#assigning False to aa7
-	#			 __allocating reg $t0
-	li	$t0,0
-	sw $t0, -64($fp)
-	j	bp_label_302
-	#			 __freeing reg $t0
-	#end of statement jump
-	j	bp_label_302
-	#marker Label
-bp_label_302:
-	#Getting Var falue for [Exp->id]: aa7 offset is -64($fp)
-	#			 __allocating reg $t0
-	lw $t0, -64($fp)
-	#a Bool Var aa7 in boolean operator
-	#If true
-	bne $t0, $zero,bp_label_303
-	#			 __freeing reg $t0
-	#If False
-	j	bp_label_304
-	#marker Label
-bp_label_303:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_169
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_305
-	#marker Label
-bp_label_304:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_171
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_305
-	#end of ifelse
-bp_label_305:
-	#end of statement jump
-	j	bp_label_306
-	#marker Label
-bp_label_306:
-	#preparing for new var
-	#allocationg words on stack 
-	addiu $sp, $sp, -4
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
 	jal	label_80
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
@@ -5447,29 +5381,29 @@ bExpAss_nfjdn36:
 	#			 __allocating reg $t0
 	li	$t0,1
 	sw $t0, -68($fp)
-	j	bp_label_307
+	j	bp_label_289
 bExpAss_nfjdn37:
 	#assigning False to bb8
 	#			 __allocating reg $t0
 	li	$t0,0
 	sw $t0, -68($fp)
-	j	bp_label_307
+	j	bp_label_289
 	#			 __freeing reg $t0
 	#end of statement jump
-	j	bp_label_307
+	j	bp_label_289
 	#marker Label
-bp_label_307:
+bp_label_289:
 	#Getting Var falue for [Exp->id]: bb8 offset is -68($fp)
 	#			 __allocating reg $t0
 	lw $t0, -68($fp)
 	#a Bool Var bb8 in boolean operator
 	#If true
-	bne $t0, $zero,bp_label_308
+	bne $t0, $zero,bp_label_290
 	#			 __freeing reg $t0
 	#If False
-	j	bp_label_309
+	j	bp_label_291
 	#marker Label
-bp_label_308:
+bp_label_290:
 	#func header store regs before call
 	#stored 0 registers
 	#caught a string
@@ -5497,9 +5431,9 @@ bp_label_308:
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_310
+	j	bp_label_292
 	#marker Label
-bp_label_309:
+bp_label_291:
 	#func header store regs before call
 	#stored 0 registers
 	#caught a string
@@ -5527,13 +5461,13 @@ bp_label_309:
 	#Moving funcRes (if exists) to next free register
 	#finished calling print
 	#end of statement jump
-	j	bp_label_310
+	j	bp_label_292
 	#end of ifelse
-bp_label_310:
+bp_label_292:
 	#end of statement jump
-	j	bp_label_311
+	j	bp_label_293
 	#marker Label
-bp_label_311:
+bp_label_293:
 	#preparing for new var
 	#allocationg words on stack 
 	addiu $sp, $sp, -4
@@ -5561,22 +5495,430 @@ bExpAss_nfjdn38:
 	#			 __allocating reg $t0
 	li	$t0,1
 	sw $t0, -72($fp)
-	j	bp_label_312
+	j	bp_label_294
 bExpAss_nfjdn39:
 	#assigning False to aa8
 	#			 __allocating reg $t0
 	li	$t0,0
 	sw $t0, -72($fp)
+	j	bp_label_294
+	#			 __freeing reg $t0
+	#end of statement jump
+	j	bp_label_294
+	#marker Label
+bp_label_294:
+	#Getting Var falue for [Exp->id]: aa8 offset is -72($fp)
+	#			 __allocating reg $t0
+	lw $t0, -72($fp)
+	#a Bool Var aa8 in boolean operator
+	#If true
+	bne $t0, $zero,bp_label_295
+	#			 __freeing reg $t0
+	#If False
+	j	bp_label_296
+	#marker Label
+bp_label_295:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_177
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_297
+	#marker Label
+bp_label_296:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_179
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_297
+	#end of ifelse
+bp_label_297:
+	#end of statement jump
+	j	bp_label_298
+	#marker Label
+bp_label_298:
+	#preparing for new var
+	#allocationg words on stack 
+	addiu $sp, $sp, -4
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_80
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,bp_label_299
+	j	bExpAss_nfjdn41
+	#			 __freeing reg $t0
+	#marker Label
+bp_label_299:
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_80
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,bExpAss_nfjdn40
+	j	bExpAss_nfjdn41
+	#			 __freeing reg $t0
+	#reach And derivation
+bExpAss_nfjdn40:
+	#assigning True to bb9
+	#			 __allocating reg $t0
+	li	$t0,1
+	sw $t0, -76($fp)
+	j	bp_label_300
+bExpAss_nfjdn41:
+	#assigning False to bb9
+	#			 __allocating reg $t0
+	li	$t0,0
+	sw $t0, -76($fp)
+	j	bp_label_300
+	#			 __freeing reg $t0
+	#end of statement jump
+	j	bp_label_300
+	#marker Label
+bp_label_300:
+	#Getting Var falue for [Exp->id]: bb9 offset is -76($fp)
+	#			 __allocating reg $t0
+	lw $t0, -76($fp)
+	#a Bool Var bb9 in boolean operator
+	#If true
+	bne $t0, $zero,bp_label_301
+	#			 __freeing reg $t0
+	#If False
+	j	bp_label_302
+	#marker Label
+bp_label_301:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_181
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_303
+	#marker Label
+bp_label_302:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_183
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_303
+	#end of ifelse
+bp_label_303:
+	#end of statement jump
+	j	bp_label_304
+	#marker Label
+bp_label_304:
+	#preparing for new var
+	#allocationg words on stack 
+	addiu $sp, $sp, -4
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_80
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,bp_label_305
+	j	bExpAss_nfjdn42
+	#			 __freeing reg $t0
+	#marker Label
+bp_label_305:
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_29
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn43
+	j	bExpAss_nfjdn42
+	#			 __freeing reg $t0
+	#reach And derivation
+bExpAss_nfjdn42:
+	#assigning True to aa9
+	#			 __allocating reg $t0
+	li	$t0,1
+	sw $t0, -80($fp)
+	j	bp_label_306
+bExpAss_nfjdn43:
+	#assigning False to aa9
+	#			 __allocating reg $t0
+	li	$t0,0
+	sw $t0, -80($fp)
+	j	bp_label_306
+	#			 __freeing reg $t0
+	#end of statement jump
+	j	bp_label_306
+	#marker Label
+bp_label_306:
+	#Getting Var falue for [Exp->id]: aa9 offset is -80($fp)
+	#			 __allocating reg $t0
+	lw $t0, -80($fp)
+	#a Bool Var aa9 in boolean operator
+	#If true
+	bne $t0, $zero,bp_label_307
+	#			 __freeing reg $t0
+	#If False
+	j	bp_label_308
+	#marker Label
+bp_label_307:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_185
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_309
+	#marker Label
+bp_label_308:
+	#func header store regs before call
+	#stored 0 registers
+	#caught a string
+	#preparing to call print
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	#loading str address to stack
+	la $v0, string_label_187
+	sw $v0, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	#jumping to func: print
+	jal	print
+	#returned from func: print
+	#poping 1 params from stack 
+	addiu $sp, $sp, 4
+	#restoring ra and fp
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#restoring 0 previously used registers
+	#Moving funcRes (if exists) to next free register
+	#finished calling print
+	#end of statement jump
+	j	bp_label_309
+	#end of ifelse
+bp_label_309:
+	#end of statement jump
+	j	bp_label_310
+	#marker Label
+bp_label_310:
+	#preparing for new var
+	#allocationg words on stack 
+	addiu $sp, $sp, -4
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_80
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,bExpAss_nfjdn44
+	j	bp_label_311
+	#			 __freeing reg $t0
+	#marker Label
+bp_label_311:
+	#func header store regs before call
+	#stored 0 registers
+	sw $fp, ($sp)
+	addiu $sp, $sp, -4
+	sw $ra, ($sp)
+	addiu $sp, $sp, -4
+	move	$fp,$sp
+	jal	label_80
+	addiu $sp, $sp, 4
+	lw $ra, ($sp)
+	addiu $sp, $sp, 4
+	lw $fp, ($sp)
+	#moving return value to new reg
+	#			 __allocating reg $t0
+	move	$t0,$v0
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,bExpAss_nfjdn44
+	j	bExpAss_nfjdn45
+	#			 __freeing reg $t0
+	#reach Or derivation
+bExpAss_nfjdn44:
+	#assigning True to bb10
+	#			 __allocating reg $t0
+	li	$t0,1
+	sw $t0, -84($fp)
+	j	bp_label_312
+bExpAss_nfjdn45:
+	#assigning False to bb10
+	#			 __allocating reg $t0
+	li	$t0,0
+	sw $t0, -84($fp)
 	j	bp_label_312
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_312
 	#marker Label
 bp_label_312:
-	#Getting Var falue for [Exp->id]: aa8 offset is -72($fp)
+	#Getting Var falue for [Exp->id]: bb10 offset is -84($fp)
 	#			 __allocating reg $t0
-	lw $t0, -72($fp)
-	#a Bool Var aa8 in boolean operator
+	lw $t0, -84($fp)
+	#a Bool Var bb10 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_313
 	#			 __freeing reg $t0
@@ -5593,7 +5935,7 @@ bp_label_313:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_177
+	la $v0, string_label_189
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -5623,7 +5965,7 @@ bp_label_314:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_179
+	la $v0, string_label_191
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -5667,8 +6009,8 @@ bp_label_316:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteFalse
-	bne $t0, $zero,bp_label_317
-	j	bExpAss_nfjdn41
+	bne $t0, $zero,bExpAss_nfjdn47
+	j	bp_label_317
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_317:
@@ -5688,31 +6030,31 @@ bp_label_317:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn40
-	j	bExpAss_nfjdn41
+	bne $t0, $zero,bExpAss_nfjdn47
+	j	bExpAss_nfjdn46
 	#			 __freeing reg $t0
-	#reach And derivation
-bExpAss_nfjdn40:
-	#assigning True to bb9
+	#reach Or derivation
+bExpAss_nfjdn46:
+	#assigning True to aa10
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -76($fp)
+	sw $t0, -88($fp)
 	j	bp_label_318
-bExpAss_nfjdn41:
-	#assigning False to bb9
+bExpAss_nfjdn47:
+	#assigning False to aa10
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -76($fp)
+	sw $t0, -88($fp)
 	j	bp_label_318
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_318
 	#marker Label
 bp_label_318:
-	#Getting Var falue for [Exp->id]: bb9 offset is -76($fp)
+	#Getting Var falue for [Exp->id]: aa10 offset is -88($fp)
 	#			 __allocating reg $t0
-	lw $t0, -76($fp)
-	#a Bool Var bb9 in boolean operator
+	lw $t0, -88($fp)
+	#a Bool Var aa10 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_319
 	#			 __freeing reg $t0
@@ -5729,7 +6071,7 @@ bp_label_319:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_181
+	la $v0, string_label_193
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -5759,7 +6101,7 @@ bp_label_320:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_183
+	la $v0, string_label_195
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -5794,7 +6136,7 @@ bp_label_322:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_80
+	jal	label_29
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -5802,9 +6144,9 @@ bp_label_322:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteFalse
+	#a Bool Func funcByteTrue
 	bne $t0, $zero,bp_label_323
-	j	bExpAss_nfjdn42
+	j	bExpAss_nfjdn49
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_323:
@@ -5815,7 +6157,7 @@ bp_label_323:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_29
+	jal	label_80
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -5823,32 +6165,32 @@ bp_label_323:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn43
-	j	bExpAss_nfjdn42
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,bExpAss_nfjdn48
+	j	bExpAss_nfjdn49
 	#			 __freeing reg $t0
 	#reach And derivation
-bExpAss_nfjdn42:
-	#assigning True to aa9
+bExpAss_nfjdn48:
+	#assigning True to bb11
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -80($fp)
+	sw $t0, -92($fp)
 	j	bp_label_324
-bExpAss_nfjdn43:
-	#assigning False to aa9
+bExpAss_nfjdn49:
+	#assigning False to bb11
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -80($fp)
+	sw $t0, -92($fp)
 	j	bp_label_324
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_324
 	#marker Label
 bp_label_324:
-	#Getting Var falue for [Exp->id]: aa9 offset is -80($fp)
+	#Getting Var falue for [Exp->id]: bb11 offset is -92($fp)
 	#			 __allocating reg $t0
-	lw $t0, -80($fp)
-	#a Bool Var aa9 in boolean operator
+	lw $t0, -92($fp)
+	#a Bool Var bb11 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_325
 	#			 __freeing reg $t0
@@ -5865,7 +6207,7 @@ bp_label_325:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_185
+	la $v0, string_label_197
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -5895,7 +6237,7 @@ bp_label_326:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_187
+	la $v0, string_label_199
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -5930,7 +6272,7 @@ bp_label_328:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_80
+	jal	label_29
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -5938,9 +6280,9 @@ bp_label_328:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn44
-	j	bp_label_329
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bp_label_329
+	j	bExpAss_nfjdn50
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_329:
@@ -5960,31 +6302,31 @@ bp_label_329:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn44
-	j	bExpAss_nfjdn45
+	bne $t0, $zero,bExpAss_nfjdn51
+	j	bExpAss_nfjdn50
 	#			 __freeing reg $t0
-	#reach Or derivation
-bExpAss_nfjdn44:
-	#assigning True to bb10
+	#reach And derivation
+bExpAss_nfjdn50:
+	#assigning True to aa11
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -84($fp)
+	sw $t0, -96($fp)
 	j	bp_label_330
-bExpAss_nfjdn45:
-	#assigning False to bb10
+bExpAss_nfjdn51:
+	#assigning False to aa11
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -84($fp)
+	sw $t0, -96($fp)
 	j	bp_label_330
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_330
 	#marker Label
 bp_label_330:
-	#Getting Var falue for [Exp->id]: bb10 offset is -84($fp)
+	#Getting Var falue for [Exp->id]: aa11 offset is -96($fp)
 	#			 __allocating reg $t0
-	lw $t0, -84($fp)
-	#a Bool Var bb10 in boolean operator
+	lw $t0, -96($fp)
+	#a Bool Var aa11 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_331
 	#			 __freeing reg $t0
@@ -6001,7 +6343,7 @@ bp_label_331:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_189
+	la $v0, string_label_201
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6031,7 +6373,7 @@ bp_label_332:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_191
+	la $v0, string_label_203
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6066,7 +6408,7 @@ bp_label_334:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_80
+	jal	label_29
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -6074,8 +6416,8 @@ bp_label_334:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn47
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn52
 	j	bp_label_335
 	#			 __freeing reg $t0
 	#marker Label
@@ -6096,31 +6438,31 @@ bp_label_335:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn47
-	j	bExpAss_nfjdn46
+	bne $t0, $zero,bExpAss_nfjdn52
+	j	bExpAss_nfjdn53
 	#			 __freeing reg $t0
 	#reach Or derivation
-bExpAss_nfjdn46:
-	#assigning True to aa10
+bExpAss_nfjdn52:
+	#assigning True to bb12
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -88($fp)
+	sw $t0, -100($fp)
 	j	bp_label_336
-bExpAss_nfjdn47:
-	#assigning False to aa10
+bExpAss_nfjdn53:
+	#assigning False to bb12
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -88($fp)
+	sw $t0, -100($fp)
 	j	bp_label_336
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_336
 	#marker Label
 bp_label_336:
-	#Getting Var falue for [Exp->id]: aa10 offset is -88($fp)
+	#Getting Var falue for [Exp->id]: bb12 offset is -100($fp)
 	#			 __allocating reg $t0
-	lw $t0, -88($fp)
-	#a Bool Var aa10 in boolean operator
+	lw $t0, -100($fp)
+	#a Bool Var bb12 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_337
 	#			 __freeing reg $t0
@@ -6137,7 +6479,7 @@ bp_label_337:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_193
+	la $v0, string_label_205
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6167,7 +6509,7 @@ bp_label_338:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_195
+	la $v0, string_label_207
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6211,8 +6553,8 @@ bp_label_340:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteTrue
-	bne $t0, $zero,bp_label_341
-	j	bExpAss_nfjdn49
+	bne $t0, $zero,bExpAss_nfjdn55
+	j	bp_label_341
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_341:
@@ -6232,31 +6574,31 @@ bp_label_341:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn48
-	j	bExpAss_nfjdn49
+	bne $t0, $zero,bExpAss_nfjdn55
+	j	bExpAss_nfjdn54
 	#			 __freeing reg $t0
-	#reach And derivation
-bExpAss_nfjdn48:
-	#assigning True to bb11
+	#reach Or derivation
+bExpAss_nfjdn54:
+	#assigning True to aa12
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -92($fp)
+	sw $t0, -104($fp)
 	j	bp_label_342
-bExpAss_nfjdn49:
-	#assigning False to bb11
+bExpAss_nfjdn55:
+	#assigning False to aa12
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -92($fp)
+	sw $t0, -104($fp)
 	j	bp_label_342
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_342
 	#marker Label
 bp_label_342:
-	#Getting Var falue for [Exp->id]: bb11 offset is -92($fp)
+	#Getting Var falue for [Exp->id]: aa12 offset is -104($fp)
 	#			 __allocating reg $t0
-	lw $t0, -92($fp)
-	#a Bool Var bb11 in boolean operator
+	lw $t0, -104($fp)
+	#a Bool Var aa12 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_343
 	#			 __freeing reg $t0
@@ -6273,7 +6615,7 @@ bp_label_343:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_197
+	la $v0, string_label_209
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6303,7 +6645,7 @@ bp_label_344:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_199
+	la $v0, string_label_211
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6338,7 +6680,7 @@ bp_label_346:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_29
+	jal	label_80
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -6346,9 +6688,9 @@ bp_label_346:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteTrue
+	#a Bool Func funcByteFalse
 	bne $t0, $zero,bp_label_347
-	j	bExpAss_nfjdn50
+	j	bExpAss_nfjdn57
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_347:
@@ -6359,7 +6701,7 @@ bp_label_347:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_80
+	jal	label_29
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -6367,32 +6709,32 @@ bp_label_347:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn51
-	j	bExpAss_nfjdn50
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn56
+	j	bExpAss_nfjdn57
 	#			 __freeing reg $t0
 	#reach And derivation
-bExpAss_nfjdn50:
-	#assigning True to aa11
+bExpAss_nfjdn56:
+	#assigning True to bb13
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -96($fp)
+	sw $t0, -108($fp)
 	j	bp_label_348
-bExpAss_nfjdn51:
-	#assigning False to aa11
+bExpAss_nfjdn57:
+	#assigning False to bb13
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -96($fp)
+	sw $t0, -108($fp)
 	j	bp_label_348
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_348
 	#marker Label
 bp_label_348:
-	#Getting Var falue for [Exp->id]: aa11 offset is -96($fp)
+	#Getting Var falue for [Exp->id]: bb13 offset is -108($fp)
 	#			 __allocating reg $t0
-	lw $t0, -96($fp)
-	#a Bool Var aa11 in boolean operator
+	lw $t0, -108($fp)
+	#a Bool Var bb13 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_349
 	#			 __freeing reg $t0
@@ -6409,7 +6751,7 @@ bp_label_349:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_201
+	la $v0, string_label_213
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6439,7 +6781,7 @@ bp_label_350:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_203
+	la $v0, string_label_215
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6474,7 +6816,7 @@ bp_label_352:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_29
+	jal	label_80
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -6482,9 +6824,9 @@ bp_label_352:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn52
-	j	bp_label_353
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,bp_label_353
+	j	bExpAss_nfjdn58
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_353:
@@ -6495,7 +6837,7 @@ bp_label_353:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_80
+	jal	label_29
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -6503,32 +6845,32 @@ bp_label_353:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn52
-	j	bExpAss_nfjdn53
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn59
+	j	bExpAss_nfjdn58
 	#			 __freeing reg $t0
-	#reach Or derivation
-bExpAss_nfjdn52:
-	#assigning True to bb12
+	#reach And derivation
+bExpAss_nfjdn58:
+	#assigning True to aa13
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -100($fp)
+	sw $t0, -112($fp)
 	j	bp_label_354
-bExpAss_nfjdn53:
-	#assigning False to bb12
+bExpAss_nfjdn59:
+	#assigning False to aa13
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -100($fp)
+	sw $t0, -112($fp)
 	j	bp_label_354
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_354
 	#marker Label
 bp_label_354:
-	#Getting Var falue for [Exp->id]: bb12 offset is -100($fp)
+	#Getting Var falue for [Exp->id]: aa13 offset is -112($fp)
 	#			 __allocating reg $t0
-	lw $t0, -100($fp)
-	#a Bool Var bb12 in boolean operator
+	lw $t0, -112($fp)
+	#a Bool Var aa13 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_355
 	#			 __freeing reg $t0
@@ -6545,7 +6887,7 @@ bp_label_355:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_205
+	la $v0, string_label_217
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6575,7 +6917,7 @@ bp_label_356:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_207
+	la $v0, string_label_219
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6610,7 +6952,7 @@ bp_label_358:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_29
+	jal	label_80
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -6618,8 +6960,8 @@ bp_label_358:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn55
+	#a Bool Func funcByteFalse
+	bne $t0, $zero,bExpAss_nfjdn60
 	j	bp_label_359
 	#			 __freeing reg $t0
 	#marker Label
@@ -6631,7 +6973,7 @@ bp_label_359:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
-	jal	label_80
+	jal	label_29
 	addiu $sp, $sp, 4
 	lw $ra, ($sp)
 	addiu $sp, $sp, 4
@@ -6639,32 +6981,32 @@ bp_label_359:
 	#moving return value to new reg
 	#			 __allocating reg $t0
 	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn55
-	j	bExpAss_nfjdn54
+	#a Bool Func funcByteTrue
+	bne $t0, $zero,bExpAss_nfjdn60
+	j	bExpAss_nfjdn61
 	#			 __freeing reg $t0
 	#reach Or derivation
-bExpAss_nfjdn54:
-	#assigning True to aa12
+bExpAss_nfjdn60:
+	#assigning True to bb14
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -104($fp)
+	sw $t0, -116($fp)
 	j	bp_label_360
-bExpAss_nfjdn55:
-	#assigning False to aa12
+bExpAss_nfjdn61:
+	#assigning False to bb14
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -104($fp)
+	sw $t0, -116($fp)
 	j	bp_label_360
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_360
 	#marker Label
 bp_label_360:
-	#Getting Var falue for [Exp->id]: aa12 offset is -104($fp)
+	#Getting Var falue for [Exp->id]: bb14 offset is -116($fp)
 	#			 __allocating reg $t0
-	lw $t0, -104($fp)
-	#a Bool Var aa12 in boolean operator
+	lw $t0, -116($fp)
+	#a Bool Var bb14 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_361
 	#			 __freeing reg $t0
@@ -6681,7 +7023,7 @@ bp_label_361:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_209
+	la $v0, string_label_221
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6711,7 +7053,7 @@ bp_label_362:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_211
+	la $v0, string_label_223
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6755,8 +7097,8 @@ bp_label_364:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteFalse
-	bne $t0, $zero,bp_label_365
-	j	bExpAss_nfjdn57
+	bne $t0, $zero,bExpAss_nfjdn63
+	j	bp_label_365
 	#			 __freeing reg $t0
 	#marker Label
 bp_label_365:
@@ -6776,31 +7118,31 @@ bp_label_365:
 	#			 __allocating reg $t0
 	move	$t0,$v0
 	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn56
-	j	bExpAss_nfjdn57
+	bne $t0, $zero,bExpAss_nfjdn63
+	j	bExpAss_nfjdn62
 	#			 __freeing reg $t0
-	#reach And derivation
-bExpAss_nfjdn56:
-	#assigning True to bb13
+	#reach Or derivation
+bExpAss_nfjdn62:
+	#assigning True to aa14
 	#			 __allocating reg $t0
 	li	$t0,1
-	sw $t0, -108($fp)
+	sw $t0, -120($fp)
 	j	bp_label_366
-bExpAss_nfjdn57:
-	#assigning False to bb13
+bExpAss_nfjdn63:
+	#assigning False to aa14
 	#			 __allocating reg $t0
 	li	$t0,0
-	sw $t0, -108($fp)
+	sw $t0, -120($fp)
 	j	bp_label_366
 	#			 __freeing reg $t0
 	#end of statement jump
 	j	bp_label_366
 	#marker Label
 bp_label_366:
-	#Getting Var falue for [Exp->id]: bb13 offset is -108($fp)
+	#Getting Var falue for [Exp->id]: aa14 offset is -120($fp)
 	#			 __allocating reg $t0
-	lw $t0, -108($fp)
-	#a Bool Var bb13 in boolean operator
+	lw $t0, -120($fp)
+	#a Bool Var aa14 in boolean operator
 	#If true
 	bne $t0, $zero,bp_label_367
 	#			 __freeing reg $t0
@@ -6817,7 +7159,7 @@ bp_label_367:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_213
+	la $v0, string_label_225
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6847,7 +7189,7 @@ bp_label_368:
 	sw $ra, ($sp)
 	addiu $sp, $sp, -4
 	#loading str address to stack
-	la $v0, string_label_215
+	la $v0, string_label_227
 	sw $v0, ($sp)
 	addiu $sp, $sp, -4
 	move	$fp,$sp
@@ -6870,415 +7212,7 @@ bp_label_368:
 bp_label_369:
 	#end of statement jump
 	j	bp_label_370
-	#marker Label
 bp_label_370:
-	#preparing for new var
-	#allocationg words on stack 
-	addiu $sp, $sp, -4
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_80
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bp_label_371
-	j	bExpAss_nfjdn58
-	#			 __freeing reg $t0
-	#marker Label
-bp_label_371:
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn59
-	j	bExpAss_nfjdn58
-	#			 __freeing reg $t0
-	#reach And derivation
-bExpAss_nfjdn58:
-	#assigning True to aa13
-	#			 __allocating reg $t0
-	li	$t0,1
-	sw $t0, -112($fp)
-	j	bp_label_372
-bExpAss_nfjdn59:
-	#assigning False to aa13
-	#			 __allocating reg $t0
-	li	$t0,0
-	sw $t0, -112($fp)
-	j	bp_label_372
-	#			 __freeing reg $t0
-	#end of statement jump
-	j	bp_label_372
-	#marker Label
-bp_label_372:
-	#Getting Var falue for [Exp->id]: aa13 offset is -112($fp)
-	#			 __allocating reg $t0
-	lw $t0, -112($fp)
-	#a Bool Var aa13 in boolean operator
-	#If true
-	bne $t0, $zero,bp_label_373
-	#			 __freeing reg $t0
-	#If False
-	j	bp_label_374
-	#marker Label
-bp_label_373:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_217
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_375
-	#marker Label
-bp_label_374:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_219
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_375
-	#end of ifelse
-bp_label_375:
-	#end of statement jump
-	j	bp_label_376
-	#marker Label
-bp_label_376:
-	#preparing for new var
-	#allocationg words on stack 
-	addiu $sp, $sp, -4
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_80
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn60
-	j	bp_label_377
-	#			 __freeing reg $t0
-	#marker Label
-bp_label_377:
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn60
-	j	bExpAss_nfjdn61
-	#			 __freeing reg $t0
-	#reach Or derivation
-bExpAss_nfjdn60:
-	#assigning True to bb14
-	#			 __allocating reg $t0
-	li	$t0,1
-	sw $t0, -116($fp)
-	j	bp_label_378
-bExpAss_nfjdn61:
-	#assigning False to bb14
-	#			 __allocating reg $t0
-	li	$t0,0
-	sw $t0, -116($fp)
-	j	bp_label_378
-	#			 __freeing reg $t0
-	#end of statement jump
-	j	bp_label_378
-	#marker Label
-bp_label_378:
-	#Getting Var falue for [Exp->id]: bb14 offset is -116($fp)
-	#			 __allocating reg $t0
-	lw $t0, -116($fp)
-	#a Bool Var bb14 in boolean operator
-	#If true
-	bne $t0, $zero,bp_label_379
-	#			 __freeing reg $t0
-	#If False
-	j	bp_label_380
-	#marker Label
-bp_label_379:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_221
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_381
-	#marker Label
-bp_label_380:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_223
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_381
-	#end of ifelse
-bp_label_381:
-	#end of statement jump
-	j	bp_label_382
-	#marker Label
-bp_label_382:
-	#preparing for new var
-	#allocationg words on stack 
-	addiu $sp, $sp, -4
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_80
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteFalse
-	bne $t0, $zero,bExpAss_nfjdn63
-	j	bp_label_383
-	#			 __freeing reg $t0
-	#marker Label
-bp_label_383:
-	#func header store regs before call
-	#stored 0 registers
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	jal	label_29
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#moving return value to new reg
-	#			 __allocating reg $t0
-	move	$t0,$v0
-	#a Bool Func funcByteTrue
-	bne $t0, $zero,bExpAss_nfjdn63
-	j	bExpAss_nfjdn62
-	#			 __freeing reg $t0
-	#reach Or derivation
-bExpAss_nfjdn62:
-	#assigning True to aa14
-	#			 __allocating reg $t0
-	li	$t0,1
-	sw $t0, -120($fp)
-	j	bp_label_384
-bExpAss_nfjdn63:
-	#assigning False to aa14
-	#			 __allocating reg $t0
-	li	$t0,0
-	sw $t0, -120($fp)
-	j	bp_label_384
-	#			 __freeing reg $t0
-	#end of statement jump
-	j	bp_label_384
-	#marker Label
-bp_label_384:
-	#Getting Var falue for [Exp->id]: aa14 offset is -120($fp)
-	#			 __allocating reg $t0
-	lw $t0, -120($fp)
-	#a Bool Var aa14 in boolean operator
-	#If true
-	bne $t0, $zero,bp_label_385
-	#			 __freeing reg $t0
-	#If False
-	j	bp_label_386
-	#marker Label
-bp_label_385:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_225
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_387
-	#marker Label
-bp_label_386:
-	#func header store regs before call
-	#stored 0 registers
-	#caught a string
-	#preparing to call print
-	sw $fp, ($sp)
-	addiu $sp, $sp, -4
-	sw $ra, ($sp)
-	addiu $sp, $sp, -4
-	#loading str address to stack
-	la $v0, string_label_227
-	sw $v0, ($sp)
-	addiu $sp, $sp, -4
-	move	$fp,$sp
-	#jumping to func: print
-	jal	print
-	#returned from func: print
-	#poping 1 params from stack 
-	addiu $sp, $sp, 4
-	#restoring ra and fp
-	addiu $sp, $sp, 4
-	lw $ra, ($sp)
-	addiu $sp, $sp, 4
-	lw $fp, ($sp)
-	#restoring 0 previously used registers
-	#Moving funcRes (if exists) to next free register
-	#finished calling print
-	#end of statement jump
-	j	bp_label_387
-	#end of ifelse
-bp_label_387:
-	#end of statement jump
-	j	bp_label_388
-bp_label_388:
 	#Adding an extre return just in case
 	#restting sp
 	move	$sp,$fp

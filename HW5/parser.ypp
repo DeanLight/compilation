@@ -276,17 +276,24 @@ CallHeader:     /*epsilon*/
                 { $$=new CallHeaderNode() ;
                   CallHeader_IR(yylineno,(CallHeaderNode*)$$) ;}
 
-ExpList:		    Exp
+ExpList:		    Exp RegMark
                 { $$=new ExpListNode() ;
                   ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ;
-                  $$->addSon($1);
-                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 ) ;
+                  $$->addSon($1,$2);
+                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1 , (MarkNode*)$2 );
                   }
-				        |Exp COMMA ExpList
+				        |Exp COMMA RegMark ExpList
                 { $$=new ExpListNode() ;
                   ExpList_Semantic(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$3 ) ;
-                  $$->addSon($1,$2,$3);
-                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(ExpListNode*)$3) ;}
+                  $$->addSon($1,$2,$3,$4);
+                  ExpList_IR(yylineno,(ExpListNode*)$$ ,(ExpNode*)$1,(MarkNode*)$3 , (ExpListNode*)$4) ;}
+
+RegMark:         Mark
+                {$$=$1;
+                  RegMark_IR();
+                }
+
+
 
 Type:			      INT
                 { $$=new TypeNode() ;
